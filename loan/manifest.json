@@ -148,7 +148,8 @@
 			"html/login.html": {
 				"resources": [],
 				"refer": [
-					"index.html"
+					"index.html",
+					"html/getCode.html"
 				],
 				"priority": 0
 			},
@@ -158,6 +159,13 @@
 					"images/jiekuan_active.png"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"html/getCode.html": {
+				"resources": [],
+				"refer": [
+					"html/home.html"
+				],
 				"priority": 0
 			}
 		},
