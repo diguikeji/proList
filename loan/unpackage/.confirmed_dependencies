@@ -1,13 +1,24 @@
 {
-	"index.html": {
-		"refer": [
-			"html/login.html",
-			"html/index.html"
-		]
-	},
-	"html/login.html": {
-		"refer": [
-			"index.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "html/login.html",
+      "html/index.html",
+      "html/home.html"
+    ],
+    "resources": []
+  },
+  "html/login.html": {
+    "refer": [
+      "index.html"
+    ],
+    "resources": []
+  },
+  "html/home.html": {
+    "resources": [
+      "images/>@2x.png",
+      "images/\u001f\u003e@2x.png",
+      "images/jiekuan_active.png"
+    ],
+    "refer": []
+  }
 }

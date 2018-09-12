@@ -1,1 +1,3 @@
 body{color:#333;}
+.mui-btn-danger, .mui-btn-negative, .mui-btn-red{background: #FF5445;}
+.mui-bar-tab .mui-tab-item.mui-active{color:#FF5445;}

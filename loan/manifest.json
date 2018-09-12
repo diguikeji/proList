@@ -132,7 +132,8 @@
 				"resources": [],
 				"refer": [
 					"html/index.html",
-					"html/login.html"
+					"html/login.html",
+					"html/home.html"
 				],
 				"priority": 0
 			},
@@ -149,6 +150,14 @@
 				"refer": [
 					"index.html"
 				],
+				"priority": 0
+			},
+			"html/home.html": {
+				"resources": [
+					"images/借款@2x.png",
+					"images/jiekuan_active.png"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
