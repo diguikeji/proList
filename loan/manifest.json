@@ -91,11 +91,11 @@
 					},"appstore":"E:/xzq_icon.png"
 				},
 				"android": {
-					"mdpi": "", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": ""
+					"mdpi": "E:/xzq_icon.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "E:/xzq_icon.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "E:/xzq_icon.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "E:/xzq_icon.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "E:/xzq_icon.png","xxxhdpi":"E:/xzq_icon.png"
 				}
 			},
 			"splashscreen": {
@@ -119,9 +119,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png"
 				}
 			}
 		}
@@ -148,8 +148,7 @@
 			"html/login.html": {
 				"resources": [],
 				"refer": [
-					"index.html",
-					"html/getCode.html"
+					"index.html"
 				],
 				"priority": 0
 			},
@@ -159,13 +158,6 @@
 					"images/jiekuan_active.png"
 				],
 				"refer": [],
-				"priority": 0
-			},
-			"html/getCode.html": {
-				"resources": [],
-				"refer": [
-					"html/home.html"
-				],
 				"priority": 0
 			}
 		},
