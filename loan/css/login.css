@@ -80,7 +80,6 @@ input::-webkit-input-placeholder {
     width: 90%;
     height: 40px;
     text-align: center;
-    line-height: 40px;
     font-size: 20px;
     margin: 40px 5% 20px;
     border-radius: 30px;
@@ -112,12 +111,13 @@ input::-webkit-input-placeholder {
 
 .realInput{
     position: absolute;
-    width: 200%!important;
+    width: 100%!important;
     height: 100px!important;
     top: 100px!important;
     left: -100px!important;
     background-color: transparent!important;
     border: 0!important;
+    font-size: 1px;
 }
 
 .cursor {

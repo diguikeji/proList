@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
 		<link rel="stylesheet" href="../css/app.css">
+		<link rel="stylesheet" href="../css/base.css">
 		<style>
 			
 			.title{
@@ -71,6 +72,105 @@
 			.mui-bar-tab .mui-tab-label{margin-top:-4px;display: block;}
 			.mui-bar-tab .mui-tab-item.mui-active .tab-img img:first-child{display: none;}
 			.mui-bar-tab .mui-tab-item.mui-active .tab-img img:last-child{display: inline-block;}
+			
+			.home_top{
+				height: 164px;
+				width: 100%;
+				background: #ff6558;
+				padding: 20px;
+				box-sizing: border-box;
+				justify-content: space-between;
+				
+			}
+			
+			.noticeIcon{
+				width: 17px;
+				height: 14px;
+			}
+			
+			.home_content{
+				width: 80%;
+				height: 188px;
+				margin-left: 10%;
+				justify-content: space-around;
+				align-items: center;
+				position: absolute;
+				top: 73px;
+				background: #ffffff;
+				z-index: 2;
+				padding: 28px 0px;
+				border-radius: 14px;
+			}
+			
+			.getMoneyComment{
+				color: #303030;
+				font-size: 14px;
+			}
+			
+			.money{
+				color: #000000;
+				font-size: 55px;
+			}
+			
+			.content_bottom{
+				color: #dddddd;
+				font-size: 12px;
+			}
+			
+			.content_time{
+				width: 50px;
+				height: 18px;
+				text-align: center;
+				color: #ffffff;
+				font-size: 12px;
+				position: absolute;
+				top: 50px;
+				right: 20px;
+				background-image: url(../images/day_bg.png);
+				background-size: cover;
+			}
+			
+			.content_wrap{
+				margin-top: 130px;
+				padding: 20px;
+				text-align: center;
+			}
+			
+			.applyMoney{
+				color: #303030;
+				opacity: 0.4;
+				font-size: 14px;
+				text-align: left;
+			}
+			
+			.next {
+			    width: 100%;
+			    border-radius: 30px;
+			    margin: 10px 0px;
+			    text-align: center;
+			    padding: 10px 0rem;
+			    cursor: pointer;
+			    background: #ff493D;
+			    color: #ffffff;
+			}
+			
+			.bank_info{
+				display: inline-block;
+				width: 136px;
+				margin: auto;
+				text-align: center;
+				font-size: 10px;
+				background-image: url(../images/bank_icon.png);
+				background-repeat: no-repeat;
+				background-position: left 5px;
+				background-size: 9px 10px;
+			}
+			
+			.bottom_slider{
+				width: 100%;
+				height: 100px;
+			}
+			
 		</style>
 	</head>
 
@@ -109,8 +209,83 @@
 		<div class="mui-content">
 			<div id="tabbar" class="mui-control-content mui-active">
 				
+				<div class="home_top row">
+					<div>
+						<img class="noticeIcon" src="../images/notice.png"/>
+						<span>123</span>
+						
+					</div>
+					
+					<img class="noticeIcon" src="../images/msg_icon.png"/>
+				</div>
 				
-				<img style="width:100%;" src="../images/home.png"/>
+				<div class="home_content col">
+					<div class="getMoneyComment">申请提现(元)</div>
+					<div class="money">20000</div>
+					<div class="content_bottom">申请额度无需十分精确，以实批为准</div>
+					
+					<div class="content_time">6个月</div>
+				</div>
+				
+				<div class="content_wrap">
+					<div class="applyMoney">申请额度(元)</div>
+					<div>123</div>
+					<div class="applyMoney">借款期限(月)</div>
+					<div>123</div>
+					<button type="button" class="mui-btn mui-btn-link next" onclick="apply();">立即申请</button>
+            
+            			<div class="bank_info">银行级用户信息安全保障</div>
+            			
+            			<div id="slider" class="mui-slider bottom_slider" >
+						<div class="mui-slider-group mui-slider-loop">
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="../images/shezhi.png">
+								</a>
+							</div>
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/faxian.png">
+								</a>
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/shezhi.png">
+								</a>
+							</div>
+							<!-- 第三张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/faxian.png">
+								</a>
+							</div>
+							<!-- 第四张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/shezhi.png">
+								</a>
+							</div>
+							<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="../images/faxian.png">
+								</a>
+							</div>
+						</div>
+						<!--<div class="mui-slider-indicator">
+							<div class="mui-indicator mui-active"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+						</div>-->
+					</div>
+		
+				</div>
+				
+				
 				
 			</div>
 			<div id="tabbar-with-chat" class="mui-control-content">
@@ -433,5 +608,9 @@
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		//无限轮播
+		var slider = mui("#slider").slider({
+						interval: 5000
+					});
 	</script>
 </html>
