@@ -14,9 +14,13 @@
       		
       	})
       	
-      	function login(){
-  			mui.openWindow(function(){
-      			url: 'home.html'
+      	/**
+      	 * 获取验证码
+      	 */
+      	function getCode(){
+  			mui.openWindow({
+      			url: 'getCode.html',
+      			id: 'getCode.html',
       		})
   		}
       	
@@ -40,7 +44,7 @@
 			<input type="tel" class="mui-input-clear phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" pattern="[0-9]*" placeholder="请输入手机号">
 		
 		</div>
-		<button type="button" class="mui-btn mui-btn-link next_btn" onclick="login();">下一步</button>
+		<button type="button" class="mui-btn mui-btn-link next_btn" onclick="getCode();">下一步</button>
 	</div>
 	
 </body>

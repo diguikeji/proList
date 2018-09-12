@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/base.css" rel="stylesheet" />
+		<link href="../css/login.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">注册登录</h1>
+		</header>
+		
+		<div class="mui-content">
+			
+			 <div class="center row">
+                <span class="code_text">请输入185****2904的短信验证码</span>
+                <span class="sixty">60秒后可重新获取</span>
+            </div>
+
+
+            <div class="number row">
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <div class="cursor"></div>
+                </div>
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <span class="cursor hideClass"></span>
+                </div>
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <span class="cursor hideClass"></span>
+                </div>
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <span class="cursor hideClass"></span>
+                </div>
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <span class="cursor hideClass"></span>
+                </div>
+                <div class="numin row">
+                    <span class="inutVal"></span>
+                    <span class="cursor hideClass"></span>
+                </div>
+            </div>
+            
+            <input type="tel" class="realInput" maxlength="6" oninput="if(value.length>6)value=value.slice(0,6)" pattern="[0-9]*" >
+            
+            <div class="next" onclick="login();">注册并登录</div>
+            <div class="bottom row">
+                <img src="../images/un_selected.png" class="selectRadio"/>
+                <span class="bottom-next">点击下一步表示同意</span>
+                <a class="bottom-a" href="">《用户注册协议》</a>
+            </div>
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			mui.plusReady(function(){
+				
+      			
+      			$(".realInput").bind("input propertychange",function () {
+	                var value = $(".realInput").val();
+	                var length = value.length;
+	                console.log( length);
+	                
+	                
+	                
+	                $(".inutVal").each(function(index){
+	                    
+	                    if(length > index){
+	                        $(this).text(value[index]);
+	                    }else{
+	                        $(this).text("");
+	                    }
+	                    console.log($(this))
+	                });
+	                
+	                $(".cursor").each(function(index){
+	                    if(length != index){
+	                        $(this).addClass("hideClass");
+	                    }
+	                    
+	                    if(length == index){
+	                        $(this).removeClass("hideClass");
+	                    }
+	                    console.log($(this))
+	                });
+	                
+	                if(length == 6){
+	                    //输入完成
+	                    
+	                    return;
+	                }
+            	});
+            	
+            	
+            	
+      		})
+			
+			/**
+			 * 登录的网络请求
+			 */
+			function login(){
+	  			mui.openWindow({
+	      			url: 'home.html',
+	      			id: 'home.html',
+	      		})
+	  		}
+			
+		</script>
+	</body>
+
+</html>
