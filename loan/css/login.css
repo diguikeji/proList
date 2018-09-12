@@ -32,9 +32,9 @@ input::-webkit-input-placeholder {
 }
 
 .next_btn {
-    width: 90%;
+    width: 90%!important;
     border-radius: 30px;
-    margin: 10px auto;
+    margin: 10px 5%!important;
     text-align: center;
     padding: 10px 0rem;
     cursor: pointer;
