@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="../css/app.css">
+		<style>
+			
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+				font-size:15px;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 70px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 8px;
+				width:58px;
+				height:58px;
+			}
+			.oa-contact-content {
+				width: 100%;position: relative;
+			}
+			.oa-contact-content .mui-icon{position: absolute;right:0;top:30px;}
+			.oa-contact-content p{font-size:11px;} 
+			.oa-contact-content p span:first-child{width:72px;display: inline-block;margin-right:5px;}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+			.mui-slider-cell .bottom{color:#999;font-size:14px;position: relative;text-align: center;margin-top:10px;}
+			.mui-slider-cell .bottom:before{content:"“";position: absolute;left:5px;top:0px;font-size:20px;}
+			.mui-slider-cell .bottom:after{content:"”";position: absolute;right:5px;bottom:-10px;font-size:20px;}
+			.mui-table-view-cell{padding-bottom:5px;}
+			.find-top{height:43px;line-height:45px;font-size:0;position: fixed;width:100%;top:0;left:0;z-index:1000;background: #fff;overflow: hidden;border-bottom:1px solid #eee;}
+			.find-top div{display: inline-block;width:33.333%;font-size:14px;text-align: center;}
+			.find-top div.active{color:#ff5749;}
+		</style>
+	</head>
+
+	<body>
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">借款</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-chat">
+				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">赚钱</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">发现</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-content">
+			<div id="tabbar" class="mui-control-content mui-active">
+				<div class="title">这是div模式选项卡中的第1个子页面.</div>
+				<div class="title">何谓div模式的选项卡？
+					其实就是通过DIV模拟一个独立页面，通过DIV的显示、隐藏模拟不同页面的切换，典型的SPA模式；</div>
+				<div class="title">
+					这种模式适合简单业务系统，因为每个选项卡内容要写在一个DIV中，
+					若逻辑复杂，会导致当前页面DOM结构繁杂，造成webview响应缓慢，甚至崩溃；
+					因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>
+			</div>
+			<div id="tabbar-with-chat" class="mui-control-content">
+				<div class="title">这是div模式选项卡中的第2个子页面，该页面展示一个消息列表</div>
+				
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 1</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 2</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 3</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 4</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 5</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 6</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 7</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 8</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 9</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 10</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 11</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 12</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 13</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 14</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 15</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 16</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 17</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 18</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 19</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 20</a></li>
+				</ul>
+				
+			</div>
+			<div id="tabbar-with-contact" class="mui-control-content">
+				
+				<div class="find-top">
+					<div class="active">高成功率</div>
+					<div>期限</div>
+					<div>上次浏览</div>
+				</div>
+				
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="padding-top:43px;">
+					
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="../images/faxian.png" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									借花花-借钱马上花
+								</div>
+								<p>
+									<span>期限：1~3月</span>
+									<span>额度：5000-10000</span>
+								</p>
+								<span class="mui-icon mui-icon-arrowright"></span>
+							</div>
+						</div>
+						
+						<div class="bottom">最快3分钟，可获10000借款~</div>
+						
+					</div>
+				</li>
+				
+				
+			</ul>
+			</div>
+			<div id="tabbar-with-map" class="mui-control-content">
+				<div class="title">这是div模式选项卡中的第4个子页面，该页面展示一个常见的设置示例.</div>
+				<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						新消息通知
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						隐私
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						通用
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						关于mui
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+</html>
