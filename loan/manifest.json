@@ -139,7 +139,8 @@
 			"html/index.html": {
 				"resources": [],
 				"refer": [
-					"index.html"
+					"index.html",
+					"html/index.html"
 				],
 				"priority": 0
 			}
