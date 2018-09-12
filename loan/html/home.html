@@ -50,13 +50,27 @@
 			.oa-contact-name, oa-contact-position {
 				float: left;
 			}
-			.mui-slider-cell .bottom{color:#999;font-size:14px;position: relative;text-align: center;margin-top:10px;}
-			.mui-slider-cell .bottom:before{content:"“";position: absolute;left:5px;top:0px;font-size:20px;}
-			.mui-slider-cell .bottom:after{content:"”";position: absolute;right:5px;bottom:-10px;font-size:20px;}
-			.mui-table-view-cell{padding-bottom:5px;}
+			#tabbar-with-contact .mui-slider-cell .bottom{color:#999;font-size:14px;position: relative;text-align: center;margin-top:10px;}
+			#tabbar-with-contact .mui-slider-cell .bottom:before{content:"“";position: absolute;left:5px;top:0px;font-size:20px;}
+			#tabbar-with-contact .mui-slider-cell .bottom:after{content:"”";position: absolute;right:5px;bottom:-10px;font-size:20px;}
+			#tabbar-with-contact .mui-table-view-cell{padding-bottom:5px;}
 			.find-top{height:43px;line-height:45px;font-size:0;position: fixed;width:100%;top:0;left:0;z-index:1000;background: #fff;overflow: hidden;border-bottom:1px solid #eee;}
 			.find-top div{display: inline-block;width:33.333%;font-size:14px;text-align: center;}
 			.find-top div.active{color:#ff5749;}
+			#tabbar-with-map .mui-table-view-cell img{width:18px;margin-right:5px;position: relative;top:2px;}
+			#tabbar-with-map .mui-table-view-cell{padding:15px 15px;}
+			#tabbar-with-map .mui-table-view-cell>a:not(.mui-btn){margin:-15px -15px;}
+			.top-badge{background: #FF5445;color:#fff;padding:7px 14px;}
+			.mui-tab-item{font-size:12px;padding-top:4px;}
+			.mui-tab-item .tab-img{display: block;}
+			.mui-tab-item .tab-img img:last-child{display: none;}
+			.mui-bar-tab .mui-tab-item:first-child img{width:23px;}
+			.mui-bar-tab .mui-tab-item:nth-child(2) img{width:23px;}
+			.mui-bar-tab .mui-tab-item:nth-child(3) img{width:23px;}
+			.mui-bar-tab .mui-tab-item:last-child img{width:19px;}
+			.mui-bar-tab .mui-tab-label{margin-top:-4px;display: block;}
+			.mui-bar-tab .mui-tab-item.mui-active .tab-img img:first-child{display: none;}
+			.mui-bar-tab .mui-tab-item.mui-active .tab-img img:last-child{display: inline-block;}
 		</style>
 	</head>
 
@@ -64,31 +78,40 @@
 		
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" href="#tabbar">
-				<span class="mui-icon mui-icon-home"></span>
+				<span class="tab-img">
+					<img src="../images/jiekuan.png"/>
+					<img src="../images/jiekuan_active.png"/>
+				</span>
 				<span class="mui-tab-label">借款</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-chat">
-				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="tab-img">
+					<img src="../images/zuanqian.png"/>
+					<img src="../images/zuanqian_active.png"/>
+				</span>
 				<span class="mui-tab-label">赚钱</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-contact">
-				<span class="mui-icon mui-icon-contact"></span>
+				<span class="tab-img">
+					<img src="../images/fx_active.png"/>
+					<img src="../images/fx_active.png"/>
+				</span>
 				<span class="mui-tab-label">发现</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-map">
-				<span class="mui-icon mui-icon-gear"></span>
+				<span class="tab-img">
+					<img src="../images/wode.png"/>
+					<img src="../images/wode_active.png"/>
+				</span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
 		<div class="mui-content">
 			<div id="tabbar" class="mui-control-content mui-active">
-				<div class="title">这是div模式选项卡中的第1个子页面.</div>
-				<div class="title">何谓div模式的选项卡？
-					其实就是通过DIV模拟一个独立页面，通过DIV的显示、隐藏模拟不同页面的切换，典型的SPA模式；</div>
-				<div class="title">
-					这种模式适合简单业务系统，因为每个选项卡内容要写在一个DIV中，
-					若逻辑复杂，会导致当前页面DOM结构繁杂，造成webview响应缓慢，甚至崩溃；
-					因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>
+				
+				
+				<img style="width:100%;" src="../images/dibu.png"/>
+				
 			</div>
 			<div id="tabbar-with-chat" class="mui-control-content">
 				<div class="title">这是div模式选项卡中的第2个子页面，该页面展示一个消息列表</div>
@@ -373,39 +396,59 @@
 				
 			</ul>
 			</div>
-			<div id="tabbar-with-map" class="mui-control-content">
-				<div class="title">这是div模式选项卡中的第4个子页面，该页面展示一个常见的设置示例.</div>
+			<div id="tabbar-with-map" class="mui-control-content" style="padding-top:44px;">
+				
+				<header class="mui-bar mui-bar-nav">
+					<h1 class="mui-title">个人中心</h1>
+				</header>
+				
+				<div style="background:#fff;height:164px;padding:20px 20px;">
+					
+					<div style="position: relative;">
+						
+						<img style="width:62px;height:62px;border-radius: 50%;vertical-align: middle;" src="../images/touxiang.png"/>
+						
+						<span style="width:134px;display: inline-block;margin-left:10px;font-size:16px;color:#000;">18084302954</span>
+						
+						<span class="mui-icon mui-icon-arrowright" style="position: absolute;right:20px;top:18px;"></span>
+						
+					</div>
+					
+					<div style="text-align: center;padding:10px 0 20px 0;">
+					<button type="button" class="mui-btn mui-btn-danger" style="width:190px;height:45px;line-height:45px;padding:0;font-size:17px;border-radius: 23px;">申请借款</button>
+					</div>
+					
+				</div>
+				
+				<ul class="mui-table-view" style="margin: 20px 0;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<img src="../images/qianbao.png">
+						赚钱钱包
+					</a>
+					<span class="mui-badge top-badge">去赚取</span>
+				</li>
+				</ul>
+				
 				<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						新消息通知
+						<img src="../images/kefu.png"/> 联系客服
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						隐私
+						<img src="../images/guanyu.png"/> 关于我们
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						通用
+						<img src="../images/shezhi.png"/> 设置中心
 					</a>
 				</li>
 			</ul>
-			<ul class="mui-table-view" style="margin-top: 25px;">
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						关于mui
-					</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view" style="margin-top: 25px;">
-				<li class="mui-table-view-cell">
-					<a style="text-align: center;color: #FF3B30;">
-						退出登录
-					</a>
-				</li>
-			</ul>
+			
+			
 			</div>
 		</div>
 	</body>
