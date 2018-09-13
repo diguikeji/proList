@@ -158,7 +158,11 @@
 					"images/jiekuan_active.png"
 				],
 				"refer": [
-					"html/identificateFirst.html"
+					"html/identificateFirst.html",
+					"html/setting.html",
+					"html/message.html",
+					"html/wallet.html",
+					"html/share.html"
 				],
 				"priority": 0
 			},
@@ -166,6 +170,20 @@
 				"resources": [],
 				"refer": [
 					"html/home.html"
+				],
+				"priority": 0
+			},
+			"html/identificateFirst.html": {
+				"resources": [],
+				"refer": [
+					"html/personInfo.html"
+				],
+				"priority": 0
+			},
+			"html/personInfo.html": {
+				"resources": [],
+				"refer": [
+					"html/credit.html"
 				],
 				"priority": 0
 			}
