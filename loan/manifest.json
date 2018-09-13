@@ -155,7 +155,8 @@
 			},
 			"html/home.html": {
 				"resources": [
-					"images/jiekuan_active.png"
+					"images/jiekuan_active.png",
+					"js/swiper.min.js"
 				],
 				"refer": [
 					"html/identificateFirst.html",

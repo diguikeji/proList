@@ -22,6 +22,9 @@
 			"html/wallet.html",
 			"html/share.html",
 			"html/about.html"
+		],
+		"resources": [
+			"js/swiper.min.js"
 		]
 	},
 	"html/identificateFirst.html": {
