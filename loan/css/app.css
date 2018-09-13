@@ -2,6 +2,19 @@ body{color:#333;}
 .mui-btn-danger, .mui-btn-negative, .mui-btn-red{background: #FF5445;}
 .mui-bar-tab .mui-tab-item.mui-active{color:#FF5445;}
 
+/**
+ * 头部返回图标的颜色
+ */
+header > a{
+	color: #333333;
+}
+/**
+ * 头部的关闭
+ */
+.header_close{
+	display: inline-block;
+	padding-top: 12px;
+}
 
 .row {
     display: -webkit-box;

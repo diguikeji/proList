@@ -20,7 +20,8 @@
 			"html/setting.html",
 			"html/message.html",
 			"html/wallet.html",
-			"html/share.html"
+			"html/share.html",
+			"html/about.html"
 		]
 	},
 	"html/identificateFirst.html": {

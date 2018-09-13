@@ -6,16 +6,83 @@
 		<title>认证流程</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/app.css" rel="stylesheet" />
+		<style type="text/css">
+			.head{
+				justify-content: space-around;
+				align-items: center;
+				margin-top: 60px;
+			}
+			
+			.step_wrap{
+				width: 80%;
+				align-items: center;
+				justify-content: space-between;
+			}
+			
+			.step_wrap .line_style{
+				height: 2px;
+				background: #DEDEDE;
+			}
+			.head img{
+				width: 24px;
+				height: 24px;
+			}
+			
+			.head hr{
+				height: 10px;
+				color: #000000;
+			}
+			
+			.mui-content{
+				background: #ffffff;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" onclick="goToPersonInfo();">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">身份证认证</h1>
 		</header>
 		
 		<div class="mui-content">
-		
+			<div class="head col">
+				
+				<div class="row step_wrap">
+					<img src="../images/first_step_icon.png" alt="" />
+					<div class="line_style flex_item"></div>
+					<img src="../images/second_step_icon.png" alt="" />
+					<div class="line_style flex_item"></div>
+					<img src="../images/third_step_icon.png" alt="" />
+				</div>
+				
+				<div class="row step_wrap">
+					<span class="firstStep">身份认证</span>
+					<span class="firstStep">个人信息</span>
+					<span class="firstStep">信用评估</span>
+				</div>
+				<!--<div class="firstWrap col">
+					<img src="../images/first_step_icon.png" alt="" />
+					<span class="firstStep">身份认证</span>
+				</div>
+				
+				<hr class="flex_item"/>
+				
+				<div class="firstWrap col">
+					<img src="../images/second_step_icon.png" alt="" />
+					<span class="firstStep">个人信息</span>
+				</div>
+				
+				<hr class="flex_item"/>
+				
+				<div class="firstWrap col">
+					<img src="../images/third_step_icon.png" alt="" />
+					<span class="firstStep">信用评估</span>
+				</div>-->
+											
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
