@@ -10,6 +10,7 @@
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
+		<link rel="stylesheet" href="../css/swiper.min.css">
 		<link rel="stylesheet" href="../css/app.css">
 		<link rel="stylesheet" href="../css/home.css">
 	</head>
@@ -50,13 +51,26 @@
 			<div id="tabbar" class="mui-control-content mui-active">
 				
 				<div class="home_top row">
-					<div>
-						<img class="noticeIcon" src="../images/notice.png"/>
-						<span>123</span>
+					<div class="gonggao">
+						<img class="noticeIcon left" src="../images/notice.png"/>
 						
-					</div>
+							
+							<div class="swiper-container">
+							    <div class="swiper-wrapper">
+							      <div class="swiper-slide">Slide 1</div>
+							      <div class="swiper-slide">Slide 2</div>
+							      <div class="swiper-slide">Slide 3</div>
+							      <div class="swiper-slide">Slide 4</div>
+							      <div class="swiper-slide">Slide 5</div>
+							      <div class="swiper-slide">Slide 6</div>
+							      <div class="swiper-slide">Slide 7</div>
+							      <div class="swiper-slide">Slide 8</div>
+							      <div class="swiper-slide">Slide 9</div>
+							      <div class="swiper-slide">Slide 10</div>
+							    </div>
+							</div>
 					
-					<img class="noticeIcon" src="../images/msg_icon.png"/>
+					<img class="noticeIcon right" src="../images/msg_icon.png"/>
 				</div>
 				
 				<div class="home_content col">
@@ -69,9 +83,34 @@
 				
 				<div class="content_wrap">
 					<div class="applyMoney">申请额度(元)</div>
-					<div>123</div>
+					
+						
+					<div class="mui-input-row mui-input-range field-contain">
+						
+						<div class="left-range">
+						</div>
+						
+		                <input type="range" id="edu" value="10000" min="500" max="20000"><span class="mui-tooltip mui-hidden"></span>
+		       
+		       			<div class="bottom-value">
+		       				<span>500</span>
+		       				<span>20000</span>
+		       			</div>
+					</div>
 					<div class="applyMoney">借款期限(月)</div>
-					<div>123</div>
+					
+					<div class="mui-input-row mui-input-range field-contain">
+						
+						<div class="left-range">
+						</div>
+						
+		                <input type="range" id="jiekuan" value="10" min="0.5" max="12" step="0.5" ><span class="mui-tooltip mui-hidden"></span>
+		       			<div class="bottom-value">
+		       				<span>0.5</span>
+		       				<span>12</span>
+		       			</div>
+					</div>
+					
 					<button type="button" class="mui-btn mui-btn-link next" onclick="apply();">立即申请</button>
             
             			<div class="bank_info">银行级用户信息安全保障</div>
@@ -444,6 +483,8 @@
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-2.1.1.min.js"></script>
+	<script src="../js/swiper.min.js"></script>
 	<script>
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
@@ -460,5 +501,36 @@
       			id: 'identificateFirst.html',
       		})
 		}
+		
+		$(".mui-input-range input").each(function()
+		{
+			
+			range($(this));
+			
+		});
+		
+		function range($obj)
+		{
+			var leftValue=$obj.val();
+			var width=100*leftValue/$obj.attr("max")+"%";
+			console.log(width);
+			$obj.prev().css("width",width);
+		}
+		
+		$(".mui-input-range input").on("input",function()
+		{
+			range($(this));
+		});
+		
+		
+		 var swiper = new Swiper('.swiper-container', {
+	      direction: 'vertical',
+	      pagination: {
+	        el: '.swiper-pagination',
+	        clickable: true,
+	      },
+	    });
+		
+		
 	</script>
 </html>
