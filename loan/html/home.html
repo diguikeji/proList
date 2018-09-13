@@ -56,7 +56,7 @@
 						
 					</div>
 					
-					<img class="noticeIcon" src="../images/msg_icon.png"/>
+					<img class="noticeIcon" src="../images/msg_icon.png" onclick="goToMessage();"/>
 				</div>
 				
 				<div class="home_content col">
@@ -389,7 +389,7 @@
 			</div>
 			<div id="tabbar-with-map" class="mui-control-content" style="padding-top:44px;">
 				
-				<header class="mui-bar mui-bar-nav">
+				<header class="mui-bar mui-bar-nav" onclick="sharePage();">
 					<h1 class="mui-title">个人中心</h1>
 				</header>
 				
@@ -412,7 +412,7 @@
 				</div>
 				
 				<ul class="mui-table-view" style="margin: 20px 0;">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="goToWallet();">
 					<a class="mui-navigate-right">
 						<img src="../images/qianbao.png">
 						赚钱钱包
@@ -422,17 +422,17 @@
 				</ul>
 				
 				<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" >
 					<a class="mui-navigate-right">
 						<img src="../images/kefu.png"/> 联系客服
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="goToAbout();">
 					<a class="mui-navigate-right">
 						<img src="../images/guanyu.png"/> 关于我们
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="goToSetting();">
 					<a class="mui-navigate-right">
 						<img src="../images/shezhi.png"/> 设置中心
 					</a>
@@ -458,6 +458,46 @@
 			mui.openWindow({
       			url: 'identificateFirst.html',
       			id: 'identificateFirst.html',
+      		})
+		}
+		
+		//设置中心
+		function goToSetting(){
+			mui.openWindow({
+      			url: 'setting.html',
+      			id: 'setting.html',
+      		})
+		}
+		
+		//关于我们
+		function goToAbout(){
+			mui.openWindow({
+      			url: 'about.html',
+      			id: 'about.html',
+      		})
+		}
+		
+		//消息中心
+		function goToMessage(){
+			mui.openWindow({
+      			url: 'message.html',
+      			id: 'message.html',
+      		})
+		}
+		
+		//钱包 goToWallet
+		function goToWallet(){
+			mui.openWindow({
+      			url: 'wallet.html',
+      			id: 'wallet.html',
+      		})
+		}
+		
+		//分享页面
+		function sharePage(){
+			mui.openWindow({
+      			url: 'share.html',
+      			id: 'share.html',
       		})
 		}
 	</script>

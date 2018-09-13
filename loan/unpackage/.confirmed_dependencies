@@ -1,22 +1,36 @@
 {
-  "index.html": {
-    "refer": [
-      "html/login.html"
-    ]
-  },
-  "html/login.html": {
-    "refer": [
-      "html/getCode.html"
-    ]
-  },
-  "html/getCode.html": {
-    "refer": [
-      "html/home.html"
-    ]
-  },
-  "html/home.html": {
-    "refer": [
-      "html/identificateFirst.html"
-    ]
-  }
+	"index.html": {
+		"refer": [
+			"html/login.html"
+		]
+	},
+	"html/login.html": {
+		"refer": [
+			"html/getCode.html"
+		]
+	},
+	"html/getCode.html": {
+		"refer": [
+			"html/home.html"
+		]
+	},
+	"html/home.html": {
+		"refer": [
+			"html/identificateFirst.html",
+			"html/setting.html",
+			"html/message.html",
+			"html/wallet.html",
+			"html/share.html"
+		]
+	},
+	"html/identificateFirst.html": {
+		"refer": [
+			"html/personInfo.html"
+		]
+	},
+	"html/personInfo.html": {
+		"refer": [
+			"html/credit.html"
+		]
+	}
 }
