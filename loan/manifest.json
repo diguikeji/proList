@@ -155,7 +155,6 @@
 			},
 			"html/home.html": {
 				"resources": [
-					"images/借款@2x.png",
 					"images/jiekuan_active.png"
 				],
 				"refer": [],

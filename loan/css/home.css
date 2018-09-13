@@ -73,9 +73,9 @@
 }
 
 .home_content{
-	width: 80%;
+	width: 90%;
 	height: 188px;
-	margin-left: 10%;
+	margin-left: 5%;
 	justify-content: space-around;
 	align-items: center;
 	position: absolute;
@@ -109,7 +109,7 @@
 	font-size: 12px;
 	position: absolute;
 	top: 50px;
-	right: 20px;
+	right: 40px;
 	background-image: url(../images/day_bg.png);
 	background-size: cover;
 }

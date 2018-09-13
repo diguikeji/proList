@@ -1,17 +1,22 @@
 {
-	"index.html": {
-		"refer": [
-			"html/login.html"
-		]
-	},
-	"html/login.html": {
-		"refer": [
-			"html/getCode.html"
-		]
-	},
-	"html/getCode.html": {
-		"refer": [
-			"html/home.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "html/login.html"
+    ]
+  },
+  "html/login.html": {
+    "refer": [
+      "html/getCode.html"
+    ]
+  },
+  "html/getCode.html": {
+    "refer": [
+      "html/home.html"
+    ]
+  },
+  "html/home.html": {
+    "refer": [
+      "html/identificateFirst.html"
+    ]
+  }
 }
