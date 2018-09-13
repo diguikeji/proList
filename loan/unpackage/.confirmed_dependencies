@@ -13,5 +13,10 @@
 		"refer": [
 			"html/home.html"
 		]
+	},
+	"html/home.html": {
+		"refer": [
+			"html/identificateFirst.html"
+		]
 	}
 }

@@ -158,7 +158,9 @@
 					"images/借款@2x.png",
 					"images/jiekuan_active.png"
 				],
-				"refer": [],
+				"refer": [
+					"html/identificateFirst.html"
+				],
 				"priority": 0
 			},
 			"html/getCode.html": {
