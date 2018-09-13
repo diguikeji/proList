@@ -6,17 +6,249 @@
 		<title>个人信息</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/app.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<style type="text/css">
+			html,body{
+				background: #ffffff;
+				height: 100%;
+			}
+			.head{
+				justify-content: space-around;
+				align-items: center;
+				padding-top: 60px;
+				background: #ffffff;
+			}
+			.step_wrap{
+				width: 80%;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0px 10px;
+			}
+			.step_wrap_bottom{
+				width: 80%;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 12px;
+			}
+			
+			.step_wrap .line_style{
+				height: 2px;
+				background: #DEDEDE;
+			}
+			.head img{
+				width: 24px;
+				height: 24px;
+			}
+			
+			.head hr{
+				height: 10px;
+				color: #000000;
+			}
+			
+			.step_span{
+				border-radius: 50%;
+				background: #ff5445;
+				display: inline-block;
+				width: 24px;
+				height: 24px;
+				text-align: center;
+				line-height: 24px;
+				color: #ffffff;
+				font-size: 14px;
+			}
+			
+			.content{
+				width: 90%;
+				border-radius: 10px;
+				box-shadow: 0px 0px 5px #888888;
+				padding: 20px;
+				margin: 38px 5%;
+				text-align: center;
+				background: #ffffff;
+			}
+			
+			.study_wrap{
+				justify-content: space-between;
+				border-bottom: 1px solid #DFDFDF;
+				height: 30px;
+				margin-bottom: 30px;
+			}
+			
+			.next_btn {
+			    width: 100%;
+			    border-radius: 30px;
+			    margin: 10px 0;
+			    text-align: center;
+			    padding: 10px 0rem;
+			    cursor: pointer;
+			    background: #ff493D;
+			    color: #ffffff;
+			    box-shadow: 0px 0px 5px #888888;
+			}
+			
+			.bank_info{
+				display: inline-block;
+				width: 136px;
+				margin: auto;
+				text-align: center;
+				font-size: 10px;
+				background-image: url(../images/bank_icon.png);
+				background-repeat: no-repeat;
+				background-position: left 5px;
+				background-size: 9px 10px;
+			}
+			
+		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" onclick="goToCredit();">
+		<header class="mui-bar mui-bar-nav" >
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">个人信息认证</h1>
 		</header>
 		
+		<div class="mui-content">
+			<div class="head col">
+				
+				<div class="row step_wrap">
+					<img src="../images/step_finish_icon.png" alt="" />
+					<div class="line_style flex_item"></div>
+					<span class="step_span">2</span>
+					<div class="line_style flex_item"></div>
+					<img src="../images/third_step_icon.png" alt="" />
+				</div>
+				
+				<div class="row step_wrap_bottom">
+					<span class="firstStep" style="color: #ff5445;">身份认证</span>
+					<span class="firstStep" style="color: #ff5445;">个人信息</span>
+					<span class="firstStep">信用评估</span>
+				</div>
+						
+			</div>
+			
+			<div class="content">
+				
+				<div class="study_wrap row" onclick="showStudyPicker();">
+					<span>最高学府</span>
+					<div>
+						<span id="study_value"></span>
+						<span>></span>
+					</div>
+				</div>
+				
+				<div class="study_wrap row" onclick="showMarryPicker();">
+					<span>婚姻状态</span>
+					<div>
+						<span id="marry_value"></span>
+						<span>></span>
+					</div>
+				</div>
+				
+				<div class="study_wrap row" onclick="showHousePicker();">
+					<span>住房状态</span>
+					<div>
+						<span id="house_value"></span>
+						<span>></span>
+					</div>
+				</div>
+				
+				<div class="study_wrap row" onclick="showLoanPicker();">
+					<span>借款状态</span>
+					<div>
+						<span id="loan_value"></span>
+						<span>></span>
+					</div>
+				</div>
+				
+				<button type="button" class="mui-btn mui-btn-link next_btn" onclick="goToCredit();">下一步</button>
+		
+				<div class="bank_info">银行级用户信息安全保障</div>
+				
+			</div>
+			
+		</div>
+		
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.min.js"></script>
+		
 		<script type="text/javascript">
 			mui.init();
+			
+			var studyPicker = new mui.PopPicker();
+			studyPicker.setData([{
+				    value: "0",
+				    text: "初中及以下"
+				}, {
+				    value: "1",
+				    text: "中专"
+				}, {
+				    value: "2",
+				    text: "高中"
+				}
+			]);
+			
+			var marryPicker = new mui.PopPicker();
+			marryPicker.setData([{
+				    value: "0",
+				    text: "未婚"
+				}, {
+				    value: "1",
+				    text: "已婚无子女"
+				},{
+				    value: "2",
+				    text: "已婚有子女"
+				}
+			]);
+			
+			function showMarryPicker(){
+				marryPicker.show(function(SelectedItem) {
+					console.log(SelectedItem[0].text);
+					mui('#marry_value')[0].innerHTML = SelectedItem[0].text;
+				})
+			}
+			
+			var housePicker = new mui.PopPicker();
+			housePicker.setData([{
+				    value: "0",
+				    text: "租房"
+				}, {
+				    value: "1",
+				    text: "按揭房"
+				},{
+				    value: "2",
+				    text: "全款房"
+				}
+			]);
+			
+			function showHousePicker(){
+				housePicker.show(function(SelectedItem) {
+					console.log(SelectedItem[0].text);
+					mui('#house_value')[0].innerHTML = SelectedItem[0].text;
+				})
+			}
+			
+			var loanPicker = new mui.PopPicker();
+			loanPicker.setData([{
+				    value: "0",
+				    text: "有逾期"
+				}, {
+				    value: "1",
+				    text: "有欠款无逾期"
+				},{
+				    value: "2",
+				    text: "有欠款有逾期"
+				}
+			]);
+			
+			function showLoanPicker(){
+				loanPicker.show(function(SelectedItem) {
+					console.log(SelectedItem[0].text);
+					mui('#loan_value')[0].innerHTML = SelectedItem[0].text;
+				})
+			}
+			
 			
 			/**
 			 * 信用评估

@@ -8,6 +8,9 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/app.css" rel="stylesheet" />
 		<style type="text/css">
+			body{
+				background: #ffffff
+			}
 			.head{
 				justify-content: space-around;
 				align-items: center;
@@ -47,25 +50,85 @@
 			
 			.content{
 				width: 90%;
-				margin-left: 5%;
 				border-radius: 10px;
+				box-shadow: 0px 0px 5px #888888;
+				padding: 20px;
+				margin: 38px 5%;
+				text-align: center;
 			}
 			
 			.photo_wrap{
 				justify-content: center;
-				margin: 45px 0px;
+				margin: 20px 0px;
 			}
 			
 			.photo_wrap img{
 				width: 135px;
 				height: 88px;
-				margin: 0px 10px;
+				margin: 0px 5px;
 			}
+			
+			.form_style{
+				align-items: center;
+				justify-content: space-around;
+				border-bottom: 2px solid #DFDFDF;
+			}
+			.form_style img{
+				width: 15px;
+				height: 15px;
+			}
+			
+			.form_style span{
+				display: inline-block;
+				width: 24%;
+				text-align: left;
+				color: #333333;
+				font-size: 16px;
+			}
+			
+			.form_style input{
+				width: 70%;
+				margin-bottom: 0px;
+				outline: none;
+				border: 0px;
+				color: #333333;
+				font-size: 16px;
+			}
+			
+			input::-webkit-input-placeholder{
+				font-size: 14px;
+				color: #999999;
+				opacity: 0.5
+			}
+			
+			.bank_info{
+				display: inline-block;
+				width: 136px;
+				margin: auto;
+				text-align: center;
+				font-size: 10px;
+				background-image: url(../images/bank_icon.png);
+				background-repeat: no-repeat;
+				background-position: left 5px;
+				background-size: 9px 10px;
+			}
+			
+			.next {
+			    width: 100%;
+			    border-radius: 30px;
+			    margin: 10px 0px;
+			    text-align: center;
+			    padding: 10px 0rem;
+			    cursor: pointer;
+			    background: #c3c3c3;
+			    color: #ffffff;
+			}
+
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" onclick="goToPersonInfo();">
+		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">身份证认证</h1>
@@ -92,13 +155,28 @@
 			
 			<div class="content">
 				<div class="row photo_wrap">
-					<img src="../images/first_step_icon.png" />
-					<img src="../images/first_step_icon.png" />
+					<img src="../images/id_front.png" />
+					<img src="../images/id_back.png" />
 				</div>
 				
-				<div class="form_style">
-					
+				<div class="form_style row">
+					<span>姓名</span>
+					<input type="text" placeholder="身份证上传后才可修改"/>
+					<img src="../images/change_icon.png"/>
 				</div>
+				
+				
+				<div class="form_style row">
+					<span>身份证</span>
+					<input type="text" placeholder="身份证上传后才可修改"/>
+					<img src="../images/change_icon.png"/>
+				</div>
+				
+				
+				<button type="button" class="mui-btn mui-btn-link next" onclick="goToPersonInfo();">下一步</button>
+            
+				
+				<div class="bank_info">银行级用户信息安全保障</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>

@@ -13,7 +13,14 @@ header > a{
  */
 .header_close{
 	display: inline-block;
-	padding-top: 12px;
+	padding-top: 14px;
+	padding-left: 20px;
+}
+/**
+ * 改变默认的content颜色值
+ */
+.mui-content{
+	background: #ffffff;
 }
 
 .row {
@@ -41,6 +48,14 @@ header > a{
     -webkit-flex: 1;
     flex: 1;
     width: 0%;
+}
+
+.hideClass{
+	display: none;
+}
+
+.showClass{
+	display: inline-block;
 }
 
 
