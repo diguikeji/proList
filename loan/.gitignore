@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-dist/
+unpackage/
 manifest.json*
 yarn-debug.log*
 yarn-error.log*
