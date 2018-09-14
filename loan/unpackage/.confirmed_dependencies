@@ -36,5 +36,15 @@
 		"refer": [
 			"html/credit.html"
 		]
+	},
+	"html/message.html": {
+		"refer": [
+			"html/pullrefresh_sub.html",
+			"html/pullrefresh_message_sub.html"
+		],
+		"resources": [
+			"html/pullrefresh_sub.html",
+			"html/pullrefresh_message_sub.html"
+		]
 	}
 }

@@ -58,6 +58,18 @@ header > a{
 	display: inline-block;
 }
 
+.list_bottom_warning_text{
+	text-align: center; 
+	color: #cbcbcb; 
+	font-size: 12px; 
+	position: absolute; 
+	bottom: 10px; 
+	left: 50%;
+	width: 100px; 
+	display: inline-block;
+	margin-left: -50px;
+}
+
 
 .content_wrap .mui-input-range input[type=range]::-webkit-slider-thumb{width:32px;height:32px;background: url(../images/4567.png);background-size:100% 100%;position:relative;z-index:10;}
 

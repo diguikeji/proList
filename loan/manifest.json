@@ -188,6 +188,14 @@
 					"html/credit.html"
 				],
 				"priority": 0
+			},
+			"html/message.html": {
+				"resources": [
+					"html/pullrefresh_sub.html",
+					"html/pullrefresh_message_sub.html"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
