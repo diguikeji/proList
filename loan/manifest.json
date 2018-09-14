@@ -196,6 +196,27 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"html/wallet.html": {
+				"resources": [],
+				"refer": [
+					"html/walletDetail.html"
+				],
+				"priority": 0
+			},
+			"html/walletDetail.html": {
+				"resources": [
+					"html/pullrefresh_wallet_detail_sub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/credit.html": {
+				"resources": [],
+				"refer": [
+					"html/pay_style.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

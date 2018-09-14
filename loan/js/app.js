@@ -20,7 +20,7 @@ $(function()
 
 
 
-$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:0;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
+//$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:0;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
 
 
 })

@@ -6,7 +6,8 @@
 	},
 	"html/login.html": {
 		"refer": [
-			"html/getCode.html"
+			"html/getCode.html",
+			"index.html"
 		]
 	},
 	"html/getCode.html": {
@@ -45,6 +46,24 @@
 		"resources": [
 			"html/pullrefresh_sub.html",
 			"html/pullrefresh_message_sub.html"
+		]
+	},
+	"html/wallet.html": {
+		"refer": [
+			"html/walletDetail.html"
+		]
+	},
+	"html/walletDetail.html": {
+		"resources": [
+			"html/pullrefresh_wallet_detail_sub.html"
+		],
+		"refer": [
+			"html/pullrefresh_wallet_detail_sub.html"
+		]
+	},
+	"html/credit.html": {
+		"refer": [
+			"html/pay_style.html"
 		]
 	}
 }

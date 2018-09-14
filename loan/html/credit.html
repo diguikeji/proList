@@ -205,7 +205,7 @@
 						<span>总价(元)：</span>
 						<span style="font-size: 36px;">68</span>
 					</div>
-					<div class="bottom_right_wrap">
+					<div class="bottom_right_wrap" onclick="goPayStyle();">
 						借款评估
 					</div>
 				</div>
@@ -245,6 +245,14 @@
 			function closeDialg(){
 				var dialogEle = document.querySelector('.modal-mask');
 				dialogEle.classList.add('hideClass');
+			}
+			
+			//支付方式
+			function goPayStyle(){
+				mui.openWindow({
+	      			url: 'pay_style.html',
+	      			id: 'pay_style.html',
+	      		})
 			}
 		</script>
 	</body>

@@ -17,6 +17,17 @@ header > a{
 	padding-left: 20px;
 }
 /**
+ * 头部右侧图片
+ */
+header img{
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 20px;
+	top: 15px;
+}
+			
+/**
  * 改变默认的content颜色值
  */
 .mui-content{
