@@ -154,3 +154,35 @@
 	width: 100%;
 	height: 100px;
 }
+
+.getMoneyBg{
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: -2;
+	margin-bottom: 100px;
+}
+
+.getMoneyWrap::before{
+	content: '';
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.getMoneyContent{
+	justify-content: center;
+	width: 100%;
+	margin-top: 0px;
+}
+
+.getMoney-swiper-container{
+	color: #EB689C;
+	font-size: 14px;
+}
+
+.inviteBtn{
+	width: 321px;
+	height: 111px;
+}

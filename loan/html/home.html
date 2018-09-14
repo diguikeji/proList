@@ -54,7 +54,7 @@
 					<div class="gonggao">
 						<img class="noticeIcon left" src="../images/notice.png"/>
 						
-							<div class="swiper-container">
+							<div class="swiper-container first-swiper-container">
 							    <div class="swiper-wrapper">
 							      <div class="swiper-slide">Slide 1</div>
 							      <div class="swiper-slide">Slide 2</div>
@@ -169,8 +169,27 @@
 				
 				
 			</div>
-			<div id="tabbar-with-chat" class="mui-control-content">
-				
+			<div id="tabbar-with-chat" class="mui-control-content getMoneyWrap" >
+				<img src="../images/inviteFriend.png" class="getMoneyBg"/>
+				<div class="col getMoneyContent">
+					
+					<div class="swiper-container getMoney-swiper-container">
+					    <div class="swiper-wrapper">
+					      <div class="swiper-slide">Slide 1</div>
+					      <div class="swiper-slide">Slide 2</div>
+					      <div class="swiper-slide">Slide 3</div>
+					      <div class="swiper-slide">Slide 4</div>
+					      <div class="swiper-slide">Slide 5</div>
+					      <div class="swiper-slide">Slide 6</div>
+					      <div class="swiper-slide">Slide 7</div>
+					      <div class="swiper-slide">Slide 8</div>
+					      <div class="swiper-slide">Slide 9</div>
+					      <div class="swiper-slide">Slide 10</div>
+					    </div>
+					</div>
+					
+					<img src="../images/now_invite.png" class="inviteBtn" />
+				</div>
 			</div>
 			<div id="tabbar-with-contact" class="mui-control-content">
 				
@@ -526,7 +545,16 @@
 		});
 		
 		
-		 var swiper = new Swiper('.swiper-container', {
+		 var swiper = new Swiper('.first-swiper-container', {
+	      direction: 'vertical',
+	      loop:true,
+	      autoplay:true
+	      
+	    });
+	    
+	    
+	    //赚钱
+	    var getMoneySwiper = new Swiper('.getMoney-swiper-container', {
 	      direction: 'vertical',
 	      loop:true,
 	      autoplay:true
