@@ -118,61 +118,47 @@
             			<div class="bank_info">银行级用户信息安全保障</div>
             			
             			<div id="slider" class="mui-slider bottom_slider" >
+            				
+						
 						<div class="mui-slider-group mui-slider-loop">
-							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
-								<a href="#">
-									<img src="../images/shezhi.png">
-								</a>
-							</div>
-							<!-- 第一张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/faxian.png">
-								</a>
-							</div>
-							<!-- 第二张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/shezhi.png">
-								</a>
-							</div>
-							<!-- 第三张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/faxian.png">
-								</a>
-							</div>
-							<!-- 第四张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/shezhi.png">
-								</a>
-							</div>
-							<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
-								<a href="#">
-									<img src="../images/faxian.png">
-								</a>
-							</div>
-						</div>
-						<!--<div class="mui-slider-indicator">
-							<div class="mui-indicator mui-active"></div>
-							<div class="mui-indicator"></div>
-							<div class="mui-indicator"></div>
-							<div class="mui-indicator"></div>
-						</div>-->
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
 					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					
+					
+				</div>
+			    
+					    
 		
+				       </div>
+				
 				</div>
 				
-				
-				
 			</div>
-			<div id="tabbar-with-chat" class="mui-control-content" >
-				<img src="../images/inviteFriend.png" class="getMoneyBg"/>
-				<div class="col getMoneyContent">
+			<div id="tabbar-with-chat" class="mui-control-content" style="background: #4641d4;">
+				
+				
+				<img style="width:100%;display: block;" src="../images/zuanqian_02.png" />
+				
+				<div style="position: relative;">
+					<img style="width:100%;display: block;" src="../images/zuanqian_03.png" />
 					
+					<div style="width:100%;position: absolute;left:0;top:3%;">
 					<div class="swiper-container getMoney-swiper-container">
 					    <div class="swiper-wrapper">
 					      <div class="swiper-slide">Slide 1</div>
@@ -189,16 +175,76 @@
 					</div>
 					
 					
-					<img src="../images/now_invite.png" class="inviteBtn" />
-					<div class="money_wrap row">
-						<span>10</span>
-						<span>500</span>
-						<span>3000</span>
-					</div>
-					<img src="../images/now_get_money_icon.png" class="nowGetMoneyBtn" onclick="openGetMoney();"/>
+					<img style="width:85%;display: block;margin:0 auto;position: relative;top:-20px;" src="../images/now_invite.png" class="inviteBtn" />
 					
-					<img src="../images/now_get_money_icon.png" class="bottomJoinBtn" />
+					</div>
+					
 				</div>
+				
+				<img style="width:100%;display: block;" src="../images/zuanqian_04.jpg" />
+				
+				<div class="col getMoneyContent">
+					
+					<div class="middle-col">
+					<div class="money_wrap row">
+						<div>
+							<span>100</span>
+							<p>邀请人数</p>
+						</div>
+						
+						<div>
+							<span>500</span>
+							<p>任务奖励</p>
+						</div>
+						<div>
+							<span>3000</span>
+							<p>钱包余额</p>
+						</div>
+						
+					</div>
+					
+					<div class="bottom-col">
+						<img src="../images/now_get_money_icon.png" class="nowGetMoneyBtn" onclick="openGetMoney();"/>
+					</div>
+					
+					
+					</div>
+				
+					
+					
+				</div>
+				
+				<img style="width:100%;display: block;" src="../images/zuanqianTitle.png" />
+
+				<div style="padding:0 18px;">
+				<div id="slider1" class="mui-slider bottom_slider" style="padding-top:10px;">
+				
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					
+					
+				</div>
+			    
+				</div>
+				</div>
+				
 			</div>
 			<div id="tabbar-with-contact" class="mui-control-content">
 				
@@ -527,6 +573,10 @@
 		var slider = mui("#slider").slider({
 						interval: 5000
 					});
+					
+		var slider1 = mui("#slider1").slider({
+			interval: 5000
+		});
 					
 		//申请贷款			
 		function apply(){
