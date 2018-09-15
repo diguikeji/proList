@@ -203,9 +203,12 @@
 			<div id="tabbar-with-contact" class="mui-control-content">
 				
 				<div class="find-top">
-					<div class="active">高成功率</div>
-					<div>期限</div>
-					<div>上次浏览</div>
+					<div class="active highType">高成功率</div>
+					<div class="timeType">
+						<span>期限</span>
+						<img src="../images/change_type_icon.png"/>
+					</div>
+					<div class="preType">上次浏览</div>
 				</div>
 				
 				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="padding-top:43px;">
@@ -617,6 +620,24 @@
       			id: 'wallet.html',
       		})
 		}
+		
+				$('.highType').click(function(){
+					$('.highType').css('color', '#ff5445');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#333333');
+				})
+				
+				$('.timeType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#ff5445');
+					$('.preType').css('color', '#333333');
+				})
+				
+				$('.preType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#ff5445');
+				})
 
 	</script>
 </html>

@@ -128,12 +128,12 @@
 			<img src="../images/recommand_top_icon.png" class="top_img" />
 			
 			<div class="row select_type">
-				<span class="highType active" onclick="highTypeClick();">高成功率</span>
-				<div class="center_wrap row timeType" onclick="timeTypeClick();">
+				<span class="highType active" >高成功率</span>
+				<div class="center_wrap row timeType" >
 					<span>期限</span>
 					<img src="../images/change_type_icon.png"/>
 				</div>
-				<span onclick="preType();" class="preType">上次浏览</span>
+				<span class="preType">上次浏览</span>
 			</div>
 			
 			<ul class="list_wrap">
@@ -208,33 +208,44 @@
 			mui(progressbar).progressbar().setProgress(10);
 			
 			var $$ = jQuery.noConflict();
-			
-			var highType;
-			var timeType;
-			var preType;
-				
 			$$(document).ready(function(){
-				highType = $$('.highType');
-				timeType = $$('.timeType');
-				preType = $$('.preType');
+				var highType = $$('.highType');
+				var timeType = $$('.timeType');
+				var preType = $$('.preType');
 				
+				highType.click(function(){
+					highType.css('color', '#ff5445');
+					timeType.css('color', '#333333');
+					preType.css('color', '#333333');
+				})
 				
+				timeType.click(function(){
+					highType.css('color', '#333333');
+					timeType.css('color', '#ff5445');
+					preType.css('color', '#333333');
+				})
+				
+				preType.click(function(){
+					highType.css('color', '#333333');
+					timeType.css('color', '#333333');
+					preType.css('color', '#ff5445');
+				})
 				
 			});
 			
 			//点击高成功率
-			function highTypeClick(){
-				highType.attr('color', '#ff5445');
-				timeType.attr('color', '#333333');
-				preType.attr('color', '#333333');
-			}
-			
-			//点击高成功率
-			function timeTypeClick(){
-				highType.attr('color', '#333333');
-				timeType.attr('color', '#ff5445');
-				preType.attr('color', '#333333');
-			}
+//			function highTypeClick(){
+//				highType.attr('color', '#ff5445');
+//				timeType.attr('color', '#333333');
+//				preType.attr('color', '#333333');
+//			}
+//			
+//			//点击高成功率
+//			function timeTypeClick(){
+//				highType.attr('color', '#333333');
+//				timeType.attr('color', '#ff5445');
+//				preType.attr('color', '#333333');
+//			}
 			
 			
 		</script>
