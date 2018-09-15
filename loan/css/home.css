@@ -180,6 +180,11 @@
 .getMoney-swiper-container{
 	color: #EB689C;
 	font-size: 14px;
+	height:22px;
+}
+
+.getMoney-swiper-container .swiper-slide{
+	text-align: center;
 }
 
 .inviteBtn{

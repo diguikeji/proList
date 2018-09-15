@@ -18,28 +18,28 @@
 	<body>
 		
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active" href="#tabbar">
+			<a class="mui-tab-item mui-active">
 				<span class="tab-img">
 					<img src="../images/jiekuan.png"/>
 					<img src="../images/jiekuan_active.png"/>
 				</span>
 				<span class="mui-tab-label">借款</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-chat">
+			<a class="mui-tab-item">
 				<span class="tab-img">
 					<img src="../images/zuanqian.png"/>
 					<img src="../images/zuanqian_active.png"/>
 				</span>
 				<span class="mui-tab-label">赚钱</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-contact">
+			<a class="mui-tab-item">
 				<span class="tab-img">
 					<img src="../images/fx_active.png"/>
 					<img src="../images/fx_active.png"/>
 				</span>
 				<span class="mui-tab-label">发现</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map">
+			<a class="mui-tab-item">
 				<span class="tab-img">
 					<img src="../images/wode.png"/>
 					<img src="../images/wode_active.png"/>
@@ -47,14 +47,14 @@
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
-		<div>
+		<div id="tabContent">
 			<div id="tabbar" class="mui-control-content mui-active">
 				
 				<div class="home_top row">
 					<div class="gonggao">
 						<img class="noticeIcon left" src="../images/notice.png"/>
 						
-							<div class="swiper-container">
+							<div class="swiper-container top-swiper-container">
 							    <div class="swiper-wrapper">
 							      <div class="swiper-slide">Slide 1</div>
 							      <div class="swiper-slide">Slide 2</div>
@@ -173,7 +173,7 @@
 				<img src="../images/inviteFriend.png" class="getMoneyBg"/>
 				<div class="col getMoneyContent">
 					
-					<!--<div class="swiper-container getMoney-swiper-container">
+					<div class="swiper-container getMoney-swiper-container">
 					    <div class="swiper-wrapper">
 					      <div class="swiper-slide">Slide 1</div>
 					      <div class="swiper-slide">Slide 2</div>
@@ -187,8 +187,8 @@
 					      <div class="swiper-slide">Slide 10</div>
 					    </div>
 					</div>
-					-->
-					<div style="text-align: center;">1234</div>
+					
+					
 					<img src="../images/now_invite.png" class="inviteBtn" />
 					<div class="money_wrap row">
 						<span>10</span>
@@ -514,6 +514,7 @@
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/jquery-2.1.1.min.js"></script>
+	<script src="../js/app.js"></script>
 	<script src="../js/swiper.min.js"></script>
 	<script>
 		mui.init({
@@ -554,20 +555,55 @@
 		});
 		
 		
-		 var swiper = new Swiper('swiper-container', {
+		 var swiper = new Swiper('.top-swiper-container', {
 	      direction: 'vertical',
 	      loop:true,
 	      autoplay:true
 	    });
 	    
+	    //tab切换
+	    var getMoneySwiper;
+	    $(".mui-bar-tab .mui-tab-item").on("touchstart",function()
+	    {
+	    	var index=$(this).index();
+	    	$(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
+	    	$(this).addClass("mui-active");
+	    	$("#tabContent>.mui-control-content").removeClass("mui-active");
+	    	$("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
+	    	
+	    	if(index==0)
+	    	{
+	    		if(swiper)
+	    		{
+	    			swiper.destroy();
+	    		}
+	    		
+	    		swiper = new Swiper('.top-swiper-container', {
+				      direction: 'vertical',
+				      loop:true,
+				      autoplay:true
+				    });
+	    	}
+	    	else if(index==1)
+	    	{
+	    		if(getMoneySwiper)
+	    		{
+	    			getMoneySwiper.destroy();
+	    		}
+	    		
+	    		new Swiper('.getMoney-swiper-container', {
+				      direction: 'vertical',
+				      loop:true,
+				      autoplay:true
+				      
+	    			});
+	    		
+	    		
+	    		
+	    	}
+	    	
+	    });
 	    
-	    //赚钱
-//	    var getMoneySwiper = new Swiper('.getMoney-swiper-container', {
-//	      direction: 'vertical',
-//	      loop:true,
-//	      autoplay:true
-//	      
-//	    });
 		
 
 		//设置中心
@@ -596,6 +632,7 @@
 		
 		//钱包 goToWallet
 		function goToWallet(){
+			
 			mui.openWindow({
       			url: 'wallet.html',
       			id: 'wallet.html',
