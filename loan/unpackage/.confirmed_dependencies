@@ -7,7 +7,9 @@
 	"html/login.html": {
 		"refer": [
 			"html/getCode.html",
-			"index.html"
+			"index.html",
+			"html/home.html",
+			"html/error404.html"
 		]
 	},
 	"html/getCode.html": {
@@ -64,6 +66,16 @@
 	"html/credit.html": {
 		"refer": [
 			"html/pay_style.html"
+		]
+	},
+	"html/pay_style.html": {
+		"refer": [
+			"html/recommand.html"
+		]
+	},
+	"html/error404.html": {
+		"refer": [
+			"html/home.html"
 		]
 	}
 }

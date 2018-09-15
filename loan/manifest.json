@@ -149,7 +149,9 @@
 				"resources": [],
 				"refer": [
 					"index.html",
-					"html/getCode.html"
+					"html/getCode.html",
+					"html/home.html",
+					"html/error404.html"
 				],
 				"priority": 0
 			},
@@ -215,6 +217,20 @@
 				"resources": [],
 				"refer": [
 					"html/pay_style.html"
+				],
+				"priority": 0
+			},
+			"html/pay_style.html": {
+				"resources": [],
+				"refer": [
+					"html/recommand.html"
+				],
+				"priority": 0
+			},
+			"html/error404.html": {
+				"resources": [],
+				"refer": [
+					"html/home.html"
 				],
 				"priority": 0
 			}

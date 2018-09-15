@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>登录</title>
     <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" href="../css/login.css" />
     <script type="text/javascript" src="../js/mui.min.js"></script>
 	<script src="../js/jquery-2.1.1.min.js"></script>
@@ -35,7 +36,7 @@
 					var inputElem = document.querySelector('input');
 					inputElem.focus();
 					inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
-				}, 200);
+				}, 20);
 			};
 			mui.plusReady(function() {
 				initNativeObjects();
@@ -46,14 +47,21 @@
       	 * 获取验证码
       	 */
       	function getCode(){
-
-  			mui.openWindow({
-      			url: 'getCode.html',
-      			id: 'getCode.html',
-			    waiting:{
-			      autoShow:false
-			    }
-      		})
+      		var params = {
+      			url: 'http',
+      			method: 'get'
+      		};
+			Global.commonAjax(params, function(){
+				
+			})
+			
+//			mui.openWindow({
+//    			url: 'getCode.html',
+//    			id: 'getCode.html',
+//			    waiting:{
+//			      autoShow:false
+//			    }
+//    		})
   		}
       	
     </script>
