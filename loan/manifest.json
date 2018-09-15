@@ -217,6 +217,13 @@
 					"html/pay_style.html"
 				],
 				"priority": 0
+			},
+			"html/pay_style.html": {
+				"resources": [],
+				"refer": [
+					"html/recommand.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

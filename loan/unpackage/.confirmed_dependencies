@@ -65,5 +65,10 @@
 		"refer": [
 			"html/pay_style.html"
 		]
+	},
+	"html/pay_style.html": {
+		"refer": [
+			"html/recommand.html"
+		]
 	}
 }
