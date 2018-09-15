@@ -18,18 +18,36 @@ $(function()
     },
     error500:function()
     {
-    	$(".mui-content").html('<div class="error-col"><img src="../images/error/500.png"/><button type="button" class="mui-btn mui-btn-outlined" class="go-home">返回首页</button></div>');
-	
+    	//$(".mui-content").html('<div class="error-col"><img src="../images/error/500.png"/><button type="button" class="mui-btn mui-btn-outlined go-home" >返回首页</button></div>');
+		mui.openWindow({
+      			url: 'error500.html',
+      			id: 'error500.html',
+			    waiting:{
+			      autoShow:false
+			    }
+      		})
     },
     error404:function()
     {
-    	$(".mui-content").html('<div class="error-col"><img src="../images/error/404.png"/><button type="button" class="mui-btn mui-btn-outlined" class="go-home">返回首页</button></div>');
-	
+    	//$(".mui-content").html('<div class="error-col"><img src="../images/error/404.png"/><button type="button" class="mui-btn mui-btn-outlined go-home" >返回首页</button></div>');
+			mui.openWindow({
+      			url: 'error404.html',
+      			id: 'error404.html',
+			    waiting:{
+			      autoShow:false
+			    }
+      		})
     },
      errorNet:function()
     {
-    	$(".mui-content").html('<div class="error-col"><img src="../images/error/wangluo.png"/><button type="button" class="mui-btn mui-btn-outlined" class="go-home">返回首页</button></div>');
-	
+    	//$(".mui-content").html('<div class="error-col"><img src="../images/error/wangluo.png"/><button type="button" class="mui-btn mui-btn-outlined go-home" >返回首页</button></div>');
+		mui.openWindow({
+      			url: 'errornet.html',
+      			id: 'errornet.html',
+			    waiting:{
+			      autoShow:false
+			    }
+      		})
     },
     errorDetail:function()
     {
@@ -40,8 +58,40 @@ $(function()
     {
     	$(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
 	
+    },
+    commonAjax:function(params, callback)
+    {
+    		$.ajax({
+	        url: params.url,
+	        dataType: params.dataType,
+	        cache: false,
+	        async: true,
+	        type: params.method,
+	        data: params.data,
+	        timeout:10000,
+	        beforeSend:function(data){
+	        		Global.showLoading();
+	        },
+	        success:function(data){
+	        		Global.hideLoading();
+	             callback(data);
+	        },
+	        error:function(data){
+	        		Global.hideLoading();
+	            mui.alert(data.msg);
+	        },
+	        complete:function(xhr, status){
+	        		Global.hideLoading();
+	        		if(status == 'error'){
+	        			Global.error404();
+	        		}else if(status == 'timeout'){
+	        			Global.error500();
+	        		}else{
+	        			Global.errorNet();
+	        		}
+	        }
+	    });
     }
-    
     
     
 }
