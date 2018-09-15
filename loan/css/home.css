@@ -65,12 +65,35 @@
 	padding: 20px;
 	box-sizing: border-box;
 	justify-content: space-between;
-	
+	position: relative;
 }
 
 .noticeIcon{
 	width: 17px;
 	height: 14px;
+}
+
+.msg_cnt{
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	color: #ff5445;
+	background: #ffffff;
+	font-size: 12px;
+	border-radius: 50%;
+	width: 13px;
+	height: 13px;
+	line-height: 13px;
+	text-align: center;
+}
+
+.hongbao_gif{
+	position: absolute;
+	bottom: -64px;
+	left: 0px;
+	width: 64px;
+	height: 64px;
+	z-index: 10000;
 }
 
 .home_content{

@@ -29,13 +29,15 @@
 
 <script type="text/javascript">
 	function goHome(){
+		
 		mui.openWindow({
   			url: 'home.html',
   			id: 'home.html.html',
 		    waiting:{
 		      autoShow:false
 		    }
-  		})
+  		});
+  		plus.webview.close('error404.html');
 	};
 </script>
 </html>

@@ -10,7 +10,25 @@
     <script type="text/javascript" src="../js/mui.min.js"></script>
 	<script src="../js/jquery-2.1.1.min.js"></script>
 	<script src="../js/app.js"></script>
-    <script type="text/javascript" charset="utf-8">
+ </head>
+<body style="background: #ffffff;">
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">注册登录</h1>
+	</header>
+	
+	<div class="mui-content">
+		<img class="content_top" src="https://lhjz.2donghua.com/imgs/loan/imgs/login_banner.png" alt="" />
+		
+		<div class="mui-input-row">
+			<input type="tel" class="mui-input-clear phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" pattern="[0-9]*" placeholder="请输入手机号">
+		
+		</div>
+		<button type="button" class="mui-btn mui-btn-link next_btn" onclick="getCode();">下一步</button>
+		
+	</div>
+	
+</body>
+<script type="text/javascript" charset="utf-8">
       	mui.init();
       	//键盘自动弹出
       	var nativeWebview, imm, InputMethodManager;
@@ -51,41 +69,19 @@
       			url: 'http',
       			method: 'get'
       		};
-			Global.commonAjax(params, function(){
-				
-			})
+//			Global.commonAjax(params, function(){
+//				
+//			})
 			
-//			mui.openWindow({
-//    			url: 'getCode.html',
-//    			id: 'getCode.html',
-//			    waiting:{
-//			      autoShow:false
-//			    }
-//    		})
+			mui.openWindow({
+      			url: 'getCode.html',
+      			id: 'getCode.html',
+			    waiting:{
+			      autoShow:false
+			    }
+      		})
   		}
       	
     </script>
-</head>
-<body>
-	
 
-	<header class="mui-bar mui-bar-nav">
-		<h1 class="mui-title">注册登录</h1>
-	</header>
-	
-	<!--<input type="tel" class=" phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" pattern="[0-9]*" placeholder="请输入手机号">-->
-	
-	
-	<div class="mui-content">
-		<img class="content_top" src="https://lhjz.2donghua.com/imgs/loan/imgs/login_banner.png" alt="" />
-		
-		<div class="mui-input-row">
-			<input type="tel" class="mui-input-clear phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" pattern="[0-9]*" placeholder="请输入手机号">
-		
-		</div>
-		<button type="button" class="mui-btn mui-btn-link next_btn" onclick="getCode();">下一步</button>
-		
-	</div>
-	
-</body>
 </html>
