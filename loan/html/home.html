@@ -117,35 +117,31 @@
             
             			<div class="bank_info">银行级用户信息安全保障</div>
             			
-            			<div id="slider" class="mui-slider bottom_slider" >
+            			<div id="slider" class="mui-slider bottom_slider" onclick="invaliteFriend();">
             				
 						
 						<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
 					
-					
-				</div>
-			    
-					    
-		
-				       </div>
+						</div>
+				     </div>
 				
 				</div>
 				
@@ -209,40 +205,37 @@
 					
 					
 					</div>
-				
-					
-					
 				</div>
 				
 				<img style="width:100%;display: block;" src="../images/zuanqianTitle.png" />
 
 				<div style="padding:0 18px;">
-				<div id="slider1" class="mui-slider bottom_slider" style="padding-top:10px;">
-				
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../images/banner1.jpg">
-						</a>
-					</div>
+					<div id="slider1" class="mui-slider bottom_slider" style="padding-top:10px;">
 					
-					
-				</div>
-			    
-				</div>
+						<div class="mui-slider-group mui-slider-loop">
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="../images/banner1.jpg">
+								</a>
+							</div>
+							
+							
+						</div>
+				    
+					</div>
 				</div>
 				
 			</div>
@@ -572,7 +565,36 @@
 	        </div>
         </div>
         
-		
+		<!--弹窗-->
+        <div class="modal-mask row inviteModal hideClass" >
+        		<div class="modal-dialog" >
+        			<img src="../images/close_icon.png" class="close_style" onclick="closeInviteDialg();" />
+		        <div class="modal-content">
+		            <img src="../images/invalite_friend_bg.png" class="invalite_bg"/>
+		            <div class="row invite_bottom_content" >
+		            		<div class="col" style="justify-content: center; align-items: center;">
+		            			<img src="../images/wx_icon.png"/>
+		            			<span>微信</span>
+		            		</div>
+		            		
+		            		<div class="col" style="justify-content: center; align-items: center;">
+		            			<img src="../images/wx_friend_icon.png"/>
+		            			<span>朋友圈</span>
+		            		</div>
+		            		
+		            		<div class="col" style="justify-content: center; align-items: center;">
+		            			<img src="../images/qq_icon.png"/>
+		            			<span>QQ</span>
+		            		</div>
+		            		
+		            		<div class="col" style="justify-content: center; align-items: center;">
+		            			<img src="../images/copy_icon.png"/>
+		            			<span>复制链接</span>
+		            		</div>
+		            </div>
+		        </div>
+	        </div>
+        </div>
 		
 		
 	</body>
@@ -588,7 +610,8 @@
 		var slider = mui("#slider").slider({
 						interval: 5000
 					});
-					
+		
+		//赚钱的无限
 		var slider1 = mui("#slider1").slider({
 			interval: 5000
 		});
@@ -773,6 +796,15 @@
 				closeDialg();
 				mui.trigger($('.mui-tab-item').eq(2)[0],'touchstart');
     				mui.trigger($('.mui-tab-item').eq(2)[0],'tap')
+			}
+			
+			//邀请好友 弹出浮层
+			function invaliteFriend(){
+				$('.inviteModal').removeClass('hideClass');
+			}
+			//关闭邀请好友 弹出浮层
+			function closeInviteDialg(){
+				$('.inviteModal').addClass('hideClass');
 			}
 
 	</script>
