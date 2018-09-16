@@ -59,17 +59,36 @@ $(function()
     	$(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
 	
     },
-    showModal:function(title, msg){
-    		var html = '<div class="modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
+    showModal:function(title, msg, callback){
+    		if($('.global-modal').length == 0){
+    			
+    		
+    		var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
     					+title+'</div><div class="dialog_content">'+msg+
     					'</div></div></div></div>';
     		$(document.body).append(html);
+    		}else{
+    			$('.global-modal').removeClass("hideClass");
+    		}
     		
     		$('.closeDialg').click(function(){
-			console.log("close dialg");
-			$('.modal-mask').addClass("hideClass");
+    			if(callback){
+    				callback();
+    			}else{
+    				$('.global-modal').addClass("hideClass");
+    			}
+			
 		});
+    		
 
+    },
+    hideModal: function(){
+    		$('.global-modal').addClass("hideClass");
+    },
+    isShowModal: function(){
+    		var isClose = ($('.global-modal').length == 0) || $('.global-modal').hasClass("hideClass");
+    		console.log($('.global-modal').length)
+    		return !isClose;
     },
     commonAjax:function(params, callback)
     {

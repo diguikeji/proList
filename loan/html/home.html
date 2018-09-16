@@ -560,6 +560,21 @@
 			
 			</div>
 		</div>
+		
+		<!--弹窗-->
+        <div class="modal-mask row selfModal" >
+        		<div class="modal-dialog" >
+        			<img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+		        <div class="modal-content">
+		            <img src="../images/kouzi_bg.png" class="conten_bg"/>
+		            <img src="../images/try_btn.png" class="dialog_bottom_btn" onclick="goToFindTab();"/>
+		        </div>
+	        </div>
+        </div>
+        
+		
+		
+		
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/jquery-2.1.1.min.js"></script>
@@ -583,6 +598,9 @@
 			mui.openWindow({
       			url: 'identificateFirst.html',
       			id: 'identificateFirst.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -664,6 +682,9 @@
 			mui.openWindow({
       			url: 'setting.html',
       			id: 'setting.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -672,6 +693,9 @@
 			mui.openWindow({
       			url: 'about.html',
       			id: 'about.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -680,6 +704,9 @@
 			mui.openWindow({
       			url: 'message.html',
       			id: 'message.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -689,6 +716,9 @@
 			mui.openWindow({
       			url: 'wallet.html',
       			id: 'wallet.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -697,6 +727,9 @@
 			mui.openWindow({
       			url: 'share.html',
       			id: 'share.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -705,6 +738,9 @@
 			mui.openWindow({
       			url: 'wallet.html',
       			id: 'wallet.html',
+      			waiting:{
+			      autoShow:false
+			    }
       		})
 		}
 		
@@ -725,6 +761,19 @@
 					$('.timeType').css('color', '#333333');
 					$('.preType').css('color', '#ff5445');
 				})
+			//关闭新口子	
+			function closeDialg(){
+				$('.selfModal').addClass('hideClass');
+			}
+			
+			//去发现tab
+			function goToFindTab(){
+				console.log("00000")
+				//$('.tabbar-with-contact').addClass('mui-active');
+				closeDialg();
+				mui.trigger($('.mui-tab-item').eq(2)[0],'touchstart');
+    				mui.trigger($('.mui-tab-item').eq(2)[0],'tap')
+			}
 
 	</script>
 </html>

@@ -18,6 +18,15 @@
 				padding-top: 60px;
 				background: #ffffff;
 			}
+			
+			header img{
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				right: 20px;
+				top: 15px;
+			}
+			
 			.step_wrap{
 				width: 80%;
 				align-items: center;
@@ -58,7 +67,7 @@
 				border-radius: 10px;
 				box-shadow: 0px 0px 5px #888888;
 				padding-top: 20px;
-				margin: 38px 5%;
+				margin: 20px 5%;
 				text-align: center;
 				background: #ffffff;
 				position: relative;
@@ -66,13 +75,13 @@
 			
 			.content_img{
 				width: 90%;
-				height: 240px;
+				height: 295px;
 				margin: auto;
 			}
 			
 			.agree_wrap{
 				justify-content: center;
-				
+				align-items: center;
 			}
 			
 			.agree_text{
@@ -119,7 +128,7 @@
 			  top: 0;
 			  left: 0;
 			  background: #000;
-			  opacity: 0.9;
+			  opacity: 1;
 			  overflow: hidden;
 			  z-index: 10;
 			  color: #fff;
@@ -127,16 +136,16 @@
 			  align-items: center;
 			}
 			
-			.modal-dialog {
+			.selfModal .modal-dialog {
 			  width: 80%;
-			  max-height: 60%;
+			  max-height: 100%;
 			  overflow: auto;
-			  background: #ffffff;
 			  border-radius: 18px;
 			  position: relative;
 			  border-radius: 20px;
+			  
 			}
-			.modal-dialog img{
+			.selfModal .modal-dialog .close_style{
 				position: absolute;
 				top: 10px;
 				right: 10px;
@@ -145,20 +154,81 @@
 				z-index: 100000;
 			}
 			
-			.modal-content {
-			  padding: 25px 27px;
+			.selfModal .modal-content {
 			  font-size: 12px;
 			  position: relative;
 			  z-index: 10000;
 			  font-size: 12px;
 			  color: #333333;
-			  background: #ffffff;;
+			  background: #ffffff;
+			  padding: 0px;
 			}
 			
-			.dialog_title{
-				font-size: 18px;
-				color: #333333;
-				margin-bottom: 20px;
+			.selfModal .modal-content .conten_bg{
+				width: 100%;
+				/*position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;*/
+			}
+			
+			.selfModal .dialog_content_wrap{
+				position: absolute;
+				top: 55%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				background: #ffffff;
+				z-index: 2;
+				width: 80%;
+				align-items: center;
+				
+			}
+			
+			.selfModal .dialog_step_wrap{
+				align-items: center;
+			}
+			
+			.selfModal .dialog_step_wrap img{
+				width: 13px;
+				height: 13px;
+				margin-right: 20px;
+			}
+			
+			.selfModal .dialog_step_text{
+				color: #000000; 
+				font-weight: bold;
+				font-size: 14px;
+			}
+			
+			.selfModal .dialog_step_bottom_text{
+				color: #dddddd; 
+				font-size: 12px;
+			}
+			
+			.selfModal .dialog_content_wrap .col{
+				padding: 10px 0px;
+			}
+			
+			.selfModal .dialog_content_item_wrap{
+				position: relative;
+			}
+			
+			.selfModal .addMoney{
+				position: absolute;
+				top: -5px;
+				right: -30px;
+				width: 66px;
+				height: 45px;
+			}
+			
+			.selfModal .dialog_bottom_btn{
+				position: absolute;
+				bottom: 10px;
+				width: 208px;
+				height: 70px;
+				left: 50%;
+				margin-left: -104px;
 			}
 			
 		</style>
@@ -166,9 +236,10 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" >
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">信用评估</h1>
+		    <img src="../images/custom_icon.png"  />
 		</header>
 		
 		<div class="mui-content">
@@ -192,12 +263,12 @@
 			
 			<div class="content">
 				<img src="../images/ask_icon.png" class="ask_img" onclick="openWord();"/>
-				<img src="../images/123.png" class="content_img" />
+				<img src="../images/three_step_icon.png" class="content_img" />
 				
 				
 				<div class="row agree_wrap">
-					<img src="../images/step_finish_icon.png" class="agree_img" />
-					<span class="agree_text">我已阅读并同意《评估服务协议》</span>
+					<img src="../images/unagress_icon.png" class="agree_img" onclick="agreeBtn();"/>
+					<span class="agree_text" onclick="openAgreeWord();">我已阅读并同意《评估服务协议》</span>
 				</div>
 				
 				<div class="bottom_wrap row">
@@ -214,21 +285,61 @@
 		</div>
 		
 		<!--弹窗-->
-        <div class="modal-mask row hideClass" >
+        <div class="modal-mask row hideClass selfModal" >
         		<div class="modal-dialog" >
-        			<img src="../images/close_icon.png" onclick="closeDialg();" />
-		        <div class="modal-content" style="text-align: center;">
-		            <div class="dialog_title">评估服务协议</div>
-		            <div class="dialog_content">
-		            		一、平台声明
-1．本协议内容包括以下条款及已经发布的或将来可能发布的各类规则、公告或通知。所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。本协议是由您与本公司共同签订的，适用于您在平台的全部交易活动。在您注册时，您已经阅读、理解并接受本协议的全部条款及各类规则，并承诺遵守中国现行的法律、法规、规章及其他政府规定，如有违反而导致任何法律后果的发生，您将以自己的名义独立承担所有相应的法律责任。
-2．本平台有权根据需要不时地制定、修改本协议或各类规则，如本协议及规则有任何变更，本平台将在网站（如有）、手机客户端上刊载公告，经修订的本协议、规则一经公布后，立即自动生效。您应不时地注意本协议及规则的变更。您在公告之日后登陆本平台或继续使用本平台提供的任何一项服务的，即表示您已仔细阅读、充分理解并接受修改后的协议内容，也将遵循修改后的协议内容使用本平台提供的有关服务；若您不同意相关变更，您应该立即停止使用本平台提
+        			<img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+		        <div class="modal-content">
+		            <img src="../images/close_dialog_bg.png" class="conten_bg"/>
+		            <div class="col dialog_content_wrap">
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png"/>
+			            			<span class="dialog_step_text">真实身份认证</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png"/>
+			            			<span class="dialog_step_text">填写个人信息</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png"/>
+			            			<span class="dialog_step_text">完成信用评估</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
 		            </div>
+		            <img src="../images/again_get_money.png" class="dialog_bottom_btn"/>
 		        </div>
 	        </div>
         </div>
+        
 		
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			mui('.mui-input-group').on('change', 'input', function() {
@@ -236,15 +347,55 @@
 				console.log(value)
 				//this.previousElementSibling.innerText = "checked："+value;
 			});
-			//评估报告 弹窗
-			function openWord(){
-				var dialogEle = document.querySelector('.modal-mask');
-				dialogEle.classList.remove('hideClass');
+			//Android 物理返回
+			var old_back = mui.back;
+			mui.back = function(){
+				if($('.selfModal').hasClass("hideClass")){
+					plus.webview.close('credit.html');
+				}else{
+					$('.selfModal').addClass("hideClass");
+				}
 			}
 			
+			//左上角 返回
+			function headLeftBack(){
+				$('.selfModal').removeClass("hideClass");
+			}
+			
+			//左上角 关闭按钮
+			$('.header_close').click(function(){
+				$('.selfModal').removeClass("hideClass");
+			})
+			
+			//弹窗中 关闭按钮
 			function closeDialg(){
-				var dialogEle = document.querySelector('.modal-mask');
-				dialogEle.classList.add('hideClass');
+				console.log("close dialog");
+				plus.webview.close('credit.html');
+			};
+			
+			/**
+			 * 同意
+			 */
+			function agreeBtn(){
+				console.log($('.agree_img').attr('src'))
+				if($('.agree_img').attr('src') == '../images/agress_icon.png'){
+					$('.agree_img').attr('src','../images/unagress_icon.png');
+				}else{
+					$('.agree_img').attr('src','../images/agress_icon.png');
+				}
+			}
+			
+			//评估报告 弹窗
+			function openWord(){
+				Global.showModal("大数据智能信用评估介绍","1、对用户信用情况通过大数据信用体系进行评估。"+
+"<br>2、评估过程会查询客户相关资信<br>3、根据评估结果进行服务。")
+			}
+			
+			//服务协议 弹窗
+			function openAgreeWord(){
+				Global.showModal("评估服务协议","一、平台声明 <br>"+
+"1．本协议内容包括以下条款及已经发布的或将来可能发布的各类规则、公告或通知。所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。本协议是由您与本公司共同签订的，适用于您在平台的全部交易活动。在您注册时，您已经阅读、理解并接受本协议的全部条款及各类规则，并承诺遵守中国现行的法律、法规、规章及其他政府规定，如有违反而导致任何法律后果的发生，您将以自己的名义独立承担所有相应的法律责任。<br>"+
+"2．本平台有权根据需要不时地制定、修改本协议或各类规则，如本协议及规则有任何变更，本平台将在网站（如有）、手机客户端上刊载公告，经修订的本协议、规则一经公布后，立即自动生效。您应不时地注意本协议及规则的变更。您在公告之日后登陆本平台或继续使用本平台提供的任何一项服务的，即表示您已仔细阅读、充分理解并接受修改后的协议内容，也将遵循修改后的协议内容使用本平台提供的有关服务；若您不同意相关变更，您应该立即停止使用本平台提")
 			}
 			
 			//支付方式
