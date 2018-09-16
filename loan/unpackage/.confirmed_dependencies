@@ -1,81 +1,81 @@
 {
-	"index.html": {
-		"refer": [
-			"html/login.html"
-		]
-	},
-	"html/login.html": {
-		"refer": [
-			"html/getCode.html",
-			"index.html",
-			"html/home.html",
-			"html/error404.html"
-		]
-	},
-	"html/getCode.html": {
-		"refer": [
-			"html/home.html"
-		]
-	},
-	"html/home.html": {
-		"refer": [
-			"html/identificateFirst.html",
-			"html/setting.html",
-			"html/message.html",
-			"html/wallet.html",
-			"html/share.html",
-			"html/about.html"
-		],
-		"resources": [
-			"js/swiper.min.js"
-		]
-	},
-	"html/identificateFirst.html": {
-		"refer": [
-			"html/personInfo.html"
-		]
-	},
-	"html/personInfo.html": {
-		"refer": [
-			"html/credit.html"
-		]
-	},
-	"html/message.html": {
-		"refer": [
-			"html/pullrefresh_sub.html",
-			"html/pullrefresh_message_sub.html"
-		],
-		"resources": [
-			"html/pullrefresh_sub.html",
-			"html/pullrefresh_message_sub.html"
-		]
-	},
-	"html/wallet.html": {
-		"refer": [
-			"html/walletDetail.html"
-		]
-	},
-	"html/walletDetail.html": {
-		"resources": [
-			"html/pullrefresh_wallet_detail_sub.html"
-		],
-		"refer": [
-			"html/pullrefresh_wallet_detail_sub.html"
-		]
-	},
-	"html/credit.html": {
-		"refer": [
-			"html/pay_style.html"
-		]
-	},
-	"html/pay_style.html": {
-		"refer": [
-			"html/recommand.html"
-		]
-	},
-	"html/error404.html": {
-		"refer": [
-			"html/home.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "html/login.html"
+    ]
+  },
+  "html/login.html": {
+    "refer": [
+      "html/getCode.html",
+      "index.html",
+      "html/home.html",
+      "html/error404.html"
+    ]
+  },
+  "html/getCode.html": {
+    "refer": [
+      "html/home.html"
+    ]
+  },
+  "html/home.html": {
+    "refer": [
+      "html/identificateFirst.html",
+      "html/setting.html",
+      "html/message.html",
+      "html/wallet.html",
+      "html/share.html",
+      "html/about.html"
+    ],
+    "resources": [
+      "js/swiper.min.js"
+    ]
+  },
+  "html/identificateFirst.html": {
+    "refer": [
+      "html/personInfo.html"
+    ]
+  },
+  "html/personInfo.html": {
+    "refer": [
+      "html/credit.html"
+    ]
+  },
+  "html/message.html": {
+    "refer": [
+      "html/pullrefresh_sub.html",
+      "html/pullrefresh_message_sub.html"
+    ],
+    "resources": [
+      "html/pullrefresh_sub.html",
+      "html/pullrefresh_message_sub.html"
+    ]
+  },
+  "html/wallet.html": {
+    "refer": [
+      "html/walletDetail.html"
+    ]
+  },
+  "html/walletDetail.html": {
+    "resources": [
+      "html/pullrefresh_wallet_detail_sub.html"
+    ],
+    "refer": [
+      "html/pullrefresh_wallet_detail_sub.html"
+    ]
+  },
+  "html/credit.html": {
+    "refer": [
+      "html/pay_style.html"
+    ]
+  },
+  "html/pay_style.html": {
+    "refer": [
+      "html/recommand.html"
+    ]
+  },
+  "html/error404.html": {
+    "refer": [
+      "html/home.html"
+    ]
+  }
 }
