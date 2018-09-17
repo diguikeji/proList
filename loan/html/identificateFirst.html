@@ -17,6 +17,14 @@
 				margin-top: 60px;
 			}
 			
+			header img{
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				right: 20px;
+				top: 15px;
+			}
+			
 			.step_wrap{
 				width: 80%;
 				align-items: center;
@@ -123,15 +131,127 @@
 			    background: #c3c3c3;
 			    color: #ffffff;
 			}
+			
+			.modal-mask {
+			  width: 100%;
+			  height: 100%;
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  background: #000;
+			  opacity: 1;
+			  overflow: hidden;
+			  z-index: 10;
+			  color: #fff;
+			  justify-content: center;
+			  align-items: center;
+			}
+			
+			.modal-dialog {
+			  width: 80%;
+			  max-height: 100%;
+			  overflow: auto;
+			  border-radius: 18px;
+			  position: relative;
+			  border-radius: 20px;
+			  
+			}
+			.modal-dialog .close_style{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				width: 23px;
+				height: 23px;
+				z-index: 100000;
+			}
+			
+			.modal-content {
+			  font-size: 12px;
+			  position: relative;
+			  z-index: 10000;
+			  font-size: 12px;
+			  color: #333333;
+			  background: #ffffff;
+			  padding: 0px;
+			}
+			
+			.modal-content .conten_bg{
+				width: 100%;
+				/*position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;*/
+			}
+			
+			.dialog_content_wrap{
+				position: absolute;
+				top: 55%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				background: #ffffff;
+				z-index: 2;
+				width: 80%;
+				align-items: center;
+				
+			}
+			
+			.dialog_step_wrap{
+				align-items: center;
+			}
+			
+			.dialog_step_wrap img{
+				width: 13px;
+				height: 13px;
+				margin-right: 20px;
+			}
+			
+			.dialog_step_text{
+				color: #000000; 
+				font-weight: bold;
+				font-size: 14px;
+			}
+			
+			.dialog_step_bottom_text{
+				color: #dddddd; 
+				font-size: 12px;
+			}
+			
+			.dialog_content_wrap .col{
+				padding: 10px 0px;
+			}
+			
+			.dialog_content_item_wrap{
+				position: relative;
+			}
+			
+			.addMoney{
+				position: absolute;
+				top: -5px;
+				right: -30px;
+				width: 66px;
+				height: 45px;
+			}
+			
+			.dialog_bottom_btn{
+				position: absolute;
+				bottom: 10px;
+				width: 208px;
+				height: 70px;
+				left: 50%;
+				margin-left: -104px;
+			}
+			
 
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">身份证认证</h1>
+		    <img src="../images/custom_icon.png"  />
 		</header>
 		
 		<div class="mui-content">
@@ -179,9 +299,90 @@
 				<div class="bank_info">银行级用户信息安全保障</div>
 			</div>
 		</div>
+		
+		<!--弹窗-->
+        <div class="modal-mask row hideClass" >
+        		<div class="modal-dialog" >
+        			<img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+		        <div class="modal-content">
+		            <img src="../images/close_dialog_bg.png" class="conten_bg"/>
+		            <div class="col dialog_content_wrap">
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png"/>
+			            			<span class="dialog_step_text">真实身份认证</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/unagress_icon.png"/>
+			            			<span class="dialog_step_text">填写个人信息</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/unagress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
+		            		<div class="col dialog_content_item_wrap">
+		            			<div class="row dialog_step_wrap">
+			            			<img src="../images/unagress_icon.png"/>
+			            			<span class="dialog_step_text">完成信用评估</span>
+			            		</div>
+			            		<div class="row dialog_step_wrap">
+			            			<img src="../images/unagress_icon.png" style="visibility: hidden;"/>
+			            			<span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+			            		</div>
+			            		
+			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+		            		</div>
+		            		
+		            </div>
+		            <img src="../images/again_get_money.png" class="dialog_bottom_btn"/>
+		        </div>
+	        </div>
+        </div>
+        
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			
+			//Android 物理返回
+			var old_back = mui.back;
+			mui.back = function(){
+				if($('.modal-mask').hasClass("hideClass")){
+					plus.webview.close('identificateFirst.html');
+				}else{
+					$('.modal-mask').addClass("hideClass");
+				}
+			}
+			
+			//左上角 返回
+			function headLeftBack(){
+				$('.modal-mask').removeClass("hideClass");
+			}
+			
+			//左上角 关闭按钮
+			$('.header_close').click(function(){
+				$('.modal-mask').removeClass("hideClass");
+			})
+			
+			//弹窗中 关闭按钮
+			function closeDialg(){
+				console.log("弹窗 关闭")
+				plus.webview.close('identificateFirst.html');
+			};
 			
 			/**
 			 * 个人信息认证
