@@ -100,8 +100,10 @@ $(function()
 	        type: params.method,
 	        data: params.data,
 	        timeout:10000,
-	        beforeSend:function(data){
+	        beforeSend:function(xhr){
 	        		Global.showLoading();
+	        		var token = window.localStorage.getItem("token");
+	        		xhr.setRequestHeader("Authorization", "Bearer "+token);
 	        },
 	        success:function(data){
 	        		Global.hideLoading();
@@ -109,7 +111,7 @@ $(function()
 	        },
 	        error:function(data){
 	        		Global.hideLoading();
-	            mui.alert(data.msg);
+	            //mui.alert(data.msg);
 	        },
 	        complete:function(xhr, status){
 	        		Global.hideLoading();
