@@ -94,6 +94,12 @@
 	width: 64px;
 	height: 64px;
 	z-index: 10;
+	transform-origin: 100% 100%;
+    -webkit-transform-origin: 100% 100%;
+    -webkit-transition: all 1s ease-in-out 0s;
+    -o-transition: all 1s ease-in-out 0s;
+    -moz-transition: all 1s ease-in-out 0s;
+    transition: all 1s ease-in-out 0s;
 }
 
 .home_content{
@@ -332,3 +338,13 @@
 .invite_bottom_content span{
 	font-size: 12px;
 }
+
+.zhuan_left{
+    transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+}
+.zhuan_right{
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+}
+
