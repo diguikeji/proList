@@ -151,32 +151,32 @@ function plusReady(){
 
 
 
-plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
-		// 可通过fs操作PRIVATE_WWW文件系统 
-		var imgPath=fs.fullPath;
-		console.log(fs);
+// plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+// 		// 可通过fs操作PRIVATE_WWW文件系统 
+// 		var imgPath=fs.fullPath;
+// 		console.log(fs);
 		
 
-	// 	plus.io.resolveLocalFileSystemURL( "_www/index.html", function( entry ) {
-	// 	// 可通过entry对象操作test.html文件 
-	// 	entry.file( function(file){
-	// 		var fileReader = new plus.io.FileReader();
-	// 		alert("getFile:" + JSON.stringify(file));
-	// 		fileReader.readAsText(file, 'utf-8');
-	// 		fileReader.onloadend = function(evt) {
-	// 			alert("11" + evt);
-	// 			alert("evt.target" + evt.target);
-	// 			alert(evt.target.result);
-	// 		}
-	// 		alert(file.size + '--' + file.name);
-	// 	} );
-	// }, function ( e ) {
-	// 	alert( "Resolve file URL failed: " + e.message );
-	// } );
+// 		plus.io.resolveLocalFileSystemURL( "_www/index.html", function( entry ) {
+// 		// 可通过entry对象操作test.html文件 
+// 		entry.file( function(file){
+// 			var fileReader = new plus.io.FileReader();
+// 			alert("getFile:" + JSON.stringify(file));
+// 			fileReader.readAsText(file, 'utf-8');
+// 			fileReader.onloadend = function(evt) {
+// 				alert("11" + evt);
+// 				alert("evt.target" + evt.target);
+// 				alert(evt.target.result);
+// 			}
+// 			alert(file.size + '--' + file.name);
+// 		} );
+// 	}, function ( e ) {
+// 		alert( "Resolve file URL failed: " + e.message );
+// 	} );
 
-	// }, function ( e ) {
-	// 	alert( "Request file system failed: " + e.message );
-	// } );
+// 	}, function ( e ) {
+// 		alert( "Request file system failed: " + e.message );
+// 	} );
 
 
 }
