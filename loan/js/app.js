@@ -93,40 +93,76 @@ $(function()
     		console.log($('.global-modal').length)
     		return !isClose;
     },
-    commonAjax:function(params, callback)
+    commonAjax:function(params, callback, errorback)
     {
-    		$.ajax({
-	        url: params.url,
-	        dataType: params.dataType,
-	        cache: false,
-	        async: true,
-	        type: params.method,
-	        data: params.data,
-	        timeout:10000,
-	        beforeSend:function(xhr){
-	        		Global.showLoading();
-	        		var token = window.localStorage.getItem("token");
-	        		xhr.setRequestHeader("Authorization", "Bearer "+token);
-	        },
-	        success:function(data){
-	        		Global.hideLoading();
-	             callback(data);
-	        },
-	        error:function(data){
-	        		Global.hideLoading();
-	            //mui.alert(data.msg);
-	        },
-	        complete:function(xhr, status){
-	        		Global.hideLoading();
-	        		if(status == 'error'){
-	        			Global.error404();
-	        		}else if(status == 'timeout'){
-	        			Global.error500();
-	        		}else{
-	        			Global.errorNet();
-	        		}
-	        }
-	    });
+		
+		//应用版本号
+		var appVersion =  plus.runtime.version;
+		//设备唯一标识
+		var deviceId = plus.device.uuid;
+		//系统的版本信息
+		var osVersion = plus.os.version;
+			
+		var appType = plus.os.name;
+		var appName = "xhq";
+
+		//默认 get请求
+		if(!params.method){
+			params.method = "GET";
+		}
+
+		//默认 请求格式  json
+		if(!params.dataType){
+			params.dataType = "json";
+		}
+
+		mui.ajax({
+			url: params.url,
+			dataType: params.dataType,
+			cache: false,
+			async: true,
+			type: params.method,
+			data: params.data,
+			timeout:10000,
+			beforeSend:function(xhr){
+					Global.showLoading();
+					xhr.setRequestHeader("deviceId", deviceId);
+					xhr.setRequestHeader("osVersion", osVersion);
+					xhr.setRequestHeader("appVersion", appVersion);
+					xhr.setRequestHeader("appType", appType);
+					xhr.setRequestHeader("appName", appName);
+					var token = window.localStorage.getItem("token");
+					if(token){
+						xhr.setRequestHeader("Authorization", "Bearer "+token);
+					};
+					Global.showLoading();
+			},
+			success:function(data){
+				console.log(data)
+				mui.toast(JSON.stringify(data));
+				if(data.code == "OK"){
+					callback(data.data);
+				}else{
+					errorback(data.msg);
+				}
+				
+			},
+			error:function(data){
+				errorback(data);
+			},
+			complete:function(xhr, status){
+					Global.hideLoading();
+					if(status == 'error'){
+						Global.error404();
+					}else if(status == 'timeout'){
+						Global.error500();
+					}else{
+						Global.errorNet();
+					}
+			}
+		});
+
+    	
     }
     
     
@@ -150,7 +186,7 @@ $(".mui-content").on("click",".go-home",function()
 //$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
 //公司
-$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
+// $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
 
 
 })

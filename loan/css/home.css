@@ -481,10 +481,14 @@ oa-contact-position {
 
 .zhuan_left {
     transform: rotate(-20deg);
-    -webkit-transform: rotate(-20deg);
+	-webkit-transform: rotate(-20deg);
+	-webkit-transform-origin: center center;
+transform-origin: center center
 }
 
 .zhuan_right {
     -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
+	transform: rotate(20deg);
+	-webkit-transform-origin: center center;
+transform-origin: center center
 }
