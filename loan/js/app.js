@@ -63,9 +63,12 @@ $(function()
     		if($('.global-modal').length == 0){
     			
     		
-    		var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
-    					+title+'</div><div class="dialog_content">'+msg+
-    					'</div></div></div></div>';
+    		// var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
+    		// 			+title+'</div><div class="dialog_content">'+msg+
+			// 			'</div></div></div></div>';
+						
+			var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content">'
+			+title+'</div></div></div>';				
     		$(document.body).append(html);
     		}else{
     			$('.global-modal').removeClass("hideClass");
@@ -145,7 +148,7 @@ $(".mui-content").on("click",".go-home",function()
 
 
 
-//$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
+$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
 
 })

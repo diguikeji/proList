@@ -1,811 +1,850 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>首页</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<!--标准mui.css-->
-		<link rel="stylesheet" href="../css/mui.min.css">
-		<!--App自定义的css-->
-		<link rel="stylesheet" href="../css/swiper.min.css">
-		<link rel="stylesheet" href="../css/app.css">
-		<link rel="stylesheet" href="../css/home.css">
-	</head>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
 
-	<body>
-		
-		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active">
-				<span class="tab-img">
+<body>
+
+    <nav class="mui-bar mui-bar-tab">
+        <a class="mui-tab-item mui-active">
+            <span class="tab-img">
 					<img src="../images/jiekuan.png"/>
 					<img src="../images/jiekuan_active.png"/>
 				</span>
-				<span class="mui-tab-label">借款</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class="tab-img">
+            <span class="mui-tab-label">借款</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="tab-img">
 					<img src="../images/zuanqian.png"/>
 					<img src="../images/zuanqian_active.png"/>
 				</span>
-				<span class="mui-tab-label">赚钱</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class="tab-img">
+            <span class="mui-tab-label">赚钱</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="tab-img">
 					<img src="../images/fx.png"/>
 					<img src="../images/fx_active.png"/>
 				</span>
-				<span class="mui-tab-label">发现</span>
-			</a>
-			<a class="mui-tab-item">
-				<span class="tab-img">
+            <span class="mui-tab-label">发现</span>
+        </a>
+        <a class="mui-tab-item">
+            <span class="tab-img">
 					<img src="../images/wode.png"/>
 					<img src="../images/wode_active.png"/>
 				</span>
-				<span class="mui-tab-label">我的</span>
-			</a>
-		</nav>
-		<div id="tabContent">
-			<div id="tabbar" class="mui-control-content mui-active">
-				
-				<div class="home_top row">
-					<div class="gonggao">
-						<img class="noticeIcon left" src="../images/notice.png"/>
-						
-						<div class="swiper-container top-swiper-container">
-						    <div class="swiper-wrapper">
-						      <div class="swiper-slide">Slide 1</div>
-						      <div class="swiper-slide">Slide 2</div>
-						      <div class="swiper-slide">Slide 3</div>
-						      <div class="swiper-slide">Slide 4</div>
-						      <div class="swiper-slide">Slide 5</div>
-						      <div class="swiper-slide">Slide 6</div>
-						      <div class="swiper-slide">Slide 7</div>
-						      <div class="swiper-slide">Slide 8</div>
-						      <div class="swiper-slide">Slide 9</div>
-						      <div class="swiper-slide">Slide 10</div>
-						    </div>
-						</div>
-						<img class="noticeIcon right" onclick="goToMessage();" src="../images/msg_icon.png"/>
-						<span class="msg_cnt">4</span>
-					</div>
-					
-					<img src="../images/loading.gif" class="hongbao_gif"/>
-				</div>
-				
-				<div class="home_content col">
-					<div class="getMoneyComment">申请提现(元)</div>
-					<div class="money">20000</div>
-					<div class="content_bottom">申请额度无需十分精确，以实批为准</div>
-					
-					<div class="content_time">6个月</div>
-				</div>
-				
-				<div class="content_wrap">
-					<div class="applyMoney">申请额度(元)</div>
-					
-						
-					<div class="mui-input-row mui-input-range field-contain">
-						
-						<div class="left-range">
-						</div>
-						
-		                <input type="range" id="edu" value="10000" min="500" max="20000"><span class="mui-tooltip mui-hidden"></span>
-		       
-		       			<div class="bottom-value">
-		       				<span>500</span>
-		       				<span>20000</span>
-		       			</div>
-					</div>
-					<div class="applyMoney">借款期限(月)</div>
-					
-					<div class="mui-input-row mui-input-range field-contain">
-						
-						<div class="left-range">
-						</div>
-						
-		                <input type="range" id="jiekuan" value="10" min="0.5" max="12" step="0.5" ><span class="mui-tooltip mui-hidden"></span>
-		       			<div class="bottom-value">
-		       				<span>0.5</span>
-		       				<span>12</span>
-		       			</div>
-					</div>
-					
-					<button type="button" class="mui-btn mui-btn-link next" onclick="apply();">立即申请</button>
-            
-            			<div class="bank_info">银行级用户信息安全保障</div>
-            			
-            			<div id="slider" class="mui-slider bottom_slider" onclick="invaliteFriend();">
-            				
-						
-						<div class="mui-slider-group mui-slider-loop">
-							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-							<!-- 第一张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-							<!-- 第二张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-					
-						</div>
-				     </div>
-				
-				</div>
-				
-			</div>
-			<div id="tabbar-with-chat" class="mui-control-content" style="background: #4641d4;">
-				
-				
-				<img style="width:100%;display: block;" src="../images/zuanqian_02.png" />
-				
-				<div style="position: relative;">
-					<img style="width:100%;display: block;" src="../images/zuanqian_03.png" />
-					
-					<div style="width:100%;position: absolute;left:0;top:3%;">
-					<div class="swiper-container getMoney-swiper-container">
-					    <div class="swiper-wrapper">
-					      <div class="swiper-slide">Slide 1</div>
-					      <div class="swiper-slide">Slide 2</div>
-					      <div class="swiper-slide">Slide 3</div>
-					      <div class="swiper-slide">Slide 4</div>
-					      <div class="swiper-slide">Slide 5</div>
-					      <div class="swiper-slide">Slide 6</div>
-					      <div class="swiper-slide">Slide 7</div>
-					      <div class="swiper-slide">Slide 8</div>
-					      <div class="swiper-slide">Slide 9</div>
-					      <div class="swiper-slide">Slide 10</div>
-					    </div>
-					</div>
-					
-					
-					<img style="width:85%;display: block;margin:0 auto;position: relative;top:-20px;" src="../images/now_invite.png" class="inviteBtn" />
-					
-					</div>
-					
-				</div>
-				
-				<img style="width:100%;display: block;" src="../images/zuanqian_04.jpg" />
-				
-				<div class="col getMoneyContent">
-					
-					<div class="middle-col">
-					<div class="money_wrap row">
-						<div>
-							<span>100</span>
-							<p>邀请人数</p>
-						</div>
-						
-						<div>
-							<span>500</span>
-							<p>任务奖励</p>
-						</div>
-						<div>
-							<span>3000</span>
-							<p>钱包余额</p>
-						</div>
-						
-					</div>
-					
-					<div class="bottom-col">
-						<img src="../images/now_get_money_icon.png" class="nowGetMoneyBtn" onclick="openGetMoney();"/>
-					</div>
-					
-					
-					</div>
-				</div>
-				
-				<img style="width:100%;display: block;" src="../images/zuanqianTitle.png" />
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
+    <div id="tabContent">
+        <div id="tabbar" class="mui-control-content mui-active">
 
-				<div style="padding:0 18px;">
-					<div id="slider1" class="mui-slider bottom_slider" style="padding-top:10px;">
-					
-						<div class="mui-slider-group mui-slider-loop">
-							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-							<div class="mui-slider-item mui-slider-item-duplicate">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-							<!-- 第一张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-							<!-- 第二张 -->
-							<div class="mui-slider-item">
-								<a href="#">
-									<img src="../images/banner1.jpg">
-								</a>
-							</div>
-							
-							
-						</div>
-				    
-					</div>
-				</div>
-				
-			</div>
-			<div id="tabbar-with-contact" class="mui-control-content">
-				
-				<div class="find-top">
-					<div class="active highType">高成功率</div>
-					<div class="timeType">
-						<span>期限</span>
-						<img src="../images/change_type_icon.png"/>
-					</div>
-					<div class="preType">上次浏览</div>
-				</div>
-				
-				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="padding-top:43px;">
-					
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="mui-slider-cell">
-						<div class="oa-contact-cell mui-table">
-							<div class="oa-contact-avatar mui-table-cell">
-								<img src="../images/faxian.png" />
-							</div>
-							<div class="oa-contact-content mui-table-cell">
-								<div class="mui-clearfix">
-									借花花-借钱马上花
-								</div>
-								<p>
-									<span>期限：1~3月</span>
-									<span>额度：5000-10000</span>
-								</p>
-								<span class="mui-icon mui-icon-arrowright"></span>
-							</div>
-						</div>
-						
-						<div class="bottom">最快3分钟，可获10000借款~</div>
-						
-					</div>
-				</li>
-				
-				
-			</ul>
-			</div>
-			<div id="tabbar-with-map" class="mui-control-content" style="padding-top:44px;">
-				
-				<header class="mui-bar mui-bar-nav" onclick="sharePage();">
-					<h1 class="mui-title">个人中心</h1>
-				</header>
-				
-				<div style="background:#fff;height:164px;padding:20px 20px;">
-					
-					<div style="position: relative;">
-						
-						<img style="width:62px;height:62px;border-radius: 50%;vertical-align: middle;" src="../images/touxiang.png"/>
-						
-						<span style="width:134px;display: inline-block;margin-left:10px;font-size:16px;color:#000;">18084302954</span>
-						
-						<span class="mui-icon mui-icon-arrowright" style="position: absolute;right:20px;top:18px;"></span>
-						
-					</div>
-					
-					<div style="text-align: center;padding:10px 0 20px 0;">
-					<button type="button" class="mui-btn mui-btn-danger" style="width:190px;height:45px;line-height:45px;padding:0;font-size:17px;border-radius: 23px;">申请借款</button>
-					</div>
-					
-				</div>
-				
-				<ul class="mui-table-view" style="margin: 20px 0;">
-				<li class="mui-table-view-cell" onclick="goToWallet();">
-					<a class="mui-navigate-right">
-						<img src="../images/qianbao.png">
-						赚钱钱包
-					</a>
-					<span class="mui-badge top-badge">去赚取</span>
-				</li>
-				</ul>
-				
-				<ul class="mui-table-view">
-				<li class="mui-table-view-cell" >
-					<a class="mui-navigate-right">
-						<img src="../images/kefu.png"/> 联系客服
-					</a>
-				</li>
-				<li class="mui-table-view-cell" onclick="goToAbout();">
-					<a class="mui-navigate-right">
-						<img src="../images/guanyu.png"/> 关于我们
-					</a>
-				</li>
-				<li class="mui-table-view-cell" onclick="goToSetting();">
-					<a class="mui-navigate-right">
-						<img src="../images/shezhi.png"/> 设置中心
-					</a>
-				</li>
-			</ul>
-			
-			
-			</div>
-		</div>
-		
-		<!--弹窗-->
-        <div class="modal-mask row selfModal" >
-        		<div class="modal-dialog" >
-        			<img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
-		        <div class="modal-content">
-		            <img src="../images/kouzi_bg.png" class="conten_bg"/>
-		            <img src="../images/try_btn.png" class="dialog_bottom_btn" onclick="goToFindTab();"/>
-		        </div>
-	        </div>
+            <div class="home_top row">
+                <div class="gonggao">
+                    <img class="noticeIcon left" src="../images/notice.png" />
+
+                    <div class="swiper-container top-swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">尾号1010的用户成功提现 5000 元</div>
+                            <div class="swiper-slide">尾号2904的用户成功提现 1000 元</div>
+                            <div class="swiper-slide">尾号2914的用户成功提现 2000 元</div>
+                            <div class="swiper-slide">尾号4765的用户成功提现 3000 元</div>
+                        </div>
+                    </div>
+                    <img class="noticeIcon right" onclick="goToMessage();" src="../images/msg_icon.png" />
+                    <span class="msg_cnt">4</span>
+                </div>
+
+                <img src="../images/hongbao.png" class="hongbao_gif" onclick="invaliteFriend();" />
+            </div>
+
+            <div class="home_content col">
+                <div class="getMoneyComment">申请提现(元)</div>
+                <div class="money">10000</div>
+                <div class="content_bottom">申请额度无需十分精确，以实批为准</div>
+
+                <div class="content_time">6个月</div>
+            </div>
+
+            <div class="content_wrap">
+                <div class="applyMoney">申请额度(元)</div>
+
+
+                <div class="mui-input-row mui-input-range field-contain">
+
+                    <div class="left-range">
+                    </div>
+
+                    <input type="range" id="edu" value="10000" min="500" max="20000">
+                    <span class="mui-tooltip mui-hidden"></span>
+
+                    <div class="bottom-value">
+                        <span>500</span>
+                        <span>10000</span>
+                    </div>
+                </div>
+                <div class="applyMoney">借款期限(月)</div>
+
+                <div class="mui-input-row mui-input-range field-contain">
+
+                    <div class="left-range">
+                    </div>
+
+                    <input type="range" id="jiekuan" value="10" min="0" max="12" step="1">
+                    <span class="mui-tooltip mui-hidden money_rate"></span>
+                    <div class="bottom-value">
+                        <span>0.5</span>
+                        <span>12</span>
+                    </div>
+                </div>
+
+                <button type="button" class="mui-btn mui-btn-link next" onclick="apply();">立即申请</button>
+
+                <div class="bank_info">银行级用户信息安全保障</div>
+
+                <div id="slider" class="mui-slider bottom_slider" onclick="jumpWeb();">
+
+
+                    <div class="mui-slider-group mui-slider-loop">
+                        <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                        <div class="mui-slider-item mui-slider-item-duplicate">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+                        <!-- 第一张 -->
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+                        <!-- 第二张 -->
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        
-		<!--弹窗-->
-        <div class="modal-mask row inviteModal hideClass" >
-        		<div class="modal-dialog" >
-        			<img src="../images/close_icon.png" class="close_style" onclick="closeInviteDialg();" />
-		        <div class="modal-content">
-		            <img src="../images/invalite_friend_bg.png" class="invalite_bg"/>
-		            <div class="row invite_bottom_content" >
-		            		<div class="col" style="justify-content: center; align-items: center;">
-		            			<img src="../images/wx_icon.png"/>
-		            			<span>微信</span>
-		            		</div>
-		            		
-		            		<div class="col" style="justify-content: center; align-items: center;">
-		            			<img src="../images/wx_friend_icon.png"/>
-		            			<span>朋友圈</span>
-		            		</div>
-		            		
-		            		<div class="col" style="justify-content: center; align-items: center;">
-		            			<img src="../images/qq_icon.png"/>
-		            			<span>QQ</span>
-		            		</div>
-		            		
-		            		<div class="col" style="justify-content: center; align-items: center;">
-		            			<img src="../images/copy_icon.png"/>
-		            			<span>复制链接</span>
-		            		</div>
-		            </div>
-		        </div>
-	        </div>
+        <div id="tabbar-with-chat" class="mui-control-content" style="background: #4641d4;">
+
+
+            <img style="width:100%;display: block;" src="../images/zuanqian_02.png" />
+
+            <div style="position: relative;">
+                <img style="width:100%;display: block;" src="../images/zuanqian_03.png" />
+
+                <div style="width:100%;position: absolute;left:0;top:3%;">
+                    <div class="swiper-container getMoney-swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">Slide 1</div>
+                            <div class="swiper-slide">Slide 2</div>
+                            <div class="swiper-slide">Slide 3</div>
+                            <div class="swiper-slide">Slide 4</div>
+                            <div class="swiper-slide">Slide 5</div>
+                            <div class="swiper-slide">Slide 6</div>
+                            <div class="swiper-slide">Slide 7</div>
+                            <div class="swiper-slide">Slide 8</div>
+                            <div class="swiper-slide">Slide 9</div>
+                            <div class="swiper-slide">Slide 10</div>
+                        </div>
+                    </div>
+
+
+                    <img style="width:85%;display: block;margin:0 auto;position: relative;top:-20px;" src="../images/now_invite.png" class="inviteBtn" />
+
+                </div>
+
+            </div>
+
+            <img style="width:100%;display: block;" src="../images/zuanqian_04.jpg" />
+
+            <div class="col getMoneyContent">
+
+                <div class="middle-col">
+                    <div class="money_wrap row">
+                        <div>
+                            <span>100</span>
+                            <p>邀请人数</p>
+                        </div>
+
+                        <div>
+                            <span>500</span>
+                            <p>任务奖励</p>
+                        </div>
+                        <div>
+                            <span>3000</span>
+                            <p>钱包余额</p>
+                        </div>
+
+                    </div>
+
+                    <div class="bottom-col">
+                        <img src="../images/now_get_money_icon.png" class="nowGetMoneyBtn" onclick="openGetMoney();" />
+                    </div>
+
+
+                </div>
+            </div>
+
+            <img style="width:100%;display: block;" src="../images/zuanqianTitle.png" />
+
+            <div style="padding:0 18px;" onclick="jumpWeb();">
+                <div id="slider1" class="mui-slider bottom_slider" style="padding-top:10px;">
+
+                    <div class="mui-slider-group mui-slider-loop">
+                        <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                        <div class="mui-slider-item mui-slider-item-duplicate">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+                        <!-- 第一张 -->
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+                        <!-- 第二张 -->
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../images/banner1.jpg">
+                            </a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-		
-		
-	</body>
-	<script src="../js/mui.min.js"></script>
-	<script src="../js/jquery-2.1.1.min.js"></script>
-	<script src="../js/app.js"></script>
-	<script src="../js/swiper.min.js"></script>
-	<script>
-		mui.init({
-			swipeBack:true //启用右滑关闭功能
-		});
-		//无限轮播
-		var slider = mui("#slider").slider({
-						interval: 5000
-					});
-		
-		//赚钱的无限
-		var slider1 = mui("#slider1").slider({
-			interval: 5000
-		});
-					
-		//申请贷款			
-		function apply(){
-			mui.openWindow({
-      			url: 'identificateFirst.html',
-      			id: 'identificateFirst.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
+        <div id="tabbar-with-contact" class="mui-control-content">
 
-		$(".mui-input-range input").each(function()
-		{
-			
-			range($(this));
-			
-		});
-		
-		function range($obj)
-		{
-			var leftValue=$obj.val();
-			var width=100*leftValue/$obj.attr("max")+"%";
-			console.log(width);
-			$obj.prev().css("width",width);
-		}
-		
-		$(".mui-input-range input").on("input",function()
-		{
-			range($(this));
-		});
-		
-		
-		 var swiper = new Swiper('.top-swiper-container', {
-	      direction: 'vertical',
-	      loop:true,
-	      autoplay:true
-	    });
-	    
-	    //tab切换
-	    var getMoneySwiper;
-	    $(".mui-bar-tab .mui-tab-item").on("touchstart",function()
-	    {
-	    	var index=$(this).index();
-	    	$(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
-	    	$(this).addClass("mui-active");
-	    	$("#tabContent>.mui-control-content").removeClass("mui-active");
-	    	$("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
-	    	
-	    	if(index==0)
-	    	{
-	    		if(swiper)
-	    		{
-	    			swiper.destroy();
-	    		}
-	    		
-	    		swiper = new Swiper('.top-swiper-container', {
-				      direction: 'vertical',
-				      loop:true,
-				      autoplay:true
-				    });
-	    	}
-	    	else if(index==1)
-	    	{
-	    		if(getMoneySwiper)
-	    		{
-	    			getMoneySwiper.destroy();
-	    		}
-	    		
-	    		new Swiper('.getMoney-swiper-container', {
-				      direction: 'vertical',
-				      loop:true,
-				      autoplay:true
-				      
-	    			});
-	    		
-	    		
-	    		
-	    	}
-	    	
-	    });
-	    
-		
+            <div class="find-top">
+                <div class="active highType">高成功率</div>
+                <div class="timeType">
+                    <span>期限</span>
+                    <img src="../images/change_type_icon.png" />
+                </div>
+                <div class="preType">上次浏览</div>
+            </div>
 
-		//设置中心
-		function goToSetting(){
-			mui.openWindow({
-      			url: 'setting.html',
-      			id: 'setting.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-		//关于我们
-		function goToAbout(){
-			mui.openWindow({
-      			url: 'about.html',
-      			id: 'about.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-		//消息中心
-		function goToMessage(){
-			mui.openWindow({
-      			url: 'message.html',
-      			id: 'message.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-		//钱包 goToWallet
-		function goToWallet(){
-			
-			mui.openWindow({
-      			url: 'wallet.html',
-      			id: 'wallet.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-		//分享页面
-		function sharePage(){
-			mui.openWindow({
-      			url: 'share.html',
-      			id: 'share.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-		//提现金额 openGetMoney
-		function openGetMoney(){
-			mui.openWindow({
-      			url: 'wallet.html',
-      			id: 'wallet.html',
-      			waiting:{
-			      autoShow:false
-			    }
-      		})
-		}
-		
-				$('.highType').click(function(){
-					$('.highType').css('color', '#ff5445');
-					$('.timeType').css('color', '#333333');
-					$('.preType').css('color', '#333333');
-				})
-				
-				$('.timeType').click(function(){
-					$('.highType').css('color', '#333333');
-					$('.timeType').css('color', '#ff5445');
-					$('.preType').css('color', '#333333');
-				})
-				
-				$('.preType').click(function(){
-					$('.highType').css('color', '#333333');
-					$('.timeType').css('color', '#333333');
-					$('.preType').css('color', '#ff5445');
-				})
-			//关闭新口子	
-			function closeDialg(){
-				$('.selfModal').addClass('hideClass');
-			}
-			
-			//去发现tab
-			function goToFindTab(){
-				console.log("00000")
-				//$('.tabbar-with-contact').addClass('mui-active');
-				closeDialg();
-				mui.trigger($('.mui-tab-item').eq(2)[0],'touchstart');
-    				mui.trigger($('.mui-tab-item').eq(2)[0],'tap')
-			}
-			
-			//邀请好友 弹出浮层
-			function invaliteFriend(){
-				$('.inviteModal').removeClass('hideClass');
-			}
-			//关闭邀请好友 弹出浮层
-			function closeInviteDialg(){
-				$('.inviteModal').addClass('hideClass');
-			}
+            <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="padding-top:43px;">
 
-	</script>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="mui-slider-cell">
+                        <div class="oa-contact-cell mui-table">
+                            <div class="oa-contact-avatar mui-table-cell">
+                                <img src="../images/faxian.png" />
+                            </div>
+                            <div class="oa-contact-content mui-table-cell">
+                                <div class="mui-clearfix">
+                                    借花花-借钱马上花
+                                </div>
+                                <p>
+                                    <span>期限：1~3月</span>
+                                    <span>额度：5000-10000</span>
+                                </p>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div>
+
+                        <div class="bottom">最快3分钟，可获10000借款~</div>
+
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+        <div id="tabbar-with-map" class="mui-control-content" style="padding-top:44px;">
+
+            <header class="mui-bar mui-bar-nav" onclick="sharePage();">
+                <h1 class="mui-title">个人中心</h1>
+            </header>
+
+            <div style="background:#fff;height:164px;padding:20px 20px;">
+
+                <div style="position: relative;">
+
+                    <img style="width:62px;height:62px;border-radius: 50%;vertical-align: middle;" src="../images/touxiang.png" />
+
+                    <span style="width:134px;display: inline-block;margin-left:10px;font-size:16px;color:#000;">18084302954</span>
+
+                    <span class="mui-icon mui-icon-arrowright" style="position: absolute;right:20px;top:18px;"></span>
+
+                </div>
+
+                <div style="text-align: center;padding:10px 0 20px 0;">
+                    <button type="button" class="mui-btn mui-btn-danger" style="width:190px;height:45px;line-height:45px;padding:0;font-size:17px;border-radius: 23px;">申请借款</button>
+                </div>
+
+            </div>
+
+            <ul class="mui-table-view" style="margin: 20px 0;">
+                <li class="mui-table-view-cell" onclick="goToWallet();">
+                    <a class="mui-navigate-right">
+                        <img src="../images/qianbao.png"> 赚钱钱包
+                    </a>
+                    <span class="mui-badge top-badge">去赚取</span>
+                </li>
+            </ul>
+
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <img src="../images/kefu.png" /> 联系客服
+                    </a>
+                </li>
+                <li class="mui-table-view-cell" onclick="goToAbout();">
+                    <a class="mui-navigate-right">
+                        <img src="../images/guanyu.png" /> 关于我们
+                    </a>
+                </li>
+                <li class="mui-table-view-cell" onclick="goToSetting();">
+                    <a class="mui-navigate-right">
+                        <img src="../images/shezhi.png" /> 设置中心
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    <!--口子弹窗-->
+    <div class="modal-mask row selfModal">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+            <div class="modal-content">
+                <img src="../images/kouzi_bg.png" class="conten_bg" />
+                <img src="../images/try_btn.png" class="dialog_bottom_btn" onclick="goToFindTab();" />
+            </div>
+        </div>
+    </div>
+
+    <!--弹窗-->
+    <div class="modal-mask row inviteModal hideClass">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeInviteDialg();" />
+            <div class="modal-content">
+                <img src="../images/invalite_friend_bg.png" class="invalite_bg" />
+                <div class="row invite_bottom_content">
+                    <div class="col" style="justify-content: center; align-items: center;">
+                        <img src="../images/wx_icon.png" />
+                        <span>微信</span>
+                    </div>
+
+                    <div class="col" style="justify-content: center; align-items: center;">
+                        <img src="../images/wx_friend_icon.png" />
+                        <span>朋友圈</span>
+                    </div>
+
+                    <div class="col" style="justify-content: center; align-items: center;">
+                        <img src="../images/qq_icon.png" />
+                        <span>QQ</span>
+                    </div>
+
+                    <div class="col" style="justify-content: center; align-items: center;">
+                        <img src="../images/copy_icon.png" />
+                        <span>复制链接</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/swiper.min.js"></script>
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+    var hongbaoFlag = 0;
+    mui.plusReady(function() {
+        //红包左右晃动
+        setInterval(function() {
+            gaibian();
+        }, 1000);
+    });
+
+    function gaibian() {
+        if (hongbaoFlag == 0) {
+            hongbaoFlag = 1;
+            $(".hongbao_gif").removeClass("zhuan_left");
+            $(".hongbao_gif").addClass("zhuan_right");
+        } else {
+            hongbaoFlag = 0;
+            $(".hongbao_gif").addClass("zhuan_left");
+            $(".hongbao_gif").removeClass("zhuan_right");
+        }
+
+    }
+
+    //无限轮播
+    var slider = mui("#slider").slider({
+        interval: 5000
+    });
+
+    //赚钱的无限
+    var slider1 = mui("#slider1").slider({
+        interval: 5000
+    });
+
+    //申请贷款			
+    function apply() {
+        mui.openWindow({
+            url: 'identificateFirst.html',
+            id: 'identificateFirst.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+
+    $(".mui-input-range input").each(function() {
+
+        range($(this));
+
+    });
+
+    //滑块
+    function range($obj) {
+        var leftValue = $obj.val();
+        var width = 100 * leftValue / $obj.attr("max") + "%";
+        //mui.toast(leftValue)
+
+        $obj.prev().css("width", width);
+        setTimeout(function() {
+            if (leftValue == "0") {
+                $(".money_rate").html("0.5");
+            }
+        }, 10);
+
+    }
+
+    //申请额度
+    $("#edu").on("input", function() {
+        range($(this));
+        $(".money").html($(this).val());
+    });
+
+    //借款周期
+    $("#jiekuan").on("input", function() {
+        range($(this));
+        if ($(this).val() == "0") {
+            $(".content_time").html("15天");
+        } else {
+            $(".content_time").html($(this).val() + "个月");
+        }
+
+    });
+
+
+    var swiper = new Swiper('.top-swiper-container', {
+        direction: 'vertical',
+        loop: true,
+        autoplay: true
+    });
+
+    //tab切换
+    var getMoneySwiper;
+    $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
+        var index = $(this).index();
+        $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
+        $(this).addClass("mui-active");
+        $("#tabContent>.mui-control-content").removeClass("mui-active");
+        $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
+
+        if (index == 0) {
+            if (swiper) {
+                swiper.destroy();
+            }
+
+            swiper = new Swiper('.top-swiper-container', {
+                direction: 'vertical',
+                loop: true,
+                autoplay: true
+            });
+        } else if (index == 1) {
+            if (getMoneySwiper) {
+                getMoneySwiper.destroy();
+            }
+
+            new Swiper('.getMoney-swiper-container', {
+                direction: 'vertical',
+                loop: true,
+                autoplay: true
+
+            });
+
+
+
+        }
+
+    });
+
+
+
+    //设置中心
+    function goToSetting() {
+        mui.openWindow({
+            url: 'setting.html',
+            id: 'setting.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    //关于我们
+    function goToAbout() {
+        mui.openWindow({
+            url: 'about.html',
+            id: 'about.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    //消息中心
+    function goToMessage() {
+        mui.openWindow({
+            url: 'message.html',
+            id: 'message.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    //钱包 goToWallet
+    function goToWallet() {
+
+        mui.openWindow({
+            url: 'wallet.html',
+            id: 'wallet.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    //分享页面
+    function sharePage() {
+        mui.openWindow({
+            url: 'share.html',
+            id: 'share.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    //提现金额 openGetMoney
+    function openGetMoney() {
+        mui.openWindow({
+            url: 'wallet.html',
+            id: 'wallet.html',
+            waiting: {
+                autoShow: false
+            }
+        })
+    }
+
+    $('.highType').click(function() {
+        $('.highType').css('color', '#ff5445');
+        $('.timeType').css('color', '#333333');
+        $('.preType').css('color', '#333333');
+    })
+
+    $('.timeType').click(function() {
+        $('.highType').css('color', '#333333');
+        $('.timeType').css('color', '#ff5445');
+        $('.preType').css('color', '#333333');
+    })
+
+    $('.preType').click(function() {
+            $('.highType').css('color', '#333333');
+            $('.timeType').css('color', '#333333');
+            $('.preType').css('color', '#ff5445');
+        })
+        //关闭新口子	
+    function closeDialg() {
+        $('.selfModal').addClass('hideClass');
+    }
+
+    //去发现tab
+    function goToFindTab() {
+        console.log("00000")
+            //$('.tabbar-with-contact').addClass('mui-active');
+        closeDialg();
+        // mui.toast("9999999")
+        mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
+        mui.trigger($('.mui-tab-item').eq(2)[0], 'tap')
+    }
+
+    //邀请好友 弹出浮层
+    function invaliteFriend() {
+        $('.inviteModal').removeClass('hideClass');
+
+    }
+
+    //关闭邀请好友 弹出浮层
+    function closeInviteDialg() {
+        $('.inviteModal').addClass('hideClass');
+    }
+
+    //借款 底部无限轮播 点击
+    function jumpWeb() {
+        plus.webview.create("webview.html", "", {
+            bottom: "0px"
+        }); //新的页面地址 
+    }
+</script>
+
 </html>

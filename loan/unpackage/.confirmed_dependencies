@@ -2,6 +2,9 @@
   "index.html": {
     "refer": [
       "html/login.html"
+    ],
+    "resources": [
+      "js/mui.min.js"
     ]
   },
   "html/login.html": {
@@ -10,6 +13,11 @@
       "index.html",
       "html/home.html",
       "html/error404.html"
+    ],
+    "resources": [
+      "js/app.js",
+      "js/jquery-2.1.1.min.js",
+      "js/mui.min.js"
     ]
   },
   "html/getCode.html": {
