@@ -105,7 +105,7 @@
 	<script src="js/app.js"></script>
 	<script>
 		
-		window.location.href = "http://project.youzewang.com/app/app.html";
+		//window.location.href = "http://project.youzewang.com/app/app.html";
 		
 		
 var sweixin=null;
@@ -150,33 +150,61 @@ function plusReady(){
 	updateSerivces();
 
 
+plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
+		// fs.root是根目录操作对象DirectoryEntry
+		// 创建读取目录信息对象 
+		var directoryReader = fs.root.createReader();
+		directoryReader.readEntries( function( entries ){
+			var i;
+			for( i=0; i < entries.length; i++ ) {
+				//console.log( entries[i] );
+			}
+		}, function ( e ) {
+			alert( "Read entries failed: " + e.message );
+		} );
+	} );
 
-// plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
-// 		// 可通过fs操作PRIVATE_WWW文件系统 
-// 		var imgPath=fs.fullPath;
-// 		console.log(fs);
+plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+		// 可通过fs操作PRIVATE_WWW文件系统 
+		var imgPath=fs.root.fullPath;
+		console.log(fs);
+		//alert(imgPath);
 		
 
-// 		plus.io.resolveLocalFileSystemURL( "_www/index.html", function( entry ) {
-// 		// 可通过entry对象操作test.html文件 
-// 		entry.file( function(file){
-// 			var fileReader = new plus.io.FileReader();
-// 			alert("getFile:" + JSON.stringify(file));
-// 			fileReader.readAsText(file, 'utf-8');
-// 			fileReader.onloadend = function(evt) {
-// 				alert("11" + evt);
-// 				alert("evt.target" + evt.target);
-// 				alert(evt.target.result);
-// 			}
-// 			alert(file.size + '--' + file.name);
-// 		} );
-// 	}, function ( e ) {
-// 		alert( "Resolve file URL failed: " + e.message );
-// 	} );
+		plus.io.resolveLocalFileSystemURL( fs.root.fullPath+"images/error", function( entry ) {
+		// 可通过entry对象操作test.html文件 
+		// entry.file( function(file){
+		// 	var fileReader = new plus.io.FileReader();
+		// 	console.log("getFile:" + JSON.stringify(file));
+			//fileReader.readAsText(file, 'utf-8');
+			// fileReader.onloadend = function(evt) {
+			// 	console.log("11" + evt);
+			// 	console.log("evt.target" + evt.target);
+			// 	console.log(evt.target.result);
+			// }
+		// 	console.log(file.size + '--' + file.name);
+		// } );
 
-// 	}, function ( e ) {
-// 		alert( "Request file system failed: " + e.message );
-// 	} );
+		console.log(entry);
+
+var directoryReader = entry.createReader();
+		directoryReader.readEntries( function( entries ){
+			var i;
+			for( i=0; i < entries.length; i++ ) {
+				console.log( entries[i].name);
+			}
+		}, function ( e ) {
+			alert( "Read entries failed: " + e.message );
+		} );
+
+
+	}, function ( e ) {
+		console.log( "Resolve file URL failed: " + e.message );
+	} );
+
+	}, function ( e ) {
+		console.log( "Request file system failed: " + e.message );
+	} );
 
 
 }
@@ -185,7 +213,7 @@ function plusReady(){
 // 创建下载任务
 function createDownload() {
 
-	var dtask = plus.downloader.createDownload( "https://www.baidu.com/img/baidu_jgylogo3.gif", {}, function ( d, status ) {
+	var dtask = plus.downloader.createDownload( "http://rb.pro.youzewang.com/public/assets/img/logo.png", {filename:"_www/images/error/"}, function ( d, status ) {
 		// 下载完成
 
 		alert();
