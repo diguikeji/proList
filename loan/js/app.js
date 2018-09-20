@@ -135,30 +135,29 @@ $(function()
 					if(token){
 						xhr.setRequestHeader("Authorization", "Bearer "+token);
 					};
-					mui.toast("开始发送请求")
+					Global.showLoading();
 			},
 			success:function(data){
-				Global.hideLoading();
+				console.log(data)
 				mui.toast(JSON.stringify(data));
 				if(data.code == "OK"){
-					//callback(data.data);
+					callback(data.data);
 				}else{
-					//errorback(data.msg);
+					errorback(data.msg);
 				}
 				
 			},
 			error:function(data){
-				//Global.hideLoading();
-				//errorback(data);
+				errorback(data);
 			},
 			complete:function(xhr, status){
-					//Global.hideLoading();
+					Global.hideLoading();
 					if(status == 'error'){
-						//Global.error404();
+						Global.error404();
 					}else if(status == 'timeout'){
-						//Global.error500();
+						Global.error500();
 					}else{
-						//Global.errorNet();
+						Global.errorNet();
 					}
 			}
 		});
@@ -187,7 +186,7 @@ $(".mui-content").on("click",".go-home",function()
 //$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
 //公司
-$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
+// $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
 
 
 })
