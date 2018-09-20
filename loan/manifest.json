@@ -36,15 +36,12 @@
 		"Messaging": {
 			"description": "访问通讯能力"
 		},
-		"Maps": {
-			"description": "管理地图插件"
-		},
+		
 		"Speech": {
 			"description": "管理语音识别插件"
 		},
 		"Push": {},
-		"Share": {},
-		"OAuth": {}
+		"Share": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -56,11 +53,7 @@
 		"distribute": {
 			"plugins": {
 				"maps": {
-					"amap": {
-						"appkey_ios": "",
-						"appkey_android": "",
-						"description": ""
-					}
+					
 				},
 				"push": {
 					"igexin": {
@@ -70,10 +63,7 @@
 					}
 				},
 				"oauth": {
-					"weixin": {
-						"appid": "",
-						"appsecret": ""
-					}
+					
 				},
 				"share": {
 					"weixin": {
@@ -96,36 +86,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": [
-					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-					"<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
-					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-					"<uses-feature android:name=\"android.hardware.camera\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-				]
+				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
 			},
 			"orientation": [
 				"portrait-primary",
@@ -157,15 +118,15 @@
 						"settings-normal": "",/*iPad设置页面程序图标，分辨率：29x29*/
 						"settings-retina": ""
 					},
-					"appstore": "E:/xzq_icon.png"
+					"appstore": "E:/下载/图标商品.png"
 				},
 				"android": {
-					"mdpi": "E:/xzq_icon.png", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "E:/xzq_icon.png", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "E:/xzq_icon.png", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "E:/xzq_icon.png",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": "E:/xzq_icon.png",
-					"xxxhdpi": "E:/xzq_icon.png"
+					"mdpi": "E:/下载/图标商品(5).png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "E:/下载/图标商品(5).png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "E:/下载/图标商品(4).png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "E:/下载/图标商品(3).png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "E:/下载/图标商品(2).png",
+					"xxxhdpi": "E:/下载/图标商品(1).png"
 				}
 			},
 			"splashscreen": {
@@ -188,10 +149,7 @@
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "E:/other/Demo/DiaoDiao/app/src/main/res/drawable-xxhdpi/splash.png"
+					"ldpi": ""
 				}
 			}
 		},
