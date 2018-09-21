@@ -2,6 +2,63 @@ mui.init({
     swipeBack: true //启用右滑关闭功能
 });
 
+//首页初始化信息
+function mainPageInit(){
+    Global.commonAjax(
+        {url: 'page/mainpage/init'},
+        function(data){
+            setGetMoneyBanner(data.bannerList);
+            $(".msg_cnt").html(data.unReadMsg);
+        }
+    )
+}
+
+//测试
+$(".msg_cnt").html("12");
+setGetMoneyBanner([
+    {picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com"}, 
+    {picUrl: '../images/86565.png', adValue: "http://www.taobao.com"}, 
+    {picUrl: '../images/976.png', adValue: "http://www.jingdong.com"}
+]);
+//设置借款底部的 无限轮播
+function setGetMoneyBanner(listData){
+    var html = "";
+    var length = listData.length;
+    if(listData && listData.length > 0){
+        //无限轮播要求  前面加一个节点
+        html = '<div class="mui-slider-item mui-slider-item-duplicate">'+
+                '<a href="#">'+
+                    '<img src="'+listData[length-1].picUrl+'" class="bottom_slider"> '+
+                '</a>'+
+            '</div>';
+        for(var i=0; i<length; i++){
+            html += '<div class="mui-slider-item">'+
+            '<a href="#">'+
+            '<img src="'+listData[i].picUrl+'" class="bottom_slider" data-url="'+listData[i].adValue+'">'+
+            '</a></div>';
+        }
+        //无限轮播要求  最后加一个节点
+        html += '<div class="mui-slider-item mui-slider-item-duplicate">'+
+                '<a href="#">'+
+                    '<img src="'+listData[0].picUrl+'" class="bottom_slider"> '+
+                '</a>'+
+            '</div>';
+
+        $(".getMoneyLoop").append(html);
+
+        $(".bottom_slider").click(function(){
+            var that = $(this);
+            mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url='+that.data("url"),
+                waiting: {
+                    autoShow: false
+                }
+            })
+        })
+    }
+}
+
 //token登录
 function loginUseToken() {
     var token = myStorage.getItem("token");
@@ -28,7 +85,7 @@ function loginUseToken() {
     }
 }
 
-var hongbaoFlag = 0;
+
 mui.plusReady(function() {
     //红包左右晃动
     setInterval(function() {
@@ -36,6 +93,8 @@ mui.plusReady(function() {
     }, 500);
 });
 
+//红包无限晃动
+var hongbaoFlag = 0;
 function gaibian() {
     if (hongbaoFlag == 0) {
         hongbaoFlag = 1;
@@ -121,14 +180,16 @@ $("#jiekuan").on("input", function() {
 
 //借款顶部 无限上下翻滚
 var swiper;
-getSwiper();
+getMoneySwiper();
 
-function getSwiper() {
-    var html = "";
+function getMoneySwiper() {
+    var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
         html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + Math.floor(Math.random() * 1000 + 1000) + ' 元</div>';
     };
-    $(".swiper-wrapper").append(html);
+    html+='</div>';
+    $(".top-swiper-container").append(html);
+    
 
     swiper = new Swiper('.top-swiper-container', {
         direction: 'vertical',
@@ -138,8 +199,41 @@ function getSwiper() {
 }
 
 
-//tab切换
-var getMoneySwiper;
+
+
+//tab切换  赚钱无限滚动
+makeMoneySwiper();
+function makeMoneySwiper() {
+    var html = '<div class="swiper-wrapper">';
+    for (var i = 0; i < 5; i++) {
+        html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + Math.floor(Math.random() * 1000 + 100) + ' 元</div>';
+    };
+    html+='</div>';
+    $(".getMoney-swiper-container").append(html);
+    
+}
+
+
+$(".invitationCount").html("789");
+$(".invitationBalance").html("456");
+$(".balance").html("123");
+
+//赚钱 初始化
+function initMakeMoney(){
+    Global.commonAjax(
+        {url: "page/moneypage/init"},
+        function(data){
+            $(".invitationCount").html(data.userInvite.invitationCount);
+            $(".invitationBalance").html(data.userInvite.invitationBalance);
+            var user = myStorage.getItem("user");
+            if(user && user.wallet){
+                $(".balance").html(user.wallet.balance);
+            }
+        }
+    )
+}
+
+var makeMoneySwiperObj;
 $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
     var index = $(this).index();
     $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
@@ -158,19 +252,16 @@ $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
             autoplay: true
         });
     } else if (index == 1) {
-        if (getMoneySwiper) {
-            getMoneySwiper.destroy();
+        if (makeMoneySwiperObj) {
+            makeMoneySwiperObj.destroy();
         }
-
-        getMoneySwiper = new Swiper('.getMoney-swiper-container', {
+        
+        makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
             direction: 'vertical',
             loop: true,
             autoplay: true
 
         });
-
-
-
     }
 
 });
