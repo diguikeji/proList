@@ -233,6 +233,46 @@ function initMakeMoney(){
     )
 }
 
+//赚钱无限轮播
+function newbieTaskBanner(listData){
+    var html = "";
+    var length = listData.length;
+    if(listData && listData.length > 0){
+        //无限轮播要求  前面加一个节点
+        html = '<div class="mui-slider-item mui-slider-item-duplicate">'+
+                '<a href="#">'+
+                    '<img src="'+listData[length-1].picUrl+'" class="bottom_slider"> '+
+                '</a>'+
+            '</div>';
+        for(var i=0; i<length; i++){
+            html += '<div class="mui-slider-item">'+
+            '<a href="#">'+
+            '<img src="'+listData[i].picUrl+'" class="bottom_slider" data-url="'+listData[i].adValue+'">'+
+            '</a></div>';
+        }
+        //无限轮播要求  最后加一个节点
+        html += '<div class="mui-slider-item mui-slider-item-duplicate">'+
+                '<a href="#">'+
+                    '<img src="'+listData[0].picUrl+'" class="bottom_slider"> '+
+                '</a>'+
+            '</div>';
+
+        $(".getMoneyLoop").append(html);
+
+        $(".bottom_slider").click(function(){
+            var that = $(this);
+            mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url='+that.data("url"),
+                waiting: {
+                    autoShow: false
+                }
+            })
+        })
+    }
+}
+
+
 var makeMoneySwiperObj;
 $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
     var index = $(this).index();
