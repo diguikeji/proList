@@ -3,10 +3,9 @@ mui.init({
 });
 
 //首页初始化信息
-function mainPageInit(){
-    Global.commonAjax(
-        {url: 'page/mainpage/init'},
-        function(data){
+function mainPageInit() {
+    Global.commonAjax({ url: 'page/mainpage/init' },
+        function(data) {
             setGetMoneyBanner(data.bannerList);
             $(".msg_cnt").html(data.unReadMsg);
         }
@@ -16,41 +15,41 @@ function mainPageInit(){
 //测试
 $(".msg_cnt").html("12");
 setGetMoneyBanner([
-    {picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com"}, 
-    {picUrl: '../images/86565.png', adValue: "http://www.taobao.com"}, 
-    {picUrl: '../images/976.png', adValue: "http://www.jingdong.com"}
+    { picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com" },
+    { picUrl: '../images/86565.png', adValue: "http://www.taobao.com" },
+    { picUrl: '../images/976.png', adValue: "http://www.jingdong.com" }
 ]);
 //设置借款底部的 无限轮播
-function setGetMoneyBanner(listData){
+function setGetMoneyBanner(listData) {
     var html = "";
     var length = listData.length;
-    if(listData && listData.length > 0){
+    if (listData && listData.length > 0) {
         //无限轮播要求  前面加一个节点
-        html = '<div class="mui-slider-item mui-slider-item-duplicate">'+
-                '<a href="#">'+
-                    '<img src="'+listData[length-1].picUrl+'" class="bottom_slider"> '+
-                '</a>'+
+        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
+            '<a href="#">' +
+            '<img src="' + listData[length - 1].picUrl + '" class="bottom_slider"> ' +
+            '</a>' +
             '</div>';
-        for(var i=0; i<length; i++){
-            html += '<div class="mui-slider-item">'+
-            '<a href="#">'+
-            '<img src="'+listData[i].picUrl+'" class="bottom_slider" data-url="'+listData[i].adValue+'">'+
-            '</a></div>';
+        for (var i = 0; i < length; i++) {
+            html += '<div class="mui-slider-item">' +
+                '<a href="#">' +
+                '<img src="' + listData[i].picUrl + '" class="bottom_slider" data-url="' + listData[i].adValue + '">' +
+                '</a></div>';
         }
         //无限轮播要求  最后加一个节点
-        html += '<div class="mui-slider-item mui-slider-item-duplicate">'+
-                '<a href="#">'+
-                    '<img src="'+listData[0].picUrl+'" class="bottom_slider"> '+
-                '</a>'+
+        html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
+            '<a href="#">' +
+            '<img src="' + listData[0].picUrl + '" class="bottom_slider"> ' +
+            '</a>' +
             '</div>';
 
         $(".getMoneyLoop").append(html);
 
-        $(".bottom_slider").click(function(){
+        $(".bottom_slider").click(function() {
             var that = $(this);
             mui.openWindow({
                 url: 'webview.html',
-                id: 'webview.html?url='+that.data("url"),
+                id: 'webview.html?url=' + that.data("url"),
                 waiting: {
                     autoShow: false
                 }
@@ -95,6 +94,7 @@ mui.plusReady(function() {
 
 //红包无限晃动
 var hongbaoFlag = 0;
+
 function gaibian() {
     if (hongbaoFlag == 0) {
         hongbaoFlag = 1;
@@ -110,11 +110,6 @@ function gaibian() {
 
 //无限轮播
 var slider = mui("#slider").slider({
-    interval: 5000
-});
-
-//赚钱的无限
-var slider1 = mui("#slider1").slider({
     interval: 5000
 });
 
@@ -141,9 +136,7 @@ function apply() {
 
 
 $(".mui-input-range input").each(function() {
-
     range($(this));
-
 });
 
 //滑块
@@ -187,9 +180,9 @@ function getMoneySwiper() {
     for (var i = 0; i < 5; i++) {
         html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + Math.floor(Math.random() * 1000 + 1000) + ' 元</div>';
     };
-    html+='</div>';
+    html += '</div>';
     $(".top-swiper-container").append(html);
-    
+
 
     swiper = new Swiper('.top-swiper-container', {
         direction: 'vertical',
@@ -201,16 +194,17 @@ function getMoneySwiper() {
 
 
 
-//tab切换  赚钱无限滚动
+//tab切换  赚钱无限上下滚动
 makeMoneySwiper();
+
 function makeMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
         html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + Math.floor(Math.random() * 1000 + 100) + ' 元</div>';
     };
-    html+='</div>';
+    html += '</div>';
     $(".getMoney-swiper-container").append(html);
-    
+
 }
 
 
@@ -219,14 +213,13 @@ $(".invitationBalance").html("456");
 $(".balance").html("123");
 
 //赚钱 初始化
-function initMakeMoney(){
-    Global.commonAjax(
-        {url: "page/moneypage/init"},
-        function(data){
+function initMakeMoney() {
+    Global.commonAjax({ url: "page/moneypage/init" },
+        function(data) {
             $(".invitationCount").html(data.userInvite.invitationCount);
             $(".invitationBalance").html(data.userInvite.invitationBalance);
             var user = myStorage.getItem("user");
-            if(user && user.wallet){
+            if (user && user.wallet) {
                 $(".balance").html(user.wallet.balance);
             }
         }
@@ -234,36 +227,42 @@ function initMakeMoney(){
 }
 
 //赚钱无限轮播
-function newbieTaskBanner(listData){
+newbieTaskBanner([
+    { picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com" },
+    { picUrl: '../images/86565.png', adValue: "http://www.taobao.com" },
+    { picUrl: '../images/976.png', adValue: "http://www.jingdong.com" }
+]);
+
+function newbieTaskBanner(listData) {
     var html = "";
     var length = listData.length;
-    if(listData && listData.length > 0){
+    if (listData && listData.length > 0) {
         //无限轮播要求  前面加一个节点
-        html = '<div class="mui-slider-item mui-slider-item-duplicate">'+
-                '<a href="#">'+
-                    '<img src="'+listData[length-1].picUrl+'" class="bottom_slider"> '+
-                '</a>'+
+        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
+            '<a href="#">' +
+            '<img src="' + listData[length - 1].picUrl + '" class="make_money_bottom_slider"> ' +
+            '</a>' +
             '</div>';
-        for(var i=0; i<length; i++){
-            html += '<div class="mui-slider-item">'+
-            '<a href="#">'+
-            '<img src="'+listData[i].picUrl+'" class="bottom_slider" data-url="'+listData[i].adValue+'">'+
-            '</a></div>';
+        for (var i = 0; i < length; i++) {
+            html += '<div class="mui-slider-item">' +
+                '<a href="#">' +
+                '<img src="' + listData[i].picUrl + '" class="make_money_bottom_slider" data-url="' + listData[i].adValue + '">' +
+                '</a></div>';
         }
         //无限轮播要求  最后加一个节点
-        html += '<div class="mui-slider-item mui-slider-item-duplicate">'+
-                '<a href="#">'+
-                    '<img src="'+listData[0].picUrl+'" class="bottom_slider"> '+
-                '</a>'+
+        html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
+            '<a href="#">' +
+            '<img src="' + listData[0].picUrl + '" class="make_money_bottom_slider"> ' +
+            '</a>' +
             '</div>';
 
-        $(".getMoneyLoop").append(html);
+        $(".makeMoneyLoop").append(html);
 
-        $(".bottom_slider").click(function(){
+        $(".make_money_bottom_slider").click(function() {
             var that = $(this);
             mui.openWindow({
                 url: 'webview.html',
-                id: 'webview.html?url='+that.data("url"),
+                id: 'webview.html?url=' + that.data("url"),
                 waiting: {
                     autoShow: false
                 }
@@ -271,6 +270,8 @@ function newbieTaskBanner(listData){
         })
     }
 }
+
+//分享底部弹窗
 
 
 var makeMoneySwiperObj;
@@ -295,16 +296,35 @@ $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
         if (makeMoneySwiperObj) {
             makeMoneySwiperObj.destroy();
         }
-        
+
         makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
             direction: 'vertical',
             loop: true,
             autoplay: true
-
         });
+
+        //赚钱的无限
+        mui("#slider1").slider({
+            interval: 5000
+        });
+
     }
 
 });
+
+//分享到各个平台的点击事件
+$(".wx_wrap").click(function() {
+    mui.toast("wx_wrap");
+})
+$(".wx_friend_wrap").click(function() {
+    mui.toast("wx_friend_wrap");
+})
+$(".qq_wrap").click(function() {
+    mui.toast("wx_qq_wrap");
+})
+$(".copy_wrap").click(function() {
+    mui.toast("wx_copy_wrap");
+})
 
 
 
