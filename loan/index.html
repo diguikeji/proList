@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 	<head>
 		<meta charset="utf-8">
 		<title>首页</title>
@@ -234,150 +235,158 @@ if(window.plus){
 }else{
 	document.addEventListener('plusready', plusReady, false);
 }
-/**
- * 更新分享服务
- */
-function updateSerivces(){
-	plus.share.getServices(function(s){
-		shares={};
-		for(var i in s){
-			var t=s[i];
-			shares[t.id]=t;
-		}
-    sweixin=shares['weixin'];
-    sqq=shares['qq'];
-	}, function(e){
-		console.log('获取分享服务列表失败：'+e.message);
-	});
-}
-		
-		
-		
-		// 分享网页
-function shareWeb(){
-  var msg={type:'web',thumbs:['_www/logo.png']};
-  if(!web_href.value){
-    plus.nativeUI.alert('请输入分享网页的链接地址!');
-    web_href.focus();
-    return;
-  }
-  msg.href=web_href.value;
-  if(!web_title.value){
-    plus.nativeUI.alert('请输入分享网页的标题!');
-    web_title.focus();
-    return;
-  }
-  msg.title=web_title.value;
-  if(!web_content.value){
-    plus.nativeUI.alert('请输入分享网页的描述!');
-    web_content.focus();
-    return;
-  }
-  msg.content=web_content.value;
-  sweixin?plus.nativeUI.actionSheet({title:'分享网页到微信',cancel:'取消',buttons:buttons}, function(e){
-  	(e.index>0)&&share(sweixin, msg, buttons[e.index-1]);
-  }):plus.nativeUI.alert('当前环境不支持微信分享操作!'); 
-}
 
-// 分享
-function share(srv, msg, button){
-	console.log('分享操作：');
-  if(!srv){
-    console.log('无效的分享服务！');
-    return;
-  }
-  button&&(msg.extra=button.extra);
-	// 发送分享
-	if(srv.authenticated){
-		console.log('---已授权---');
-		doShare(srv, msg);
-	}else{
-		console.log('---未授权---');
-		srv.authorize(function(){
-			doShare(srv, msg);
-		}, function(e){
-			console.log('认证授权失败：'+JSON.stringify(e));
-		});
-	}  
-}
-// 发送分享
-function doShare(srv, msg){
-	alert(JSON.stringify(msg));
-	srv.send(msg, function(){
-		alert('分享到"'+srv.description+'"成功！');
-	}, function(e){
-		alert('分享到"'+srv.description+'"失败: '+JSON.stringify(e));
-	});
-}
-// 解除授权
-function cancelAuth(){
-	console.log('解除授权：');
-  if(sweixin){
-    if(sweixin.authenticated){
-    	console.log('取消"'+sweixin.description+'"');
+    /**
+     * 更新分享服务
+     */
+    function updateSerivces() {
+        plus.share.getServices(function(s) {
+            shares = {};
+            for (var i in s) {
+                var t = s[i];
+                shares[t.id] = t;
+            }
+            sweixin = shares['weixin'];
+            sqq = shares['qq'];
+        }, function(e) {
+            console.log('获取分享服务列表失败：' + e.message);
+        });
     }
-    sweixin.forbid();
-  }else{
-    console.log('当前环境不支持微信分享操作!');
-  }
-}
 
-// 分享文本 
-function shareText(){
-  var msg={type:'text'};
-  if(!text_title.value){
-    plus.nativeUI.alert('请输入要分享的内容!');
-    return;
-  }
-  msg.title=text_title.value;
-  msg.href='https://www.baidu.com';
-  sqq?share(sqq, msg):plus.nativeUI.alert('当前环境不支持QQ分享操作!');
-}
 
-// 分享
-function share1(srv, msg, button){
-	alert('分享操作：');
-  if(!srv){
-    console.log('无效的分享服务！');
-    return;
-  }
-  button&&(msg.extra=button.extra);
-	// 发送分享
-	if(srv.authenticated){
-		console.log('---已授权---');
-		doShare1(srv, msg);
-	}else{
-		console.log('---未授权---');
-		srv.authorize(function(){
-			doShare1(srv, msg);
-		}, function(e){
-			console.log('认证授权失败：'+JSON.stringify(e));
-		});
-	}  
-}
-// 发送分享
-function doShare1(srv, msg){
-	console.log(JSON.stringify(msg));
-	srv.send(msg, function(){
-		console.log('分享到"'+srv.description+'"成功！');
-	}, function(e){
-		console.log('分享到"'+srv.description+'"失败: '+JSON.stringify(e));
-	});
-}
-// 解除授权
-function cancelAuth1(){
-	alert('解除授权：');
-  if(sqq){
-    if(sqq.authenticated){
-    	console.log('取消"'+sqq.description+'"');
+
+    // 分享网页
+    function shareWeb() {
+        var msg = {
+            type: 'web',
+            thumbs: ['_www/logo.png']
+        };
+        if (!web_href.value) {
+            plus.nativeUI.alert('请输入分享网页的链接地址!');
+            web_href.focus();
+            return;
+        }
+        msg.href = web_href.value;
+        if (!web_title.value) {
+            plus.nativeUI.alert('请输入分享网页的标题!');
+            web_title.focus();
+            return;
+        }
+        msg.title = web_title.value;
+        if (!web_content.value) {
+            plus.nativeUI.alert('请输入分享网页的描述!');
+            web_content.focus();
+            return;
+        }
+        msg.content = web_content.value;
+        sweixin ? plus.nativeUI.actionSheet({
+            title: '分享网页到微信',
+            cancel: '取消',
+            buttons: buttons
+        }, function(e) {
+            (e.index > 0) && share(sweixin, msg, buttons[e.index - 1]);
+        }) : plus.nativeUI.alert('当前环境不支持微信分享操作!');
     }
-    sqq.forbid();
-  }else{
-    console.log('当前环境不支持QQ分享操作!');
-  }
-}
 
+    // 分享
+    function share(srv, msg, button) {
+        console.log('分享操作：');
+        if (!srv) {
+            console.log('无效的分享服务！');
+            return;
+        }
+        button && (msg.extra = button.extra);
+        // 发送分享
+        if (srv.authenticated) {
+            console.log('---已授权---');
+            doShare(srv, msg);
+        } else {
+            console.log('---未授权---');
+            srv.authorize(function() {
+                doShare(srv, msg);
+            }, function(e) {
+                console.log('认证授权失败：' + JSON.stringify(e));
+            });
+        }
+    }
+    // 发送分享
+    function doShare(srv, msg) {
+        alert(JSON.stringify(msg));
+        srv.send(msg, function() {
+            alert('分享到"' + srv.description + '"成功！');
+        }, function(e) {
+            alert('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
+        });
+    }
+    // 解除授权
+    function cancelAuth() {
+        console.log('解除授权：');
+        if (sweixin) {
+            if (sweixin.authenticated) {
+                console.log('取消"' + sweixin.description + '"');
+            }
+            sweixin.forbid();
+        } else {
+            console.log('当前环境不支持微信分享操作!');
+        }
+    }
 
+    // 分享文本 
+    function shareText() {
+        var msg = {
+            type: 'text'
+        };
+        if (!text_title.value) {
+            plus.nativeUI.alert('请输入要分享的内容!');
+            return;
+        }
+        msg.title = text_title.value;
+        msg.href = 'https://www.baidu.com';
+        sqq ? share(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
+    }
 
-	</script>
+    // 分享
+    function share1(srv, msg, button) {
+        alert('分享操作：');
+        if (!srv) {
+            console.log('无效的分享服务！');
+            return;
+        }
+        button && (msg.extra = button.extra);
+        // 发送分享
+        if (srv.authenticated) {
+            console.log('---已授权---');
+            doShare1(srv, msg);
+        } else {
+            console.log('---未授权---');
+            srv.authorize(function() {
+                doShare1(srv, msg);
+            }, function(e) {
+                console.log('认证授权失败：' + JSON.stringify(e));
+            });
+        }
+    }
+    // 发送分享
+    function doShare1(srv, msg) {
+        console.log(JSON.stringify(msg));
+        srv.send(msg, function() {
+            console.log('分享到"' + srv.description + '"成功！');
+        }, function(e) {
+            console.log('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
+        });
+    }
+    // 解除授权
+    function cancelAuth1() {
+        alert('解除授权：');
+        if (sqq) {
+            if (sqq.authenticated) {
+                console.log('取消"' + sqq.description + '"');
+            }
+            sqq.forbid();
+        } else {
+            console.log('当前环境不支持QQ分享操作!');
+        }
+    }
+</script>
+
 </html>

@@ -19,7 +19,7 @@
     <div class="mui-content">
 
         <div class="center row">
-            <span class="code_text">请输入185****2904的短信验证码</span>
+            <span class="code_text">请输入111****1111的短信验证码</span>
             <span class="sixty">60秒后可重新获取</span>
         </div>
 
@@ -56,7 +56,7 @@
         <button type="button" class="mui-btn mui-btn-link next" onclick="login();">注册并登录</button>
 
         <div class="bottom row">
-            <img src="../images/un_selected.png" class="selectRadio" onclick="agreeBtn();" />
+            <img src="../images/agress_icon.png" class="selectRadio" onclick="agreeBtn();" />
             <span class="bottom-next">点击下一步表示同意</span>
             <span class="bottom-a" onclick="openAgree();">《用户注册协议》</span>
         </div>
@@ -65,13 +65,68 @@
     <script src="../js/mui.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
     <script type="text/javascript">
         mui.init();
-        //上页中的 传递的值
-        var self = plus.webview.currentWebview();
 
-        var intervalObj, time = 60;
-        mui.plusReady(function() {});
+        var intervalObj, time = 60,
+            phone;
+        mui.plusReady(function() {
+            //上页中的 传递的值
+            var self = plus.webview.currentWebview();
+            phone = self.phone;
+            var phoneHead = self.phone.substring(0, 3);
+            var phoneEnd = self.phone.substring(7);
+            $(".code_text").html("请输入" + phoneHead + "****" + phoneEnd + "的短信验证码");
+
+            sendsms(self.phone);
+        });
+
+        //得到验证码
+        function sendsms(phone) {
+            Global.commonAjax({
+                    url: "sendsms/" + phone
+                },
+                function(data) {
+
+                },
+                function(err) {
+                    mui.toast("发送失败");
+                });
+        }
+
+        //网络请求
+        function loginAjax(phone, code) {
+            Global.commonAjax({
+                    url: 'registerlogin',
+                    mobileNo: phone,
+                    smsCode: code
+                },
+                function(data) {
+                    //广告
+                    myStorage.setItem("toFindAd", data.toFindAd);
+                    //用户个人信息
+                    myStorage.setItem("user", data.user);
+                    //用户属性信息
+                    myStorage.setItem("userInfo", data.userInfo);
+                    //钱包
+                    myStorage.setItem("wallet", data.wallet);
+                    //token
+                    myStorage.setItem("token", data.token);
+
+                    mui.openWindow({
+                        url: 'home.html',
+                        id: 'home.html',
+                        waiting: {
+                            autoShow: false
+                        }
+                    })
+                },
+                function(err) {
+                    mui.toast("登录失败");
+                })
+        }
+
         countDown();
 
         function countDown() {
@@ -120,51 +175,36 @@
             }, 1);
         };
 
-        mui.plusReady(function() {
-            initNativeObjects();
-            showSoftInput();
+        $(".realInput").bind("input propertychange", function() {
+            var value = $(".realInput").val();
+            var length = value.length;
 
-            $(".realInput").bind("input propertychange", function() {
-                var value = $(".realInput").val();
-                var length = value.length;
-                console.log(length);
-
-
-
-                $(".inutVal").each(function(index) {
-
-                    if (length > index) {
-                        $(this).text(value[index]);
-                    } else {
-                        $(this).text("");
-                    }
-                    console.log($(this))
-                });
-
-                $(".cursor").each(function(index) {
-                    if (length != index) {
-                        $(this).addClass("hideClass");
-                    }
-
-                    if (length == index) {
-                        $(this).removeClass("hideClass");
-                    }
-                    console.log($(this))
-                });
-
-                if (length == 6) {
-                    //输入完成
-
-                    return;
+            $(".inutVal").each(function(index) {
+                if (length > index) {
+                    $(this).text(value[index]);
+                } else {
+                    $(this).text("");
                 }
+                console.log($(this))
             });
 
+            $(".cursor").each(function(index) {
+                if (length != index) {
+                    $(this).addClass("hideClass");
+                }
 
+                if (length == index) {
+                    $(this).removeClass("hideClass");
+                }
+                console.log($(this))
+            });
 
-        })
+            if (length == 6) {
+                //输入完成
 
-
-
+                return;
+            }
+        });
         /**
          * 同意
          */
@@ -181,19 +221,19 @@
          * 登录的网络请求
          */
         function login() {
-            if ($('.selectRadio').attr('src') == '../images/agress_icon.png') {
-                mui.openWindow({
-                    url: 'home.html',
-                    id: 'home.html',
-                    waiting: {
-                        autoShow: false
-                    }
-                })
-            } else {
+            if ($('.selectRadio').attr('src') != '../images/agress_icon.png') {
                 mui.toast("请同意用户协议")
+            } else {
+                var value = $(".realInput").val();
+                var length = value.length;
+                if (length < 6) {
+                    mui.toast("请输入正确的验证码");
+                } else {
+                    loginAjax(phone, value.substring(0, 6));
+                }
             }
-
         }
+
         /**
          * 打开用户协议
          */
