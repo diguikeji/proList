@@ -1,8 +1,9 @@
-(function(win, com, mui) {
+var myStorage = {};
+(function() {
     /**
      * @description 本地存储
      */
-    var myStorage = {};
+    //var myStorage = {};
 
     function getItem(k) {
         var jsonStr = window.localStorage.getItem(k.toString());
@@ -161,6 +162,6 @@
         })
         cb && cb();
     };
-    com.myStorage = myStorage;
-    win.myStorage = myStorage;
-}(window, common, mui));
+    // com.myStorage = myStorage;
+    // win.myStorage = myStorage;
+}());

@@ -1,6 +1,6 @@
 var Global = {};
 
-$(function() {
+(function() {
 
     Global = {
         showLoading: function() {
@@ -43,7 +43,6 @@ $(function() {
         },
         errorDetail: function() {
             $(".mui-content").html('<div class="error-col"><img src="../images/error/tixian.png"/></div>');
-
         },
         errorNews: function() {
             $(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
@@ -154,33 +153,14 @@ $(function() {
 
 
         },
-        GetQueryString: function (url, name) {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        GetQueryString: function(url, name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = url.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
+            if (r != null) return unescape(r[2]);
+            return null;
         }
 
-	}
-
-$(".mui-content").on("click",".go-home",function()
-{
-	console.log("跳转");
-	mui.openWindow({
-      			url: 'home.html',
-      			id: 'home.html.html',
-			    waiting:{
-			      autoShow:false
-			    }
-      		})
-	
-});
-
-//家里
-// $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
-
-
-
-
+    }
 
     $(".mui-content").on("click", ".go-home", function() {
         console.log("跳转");
@@ -201,4 +181,4 @@ $(".mui-content").on("click",".go-home",function()
     // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
 
 
-})
+}());

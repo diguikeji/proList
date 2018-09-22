@@ -22,7 +22,11 @@
         <img class="content_top" src="https://lhjz.2donghua.com/imgs/loan/imgs/login_banner.png" alt="" />
 
         <div class="mui-input-row">
-            <input type="tel" class="mui-input-clear phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" pattern="[0-9]*" placeholder="请输入手机号">
+            <input type="text" class="mui-input-clear phone_input" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入手机号">
+
+            <!-- <input type="text" maxlength="8" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" /> -->
+
+
 
         </div>
         <button type="button" class="mui-btn mui-btn-link next_btn" onclick="getCode();">下一步</button>

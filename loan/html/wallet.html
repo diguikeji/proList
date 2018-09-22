@@ -99,8 +99,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #000;
-            opacity: 0.99;
+            background: rgba(0, 0, 0, 0.8);
             overflow: hidden;
             z-index: 10;
             color: #fff;
@@ -128,7 +127,7 @@
         }
         
         .modal-dialog input::-webkit-input-placeholder {
-            font-size: 20px;
+            font-size: 16px;
             color: #9499A4;
             height: 20px;
             line-height: 20px;
@@ -196,7 +195,9 @@
 
             <div class="mui-input-row money row">
                 <label style="width: 15%;">￥</label>
-                <input type="text" class="mui-input-clear" placeholder="请输入金额">
+
+                <input type="tel" class="mui-input-clear money_input" maxlength="8" oninput="if(value.length>8)value=value.slice(0,8)" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入金额">
+
             </div>
 
             <button type="button" class="mui-btn mui-btn-link next_btn" onclick="getMoney();">立即提现</button>
@@ -216,17 +217,17 @@
                     <div class="mui-input-row money row">
                         <img src="../images/name_icon.png" class="icon" />
                         <label style="width: 5px;"></label>
-                        <input type="text" class="mui-input-clear" placeholder="请输入金额">
+                        <input type="text" class="mui-input-clear accountName" placeholder="请输入收款人姓名">
 
                     </div>
 
                     <div class="mui-input-row money row">
                         <img src="../images/zfb_icon.png" class="icon" />
                         <label style="width: 5px;"></label>
-                        <input type="text" class="mui-input-clear" placeholder="请输入金额">
+                        <input type="text" class="mui-input-clear accountNum" placeholder="请输入收款人账号">
                     </div>
 
-                    <button type="button" class="mui-btn mui-btn-link sure_btn" onclick="getMoney();">立即提现</button>
+                    <button type="button" class="mui-btn mui-btn-link sure_btn" onclick="sureAccount();">确定</button>
 
                 </div>
             </div>
@@ -235,8 +236,16 @@
 
 
     <script src="../js/mui.min.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/app.js"></script>
     <script type="text/javascript">
         mui.init();
+
+        //钱包余额
+        var user = myStorage.getItem("user");
+        if (user && user.wallet) {
+            $(".money_text").html(user.wallet.balance);
+        }
 
         /**
          * 钱包明细 
@@ -245,12 +254,73 @@
             mui.openWindow({
                 url: 'walletDetail.html',
                 id: 'walletDetail.html',
+                waiting: {
+                    autoShow: false
+                },
             })
         }
 
         //立即提现
         function getMoney() {
+            if (!accountName || !accountNum) {
+                setZFB();
+            } else {
+                //提现申请
+                var money = $(".money_input").val();
+                if (!money) {
+                    mui.toast("请输入金额");
+                    return;
+                }
 
+                if (parseInt(money) < 50) {
+                    mui.toast("请输入大于最低提现额的数字");
+                    return;
+                }
+
+                Global.commonAjax({
+                        url: "user/apply/deposit",
+                        applyAmount: money
+                    },
+                    function(data) {
+
+                    },
+                    function(err) {
+
+                    }
+                )
+            }
+        }
+        //设置账号
+        var accountName, accountNum;
+
+        function sureAccount() {
+            accountName = $(".accountName").val();
+            accountNum = $(".accountNum").val();
+            if (!accountName) {
+                mui.toast("请设置收款人姓名");
+                return;
+            }
+            if (!accountNum) {
+                mui.toast("请设置收款人账号");
+                return;
+            }
+
+            Global.commonAjax({
+                    url: "user/modify/alipay",
+                    alipayName: accountName,
+                    alipayAccount: accountNum
+                },
+                function(data) {
+                    closeDialg();
+                    mui.toast("设置成功");
+                },
+                function(err) {
+
+                }
+            )
+
+            closeDialg();
+            mui.toast("设置成功");
         }
 
         //设置支付宝
