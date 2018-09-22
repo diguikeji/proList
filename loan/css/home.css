@@ -384,6 +384,10 @@ oa-contact-position {
     padding-bottom: 70px;
 }
 
+#tabContent .mui-active {
+    height: 100%;
+}
+
 .getMoneyContent .middle-col {
     height: 213px;
     border-radius: 10px;

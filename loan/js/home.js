@@ -1,6 +1,148 @@
 mui.init({
-    swipeBack: true //启用右滑关闭功能
+    swipeBack: true, //启用右滑关闭功能
+    pullRefresh: {
+        container: '#pullrefresh',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
 });
+
+//高成功率点击
+$('.highType').click(function() {
+    $('.highType').css('color', '#ff5445');
+    $('.timeType').css('color', '#333333');
+    $('.preType').css('color', '#333333');
+    pulldownRefresh();
+})
+
+//期限点击
+$('.timeType').click(function() {
+    $('.highType').css('color', '#333333');
+    $('.timeType').css('color', '#ff5445');
+    $('.preType').css('color', '#333333');
+
+    pulldownRefresh();
+})
+
+//上次浏览点击
+$('.preType').click(function() {
+    $('.highType').css('color', '#333333');
+    $('.timeType').css('color', '#333333');
+    $('.preType').css('color', '#ff5445');
+    pulldownRefresh();
+})
+
+pullupRefresh();
+
+/**
+ * 下拉刷新具体业务实现
+ */
+function pulldownRefresh() {
+    setTimeout(function() {
+        var cells = [1, 2, 3, 4];
+
+        var table = document.body.querySelector('.mui-table-view-condensed');
+        table.innerHTML = "";
+
+        for (var i = 0, len = cells.length; i < len; i++) {
+            var li = document.createElement('li');
+            li.className = 'mui-table-view-cell mui-table-view-cell-item';
+            li.innerHTML = '<div class="mui-slider-cell">' +
+                '<div class="oa-contact-cell mui-table">' +
+                '<div class="oa-contact-avatar mui-table-cell">' +
+                '<img src="../images/faxian.png" />' +
+                '</div>' +
+                '<div class="oa-contact-content mui-table-cell">' +
+                '<div class="mui-clearfix">' +
+                '借花花-借钱马上花' +
+                '</div>' +
+                '<p>' +
+                '<span>期限：1~3月</span>' +
+                '<span>额度：5000-10000</span>' +
+                '</p>' +
+                '<span class="mui-icon mui-icon-arrowright"></span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="bottom">最快3分钟，可获10000借款~</div></div>';
+            //下拉刷新，新纪录插到最前面；
+            // table.insertBefore(li, table.firstChild);
+            table.appendChild(li);
+        }
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+
+        //refresh completed
+    }, 1500);
+}
+
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh(queryType) {
+    Global.commonAjax({
+            url: "goods/findpage/goodslist",
+            queryType: queryType
+        },
+        function(data) {
+
+        },
+        function(err) {
+
+        }
+    )
+    setTimeout(function() {
+
+
+    }, 1500);
+}
+
+/**
+ * 上拉加载具体业务实现
+ */
+function setRefreshData(refreshType, cells) {
+    //var cells = [1,2,3,4];
+    //当前点击的 数据下标
+    var index = 0;
+    var table = document.body.querySelector('.mui-table-view-condensed');
+
+    if (refreshType == 0) {
+        //下拉刷新
+        table.innerHTML = "";
+    } else {
+        //加载更多
+        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+        var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
+        index = preList == null ? 0 : preList.length;
+    }
+
+    for (var i = 0, len = cells.length; i < len; i++) {
+        var li = document.createElement('li');
+        li.className = 'mui-table-view-cell mui-table-view-cell-item';
+        li.innerHTML = '<div class="mui-slider-cell">' +
+            '<div class="oa-contact-cell mui-table">' +
+            '<div class="oa-contact-avatar mui-table-cell">' +
+            '<img src="../images/faxian.png" />' +
+            '</div>' +
+            '<div class="oa-contact-content mui-table-cell">' +
+            '<div class="mui-clearfix">' +
+            '借花花-借钱马上花' +
+            '</div>' +
+            '<p>' +
+            '<span>期限：1~3月</span>' +
+            '<span>额度：5000-10000</span>' +
+            '</p>' +
+            '<span class="mui-icon mui-icon-arrowright"></span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="bottom">最快3分钟，可获10000借款~</div></div>';
+        table.appendChild(li);
+        index += 1;
+    }
+}
 
 //首页初始化信息
 function mainPageInit() {
@@ -395,24 +537,8 @@ function openGetMoney() {
     })
 }
 
-$('.highType').click(function() {
-    $('.highType').css('color', '#ff5445');
-    $('.timeType').css('color', '#333333');
-    $('.preType').css('color', '#333333');
-})
 
-$('.timeType').click(function() {
-    $('.highType').css('color', '#333333');
-    $('.timeType').css('color', '#ff5445');
-    $('.preType').css('color', '#333333');
-})
-
-$('.preType').click(function() {
-        $('.highType').css('color', '#333333');
-        $('.timeType').css('color', '#333333');
-        $('.preType').css('color', '#ff5445');
-    })
-    //关闭新口子	
+//关闭新口子	
 function closeDialg() {
     $('.selfModal').addClass('hideClass');
 }
