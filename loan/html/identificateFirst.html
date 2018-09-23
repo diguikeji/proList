@@ -276,21 +276,21 @@
 
         <div class="content">
             <div class="row photo_wrap">
-                <img src="../images/id_front.png" onclick="takeFrontPhoto();" />
-                <img src="../images/id_back.png" onclick="takeBackPhoto();" />
+                <img src="../images/id_front.png" onclick="takeFrontPhoto();" class="front_img" />
+                <img src="../images/id_back.png" onclick="takeBackPhoto();" class="back_img" />
             </div>
 
             <div class="form_style row">
                 <span>姓名</span>
                 <input type="text" placeholder="身份证上传后才可修改" id="name" />
-                <img src="../images/change_icon.png" />
+                <img src="../images/change_icon.png" class="change_name_icon" />
             </div>
 
 
             <div class="form_style row">
                 <span>身份证</span>
                 <input type="text" placeholder="身份证上传后才可修改" id="card" />
-                <img src="../images/change_icon.png" />
+                <img src="../images/change_icon.png" class="change_card_icon" />
             </div>
 
 
@@ -356,10 +356,37 @@
     <script src="../js/mui.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
     <script type="text/javascript">
         mui.init();
 
+        initData();
 
+        function initData() {
+            // var userInfo = myStorage.getItem("userInfo");
+            // var userInfo = {
+            //     idCard: "123",
+            //     realName: "456"
+            // };
+            var userInfo = "";
+            if (userInfo && userInfo.idCard && userInfo.realName) {
+                //存在
+                $('#name').val(userInfo.realName);
+                $('#name').removeAttr("readonly");
+
+                $('#card').val(userInfo.idCard);
+                $('#card').removeAttr("readonly");
+
+                $(".next").css("background", "#ff493D");
+            } else {
+                $('#name').attr("readonly", "readonly");
+                $('#card').attr("readonly", "readonly");
+                $('.change_name_icon').addClass("hideClass");
+                $('.change_card_icon').addClass("hideClass");
+
+                $(".next").css("background", "#c3c3c3");
+            }
+        }
 
         function takeFrontPhoto() {
             //身份证正面
@@ -369,6 +396,41 @@
         function takeBackPhoto() {
             //身份证反面
             alert("back");
+        }
+
+        function uploadFile(idPicType, dataImg) {
+            Global.commonAjax({
+                    url: "user/upload/idpic",
+                    idPicType: idPicType,
+                    dataImg: dataImg
+                },
+                function(data) {
+                    if (idPicType == "font") {
+                        $(".front_img").attr('src') = data.idPicUrl;
+                        $('#name').val(data.userInfo.realName);
+                        $('#card').val(data.userInfo.idCard);
+
+                        $('#name').removeAttr("readonly");
+                        $('#card').removeAttr("readonly");
+
+                        $('.change_name_icon').removeClass("hideClass");
+                        $('.change_card_icon').removeClass("hideClass");
+                    } else {
+                        $(".back_img").attr('src') = data.idPicUrl;
+                    }
+
+                    if (($(".front_img").attr('src') != "../images/id_front.png") &&
+                        ($(".back_img").attr('src') != "../images/id_back.png")) {
+                        $(".next").css("background", "#ff493D");
+                    } else {
+                        $(".next").css("background", "#c3c3c3");
+                    }
+
+                },
+                function(err) {
+
+                }
+            )
         }
 
         //Android 物理返回
@@ -401,9 +463,48 @@
          * 个人信息认证
          */
         function goToPersonInfo() {
+            var name = $('#name').val();
+            var card = $('#card').val();
+
+            // if (!name) {
+            //     mui.toast("请上传身份证正面");
+            //     return;
+            // }
+
+            // if (!card) {
+            //     mui.toast("请上传身份证正面");
+            //     return;
+            // }
+
+            // if ($(".front_img").attr('src') == "../images/id_front.png") {
+            //     mui.toast("请上传身份证正面");
+            //     return;
+            // }
+
+            // if ($(".back_img").attr('src') == "../images/id_back.png") {
+            //     mui.toast("请上传身份证反面");
+            //     return;
+            // }
+
+            // Global.commonAjax({
+            // 		url: "user/input/idcard",
+            // 		realName: name,
+            // 		idCard: card
+            //     },
+            //     function(data) {
+
+            //     },
+            //     function(err) {
+
+            //     }
+            // )
+
             mui.openWindow({
                 url: 'personInfo.html',
                 id: 'personInfo.html',
+                waiting: {
+                    autoShow: false
+                }
             })
         }
     </script>

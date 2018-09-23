@@ -86,14 +86,22 @@ var Global = {};
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "https://xhq-app.xianghq.cn/api/";
             //应用版本号
-            var appVersion = plus.runtime.version;
-            //设备唯一标识
-            var deviceId = plus.device.uuid;
-            //系统的版本信息
-            var osVersion = plus.os.version;
+            // var appVersion = plus.runtime.version;
+            // //设备唯一标识
+            // var deviceId = plus.device.uuid;
+            // //系统的版本信息
+            // var osVersion = plus.os.version;
 
-            var appType = plus.os.name;
+            // var appType = plus.os.name;
             var appName = "xhq";
+
+            appVersion = "1.0.0";
+            //设备唯一标识
+            var deviceId = "129404038389203";
+            //系统的版本信息
+            var osVersion = "android 5.1";
+
+            var appType = "Android";
 
             //默认 get请求
             if (!params.method) {
@@ -137,17 +145,17 @@ var Global = {};
 
                 },
                 error: function(data) {
-                    errorback(data);
+                    //errorback(data);
                 },
                 complete: function(xhr, status) {
                     Global.hideLoading();
-                    if (status == 'error') {
-                        Global.error404();
-                    } else if (status == 'timeout') {
-                        Global.error500();
-                    } else {
-                        Global.errorNet();
-                    }
+                    // if (status == 'error') {
+                    //     Global.error404();
+                    // } else if (status == 'timeout') {
+                    //     Global.error500();
+                    // } else {
+                    //     Global.errorNet();
+                    // }
                 }
             });
 

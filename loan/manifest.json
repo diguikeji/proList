@@ -121,12 +121,12 @@
 					"appstore": "E:/下载/图标商品.png"
 				},
 				"android": {
-					"mdpi": "E:/下载/图标商品(5).png", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "E:/下载/图标商品(5).png", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "E:/下载/图标商品(4).png", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "E:/下载/图标商品(3).png",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": "E:/下载/图标商品(2).png",
-					"xxxhdpi": "E:/下载/图标商品(1).png"
+					"mdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+					"xxxhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
 				}
 			},
 			"splashscreen": {
@@ -152,8 +152,7 @@
 					"ldpi": ""
 				}
 			}
-		},
-		"adid": "125999110409"
+		},"adid":"125999110409"
 	},
 	"dependencies": {
 		"pages": {
