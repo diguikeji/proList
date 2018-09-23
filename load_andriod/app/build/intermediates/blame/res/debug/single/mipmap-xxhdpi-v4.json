@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_take.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_take.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_company_landscape.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_company_landscape.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_close.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_close.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_company.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_company.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_idcard_back.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_idcard_back.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_flash_off.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_flash_off.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_idcard_front.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_idcard_front.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_flash_on.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_flash_on.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_result_cancel.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_result_cancel.png"
+    },
+    {
+        "merged": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\camera_result_ok.png",
+        "source": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_result_ok.png"
+    }
+]

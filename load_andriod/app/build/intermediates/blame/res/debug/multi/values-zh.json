@@ -1,0 +1,45 @@
+[
+    {
+        "outputFile": "D:\\YunFile\\github\\mui_android\\HBuilder-Integrate-AS\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 68,
+                    "endOffset": 119
+                },
+                "from": {
+                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\1ed29f40473fe4878c66ab7128e80d0840d9f874\\output\\res\\values-zh\\values-zh.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 68,
+                        "endOffset": 119
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 124,
+                    "endColumn": 43,
+                    "endOffset": 163
+                },
+                "from": {
+                    "file": "C:\\Users\\Administrator\\.android\\build-cache\\1ed29f40473fe4878c66ab7128e80d0840d9f874\\output\\res\\values-zh\\values-zh.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 124,
+                        "endColumn": 43,
+                        "endOffset": 163
+                    }
+                }
+            }
+        ]
+    }
+]
