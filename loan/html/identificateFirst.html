@@ -276,13 +276,13 @@
 
         <div class="content">
             <div class="row photo_wrap">
-                <img src="../images/id_front.png" onclick="takeFrontPhoto();" />
+                <img id="zhengmian" src="../images/id_front.png" onclick="takeFrontPhoto();" />
                 <img src="../images/id_back.png" onclick="takeBackPhoto();" />
             </div>
 
             <div class="form_style row">
                 <span>姓名</span>
-                <input type="text" placeholder="身份证上传后才可修改" id="name" />
+                <input id="fanmian" type="text" placeholder="身份证上传后才可修改" id="name" />
                 <img src="../images/change_icon.png" />
             </div>
 
@@ -359,16 +359,54 @@
     <script type="text/javascript">
         mui.init();
 
+        var main;
+        var Intent;
+        var intent
+        document.addEventListener('plusready',function(){
+
+		        main = plus.android.runtimeMainActivity();
+				Intent = plus.android.importClass("android.content.Intent");
+				intent = new Intent(main.getIntent());
+
+		},false);
+
 
 
         function takeFrontPhoto() {
             //身份证正面
-            alert("front");
+
+				intent.putExtra("type", 1);
+
+				intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				main.startActivity(intent);
+				main.startActivityForResult(intent,19);
+				main.onActivityResult = function(request, code, data) {
+					//停止录像
+					var imgUrl=data.getStringExtra("result");
+					$("#zhengmian").attr("src",imgUrl);
+
+				}
         }
 
         function takeBackPhoto() {
             //身份证反面
-            alert("back");
+
+                intent.putExtra("type", 2);
+
+				intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				main.startActivity(intent);
+				main.startActivityForResult(intent,19);
+				main.onActivityResult = function(request, code, data) {
+					//停止录像
+					var imgUrl=data.getStringExtra("result");
+					$("#fanmian").attr("src",imgUrl);
+
+				}
+
+
+
         }
 
         //Android 物理返回
