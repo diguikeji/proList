@@ -121,12 +121,21 @@
 					"appstore": "E:/下载/图标商品.png"
 				},
 				"android": {
+<<<<<<< HEAD
 					"mdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*普通屏程序图标，分辨率：48x48*/
 					"ldpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*大屏程序图标，分辨率：48x48*/
 					"hdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png", /*高分屏程序图标，分辨率：72x72*/
 					"xhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",/*720P高分屏程序图标，分辨率：96x96*/
 					"xxhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
 					"xxxhdpi": "/Users/guzhenfu/Documents/Demo/DiaoDiao/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+=======
+					"mdpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/push.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/push.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/push.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/push.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/icon.png",
+					"xxxhdpi": "D:/YunFile/github/proList/load_andriod/app/src/main/res/drawable-xxhdpi/push.png"
+>>>>>>> 83153bee7306c80d5839bd1179b9445099739713
 				}
 			},
 			"splashscreen": {

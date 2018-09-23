@@ -396,6 +396,8 @@
                     url: "sys/latest/syscfg"
                 },
                 function(data) {
+                    console.log(data);
+                    mui.toast(data);
                     studyPickerList = [];
                     marryPickerList = [];
                     housePickerList = [];
