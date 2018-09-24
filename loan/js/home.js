@@ -126,6 +126,9 @@ $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
         });
 
     }else if(index == 2){
+    		var height = plus.display.resolutionHeight;
+    		//alert(height);
+    		$("#tabbar-with-contact").css("height",  height);
     		//发现
     		pulldownRefresh();
     }
@@ -190,7 +193,7 @@ function moneyPageInit() {
 }
 
 //查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
-var currentType = "";
+var currentType = "DEGREE";
 //当前查询  页数
 var current = 1;
 //根据期限查询是，是否倒序
@@ -200,10 +203,10 @@ $('.highType').click(function() {
     $('.highType').css('color', '#ff5445');
     $('.timeType').css('color', '#333333');
     $('.preType').css('color', '#333333');
-    pulldownRefresh();
     currentType = 'DEGREE';
     current = 1;
     isDes = false;
+    pulldownRefresh();
 })
 
 //期限点击
@@ -215,9 +218,10 @@ $('.timeType').click(function() {
         //当前期限
         isDes = !isDes;
     }
-    pulldownRefresh();
+    
     currentType = 'TIME';
     current = 1;
+    pulldownRefresh();
 })
 
 //上次浏览点击
@@ -225,10 +229,11 @@ $('.preType').click(function() {
     $('.highType').css('color', '#333333');
     $('.timeType').css('color', '#333333');
     $('.preType').css('color', '#ff5445');
-    pulldownRefresh();
+    
     currentType = 'HISTORY';
     current = 1;
     isDes = false;
+    pulldownRefresh();
 });
 
 //列表点击 埋点
@@ -250,78 +255,52 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
     // )
 });
 
+//发现列表
+function payedGoodslist(refreshType){
+	var params = {
+		queryType: currentType,
+       size: 20,
+       current: current,
+       isDes: isDes
+	}
+	Global.commonAjax({
+               url: "goods/payed/goodslist",
+               data: params,
+               method: "POST"
+           },
+           function(data) {
+           		if(data.current >= data.pages){
+					if(data.current == 1){
+						//空数据
+						Global.errorNews();
+					}else{
+						//没有更多数据了
+						setRefreshData(refreshType, data.records, true);
+					}
+				}else{
+					setRefreshData(refreshType, data.records, false);
+				}
+           },
+           function(err) {
+
+           }
+       )
+}
+
 /**
  * 下拉刷新具体业务实现
  */
 function pulldownRefresh() {
-    setTimeout(function() {
-        var cells = [
-            { goodsName: "借花花-借钱马上花", goodsTitle: "最快3分钟，可获10000借款~", goodsPic: "../images/faxian.png", loanAmount: "999", loanDay: '1~3月', goodsCode: "123" },
-            { goodsName: "借花花-借钱马上花", goodsTitle: "最快3分钟，可获10000借款~", goodsPic: "../images/faxian.png", loanAmount: "999", loanDay: '1~3月', goodsCode: "123" },
-            { goodsName: "借花花-借钱马上花", goodsTitle: "最快3分钟，可获10000借款~", goodsPic: "../images/faxian.png", loanAmount: "999", loanDay: '1~3月', goodsCode: "123" },
-            { goodsName: "借花花-借钱马上花", goodsTitle: "最快3分钟，可获10000借款~", goodsPic: "../images/faxian.png", loanAmount: "999", loanDay: '1~3月', goodsCode: "123" }
-        ];
-        setRefreshData(0, cells, false);
-        //refresh completed
-    }, 1500);
+    current = 1;
+    payedGoodslist(0);
 }
 
 /**
  * 上拉加载具体业务实现
  */
 function pullupRefresh() {
-    // Global.commonAjax({
-    //         url: "goods/findpage/goodslist",
-    //         queryType: currentType,
-    //         size: 20,
-    //         current: current,
-    //         isDes: isDes
-    //     },
-    //     function(data) {
-    //         var cells = data.records;
-    //         setRefreshData(1, cells, data.current == data.pages);
-    //     },
-    //     function(err) {
-
-    //     }
-    // )
-    setTimeout(function() {
-        var cells = [{
-                goodsName: "借花花-借钱马上花",
-                goodsTitle: "最快3分钟，可获10000借款~",
-                goodsPic: "../images/faxian.png",
-                loanAmount: "999",
-                loanDay: '1~3月',
-                goodsCode: "123"
-            },
-            {
-                goodsName: "借花花-借钱马上花",
-                goodsTitle: "最快3分钟，可获10000借款~",
-                goodsPic: "../images/faxian.png",
-                loanAmount: "999",
-                loanDay: '1~3月',
-                goodsCode: "123"
-            },
-            {
-                goodsName: "借花花-借钱马上花",
-                goodsTitle: "最快3分钟，可获10000借款~",
-                goodsPic: "../images/faxian.png",
-                loanAmount: "999",
-                loanDay: '1~3月',
-                goodsCode: "123"
-            },
-            {
-                goodsName: "借花花-借钱马上花",
-                goodsTitle: "最快3分钟，可获10000借款~",
-                goodsPic: "../images/faxian.png",
-                loanAmount: "999",
-                loanDay: '1~3月',
-                goodsCode: "123"
-            }
-        ];
-        setRefreshData(1, cells, false);
-
-    }, 1500);
+	current++;
+    payedGoodslist(1);
 }
 
 /**
@@ -369,7 +348,7 @@ function setRefreshData(refreshType, cells, isAll) {
 
     if (refreshType == 0) {
         //下拉刷新
-        //mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
     } else {
         //上拉加载
 

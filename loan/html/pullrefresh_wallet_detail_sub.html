@@ -77,15 +77,18 @@
             }
         });
 
-        //pulldownRefresh();
+        pulldownRefresh();
         var user = myStorage.getItem("user");
         var userId, current = 1;
         if (user && user.userId) {
             userId = user.userId;
+        }else{
+        		userId = "18513212904";
         }
 
         //获取流水数据
         function getFlowList(refreshType) {
+        		
 			var params = {
 				userId: userId,
 				page: {
@@ -132,18 +135,18 @@
         		getFlowList(1);
         }
         
-       if (mui.os.plus) {
-           mui.plusReady(function() {
-               setTimeout(function() {
-                   mui('#pullrefresh').pullRefresh().pullupLoading();
-               }, 10);
-
-           });
-       } else {
-           mui.ready(function() {
-               mui('#pullrefresh').pullRefresh().pullupLoading();
-           });
-       }
+//     if (mui.os.plus) {
+//         mui.plusReady(function() {
+//             setTimeout(function() {
+//                 mui('#pullrefresh').pullRefresh().pullupLoading();
+//             }, 10);
+//
+//         });
+//     } else {
+//         mui.ready(function() {
+//             mui('#pullrefresh').pullRefresh().pullupLoading();
+//         });
+//     }
         
         /**
          * 	请求列表数据
