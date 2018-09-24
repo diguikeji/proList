@@ -106,6 +106,8 @@
     <script src="../js/mui.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <!--<script src="html5plus://ready"></script>-->
     <script>
         mui.init({
             pullRefresh: {
@@ -119,6 +121,19 @@
                 }
             }
         });
+        
+        if (mui.os.plus) {
+            mui.plusReady(function() {
+                setTimeout(function() {
+                    mui('#pullrefresh').pullRefresh().pullupLoading();
+                }, 10);
+            });
+        } else {
+            mui.ready(function() {
+                mui('#pullrefresh').pullRefresh().pullupLoading();
+            });
+        }
+        
 
         $('body').on('click', '.mui-table-view li .item_wrap', function() {
             var index = $(this).data("index");
@@ -133,150 +148,141 @@
             if (user && user.userId) {
                 userId = user.userId;
             }
-
+			var params = {
+				idMsg: item.idMsg,
+                userId: userId
+			}
             Global.commonAjax({
                     url: "user/msg/open",
-                    idMsg: item.idMsg,
-                    userId: userId
+                    data: params,
+                    method: "POST"
                 },
                 function(data) {
-
+					if (item && item.jumpUrl) {
+			                mui.openWindow({
+			                    url: 'webview.html',
+			                    id: 'webview.html?url=' + item.jumpUrl,
+			                    waiting: {
+			                        autoShow: false
+			                    }
+			                })
+			            }
                 },
                 function(err) {
 
                 }
-            )
-
-            if (item && item.jumpUrl) {
-                mui.openWindow({
-                    url: 'webview.html',
-                    id: 'webview.html?url=' + item.jumpUrl,
-                    waiting: {
-                        autoShow: false
-                    }
-                })
-            }
-
+           )
         }
 
+		var current = 1;
         /**
          * 下拉刷新具体业务实现
          */
         function pulldownRefresh() {
-            setTimeout(function() {
-                var cells = [{
-                    msgTitle: '新口子，虾米贷，下款率40%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: true,
-                    time: '2018-08-28',
-                    idMsg: 1
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率30%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: false,
-                    time: '2018-08-28',
-                    idMsg: 2
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率20%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: true,
-                    time: '2018-08-28',
-                    idMsg: 3
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率10%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: false,
-                    time: '2018-08-28',
-                    idMsg: 4
-                }, ];
-
-                var table = document.body.querySelector('.mui-table-view');
-                table.innerHTML = "";
-
-                for (var i = 0, len = cells.length; i < len; i++) {
-                    var li = document.createElement('li');
-                    li.className = 'mui-table-view-cell';
-                    li.innerHTML = '<div class="item_wrap col" data-index="' + i + '">' +
-                        '<span class="item_time">' + cells[i].time + '</span>' +
-                        '<div class="row content_wrap">' + (cells[i].isRead ? '' : '<span class="read_flag"></span>') +
-                        '<div class="col title_wrap">' +
-                        '<span class="main_title">' + cells[i].msgTitle + '</span>' +
-                        '<span class="main_content">' + cells[i].msgContent + '</span>' +
-                        '</div></div></div>';
-                    //下拉刷新，新纪录插到最前面；
-                    // table.insertBefore(li, table.firstChild);
-                    table.appendChild(li);
-                }
-                mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-
-                //refresh completed
-            }, 1500);
+			Global.commonAjax(
+				{
+					url: "user/msglist",
+					method: "POST",
+					current: 1
+				},
+				function(data){
+					if(data.current >= data.pages){
+						if(data.current == 1){
+							//空数据
+							Global.errorNews();
+						}else{
+							//没有更多数据了
+							getListData(0, data.records, true);
+						}
+					}else{
+						getListData(0, data.records, false);
+					}
+				},
+				function(err){
+					
+				}
+			)
+        		
+        
         }
 
         /**
          * 上拉加载具体业务实现
          */
         function pullupRefresh() {
-            setTimeout(function() {
-                var cells = [{
-                    msgTitle: '新口子，虾米贷，下款率40%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: true,
-                    time: '2018-08-28',
-                    idMsg: 5
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率30%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: false,
-                    time: '2018-08-28',
-                    idMsg: 6
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率20%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: true,
-                    time: '2018-08-28',
-                    idMsg: 7
-                }, {
-                    msgTitle: '新口子，虾米贷，下款率10%',
-                    msgContent: '额度1000-5000，凭身份证即可下款额度即可，凭身份证即可下款额度...',
-                    isRead: false,
-                    time: '2018-08-28',
-                    idMsg: 8
-                }, ];
-
-
-                mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
-                var table = document.body.querySelector('.mui-table-view');
-                var preList = document.body.querySelectorAll('.mui-table-view-cell');
-                var index = preList.length;
-                for (var i = 0, len = cells.length; i < len; i++) {
-                    var li = document.createElement('li');
-                    li.className = 'mui-table-view-cell';
-                    li.innerHTML = '<div class="item_wrap col" data-index="' + index + '">' +
-                        '<span class="item_time">' + cells[i].time + '</span>' +
-                        '<div class="row content_wrap">' + (cells[i].isRead ? '' : '<span class="read_flag"></span>') +
-                        '<div class="col title_wrap">' +
-                        '<span class="main_title">' + cells[i].msgTitle + '</span>' +
-                        '<span class="main_content">' + cells[i].msgContent + '</span>' +
-                        '</div></div></div>';
-                    table.appendChild(li);
-                    index += 1;
-                }
-            }, 1500);
+        		current++;
+        		Global.commonAjax(
+				{
+					url: "user/msglist",
+					method: "POST",
+					current: current
+				},
+				function(data){
+					if(data.current >= data.pages){
+						if(data.current == 1){
+							//空数据
+							Global.errorNews();
+						}else{
+							//没有更多数据了
+							getListData(1, data.records, true);
+						}
+					}else{
+						getListData(1, data.records, false);
+					}
+					
+				},
+				function(err){
+					
+				}
+			)
+       }
+        
+        /**
+         * 	请求列表数据
+         * @param {Object} refreshType 0 下拉刷新 1 上拉加载
+         * @param {Object} cells 列表数据
+         * @param {Object} isAll true 是最后一页
+         */
+        function getListData(refreshType, cells, isAll){
+        		//当前点击的 数据下标
+		    var index = 0;
+		    var table = document.body.querySelector('.mui-table-view');
+		
+		    if (refreshType == 0) {
+		        //下拉刷新
+		        table.innerHTML = "";
+		    } else {
+		        //加载更多
+		        mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
+		        var preList = document.body.querySelectorAll('.mui-table-view-cell');
+		        index = preList == null ? 0 : preList.length;
+		    }
+		    
+            for (var i = 0, len = cells.length; i < len; i++) {
+                var li = document.createElement('li');
+                li.className = 'mui-table-view-cell';
+                li.innerHTML = '<div class="item_wrap col" data-index="' + index + '">' +
+                    '<span class="item_time">' + cells[i].time + '</span>' +
+                    '<div class="row content_wrap">' + (cells[i].isRead ? '' : '<span class="read_flag"></span>') +
+                    '<div class="col title_wrap">' +
+                    '<span class="main_title">' + cells[i].msgTitle + '</span>' +
+                    '<span class="main_content">' + cells[i].msgContent + '</span>' +
+                    '</div></div></div>';
+                table.appendChild(li);
+                index += 1;
+            }
+            
+            if (refreshType == 0) {
+		        //下拉刷新
+		        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		    } else {
+		        //上拉加载
+		
+		    }
+                
         }
-
-        if (mui.os.plus) {
-            mui.plusReady(function() {
-                setTimeout(function() {
-                    mui('#pullrefresh').pullRefresh().pullupLoading();
-                }, 10);
-
-            });
-        } else {
-            mui.ready(function() {
-                mui('#pullrefresh').pullRefresh().pullupLoading();
-            });
-        }
+        
+        
     </script>
 </body>
 

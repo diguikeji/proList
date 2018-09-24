@@ -12,6 +12,183 @@ mui.init({
     }
 });
 
+mui.plusReady(function() {
+    //红包左右晃动
+    setInterval(function() {
+        gaibian();
+    }, 500);
+    //系统参数接口
+    initData();
+    //用户信息接口
+    loginByToken();
+    //首页接口
+    mainPageInit();
+});
+
+//通过token 登录
+function loginByToken(){
+	if(myStorage && myStorage.getItem("userToken")){
+		
+		var params = {
+			token: myStorage.getItem("userToken")
+		}
+		Global.commonAjax(
+			{
+				url: "app/login/token",
+				method: "POST",
+				data: params
+			},
+			function (data){
+				//广告
+				if(data.toFindAd){
+					//有新口子 
+					myStorage.setItem("toFindAd", data.toFindAd);
+					$('.selfModal .modal-dialog .modal-content .conten_bg')
+									.attr("src", data.toFindAd.picUrl);
+				}else{
+					$('.selfModal').addClass('hideClass');
+				}
+                //用户个人信息
+                myStorage.setItem("user", data.user);
+                //用户属性信息
+                myStorage.setItem("userInfo", data.userInfo);
+                //钱包
+                myStorage.setItem("wallet", data.wallet);
+                //token
+                myStorage.setItem("userToken", data.userToken);
+			},
+			function (error){
+				
+			}
+		);
+	}
+}
+
+//调用系统参数
+function initData() {
+    Global.commonAjax({
+            url: "sys/latest/syscfg"
+        },
+        function(data) {
+            myStorage.setItem("highestDegree", data.highestDegree);
+            myStorage.setItem("maritalStatus", data.maritalStatus);
+            myStorage.setItem("houseStatus", data.houseStatus);
+            myStorage.setItem("loansStatus", data.loansStatus);
+        }
+    )
+}
+
+//首页初始化信息
+function mainPageInit() {
+    Global.commonAjax({ url: 'page/mainpage/init' },
+        function(data) {
+            setGetMoneyBanner(data.bannerList);
+            $(".msg_cnt").html(data.unReadMsg);
+        }
+    )
+}
+
+//切换底部tab
+var makeMoneySwiperObj;
+$(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
+    var index = $(this).index();
+    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
+    $(this).addClass("mui-active");
+    $("#tabContent>.mui-control-content").removeClass("mui-active");
+    $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
+
+    if (index == 0) {
+        if (swiper) {
+            swiper.destroy();
+        }
+
+        swiper = new Swiper('.top-swiper-container', {
+            direction: 'vertical',
+            loop: true,
+            autoplay: true
+        });
+    } else if (index == 1) {
+    		//初始化
+    		moneyPageInit();
+        if (makeMoneySwiperObj) {
+            makeMoneySwiperObj.destroy();
+        }
+
+        makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
+            direction: 'vertical',
+            loop: true,
+            autoplay: true
+        });
+
+        //赚钱的无限
+        mui("#slider1").slider({
+            interval: 5000
+        });
+
+    }else if(index == 2){
+    		//发现
+    		pulldownRefresh();
+    }
+
+});
+
+//底部分享数据变量
+var shareData = {};
+//初始化 赚钱接口数据
+//赚钱 初始化
+function moneyPageInit() {
+    Global.commonAjax({ url: "page/moneypage/init" },
+        function(data) {
+        		//邀请人数 任务奖励 余额
+        		if(data && data.userInvite){
+        			$(".invitationCount").html(data.userInvite.invitationCount);
+            		$(".invitationBalance").html(data.userInvite.invitationBalance);
+        		}else{
+        			$(".invitationCount").html("0");
+            		$(".invitationBalance").html("0");
+        		}
+        		//余额
+        		if (data && data.miniApplyAmount){
+        			$(".balance").html(data.miniApplyAmount);
+        		}else{
+        			$(".balance").html("0");
+        		}
+            //底部无限滚动
+            //如果付费了 隐藏
+            if(myStorage && myStorage.getItem("user")){
+            		var user = myStorage.getItem("user");
+            		if(user.isPayFee){
+            			//已经付费了
+            			$("#slider1").addClass("hideClass");
+            		}
+            }
+            if(data && data.newbieTaskBanner){
+            		newbieTaskBanner(data.newbieTaskBanner);
+            }
+            //顶部 邀请好友 和 自己 所得奖励
+            if(data && data.topAd){
+            		$(".get_money_top_ad").attr("src", data.topAd.picUrl);
+            }
+            
+        }
+    );
+    
+    //获取底部分享
+//  Global.commonAjax(
+//		{
+//			url: "user/sharelist?isShowPic=false"
+//		},
+//		function(data){
+//			//底部分享数据
+//			if(data){
+//				shareData = data;
+//			}
+//		},
+//		function(err){
+//		}
+//	)
+}
+
 //查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
 var currentType = "";
 //当前查询  页数
@@ -72,8 +249,6 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
     //     }
     // )
 });
-
-pulldownRefresh();
 
 /**
  * 下拉刷新具体业务实现
@@ -194,32 +369,13 @@ function setRefreshData(refreshType, cells, isAll) {
 
     if (refreshType == 0) {
         //下拉刷新
-        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+        //mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
     } else {
         //上拉加载
 
     }
 }
 
-
-
-//首页初始化信息
-function mainPageInit() {
-    Global.commonAjax({ url: 'page/mainpage/init' },
-        function(data) {
-            setGetMoneyBanner(data.bannerList);
-            $(".msg_cnt").html(data.unReadMsg);
-        }
-    )
-}
-
-//测试
-$(".msg_cnt").html("12");
-setGetMoneyBanner([
-    { picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com" },
-    { picUrl: '../images/86565.png', adValue: "http://www.taobao.com" },
-    { picUrl: '../images/976.png', adValue: "http://www.jingdong.com" }
-]);
 //设置借款底部的 无限轮播
 function setGetMoneyBanner(listData) {
     var html = "";
@@ -258,40 +414,6 @@ function setGetMoneyBanner(listData) {
         })
     }
 }
-
-//token登录
-function loginUseToken() {
-    var token = myStorage.getItem("token");
-    if (token) {
-        Global.commonAjax({
-                url: 'login/' + token
-            },
-            function(data) {
-                //广告
-                myStorage.setItem("toFindAd", data.toFindAd);
-                //用户个人信息
-                myStorage.setItem("user", data.user);
-                //用户属性信息
-                myStorage.setItem("userInfo", data.userInfo);
-                //钱包
-                myStorage.setItem("wallet", data.wallet);
-                //token
-                myStorage.setItem("token", data.userToken);
-            },
-            function(err) {
-
-            }
-        )
-    }
-}
-
-
-mui.plusReady(function() {
-    //红包左右晃动
-    setInterval(function() {
-        gaibian();
-    }, 500);
-});
 
 //红包无限晃动
 var hongbaoFlag = 0;
@@ -334,7 +456,7 @@ function apply() {
 
     //     }
     // );
-
+    
     mui.openWindow({
         url: 'identificateFirst.html',
         id: 'identificateFirst.html',
@@ -432,27 +554,8 @@ $(".invitationCount").html("789");
 $(".invitationBalance").html("456");
 $(".balance").html("123");
 
-//赚钱 初始化
-function initMakeMoney() {
-    Global.commonAjax({ url: "page/moneypage/init" },
-        function(data) {
-            $(".invitationCount").html(data.userInvite.invitationCount);
-            $(".invitationBalance").html(data.userInvite.invitationBalance);
-            var user = myStorage.getItem("user");
-            if (user && user.wallet) {
-                $(".balance").html(user.wallet.balance);
-            }
-        }
-    )
-}
 
 //赚钱无限轮播
-newbieTaskBanner([
-    { picUrl: '../images/banner1.jpg', adValue: "http://www.baidu.com" },
-    { picUrl: '../images/86565.png', adValue: "http://www.taobao.com" },
-    { picUrl: '../images/976.png', adValue: "http://www.jingdong.com" }
-]);
-
 function newbieTaskBanner(listData) {
     var html = "";
     var length = listData.length;
@@ -492,46 +595,9 @@ function newbieTaskBanner(listData) {
 }
 
 //分享底部弹窗
-
-
-var makeMoneySwiperObj;
-$(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
-    var index = $(this).index();
-    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
-    $(this).addClass("mui-active");
-    $("#tabContent>.mui-control-content").removeClass("mui-active");
-    $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
-
-    if (index == 0) {
-        if (swiper) {
-            swiper.destroy();
-        }
-
-        swiper = new Swiper('.top-swiper-container', {
-            direction: 'vertical',
-            loop: true,
-            autoplay: true
-        });
-    } else if (index == 1) {
-        if (makeMoneySwiperObj) {
-            makeMoneySwiperObj.destroy();
-        }
-
-        makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
-            direction: 'vertical',
-            loop: true,
-            autoplay: true
-        });
-
-        //赚钱的无限
-        mui("#slider1").slider({
-            interval: 5000
-        });
-
-    }
-
-});
-
+/**
+ *  shareData {description   iconUrl  linkUrl  title}
+ */
 //分享到各个平台的点击事件
 $(".wx_wrap").click(function() {
     mui.toast("wx_wrap");
@@ -633,7 +699,21 @@ function goToFindTab() {
 
 //邀请好友 弹出浮层
 function invaliteFriend() {
-    $('.inviteModal').removeClass('hideClass');
+	Global.commonAjax(
+		{
+			url: "user/sharelist?isShowPic=true"
+		},
+		function(data){
+			$('.inviteModal').removeClass('hideClass');
+			if(data && data.adUrl){
+				$(".invalite_bg").attr("src", data.adUrl);
+			}
+			
+		},
+		function(err){
+		}
+	)
+    
 
 }
 

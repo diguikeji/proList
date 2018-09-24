@@ -66,6 +66,7 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
+    <script src="html5plus://ready"></script>
     <script type="text/javascript">
         mui.init();
 
@@ -79,16 +80,16 @@
             var phoneEnd = self.phone.substring(7);
             $(".code_text").html("请输入" + phoneHead + "****" + phoneEnd + "的短信验证码");
 
-            sendsms(self.phone);
+            //sendsms(self.phone);
         });
 
         //得到验证码
         function sendsms(phone) {
             Global.commonAjax({
-                    url: "sendsms/" + phone
+                    url: "app/sendsms/" + phone
                 },
                 function(data) {
-
+					mui.toast("验证码发送成功");
                 },
                 function(err) {
                     mui.toast("发送失败");
@@ -97,14 +98,22 @@
 
         //网络请求
         function loginAjax(phone, code) {
+        		console.log(phone+"------"+code);
+        		var params = {
+        			mobileNo: phone,
+                smsCode: code
+        		}
             Global.commonAjax({
-                    url: 'registerlogin',
-                    mobileNo: phone,
-                    smsCode: code
+                    url: 'app/registerlogin',
+                    method: "POST",
+                    data: params
                 },
                 function(data) {
                     //广告
-                    myStorage.setItem("toFindAd", data.toFindAd);
+                    if(data.toFindAd){
+                    		myStorage.setItem("toFindAd", data.toFindAd);
+                    }
+                    
                     //用户个人信息
                     myStorage.setItem("user", data.user);
                     //用户属性信息
@@ -112,7 +121,7 @@
                     //钱包
                     myStorage.setItem("wallet", data.wallet);
                     //token
-                    myStorage.setItem("token", data.token);
+                    myStorage.setItem("userToken", data.userToken);
 
                     mui.openWindow({
                         url: 'home.html',
@@ -146,6 +155,7 @@
         $('.sixty').click(function() {
             if ($(this).text() == "重新获取") {
                 countDown();
+                login();
             }
         })
 

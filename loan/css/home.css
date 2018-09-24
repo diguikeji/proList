@@ -384,10 +384,15 @@ oa-contact-position {
     padding-bottom: 70px;
 }
 
+/*影响到赚钱的分享了*/
 #tabContent .mui-active {
     height: 100%;
 }
 
+
+#tabbar-with-contact{
+	height: 100%;
+}
 .getMoneyContent .middle-col {
     height: 213px;
     border-radius: 10px;

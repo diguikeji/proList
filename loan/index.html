@@ -54,7 +54,7 @@
 			<ul id="list" class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 
-					<a class="mui-navigate-right" href="html/login.html">login</a>
+					<a class="mui-navigate-right" href="html/log	in.html">login</a>
 
 				</li>
 
@@ -104,9 +104,11 @@
 	<script src="js/mui.min.js"></script>
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/myStorage.js"></script>
+	<script src="html5plus://ready"></script>
 	<script>
 		
-		window.location.href = "http://project.youzewang.com/app/app.html";
+//		window.location.href = "http://project.youzewang.com/app/app.html";
 		
 		
 var sweixin=null;
@@ -128,6 +130,20 @@ function plusReady(){
 					//关闭splash页面；
 					plus.navigator.closeSplashscreen();
 					plus.navigator.setFullscreen(false);
+					
+					if(myStorage && myStorage.getItem("user")){
+						//如果有值，证明登录过了
+						mui.openWindow({
+							id: 'home.html',
+							url: 'html/home.html'
+						});
+					}else{
+						//没有登录
+						mui.openWindow({
+							id: 'login.html',
+							url: 'html/login.html'
+						});
+					}
 				
 				} else {
 					//显示启动导航

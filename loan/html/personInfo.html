@@ -384,18 +384,22 @@
             plus.webview.close('personInfo.html');
         };
 
-
+		mui.plusReady(function() {
+		    //initData();
+		});
         var studyPickerList = [];
         var marryPickerList = [];
         var housePickerList = [];
         var loanPickerList = [];
-        initData();
+        
 
         function initData() {
             Global.commonAjax({
                     url: "sys/latest/syscfg"
                 },
                 function(data) {
+                		alert(data);
+                		return;
                     console.log(data);
                     mui.toast(data);
                     studyPickerList = [];
@@ -436,7 +440,7 @@
 
                 },
                 function(err) {
-
+					//alert(err+"123");
                 }
             )
         }
