@@ -142,8 +142,11 @@ var Global = {};
 
                 },
                 error: function(data) {
-                		console.log(data);
-                      errorback(data);
+                    console.log(data);
+                    if(errorback){
+                        errorback(data);
+                    }
+                      
                 },
                 complete: function(xhr, status) {
                 		console.log(xhr);
@@ -209,10 +212,10 @@ var Global = {};
     });
 
     //家里
-    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
+    // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
     //公司
-    // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
+    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
 
 
 }());

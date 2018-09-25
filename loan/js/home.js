@@ -24,7 +24,6 @@ mui.plusReady(function() {
     //首页接口
     mainPageInit();
 });
-
 //通过token 登录
 function loginByToken(){
 	if(myStorage && myStorage.getItem("userToken")){
@@ -74,6 +73,9 @@ function initData() {
             myStorage.setItem("maritalStatus", data.maritalStatus);
             myStorage.setItem("houseStatus", data.houseStatus);
             myStorage.setItem("loansStatus", data.loansStatus);
+        },
+        function(err){
+            console.log(err)
         }
     )
 }
@@ -173,6 +175,9 @@ function moneyPageInit() {
             		$(".get_money_top_ad").attr("src", data.topAd.picUrl);
             }
             
+        },
+        function(err){
+            console.log(err);
         }
     );
     
@@ -282,7 +287,7 @@ function payedGoodslist(refreshType){
 				}
            },
            function(err) {
-
+                console.log(err);
            }
        )
 }

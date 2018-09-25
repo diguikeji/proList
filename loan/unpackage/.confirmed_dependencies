@@ -1,112 +1,112 @@
 {
-	"index.html": {
-		"refer": [
-			"html/login.html",
-			"html/home.html",
-			"html/personInfo.html",
-			"html/setting.html",
-			"html/guide.html"
-		],
-		"resources": [
-			"js/mui.min.js"
-		]
-	},
-	"html/login.html": {
-		"refer": [
-			"html/getCode.html",
-			"index.html",
-			"html/home.html",
-			"html/error404.html"
-		],
-		"resources": [
-			"js/app.js",
-			"js/jquery-2.1.1.min.js",
-			"js/mui.min.js"
-		]
-	},
-	"html/getCode.html": {
-		"refer": [
-			"html/home.html",
-			"html/errornet.html",
-			"html/error404.html"
-		]
-	},
-	"html/home.html": {
-		"refer": [
-			"html/identificateFirst.html",
-			"html/setting.html",
-			"html/message.html",
-			"html/wallet.html",
-			"html/share.html",
-			"html/about.html",
-			"html/errornet.html",
-			"index.html",
-			"html/error404.html"
-		],
-		"resources": [
-			"js/swiper.min.js"
-		]
-	},
-	"html/identificateFirst.html": {
-		"refer": [
-			"html/personInfo.html"
-		]
-	},
-	"html/personInfo.html": {
-		"refer": [
-			"html/credit.html",
-			"html/errornet.html"
-		]
-	},
-	"html/message.html": {
-		"refer": [
-			"html/pullrefresh_sub.html",
-			"html/pullrefresh_message_sub.html"
-		],
-		"resources": [
-			"html/pullrefresh_sub.html",
-			"html/pullrefresh_message_sub.html"
-		]
-	},
-	"html/wallet.html": {
-		"refer": [
-			"html/walletDetail.html",
-			"html/error404.html"
-		]
-	},
-	"html/walletDetail.html": {
-		"resources": [
-			"html/pullrefresh_wallet_detail_sub.html"
-		],
-		"refer": [
-			"html/pullrefresh_wallet_detail_sub.html"
-		]
-	},
-	"html/credit.html": {
-		"refer": [
-			"html/pay_style.html"
-		]
-	},
-	"html/pay_style.html": {
-		"refer": [
-			"html/recommand.html"
-		]
-	},
-	"html/error404.html": {
-		"refer": [
-			"html/home.html"
-		]
-	},
-	"html/setting.html": {
-		"refer": [
-			"html/error500.html",
-			"html/errornet.html",
-			"index.html"
-		]
-	},
-	"html/pullrefresh_wallet_detail_sub.html": {
-		"refer": [
-			"html/error404.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "html/login.html",
+      "html/home.html",
+      "html/personInfo.html",
+      "html/setting.html",
+      "html/guide.html"
+    ],
+    "resources": [
+      "js/mui.min.js"
+    ]
+  },
+  "html/login.html": {
+    "refer": [
+      "html/getCode.html",
+      "index.html",
+      "html/home.html",
+      "html/error404.html"
+    ],
+    "resources": [
+      "js/app.js",
+      "js/jquery-2.1.1.min.js",
+      "js/mui.min.js"
+    ]
+  },
+  "html/getCode.html": {
+    "refer": [
+      "html/home.html",
+      "html/errornet.html",
+      "html/error404.html"
+    ]
+  },
+  "html/home.html": {
+    "refer": [
+      "html/identificateFirst.html",
+      "html/setting.html",
+      "html/message.html",
+      "html/wallet.html",
+      "html/share.html",
+      "html/about.html",
+      "html/errornet.html",
+      "index.html",
+      "html/error404.html"
+    ],
+    "resources": [
+      "js/swiper.min.js"
+    ]
+  },
+  "html/identificateFirst.html": {
+    "refer": [
+      "html/personInfo.html"
+    ]
+  },
+  "html/personInfo.html": {
+    "refer": [
+      "html/credit.html",
+      "html/errornet.html"
+    ]
+  },
+  "html/message.html": {
+    "refer": [
+      "html/pullrefresh_sub.html",
+      "html/pullrefresh_message_sub.html"
+    ],
+    "resources": [
+      "html/pullrefresh_sub.html",
+      "html/pullrefresh_message_sub.html"
+    ]
+  },
+  "html/wallet.html": {
+    "refer": [
+      "html/walletDetail.html",
+      "html/error404.html"
+    ]
+  },
+  "html/walletDetail.html": {
+    "resources": [
+      "html/pullrefresh_wallet_detail_sub.html"
+    ],
+    "refer": [
+      "html/pullrefresh_wallet_detail_sub.html"
+    ]
+  },
+  "html/credit.html": {
+    "refer": [
+      "html/pay_style.html"
+    ]
+  },
+  "html/pay_style.html": {
+    "refer": [
+      "html/recommand.html"
+    ]
+  },
+  "html/error404.html": {
+    "refer": [
+      "html/home.html"
+    ]
+  },
+  "html/setting.html": {
+    "refer": [
+      "html/error500.html",
+      "html/errornet.html",
+      "index.html"
+    ]
+  },
+  "html/pullrefresh_wallet_detail_sub.html": {
+    "refer": [
+      "html/error404.html"
+    ]
+  }
 }
