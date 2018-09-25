@@ -122,24 +122,24 @@
             }
         });
         
-        if (mui.os.plus) {
-            mui.plusReady(function() {
-                setTimeout(function() {
-                    mui('#pullrefresh').pullRefresh().pullupLoading();
-                }, 10);
-            });
-        } else {
-            mui.ready(function() {
-                mui('#pullrefresh').pullRefresh().pullupLoading();
-            });
-        }
+//      if (mui.os.plus) {
+//          mui.plusReady(function() {
+//              setTimeout(function() {
+//                  mui('#pullrefresh').pullRefresh().pullupLoading();
+//              }, 10);
+//          });
+//      } else {
+//          mui.ready(function() {
+//              mui('#pullrefresh').pullRefresh().pullupLoading();
+//          });
+//      }
         
 
         $('body').on('click', '.mui-table-view li .item_wrap', function() {
             var index = $(this).data("index");
             alert(index)
         });
-
+		
         //查看消息详情
         function goToDetail(item) {
 
@@ -174,16 +174,22 @@
            )
         }
 
+		pulldownRefresh();
 		var current = 1;
-        /**
-         * 下拉刷新具体业务实现
-         */
-        function pulldownRefresh() {
+		/**
+		 * 
+		 * @param {Object} refreshType 0下拉刷新
+		 */
+		function getMsglist(refreshType){
+			var params = {
+        			current: current,
+        			size: 20
+        		};
 			Global.commonAjax(
 				{
 					url: "user/msglist",
 					method: "POST",
-					current: 1
+					data: params
 				},
 				function(data){
 					if(data.current >= data.pages){
@@ -192,18 +198,24 @@
 							Global.errorNews();
 						}else{
 							//没有更多数据了
-							getListData(0, data.records, true);
+							getListData(refreshType, data.records, true);
 						}
 					}else{
-						getListData(0, data.records, false);
+						getListData(refreshType, data.records, false);
 					}
 				},
 				function(err){
-					
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				}
 			)
-        		
-        
+		}
+        /**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+        		current = 1;
+        		console.log("44444");
+        		getMsglist(0);
         }
 
         /**
@@ -211,30 +223,7 @@
          */
         function pullupRefresh() {
         		current++;
-        		Global.commonAjax(
-				{
-					url: "user/msglist",
-					method: "POST",
-					current: current
-				},
-				function(data){
-					if(data.current >= data.pages){
-						if(data.current == 1){
-							//空数据
-							Global.errorNews();
-						}else{
-							//没有更多数据了
-							getListData(1, data.records, true);
-						}
-					}else{
-						getListData(1, data.records, false);
-					}
-					
-				},
-				function(err){
-					
-				}
-			)
+        		getMsglist(1);
        }
         
         /**

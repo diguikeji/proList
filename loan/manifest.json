@@ -329,7 +329,8 @@
 				"refer": [
 					"html/error500.html",
 					"html/errornet.html",
-					"index.html"
+					"index.html",
+					"html/error404.html"
 				],
 				"priority": 0
 			},

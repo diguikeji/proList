@@ -62,7 +62,7 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/myStorage.js"></script>
     <script src="../js/app.js"></script>
-    <script src="html5plus://ready"></script>
+    <!--<script src="html5plus://ready"></script>-->
     <script>
         mui.init({
             pullRefresh: {
@@ -77,7 +77,7 @@
             }
         });
 
-        pulldownRefresh();
+        //pulldownRefresh();
         var user = myStorage.getItem("user");
         var userId, current = 1;
         if (user && user.userId) {
@@ -102,10 +102,11 @@
                     method: "POST"
                 },
                 function(data) {
-					if(data.current >= data.pages){
-						if(data.current == 1){
+                	// data.current >= data.pages
+					if(data.current == 1){
+						if(data.current >= data.pages){
 							//空数据
-							Global.errorNews();
+							Global.errorDetail();
 						}else{
 							//没有更多数据了
 							getListData(refreshType, data.records, true);
@@ -115,7 +116,7 @@
 					}
                 },
                 function(err) {
-
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
                 }
             )
         }
@@ -135,18 +136,18 @@
         		getFlowList(1);
         }
         
-//     if (mui.os.plus) {
-//         mui.plusReady(function() {
-//             setTimeout(function() {
-//                 mui('#pullrefresh').pullRefresh().pullupLoading();
-//             }, 10);
-//
-//         });
-//     } else {
-//         mui.ready(function() {
-//             mui('#pullrefresh').pullRefresh().pullupLoading();
-//         });
-//     }
+       if (mui.os.plus) {
+           mui.plusReady(function() {
+               setTimeout(function() {
+                   mui('#pullrefresh').pullRefresh().pullupLoading();
+               }, 10);
+
+           });
+       } else {
+           mui.ready(function() {
+               mui('#pullrefresh').pullRefresh().pullupLoading();
+           });
+       }
         
         /**
          * 	请求列表数据
@@ -155,6 +156,7 @@
          * @param {Object} isAll true 是最后一页
          */
         function getListData(refreshType, cells, isAll){
+        		console.log(JSON.stringify(cells))
         		//当前点击的 数据下标
 		    var index = 0;
 		    var table = document.body.querySelector('.mui-table-view');
@@ -173,12 +175,12 @@
                     var li = document.createElement('li');
                     li.className = 'mui-table-view-cell list_wrap row';
                     li.innerHTML = '<div class="col" data-index="' + index + '">' +
-                        '<span class="left_top_text">邀请赚钱' + i + '</span>' +
+                        '<span class="left_top_text">邀请赚钱</span>' +
                         '<span class="leave_money">余额' + cells[i].lastestBalance + '</span>' +
                         '</div>' +
                         '<div class="col ">' +
                         '<span class="leave_time">' + cells[i].consumeTm + '</span>' +
-                        '<span class="right_bottom_text">' + (cells[i].isAdd ? '+' : '-') + cells[i].consumeBalance + '</span>' +
+                        '<span class="right_bottom_text">' + (cells[i].isAdd == 'Y' ? '+' : '-') + cells[i].consumeBalance + '</span>' +
                         '</div>';
                     table.appendChild(li);
                     index += 1;
@@ -189,7 +191,11 @@
 		        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 		    } else {
 		        //上拉加载
-		
+		        if(isAll){
+		        		$(".mui-pull-caption-nomore").html("我是有底线的");
+		        		$(".mui-pull-caption-nomore").addClass("list_bottom_warning_text");
+		        }
+				
 		    }
                 
         }

@@ -12,6 +12,9 @@ mui.init({
     }
 });
 
+//切换底部tab
+var makeMoneySwiperObj;
+
 mui.plusReady(function() {
     //红包左右晃动
     setInterval(function() {
@@ -23,6 +26,52 @@ mui.plusReady(function() {
     loginByToken();
     //首页接口
     mainPageInit();
+    
+    $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
+	    var index = $(this).index();
+	    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
+	    $(this).addClass("mui-active");
+	    $("#tabContent>.mui-control-content").removeClass("mui-active");
+	    $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
+	
+	    if (index == 0) {
+	        if (swiper) {
+	            swiper.destroy();
+	        }
+	
+	        swiper = new Swiper('.top-swiper-container', {
+	            direction: 'vertical',
+	            loop: true,
+	            autoplay: true
+	        });
+	    } else if (index == 1) {
+	    		//初始化
+	    		moneyPageInit();
+	        if (makeMoneySwiperObj) {
+	            makeMoneySwiperObj.destroy();
+	        }
+	
+	        makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
+	            direction: 'vertical',
+	            loop: true,
+	            autoplay: true
+	        });
+	
+	        //赚钱的无限
+	        mui("#slider1").slider({
+	            interval: 5000
+	        });
+	
+	    }else if(index == 2){
+	    		var height = plus.display.resolutionHeight;
+	    		//alert(height);
+	    		$("#tabbar-with-contact").css("height",  height);
+	    		//发现
+	    		pulldownRefresh();
+	    }
+	
+	});
+
 });
 //通过token 登录
 function loginByToken(){
@@ -90,56 +139,13 @@ function mainPageInit() {
     )
 }
 
-//切换底部tab
-var makeMoneySwiperObj;
-$(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
-    var index = $(this).index();
-    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
-    $(this).addClass("mui-active");
-    $("#tabContent>.mui-control-content").removeClass("mui-active");
-    $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
 
-    if (index == 0) {
-        if (swiper) {
-            swiper.destroy();
-        }
 
-        swiper = new Swiper('.top-swiper-container', {
-            direction: 'vertical',
-            loop: true,
-            autoplay: true
-        });
-    } else if (index == 1) {
-    		//初始化
-    		moneyPageInit();
-        if (makeMoneySwiperObj) {
-            makeMoneySwiperObj.destroy();
-        }
-
-        makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
-            direction: 'vertical',
-            loop: true,
-            autoplay: true
-        });
-
-        //赚钱的无限
-        mui("#slider1").slider({
-            interval: 5000
-        });
-
-    }else if(index == 2){
-    		var height = plus.display.resolutionHeight;
-    		//alert(height);
-    		$("#tabbar-with-contact").css("height",  height);
-    		//发现
-    		pulldownRefresh();
-    }
-
-});
 
 //底部分享数据变量
 var shareData = {};
 //初始化 赚钱接口数据
+var miniApplyAmount = 50;
 //赚钱 初始化
 function moneyPageInit() {
     Global.commonAjax({ url: "page/moneypage/init" },
@@ -154,7 +160,12 @@ function moneyPageInit() {
         		}
         		//余额
         		if (data && data.miniApplyAmount){
-        			$(".balance").html(data.miniApplyAmount);
+        			miniApplyAmount = data.miniApplyAmount;
+        			if(myStorage && myStorage.getItem("wallet")){
+        				//可用余额
+        				$(".balance").html(parseInt(myStorage.getItem("wallet").balance)+"");
+        			}
+        			
         		}else{
         			$(".balance").html("0");
         		}
@@ -182,19 +193,19 @@ function moneyPageInit() {
     );
     
     //获取底部分享
-//  Global.commonAjax(
-//		{
-//			url: "user/sharelist?isShowPic=false"
-//		},
-//		function(data){
-//			//底部分享数据
-//			if(data){
-//				shareData = data;
-//			}
-//		},
-//		function(err){
-//		}
-//	)
+    Global.commonAjax(
+		{
+			url: "user/sharelist?isShowPic=false"
+		},
+		function(data){
+			//底部分享数据
+			if(data){
+				shareData = data;
+			}
+		},
+		function(err){
+		}
+	)
 }
 
 //查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
@@ -584,16 +595,43 @@ function newbieTaskBanner(listData) {
  */
 //分享到各个平台的点击事件
 $(".wx_wrap").click(function() {
-    mui.toast("wx_wrap");
+    if(shareData){
+    		mui.toast(JSON.stringify(shareData.wx));
+    }
 })
 $(".wx_friend_wrap").click(function() {
-    mui.toast("wx_friend_wrap");
+    if(shareData){
+    		mui.toast(JSON.stringify(shareData.pyq));
+    }
 })
 $(".qq_wrap").click(function() {
-    mui.toast("wx_qq_wrap");
+    if(shareData){
+    		mui.toast(JSON.stringify(shareData.qq));
+    }
 })
 $(".copy_wrap").click(function() {
-    mui.toast("wx_copy_wrap");
+    if(shareData){
+    		if(mui.os.ios){			//ios			
+    			var UIPasteboard = plus.ios.importClass("UIPasteboard");		    
+    			var generalPasteboard = UIPasteboard.generalPasteboard();		    
+    			//设置/获取文本内容:		    
+    			generalPasteboard.plusCallMethod({		        
+    				setValue:shareData.link,		        
+    				forPasteboardType: "public.utf8-plain-text"		    
+    			});		    
+    			generalPasteboard.plusCallMethod({		        
+    				valueForPasteboardType: "public.utf8-plain-text"		    
+    			});		
+    		}else{			
+    			//安卓			
+    			var context = plus.android.importClass("android.content.Context");		  	
+    			var main = plus.android.runtimeMainActivity();		  	
+    			var clip = main.getSystemService(context.CLIPBOARD_SERVICE);		  	
+    			plus.android.invoke(clip,"setText",shareData.link);		
+    		}
+
+    		mui.toast(JSON.stringify(shareData.link));
+    }
 })
 
 
@@ -639,6 +677,9 @@ function goToWallet() {
         id: 'wallet.html',
         waiting: {
             autoShow: false
+        },
+        extras:{
+        		miniApplyAmount: miniApplyAmount
         }
     })
 }
@@ -661,6 +702,9 @@ function openGetMoney() {
         id: 'wallet.html',
         waiting: {
             autoShow: false
+        },
+        extras:{
+        		miniApplyAmount: miniApplyAmount
         }
     })
 }
@@ -691,6 +735,7 @@ function invaliteFriend() {
 			$('.inviteModal').removeClass('hideClass');
 			if(data && data.adUrl){
 				$(".invalite_bg").attr("src", data.adUrl);
+				shareData = data;
 			}
 			
 		},

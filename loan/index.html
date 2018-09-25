@@ -108,7 +108,7 @@
 	<script src="html5plus://ready"></script>
 	<script>
 		
-		 window.location.href = "http://project.youzewang.com/app/app.html";
+//		 window.location.href = "http://project.youzewang.com/app/app.html";
 		
 		
 var sweixin=null;
@@ -135,13 +135,19 @@ function plusReady(){
 						//如果有值，证明登录过了
 						mui.openWindow({
 							id: 'home.html',
-							url: 'html/home.html'
+							url: 'html/home.html',
+							waiting: {
+								autoshow: false
+							}
 						});
 					}else{
 						//没有登录
 						mui.openWindow({
 							id: 'login.html',
-							url: 'html/login.html'
+							url: 'html/login.html',
+							waiting: {
+								autoshow: false
+							}
 						});
 					}
 				

@@ -239,17 +239,26 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
-    <script src="html5plus://ready"></script>
+    <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
 
         //钱包余额
-        var user = myStorage.getItem("user");
-        if (user && user.wallet) {
-            $(".money_text").html(user.wallet.balance);
+        var wallet = myStorage.getItem("wallet");
+        
+        if (wallet && wallet.balance) {
+            $(".money_text").html(parseInt(wallet.balance));
         }else{
         		$(".money_text").html("0");
-        }
+        };
+        
+        mui.plusReady(function() {
+        		var self = plus.webview.currentWebview();
+        		console.log(self.miniApplyAmount)
+	        //最小提现余额
+	        $(".money_dirction").html("(最低提现"+self.miniApplyAmount+"元，仅可提现整数金额)");
+        });
+        
 
         /**
          * 钱包明细 
@@ -280,6 +289,11 @@
                     mui.toast("请输入大于最低提现额的数字");
                     return;
                 }
+                
+                if(parseInt($(".money_text").html()) < parseInt(money)){
+                		mui.toast("超过余额");
+                    return;
+                }
 				var params = {applyAmount: money};
                 Global.commonAjax({
                         url: "user/apply/deposit",
@@ -288,6 +302,7 @@
                     },
                     function(data) {
 						mui.toast("申请提现成功");
+						$(".money_input").val("");
                     },
                     function(err) {
 						mui.toast("申请提现失败");
@@ -319,10 +334,8 @@
                     method: "POST"
                 },
                 function(data) {
-                		if(data){
-                			closeDialg();
-                    		mui.toast("设置账户成功");
-                		}
+            			closeDialg();
+                		mui.toast("设置账户成功");
                     
                 },
                 function(err) {

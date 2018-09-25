@@ -83,15 +83,8 @@ header img{
  * 底部 有底线的样式
  */
 .list_bottom_warning_text{
-	text-align: center; 
 	color: #cbcbcb; 
 	font-size: 12px; 
-	position: absolute; 
-	bottom: 10px; 
-	left: 50%;
-	width: 100px; 
-	display: inline-block;
-	margin-left: -50px;
 }
 /**
  * 弹窗样式

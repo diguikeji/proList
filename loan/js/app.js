@@ -134,7 +134,8 @@ var Global = {};
                 },
                 success: function(data) {
                 		console.log(data);
-                    if (data.code == "SUCCESS" || data.code == "OK") {
+                    if (data.code == "SUCCESS" || data.code == "OK" 
+                    			|| data.code == "success" || data.code == "ok" ) {
                         callback(data.data);
                     } else {
                         errorback(data.msg);
