@@ -142,8 +142,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #000;
-            opacity: 1;
+            background: rgba(0, 0, 0, 0.4);
             overflow: hidden;
             z-index: 10;
             color: #fff;
@@ -236,6 +235,17 @@
             height: 45px;
         }
         
+        .first_step_money,
+        .second_step_money,
+        .third_step_money{
+        		position: absolute;
+            top: 5px;
+            right: -10px;
+            font-size: 24px;
+            color: #FF5445;
+            font-weight: bold;
+        }
+        
         .dialog_bottom_btn {
             position: absolute;
             bottom: 10px;
@@ -320,6 +330,7 @@
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money">11</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
@@ -331,8 +342,9 @@
                             <img src="../images/unagress_icon.png" style="visibility: hidden;" />
                             <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
                         </div>
-
+						
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money">12</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
@@ -346,6 +358,7 @@
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money">13</span>
                     </div>
 
                 </div>
@@ -361,13 +374,11 @@
     <script type="text/javascript">
         mui.init();
 
-        initData();
-
         var main;
         var Intent;
         var intent
         document.addEventListener('plusready', function() {
-
+			initData();
             main = plus.android.runtimeMainActivity();
             Intent = plus.android.importClass("android.content.Intent");
             intent = new Intent(main.getIntent());
@@ -375,12 +386,11 @@
         }, false);
 
         function initData() {
-            // var userInfo = myStorage.getItem("userInfo");
+               var userInfo = myStorage.getItem("userInfo");
             // var userInfo = {
             //     idCard: "123",
             //     realName: "456"
             // };
-            var userInfo = "";
             if (userInfo && userInfo.idCard && userInfo.realName) {
                 //存在
                 $('#name').val(userInfo.realName);
@@ -485,11 +495,14 @@
         //左上角 返回
         function headLeftBack() {
             $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
+            		
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
         })
 
         //弹窗中 关闭按钮
@@ -497,6 +510,22 @@
             console.log("弹窗 关闭")
             plus.webview.close('identificateFirst.html');
         };
+        
+        function showMoneyInfo(){
+        		if(myStorage){
+            		if(myStorage.getItem("inputIdInfoReturn")){
+	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("inputBaseInfoReturn")){
+	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("payReturn")){
+	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            }
+            }
+        }
 
         /**
          * 个人信息认证
@@ -504,16 +533,18 @@
         function goToPersonInfo() {
             var name = $('#name').val();
             var card = $('#card').val();
+			name = "顾振福";
+			card = "41142219910613003X";
+			
+               if (!name) {
+                   mui.toast("请上传身份证正面");
+                   return;
+               }
 
-            // if (!name) {
-            //     mui.toast("请上传身份证正面");
-            //     return;
-            // }
-
-            // if (!card) {
-            //     mui.toast("请上传身份证正面");
-            //     return;
-            // }
+               if (!card) {
+                   mui.toast("请上传身份证正面");
+                   return;
+               }
 
             // if ($(".front_img").attr('src') == "../images/id_front.png") {
             //     mui.toast("请上传身份证正面");
@@ -524,20 +555,7 @@
             //     mui.toast("请上传身份证反面");
             //     return;
             // }
-
-            // Global.commonAjax({
-            // 		url: "user/input/idcard",
-            // 		realName: name,
-            // 		idCard: card
-            //     },
-            //     function(data) {
-
-            //     },
-            //     function(err) {
-
-            //     }
-            // )
-
+            
             mui.openWindow({
                 url: 'personInfo.html',
                 id: 'personInfo.html',
@@ -545,6 +563,34 @@
                     autoShow: false
                 }
             })
+            return;
+            
+
+				var params = {
+					realName: name,
+					idCard: card
+				}
+               Global.commonAjax({
+               		url: "user/input/idcard",
+               		data: params,
+               		method: "POST"
+                   },
+                   function(data) {
+						mui.toast("保存信息成功");
+						mui.openWindow({
+			                url: 'personInfo.html',
+			                id: 'personInfo.html',
+			                waiting: {
+			                    autoShow: false
+			                }
+			            })
+                   },
+                   function(err) {
+						mui.toast(err.msg);
+                   }
+               )
+
+            
         }
     </script>
 </body>

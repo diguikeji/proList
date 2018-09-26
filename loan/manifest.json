@@ -252,7 +252,8 @@
 					"html/about.html",
 					"html/errornet.html",
 					"index.html",
-					"html/error404.html"
+					"html/error404.html",
+					"html/credit.html"
 				],
 				"priority": 0
 			},

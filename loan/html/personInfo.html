@@ -126,8 +126,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #000;
-            opacity: 1;
+            background: rgba(0, 0, 0, 0.4);
             overflow: hidden;
             z-index: 10;
             color: #fff;
@@ -218,6 +217,17 @@
             right: -30px;
             width: 66px;
             height: 45px;
+        }
+        
+        .first_step_money,
+        .second_step_money,
+        .third_step_money{
+        		position: absolute;
+            top: 5px;
+            right: -10px;
+            font-size: 24px;
+            color: #FF5445;
+            font-weight: bold;
         }
         
         .dialog_bottom_btn {
@@ -318,6 +328,7 @@
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money">12</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
@@ -331,6 +342,7 @@
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money">12</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
@@ -344,6 +356,7 @@
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money">12</span>
                     </div>
 
                 </div>
@@ -356,6 +369,7 @@
     <script src="../js/mui.picker.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
     <script type="text/javascript">
         mui.init();
 
@@ -372,11 +386,13 @@
         //左上角 返回
         function headLeftBack() {
             $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
         })
 
         //弹窗中 关闭按钮
@@ -385,7 +401,7 @@
         };
 
 		mui.plusReady(function() {
-		    //initData();
+		    initData();
 		});
         var studyPickerList = [];
         var marryPickerList = [];
@@ -398,10 +414,6 @@
                     url: "sys/latest/syscfg"
                 },
                 function(data) {
-                		alert(data);
-                		return;
-                    console.log(data);
-                    mui.toast(data);
                     studyPickerList = [];
                     marryPickerList = [];
                     housePickerList = [];
@@ -413,6 +425,7 @@
                         };
                         studyPickerList.push(item);
                     });
+                    studyPicker.setData(studyPickerList);
 
                     data.maritalStatus.map(function(resItem) {
                         var item = {
@@ -421,6 +434,7 @@
                         };
                         marryPickerList.push(item);
                     });
+                    marryPicker.setData(marryPickerList);
 
                     data.houseStatus.map(function(resItem) {
                         var item = {
@@ -429,6 +443,7 @@
                         };
                         housePickerList.push(item);
                     });
+                    housePicker.setData(housePickerList);
 
                     data.loansStatus.map(function(resItem) {
                         var item = {
@@ -437,25 +452,15 @@
                         };
                         loanPickerList.push(item);
                     });
-
+					loanPicker.setData(loanPickerList);
                 },
                 function(err) {
-					//alert(err+"123");
+					mui.toast(err.msg);
                 }
             )
         }
 
         var studyPicker = new mui.PopPicker();
-        studyPicker.setData([{
-            value: "0",
-            text: "初中及以下"
-        }, {
-            value: "1",
-            text: "中专"
-        }, {
-            value: "2",
-            text: "高中"
-        }]);
 
         function showStudyPicker() {
             studyPicker.show(function(SelectedItem) {
@@ -467,16 +472,6 @@
         }
 
         var marryPicker = new mui.PopPicker();
-        marryPicker.setData([{
-            value: "0",
-            text: "未婚"
-        }, {
-            value: "1",
-            text: "已婚无子女"
-        }, {
-            value: "2",
-            text: "已婚有子女"
-        }]);
 
         function showMarryPicker() {
             marryPicker.show(function(SelectedItem) {
@@ -488,16 +483,6 @@
         }
 
         var housePicker = new mui.PopPicker();
-        housePicker.setData([{
-            value: "0",
-            text: "租房"
-        }, {
-            value: "1",
-            text: "按揭房"
-        }, {
-            value: "2",
-            text: "全款房"
-        }]);
 
         function showHousePicker() {
             housePicker.show(function(SelectedItem) {
@@ -509,16 +494,6 @@
         }
 
         var loanPicker = new mui.PopPicker();
-        loanPicker.setData([{
-            value: "0",
-            text: "有逾期"
-        }, {
-            value: "1",
-            text: "有欠款无逾期"
-        }, {
-            value: "2",
-            text: "有欠款有逾期"
-        }]);
 
         function showLoanPicker() {
             loanPicker.show(function(SelectedItem) {
@@ -528,32 +503,73 @@
                 mui('#loan_value')[0].innerHTML = SelectedItem[0].text;
             })
         }
-
+		//浮层 奖金信息
+		function showMoneyInfo(){
+        		if(myStorage){
+            		if(myStorage.getItem("inputIdInfoReturn")){
+	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("inputBaseInfoReturn")){
+	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("payReturn")){
+	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            }
+            }
+        }
 
         /**
          * 信用评估 
          */
         function goToCredit() {
-            // Global.commonAjax({
-            // 		url: "user/input/detail",
-            // 		method: "POST",
-            //         maritalStatus: mui('#marry_value')[0].innerHTML,
-            //         highestDegree: mui('#study_value')[0].innerHTML,
-            //         loansStatus: mui('#loan_value')[0].innerHTML,
-            //         houseStatus: mui('#house_value')[0].innerHTML
-            //     },
-            //     function(data) {
+        		if(mui('#marry_value')[0].innerHTML == "请选择"){
+        			mui.toast("请选择婚姻状态");
+        			return;
+        		}
+        		
+        		if(mui('#study_value')[0].innerHTML == "请选择"){
+        			mui.toast("请选择学历");
+        			return;
+        		}
+        		
+        		if(mui('#house_value')[0].innerHTML == "请选择"){
+        			mui.toast("请选择住房状态");
+        			return;
+        		}
+        		
+        		if(mui('#loan_value')[0].innerHTML == "请选择"){
+        			mui.toast("请选择借款状态");
+        			return;
+        		}
+        		var params = {
+        			maritalStatus: mui('#marry_value')[0].innerHTML,
+               highestDegree: mui('#study_value')[0].innerHTML,
+               loansStatus: mui('#loan_value')[0].innerHTML,
+               houseStatus: mui('#house_value')[0].innerHTML
+        		};
+               Global.commonAjax({
+               		url: "user/input/detail",
+               		method: "POST",
+                    data: params
+                   },
+                   function(data) {
+						mui.toast("提交成功");
+						mui.openWindow({
+			                url: 'credit.html',
+			                id: 'credit.html',
+			                waiting: {
+			                		autoShow: false
+			                }
+			            })
+                   },
+                   function(err) {
+						mui.toast(err.msg);
+                   }
+               )
 
-            //     },
-            //     function(err) {
-
-            //     }
-            // )
-
-            mui.openWindow({
-                url: 'credit.html',
-                id: 'credit.html',
-            })
+            
         }
     </script>
 </body>

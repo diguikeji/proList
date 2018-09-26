@@ -275,7 +275,7 @@
 
         //立即提现
         function getMoney() {
-            if (!accountName || !accountNum) {
+            if (isSetAlipay == "N") {
                 setZFB();
             } else {
                 //提现申请
@@ -354,6 +354,24 @@
             var dialogEle = document.querySelector('.modal-mask');
             dialogEle.classList.add('hideClass');
         }
+        //是否设置支付宝
+        var isSetAlipay = "N";
+        function isSetAliPay(){
+        		Global.commonAjax({ url: "user/input/status" },
+	           function(data) {
+	               var url = "";
+	               if(data){
+	               		isSetAlipay = data.isSetAlipay;
+	               }
+	               
+	           },
+	           function(err) {
+					mui.toast(err.msg);
+	           }
+	       );
+        }
+        
+       
     </script>
 </body>
 

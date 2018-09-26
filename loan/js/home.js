@@ -64,7 +64,7 @@ mui.plusReady(function() {
 	
 	    }else if(index == 2){
 	    		var height = plus.display.resolutionHeight;
-	    		//alert(height);
+	    		alert(height);
 	    		$("#tabbar-with-contact").css("height",  height);
 	    		//发现
 	    		pulldownRefresh();
@@ -122,6 +122,16 @@ function initData() {
             myStorage.setItem("maritalStatus", data.maritalStatus);
             myStorage.setItem("houseStatus", data.houseStatus);
             myStorage.setItem("loansStatus", data.loansStatus);
+            //录入基本信息返现金额
+			myStorage.setItem("inputBaseInfoReturn", data.inputBaseInfoReturn);
+			//录入身份证返现金额
+            myStorage.setItem("inputIdInfoReturn", data.inputIdInfoReturn);
+            //被邀请人返现金额
+            myStorage.setItem("inviteeFee", data.inviteeFee);
+            //邀请人返现金额
+            myStorage.setItem("inviterFee", data.inviterFee);
+            //完成支付的返现金额
+            myStorage.setItem("payReturn", data.payReturn);
         },
         function(err){
             console.log(err)
@@ -280,7 +290,7 @@ function payedGoodslist(refreshType){
        isDes: isDes
 	}
 	Global.commonAjax({
-               url: "goods/payed/goodslist",
+               url: "goods/findpage/goodslist",
                data: params,
                method: "POST"
            },
@@ -433,41 +443,33 @@ var slider = mui("#slider").slider({
 
 //申请贷款			
 function apply() {
-    // Global.commonAjax({ url: "user/input/status" },
-    //     function(data) {
-    //         var url = "";
-    //         if (data && !data.isInputIdcard) {
-    //             url = "identificateFirst.html";
-    //         } else if (data && !data.isInputDetail) {
-    //             url = "personInfo.html";
-    //         } else if (data && !data.isPay) {
-    //             url = "credit.html";
-    //         } else {
-    //             //智能推荐
-    //             url = "credit.html";
-    //         }
-    //     },
-    //     function(err) {
-
-    //     }
-    // );
-    
-    mui.openWindow({
-        url: 'identificateFirst.html',
-        id: 'identificateFirst.html',
-        waiting: {
-            autoShow: false
-        }
-    })
-
-    //GET请求
-    // Global.commonAjax({
-    // 	url: "https://lhjz.2donghua.com/test.php"
-    // }, function(data){
-    // 	mui.toast(data);
-    // }, function(err){
-    // 	mui.toast(err);
-    // })
+       Global.commonAjax({ url: "user/input/status" },
+           function(data) {
+               var url = "";
+               if(data){
+               		if(data.isInputIdcard == "N"){
+               			url = "identificateFirst.html";
+               		}else if(data.isInputDetail == "N"){
+               			url = "personInfo.html";
+               		}else if(data.isPay == "N"){
+               			url = "credit.html";
+               		}else{
+               			url = "recommand.html";
+               		}
+               }
+               mui.openWindow({
+			        url: url,
+			        id: url,
+			        waiting: {
+			            autoShow: false
+			        }
+			    })
+               
+           },
+           function(err) {
+				mui.toast(err.msg);
+           }
+       );
 
 }
 

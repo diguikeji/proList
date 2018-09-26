@@ -127,8 +127,7 @@
 			  position: fixed;
 			  top: 0;
 			  left: 0;
-			  background: #000;
-			  opacity: 1;
+			  background: rgba(0, 0, 0, 0.4);
 			  overflow: hidden;
 			  z-index: 10;
 			  color: #fff;
@@ -222,6 +221,18 @@
 				height: 45px;
 			}
 			
+			.first_step_money,
+	        .second_step_money,
+	        .third_step_money{
+	        		position: absolute;
+	            top: 5px;
+	            right: -10px;
+	            font-size: 24px;
+	            color: #FF5445;
+	            font-weight: bold;
+	        }
+        
+			
 			.selfModal .dialog_bottom_btn{
 				position: absolute;
 				bottom: 10px;
@@ -267,14 +278,14 @@
 				
 				
 				<div class="row agree_wrap">
-					<img src="../images/unagress_icon.png" class="agree_img" onclick="agreeBtn();"/>
+					<img src="../images/agress_icon.png" class="agree_img" onclick="agreeBtn();"/>
 					<span class="agree_text" onclick="openAgreeWord();">我已阅读并同意《评估服务协议》</span>
 				</div>
 				
 				<div class="bottom_wrap row">
 					<div class="bottom_left_wrap row">
 						<span>总价(元)：</span>
-						<span style="font-size: 36px;">68</span>
+						<span style="font-size: 36px;" id="price">6</span>
 					</div>
 					<div class="bottom_right_wrap" onclick="goPayStyle();">
 						借款评估
@@ -302,6 +313,7 @@
 			            		</div>
 			            		
 			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+			            		<span class="first_step_money">12</span>
 		            		</div>
 		            		
 		            		<div class="col dialog_content_item_wrap">
@@ -315,6 +327,7 @@
 			            		</div>
 			            		
 			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+			            		<span class="second_step_money">12</span>
 		            		</div>
 		            		
 		            		<div class="col dialog_content_item_wrap">
@@ -328,6 +341,7 @@
 			            		</div>
 			            		
 			            		<img src="../images/add_money_icon.png" class="addMoney"/>
+			            		<span class="third_step_money">12</span>
 		            		</div>
 		            		
 		            </div>
@@ -340,6 +354,7 @@
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/app.js"></script>
+		<script src="../js/myStorage.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			mui('.mui-input-group').on('change', 'input', function() {
@@ -347,6 +362,28 @@
 				console.log(value)
 				//this.previousElementSibling.innerText = "checked："+value;
 			});
+			
+			mui.plusReady(function() {
+			    initData();
+			});
+			
+			function initData(){
+				Global.commonAjax(
+					{url: "page/assess/init"},
+					function(data){
+						console.log(JSON.stringify(data));
+						$("#price").html(data.price);
+						$(".content_img").attr("src", data.payFeeAd.picUrl);
+						
+					},
+					function(err){
+						
+					}
+				)
+			}
+			
+			
+			
 			//Android 物理返回
 			var old_back = mui.back;
 			mui.back = function(){
@@ -360,11 +397,13 @@
 			//左上角 返回
 			function headLeftBack(){
 				$('.selfModal').removeClass("hideClass");
+				showMoneyInfo();
 			}
 			
 			//左上角 关闭按钮
 			$('.header_close').click(function(){
 				$('.selfModal').removeClass("hideClass");
+				showMoneyInfo();
 			})
 			
 			//弹窗中 关闭按钮
@@ -387,24 +426,50 @@
 			
 			//评估报告 弹窗
 			function openWord(){
-				Global.showModal("大数据智能信用评估介绍","1、对用户信用情况通过大数据信用体系进行评估。"+
-"<br>2、评估过程会查询客户相关资信<br>3、根据评估结果进行服务。")
+				var registerTxt = $.ajax({
+	                url: "credit_rating.html",
+	                async: false
+	           });
+	            Global.showModal(registerTxt.responseText, true)
 			}
 			
 			//服务协议 弹窗
 			function openAgreeWord(){
-				Global.showModal("评估服务协议","一、平台声明 <br>"+
-"1．本协议内容包括以下条款及已经发布的或将来可能发布的各类规则、公告或通知。所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。本协议是由您与本公司共同签订的，适用于您在平台的全部交易活动。在您注册时，您已经阅读、理解并接受本协议的全部条款及各类规则，并承诺遵守中国现行的法律、法规、规章及其他政府规定，如有违反而导致任何法律后果的发生，您将以自己的名义独立承担所有相应的法律责任。<br>"+
-"2．本平台有权根据需要不时地制定、修改本协议或各类规则，如本协议及规则有任何变更，本平台将在网站（如有）、手机客户端上刊载公告，经修订的本协议、规则一经公布后，立即自动生效。您应不时地注意本协议及规则的变更。您在公告之日后登陆本平台或继续使用本平台提供的任何一项服务的，即表示您已仔细阅读、充分理解并接受修改后的协议内容，也将遵循修改后的协议内容使用本平台提供的有关服务；若您不同意相关变更，您应该立即停止使用本平台提")
-			}
+				var registerTxt = $.ajax({
+	                url: "service_rating.html",
+	                async: false
+	           });
+	            Global.showModal(registerTxt.responseText, true)
+	         }
 			
 			//支付方式
 			function goPayStyle(){
 				mui.openWindow({
 	      			url: 'pay_style.html',
 	      			id: 'pay_style.html',
+	      			waiting: {
+	      				autoShow: false
+	      			}
 	      		})
 			}
+			
+			//浮层 奖金信息
+		function showMoneyInfo(){
+        		if(myStorage){
+            		if(myStorage.getItem("inputIdInfoReturn")){
+	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("inputBaseInfoReturn")){
+	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("payReturn")){
+	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            }
+            }
+        }
+		
 		</script>
 	</body>
 

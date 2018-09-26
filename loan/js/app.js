@@ -48,8 +48,8 @@ var Global = {};
             $(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
 
         },
-        showModal: function(title, msg, callback) {
-            if ($('.global-modal').length == 0) {
+        showModal: function(title, reload, callback) {
+            if ($('.global-modal').length == 0 || reload) {
 
 
                 // var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
