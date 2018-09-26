@@ -75,6 +75,11 @@
         var changeHead = document.getElementById("changeHead");
 
         mui.plusReady(function(){
+        		var headPic = myStorage.getItem("headPic");
+	    		console.log(headPic);
+	    		if(headPic){
+	    			$(".top-img").attr("src", headPic);
+	    		}
             changeHead.addEventListener("tap", function(){
                 plus.nativeUI.actionSheet({
                     cancel: "取消",
@@ -134,15 +139,7 @@
         function appendByGallery() {
             plus.gallery.pick(function(path) {
                 $('.top-img').attr('src', path);
-//                getBase64("https://img.alicdn.com/bao/uploaded/TB1qimQIpXXXXXbXFXXSutbFXXX.jpg");
-                   getBase64(path);
-//           Global.getCanvasBase64("https://img.alicdn.com/bao/uploaded/TB1qimQIpXXXXXbXFXXSutbFXXX.jpg")
-//			      .then(function (base64) {
-//			        console.log("方式二》》》》》》》》》"+base64);
-//			        uploadFile(base64);
-//			      }, function (err) {
-//			        console.log(err);
-//			      });
+				getBase64(path);
 	      
             });
         }
@@ -154,7 +151,7 @@
         		if(user){
         			userId = user.userId;
         		}else{
-        			userId = "10";
+        			return;
         		}
         		var params = {
         			data: base64,
@@ -169,10 +166,10 @@
         			function(data){
                         console.log(data+"-------");
         				mui.toast("上传成功");
+        				//$('.top-img').data('src') = data;
         				myStorage.setItem("headPic", data);
         			},
         			function(err){
-        				mui.toast("上传失败"+err);
         				$('.top-img').attr('src', "../images/default_head.png");
         			}
         		);

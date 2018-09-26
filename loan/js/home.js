@@ -64,15 +64,52 @@ mui.plusReady(function() {
 	
 	    }else if(index == 2){
 	    		var height = plus.display.resolutionHeight;
-	    		alert(height);
+	    		//alert(height);
 	    		$("#tabbar-with-contact").css("height",  height);
 	    		//发现
 	    		pulldownRefresh();
+	    }else if(index == 3){
+	    		//我的页面
+	    		var headPic = myStorage.getItem("headPic");
+	    		console.log(headPic);
+	    		if(headPic){
+	    			$(".my_head").attr("src", headPic);
+	    		};
+	    		
+	    		var user = myStorage.getItem("user");
+	    		if(user){
+	    			$(".my_phone").html(user.mobile);
+	    		}
+	    		
+	    		var wallet = myStorage.getItem("wallet");
+	    		if(wallet){
+	    			if(parseInt(wallet.balance) <= 0){
+	    				$(".top-badge").html("去赚钱");
+	    				$(".top-badge").addClass("top-badge");
+	    				$(".top-badge").removeClass("balance_css");
+	    			}else{
+	    				$(".top-badge").html("￥"+wallet.balance);
+	    				$(".top-badge").addClass("balance_css");
+	    				$(".top-badge").removeClass("top-badge");
+	    			}
+	    			
+	    		}
 	    }
 	
 	});
 
 });
+
+//去赚钱 跳转到 赚钱页面
+$(".mui-badge").click(function(){
+	if ($(".top-badge").html() == "去赚钱"){
+		//alert("123");
+		return false;
+	}else{
+		return true;
+	}
+	
+})
 //通过token 登录
 function loginByToken(){
 	if(myStorage && myStorage.getItem("userToken")){
@@ -265,20 +302,23 @@ $('.preType').click(function() {
 //列表点击 埋点
 $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
     var goodsCode = $(this).data("goodscode");
-    alert(goodsCode);
+    //alert(goodsCode);
+		var params = {
+			goodsCode: goodsCode
+		}
+       Global.commonAjax(
+           { 
+               url: "goods/click",
+               data: params,
+               method: "POST"
+            },
+           function(data) {
 
-    // Global.commonAjax(
-    //     { 
-    //         url: "goods/click",
-    //         goodsCode: goodsCode
-    //      },
-    //     function(data) {
+           },
+           function(err) {
 
-    //     },
-    //     function(err) {
-
-    //     }
-    // )
+           }
+       )
 });
 
 //发现列表

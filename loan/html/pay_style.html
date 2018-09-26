@@ -98,23 +98,14 @@
 无任何安全隐患！请放心使用！</span>
 	         </div>
 	         <ul class="pay_style_list">
-	         	<li class="item_wrap row">
+	         	<!--<li class="item_wrap row">
 	         		<div class="icon_wrap row">
 	         			<img src="../images/123.png"/>
 	         			<span>xx支付</span>
 	         		</div>
 	         		
 	         		<img src="../images/unagress_icon.png" class="select_radio"/>
-	         	</li>
-	         	
-	         	<li class="item_wrap row">
-	         		<div class="icon_wrap row">
-	         			<img src="../images/123.png"/>
-	         			<span>xx支付</span>
-	         		</div>
-	         		
-	         		<img src="../images/unagress_icon.png" class="select_radio"/>
-	         	</li>
+	         	</li>-->
 	         	
 	         </ul>
 	         
@@ -124,26 +115,56 @@
 		
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/myStorage.js"></script>
+		<script src="../js/app.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			
-			var $$ = jQuery.noConflict();
-			$$(document).ready(function(){
-				$$(".select_radio").each(function(index){
-					$$(this).attr("src", "../images/unagress_icon.png");
-					if(index == 0){
-						$$(this).attr("src", "../images/agress_icon.png");
+			//左上角 关闭按钮
+			$('.header_close').click(function(){
+				plus.webview.close('pay_style.html');
+			})
+			
+			mui.plusReady(function() {
+			    initData();
+			});
+			
+			function initData(){
+				Global.commonAjax(
+					{url: "page/pay/channellist"},
+					function(data){
+						console.log(data);
+						var html = "";
+						data.forEach(function(item){
+							html += '<li class="item_wrap row">'+
+						         		'<div class="icon_wrap row">'+
+						         			'<img src="'+item.channelPic+'"/>'+
+						         			'<span>'+item.channelName+'</span>'+
+						         		'</div>'+
+						         		'<img src="../images/unagress_icon.png" class="select_radio"/>'+
+						         	'</li>'
+						})
+						$(".pay_style_list").append(html);
+						
+						$(".select_radio").each(function(index){
+							$(this).attr("src", "../images/unagress_icon.png");
+							if(index == 0){
+								$(this).attr("src", "../images/agress_icon.png");
+							}
+						})
+						
+					},
+					function(err){
+						console.log(err);
 					}
-					
-					$$(this).click(function(){
-						$$(".select_radio").each(function(i){
-							$$(this).attr("src", "../images/unagress_icon.png");
-						});
-						$$(this).attr("src", "../images/agress_icon.png");
-					})
-				})
-				
-				
+				)
+			}
+			
+			$('body').on('click', '.pay_style_list li .select_radio', function() {
+				$(".select_radio").each(function(i){
+					$(this).attr("src", "../images/unagress_icon.png");
+				});
+				$(this).attr("src", "../images/agress_icon.png");
 			})
 			
 			//支付
@@ -151,6 +172,9 @@
 				mui.openWindow({
 	      			url: 'recommand.html',
 	      			id: 'recommand.html',
+	      			waiting: {
+	      				autoShow: false
+	      			}
 	      		})
 			}
 			

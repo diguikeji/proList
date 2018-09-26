@@ -513,3 +513,20 @@ oa-contact-position {
     justify-content: center;
     align-items: center;
 }
+
+.my_head{
+	width:62px;
+	height:62px;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+
+.my_phone{
+	width:134px;display: inline-block;margin-left:10px;font-size:16px;color:#000;
+}
+
+.balance_css{
+	color: #ff5445;
+	font-size: 16px;
+	background: transparent;
+}
