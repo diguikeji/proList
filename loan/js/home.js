@@ -90,27 +90,55 @@ function myTabInit(){
 	var user = myStorage.getItem("user");
 	if(user){
 		$(".my_phone").html(user.mobile);
+		
+		if(user.isPayFee){
+			//已经付费
+			$(".goCreditClass").html("￥"+wallet.balance);
+			$(".goCreditClass").addClass("balance_css");
+			$(".goCreditClass").removeClass("top-badge");
+		}else{
+			$(".goCreditClass").html("去评估");
+			$(".goCreditClass").addClass("top-badge");
+			$(".goCreditClass").removeClass("balance_css");
+		}
 	}
 	//我的页面 绑定
 	var wallet = myStorage.getItem("wallet");
 	if(wallet){
 		if(parseInt(wallet.balance) <= 0){
-			$(".top-badge").html("去赚钱");
-			$(".top-badge").addClass("top-badge");
-			$(".top-badge").removeClass("balance_css");
+			$(".goMakeMoneyClass").html("去赚钱");
+			$(".goMakeMoneyClass").addClass("top-badge");
+			$(".goMakeMoneyClass").removeClass("balance_css");
+			
+			
 		}else{
-			$(".top-badge").html("￥"+wallet.balance);
-			$(".top-badge").addClass("balance_css");
-			$(".top-badge").removeClass("top-badge");
+			$(".goMakeMoneyClass").html("￥"+wallet.balance);
+			$(".goMakeMoneyClass").addClass("balance_css");
+			$(".goMakeMoneyClass").removeClass("top-badge");
 		}
 		
 	}
 }
 
 //设置页面返回的时候 更新
-function updateFunc(){
+function updateMyTab(){
 	myTabInit();
 }
+
+window.addEventListener('updateFunc',function(event){
+	updateMyTab();
+});
+
+//我的页面 去评估
+$(".goCreditClass").click(function(){
+	if ($(".goCreditClass").html() == "去评估"){
+		apply();
+		return false;
+	}else{
+		return true;
+	}
+	
+})
 
 //申请借款
 $(".applyMoneyBtn").click(function(){
@@ -134,8 +162,8 @@ $(".applyMoneyBtn").click(function(){
 })
 
 //去赚钱 跳转到 赚钱页面
-$(".mui-badge").click(function(){
-	if ($(".top-badge").html() == "去赚钱"){
+$(".goMakeMoneyClass").click(function(){
+	if ($(".goMakeMoneyClass").html() == "去赚钱"){
 		goToMakeMoneyTab();
 		return false;
 	}else{

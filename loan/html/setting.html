@@ -105,6 +105,13 @@
                     }
                 });
             });
+            //返回刷新页面
+//          var primaryBack = mui.back;        
+//          mui.back = function() {           
+//	            	var wobj = plus.webview.getWebviewById("home.html");              
+//	            	wobj.reload(true);           
+//	            	primaryBack();       
+//	            }
         })
 
         //修改头像
@@ -176,6 +183,7 @@
         				myStorage.setItem("headPic", data);
         			},
         			function(err){
+        				mui.toast("上传失败");
         				$('.top-img').attr('src', "../images/default_head.png");
         			}
         		);
