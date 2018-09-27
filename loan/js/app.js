@@ -134,6 +134,24 @@ var Global = {};
                 },
                 success: function(data) {
                 		console.log(data);
+                		if(data.code == "token.overdue"){
+                			//token 过期
+                			var curr = plus.webview.currentWebview();
+                			var wvs=plus.webview.all();
+					    for(var i=0;i<wvs.length;i++){
+					    		if(wvs[i].getURL() == curr.getURL()){
+					    			continue;
+					    		}
+					        plus.webview.close(wvs[i]); 
+					    }
+					    plus.webview.open('login.html');
+					    if(myStorage){
+					    		myStorage.clear();
+					    }
+					    curr.close();
+					    
+					    return;
+                		}
                     if (data.code == "SUCCESS" || data.code == "OK" 
                     			|| data.code == "success" || data.code == "ok" ) {
                         callback(data.data);
