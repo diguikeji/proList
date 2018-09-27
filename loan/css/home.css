@@ -530,3 +530,7 @@ oa-contact-position {
 	font-size: 16px;
 	background: transparent;
 }
+
+.applyMoneyBtn{
+	width:190px;height:45px;line-height:45px;padding:0;font-size:17px;border-radius: 23px;
+}

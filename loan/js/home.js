@@ -70,40 +70,73 @@ mui.plusReady(function() {
 	    		pulldownRefresh();
 	    }else if(index == 3){
 	    		//我的页面
-	    		var headPic = myStorage.getItem("headPic");
-	    		console.log(headPic);
-	    		if(headPic){
-	    			$(".my_head").attr("src", headPic);
-	    		};
+	    		myTabInit();
 	    		
-	    		var user = myStorage.getItem("user");
-	    		if(user){
-	    			$(".my_phone").html(user.mobile);
-	    		}
-	    		
-	    		var wallet = myStorage.getItem("wallet");
-	    		if(wallet){
-	    			if(parseInt(wallet.balance) <= 0){
-	    				$(".top-badge").html("去赚钱");
-	    				$(".top-badge").addClass("top-badge");
-	    				$(".top-badge").removeClass("balance_css");
-	    			}else{
-	    				$(".top-badge").html("￥"+wallet.balance);
-	    				$(".top-badge").addClass("balance_css");
-	    				$(".top-badge").removeClass("top-badge");
-	    			}
-	    			
-	    		}
+
 	    }
 	
 	});
 
 });
 
+//我的页面 初始化
+function myTabInit(){
+	var headPic = myStorage.getItem("headPic");
+	console.log(headPic);
+	if(headPic){
+		$(".my_head").attr("src", headPic);
+	};
+	//我的页面 绑定手机
+	var user = myStorage.getItem("user");
+	if(user){
+		$(".my_phone").html(user.mobile);
+	}
+	//我的页面 绑定
+	var wallet = myStorage.getItem("wallet");
+	if(wallet){
+		if(parseInt(wallet.balance) <= 0){
+			$(".top-badge").html("去赚钱");
+			$(".top-badge").addClass("top-badge");
+			$(".top-badge").removeClass("balance_css");
+		}else{
+			$(".top-badge").html("￥"+wallet.balance);
+			$(".top-badge").addClass("balance_css");
+			$(".top-badge").removeClass("top-badge");
+		}
+		
+	}
+}
+
+//设置页面返回的时候 更新
+function updateFunc(){
+	myTabInit();
+}
+
+//申请借款
+$(".applyMoneyBtn").click(function(){
+	
+	if(myStorage && myStorage.getItem("user")){
+		var user = myStorage.getItem("user");
+		
+		if(user.isPayFee){
+			//已经付费
+			mui.openWindow({
+		        url: "recommand.html",
+		        id: "recommand.html",
+		        waiting: {
+		            autoShow: false
+		        }
+		    })
+		}else{
+			apply();
+		}
+	}
+})
+
 //去赚钱 跳转到 赚钱页面
 $(".mui-badge").click(function(){
 	if ($(".top-badge").html() == "去赚钱"){
-		//alert("123");
+		goToMakeMoneyTab();
 		return false;
 	}else{
 		return true;
@@ -765,6 +798,12 @@ function goToFindTab() {
     // mui.toast("9999999")
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
     mui.trigger($('.mui-tab-item').eq(2)[0], 'tap')
+}
+
+//去赚钱tab
+function goToMakeMoneyTab() {
+    mui.trigger($('.mui-tab-item').eq(1)[0], 'touchstart');
+    mui.trigger($('.mui-tab-item').eq(1)[0], 'tap')
 }
 
 //邀请好友 弹出浮层

@@ -42,7 +42,8 @@
 			"html/errornet.html",
 			"index.html",
 			"html/error404.html",
-			"html/credit.html"
+			"html/credit.html",
+			"html/recommand.html"
 		],
 		"resources": [
 			"js/swiper.min.js"
