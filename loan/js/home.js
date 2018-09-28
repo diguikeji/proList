@@ -68,10 +68,12 @@ mui.plusReady(function() {
 	    		$("#tabbar-with-contact").css("height",  height);
 	    		//发现
 	    		pulldownRefresh();
+	    		$('#pullrefresh').scroll({indicators: false});
+	    		plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
 	    }else if(index == 3){
 	    		//我的页面
 	    		myTabInit();
-	    		
+	    		findList = [];
 
 	    }
 	
@@ -88,14 +90,20 @@ function myTabInit(){
 	};
 	//我的页面 绑定手机
 	var user = myStorage.getItem("user");
+	
+	var wallet = myStorage.getItem("wallet");
+	
 	if(user){
 		$(".my_phone").html(user.mobile);
 		
 		if(user.isPayFee){
 			//已经付费
-			$(".goCreditClass").html("￥"+wallet.balance);
-			$(".goCreditClass").addClass("balance_css");
-			$(".goCreditClass").removeClass("top-badge");
+			if(wallet){
+				$(".goCreditClass").html("￥"+wallet.balance);
+				$(".goCreditClass").addClass("balance_css");
+				$(".goCreditClass").removeClass("top-badge");
+			}
+			
 		}else{
 			$(".goCreditClass").html("去评估");
 			$(".goCreditClass").addClass("top-badge");
@@ -103,14 +111,12 @@ function myTabInit(){
 		}
 	}
 	//我的页面 绑定
-	var wallet = myStorage.getItem("wallet");
+	
 	if(wallet){
 		if(parseInt(wallet.balance) <= 0){
 			$(".goMakeMoneyClass").html("去赚钱");
 			$(".goMakeMoneyClass").addClass("top-badge");
 			$(".goMakeMoneyClass").removeClass("balance_css");
-			
-			
 		}else{
 			$(".goMakeMoneyClass").html("￥"+wallet.balance);
 			$(".goMakeMoneyClass").addClass("balance_css");
@@ -362,10 +368,13 @@ $('.preType').click(function() {
 
 //列表点击 埋点
 $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
-    var goodsCode = $(this).data("goodscode");
-    //alert(goodsCode);
+    var index = $(this).data("index");
+    var item = findList[index];
+    if(!(item && item.goodsUrl)){
+    		return;
+    }
 		var params = {
-			goodsCode: goodsCode
+			goodsCode: item.goodsCode
 		}
        Global.commonAjax(
            { 
@@ -374,7 +383,16 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
                method: "POST"
             },
            function(data) {
-
+				mui.openWindow({
+	                url: 'webview.html',
+	                id: 'webview.html?url=' + item.goodsUrl,
+	                waiting: {
+	                    autoShow: false
+	                },
+	                extras: {
+	                		title: item.goodsTitle
+	                }
+	            })
            },
            function(err) {
 
@@ -382,6 +400,7 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
        )
 });
 
+var findList = [];
 //发现列表
 function payedGoodslist(refreshType){
 	var params = {
@@ -396,10 +415,15 @@ function payedGoodslist(refreshType){
                method: "POST"
            },
            function(data) {
+           		$(".empty_text").hide();
+				$("#pullrefresh").show();
+						
            		if(data.current >= data.pages){
 					if(data.current == 1){
 						//空数据
-						Global.errorNews();
+						//$(".mui-content").append('<div class="empty_text">数据为空</div>');
+						$(".empty_text").show();
+						$("#pullrefresh").hide();
 					}else{
 						//没有更多数据了
 						setRefreshData(refreshType, data.records, true);
@@ -419,6 +443,7 @@ function payedGoodslist(refreshType){
  */
 function pulldownRefresh() {
     current = 1;
+    findList = [];
     payedGoodslist(0);
 }
 
@@ -434,26 +459,26 @@ function pullupRefresh() {
  * 上拉加载具体业务实现 refreshType 0 下拉刷新
  */
 function setRefreshData(refreshType, cells, isAll) {
-
+	findList = findList.concat(cells);
     //当前点击的 数据下标
     var index = 0;
     var table = document.body.querySelector('.mui-table-view-condensed');
 
     if (refreshType == 0) {
         //下拉刷新
-        table.innerHTML = "";
+        //table.innerHTML = "";
+        $(".mui-table-view-condensed").html = "";
     } else {
         //加载更多
         mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
         var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
         index = preList == null ? 0 : preList.length;
     }
-
     for (var i = 0, len = cells.length; i < len; i++) {
         var li = document.createElement('li');
         var item = cells[i];
         li.className = 'mui-table-view-cell mui-table-view-cell-item';
-        li.innerHTML = '<div class="mui-slider-cell" data-goodscode="' + item.goodsCode + '">' +
+        li.innerHTML = '<div class="mui-slider-cell" data-index="' + index + '">' +
             '<div class="oa-contact-cell mui-table">' +
             '<div class="oa-contact-avatar mui-table-cell">' +
             '<img src="' + item.goodsPic + '" />' +
@@ -865,4 +890,14 @@ function jumpWeb() {
     plus.webview.create("webview.html", "", {
         bottom: "0px"
     }); //新的页面地址 
+}
+
+function goToRecommand(){
+	mui.openWindow({
+		url: 'recommand.html',
+		id: 'recommand.html',
+		waiting: {
+			autoShow: false
+		}
+	})
 }

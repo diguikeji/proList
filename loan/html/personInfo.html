@@ -460,6 +460,7 @@
             )
         }
 
+		var selectStudyValue, selectMarryValue, selectLoanValue, selectHouseValue;
         var studyPicker = new mui.PopPicker();
 
         function showStudyPicker() {
@@ -468,6 +469,7 @@
                 mui('#study_value')[0].style.color = "#333333";
                 mui('#study_value')[0].style.opacity = "1";
                 mui('#study_value')[0].innerHTML = SelectedItem[0].text;
+                selectStudyValue = SelectedItem[0].value;
             })
         }
 
@@ -479,6 +481,7 @@
                 mui('#marry_value')[0].style.color = "#333333";
                 mui('#marry_value')[0].style.opacity = "1";
                 mui('#marry_value')[0].innerHTML = SelectedItem[0].text;
+                selectMarryValue = SelectedItem[0].value;
             })
         }
 
@@ -490,6 +493,7 @@
                 mui('#house_value')[0].style.color = "#333333";
                 mui('#house_value')[0].style.opacity = "1";
                 mui('#house_value')[0].innerHTML = SelectedItem[0].text;
+                selectHouseValue = SelectedItem[0].value;
             })
         }
 
@@ -501,6 +505,7 @@
                 mui('#loan_value')[0].style.color = "#333333";
                 mui('#loan_value')[0].style.opacity = "1";
                 mui('#loan_value')[0].innerHTML = SelectedItem[0].text;
+                selectLoanValue = SelectedItem[0].value;
             })
         }
 		//浮层 奖金信息
@@ -544,10 +549,10 @@
         			return;
         		}
         		var params = {
-        			maritalStatus: mui('#marry_value')[0].innerHTML,
-               highestDegree: mui('#study_value')[0].innerHTML,
-               loansStatus: mui('#loan_value')[0].innerHTML,
-               houseStatus: mui('#house_value')[0].innerHTML
+        			maritalStatus: selectMarryValue,
+               highestDegree: selectStudyValue,
+               loansStatus: selectLoanValue,
+               houseStatus: selectHouseValue
         		};
                Global.commonAjax({
                		url: "user/input/detail",

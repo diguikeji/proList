@@ -236,7 +236,7 @@
 			 	var index = event.detail.slideNumber+1;
 			 	if(index==2||index==3){
 			 		var item = document.getElementById("tips-"+index);
-			 		if(item.classList.contains("mui-hidden")){
+			 		if(item.classList && item.classList.contains("mui-hidden")){
 			 			item.classList.remove("mui-hidden");
 			 			item.classList.add("guide-show");
 			 		}

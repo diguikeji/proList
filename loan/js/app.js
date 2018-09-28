@@ -48,6 +48,10 @@ var Global = {};
             $(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
 
         },
+        emptyList: function() {
+            $(".mui-table-view-condensed").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
+
+        },
         showModal: function(title, reload, callback) {
             if ($('.global-modal').length == 0 || reload) {
 

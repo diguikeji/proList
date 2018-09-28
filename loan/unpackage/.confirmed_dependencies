@@ -44,7 +44,8 @@
 			"html/error404.html",
 			"html/credit.html",
 			"html/recommand.html",
-			"html/login.html"
+			"html/login.html",
+			"html/webview.html"
 		],
 		"resources": [
 			"js/swiper.min.js"

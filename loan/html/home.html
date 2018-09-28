@@ -52,14 +52,14 @@
 
             <div class="home_top row">
                 <div class="gonggao">
-                    <img class="noticeIcon left" src="../images/notice.png" />
+                    <img class="noticeIcon left" src="../images/notice.png" onclick="goToRecommand();"/>
 
                     <!-- 无限上下翻滚 -->
                     <div class="swiper-container top-swiper-container">
 
                     </div>
                     <img class="noticeIcon right" onclick="goToMessage();" src="../images/msg_icon.png" />
-                    <span class="msg_cnt">4</span>
+                    <span class="msg_cnt">0</span>
                 </div>
 
                 <img src="../images/hongbao.png" class="hongbao_gif" onclick="invaliteFriend();" />
@@ -229,15 +229,19 @@
             </div>
 
             <!--下拉刷新容器-->
-            <div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background: #f4f4f4;padding-top:43px;">
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background: #f4f4f4;margin: 45px 0px">
                 <div class="mui-scroll">
                     <!--数据列表-->
                     <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped ">
 
                     </ul>
                 </div>
-
+				
             </div>
+            <div class="empty_text">
+					数据为空
+			</div>
+				
         </div>
         <div id="tabbar-with-map" class="mui-control-content" style="padding-top:44px;">
 
