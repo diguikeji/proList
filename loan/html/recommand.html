@@ -8,6 +8,11 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link href="../css/app.css" rel="stylesheet" />
 		<style type="text/css">
+			body, html{
+				width: 100%;
+				height: 100%;
+				background: #F2F2F2;
+			}
 			.top_img{
 				width: 261px;
 				height: 37px;
@@ -22,6 +27,8 @@
 				color: #333333;
 				font-size: 14px;
 				font-weight: bold;
+				position: fixed;
+				width: 100%;
 			}
 			
 			.center_wrap{
@@ -101,11 +108,11 @@
 				border-radius: 10px;
 			}
 			
-			#progress_id{
+			.progress_wrap{
 				position: relative;
 			}
 			
-			#progress_id .success_rate{
+			.success_rate{
 				position: absolute;
 				top: -2px;
 				left: 0px;
@@ -113,6 +120,18 @@
 				font-size: 12px;
 				padding-left: 10px;
 			}
+			
+			.empty_text{
+				width: 100%; 
+				height: 400px; 
+				line-height: 400px; 
+				text-align: center;
+				background: #f4f4f4; 
+				border: none; 
+				z-index: 10;
+				background: #f2f2f2;
+			}
+
 		</style>
 	</head>
 
@@ -140,7 +159,7 @@
             <div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background: #f4f4f4;margin: 45px 0px">
                 <div class="mui-scroll">
                     <!--数据列表-->
-                    <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped ">
+                    <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped list_wrap">
 
                     </ul>
                 </div>
@@ -149,67 +168,6 @@
             <div class="empty_text">
 					数据为空
 			</div>
-			
-			<ul class="list_wrap hideClass">
-				<li class="item_wrap col">
-					<div class="row item_tile_wrap">
-						<div >
-							<span>推荐产品</span>
-							<span class="item_title_num">347号</span>
-						</div>
-						<div class="row">
-							<img src="../images/high_rate.png" class="high_rate"/>
-							<img src="../images/recommend_icon.png" class="recommand_icon"/>
-						</div>
-					</div>
-					
-					<div class="item_center_wrap">
-						<span >
-							500-1000元 / 
-						</span>
-						<span class="item_center_day">
-							7天-14天
-						</span>
-					</div>
-					<div id="progress_id">
-						<p class="mui-progressbar mui-progressbar-in" data-progress="20"><span></span></p>
-						<span class="success_rate">成功率：81.3%</span>
-					</div>
-					
-				</li>
-				
-				<li class="item_wrap col">
-					<div class="row item_tile_wrap">
-						<div >
-							<span>推荐产品</span>
-							<span class="item_title_num">347号</span>
-						</div>
-						<div class="row">
-							<img src="../images/high_rate.png" class="high_rate"/>
-							<img src="../images/recommend_icon.png" class="recommand_icon"/>
-						</div>
-					</div>
-					
-					<div class="item_center_wrap">
-						<span >
-							500-1000元 / 
-						</span>
-						<span class="item_center_day">
-							7天-14天
-						</span>
-					</div>
-					<div id="progress_id">
-						<p class="mui-progressbar mui-progressbar-in" data-progress="20"><span></span></p>
-						<span class="success_rate">成功率：81.3%</span>
-					</div>
-					
-				</li>
-				
-				
-			</ul>
-		</div>
-		<div class="list_bottom_warning_text">
-			我是有底线的~
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
@@ -230,52 +188,171 @@
 			});
 			
 			mui.plusReady(function() {
-			    initData();
+			    //pulldownRefresh();
 			});
+			
+			pulldownRefresh();
+		/**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+        		current = 1;
+        		findList = []; 
+        		getMsglist(0);
+        }
+
+        /**
+         * 上拉加载具体业务实现
+         */
+        function pullupRefresh() {
+        		current++;
+        		getMsglist(1);
+       }
+        
+        //查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
+		var currentType = "DEGREE";
+		//当前查询  页数
+		var current = 1;
+		//根据期限查询是，是否倒序
+		var isDes = false;
+
+        function getMsglist(refreshType){
+			var params = {
+        			current: current,
+        			size: 20,
+        			isDes: isDes,
+        			queryType: currentType
+        		};
+        		$(".empty_text").hide();
+			$("#pullrefresh").show();
+			
+			getListData(refreshType, [1,2,3,4], true);
+			return;
+			
+			Global.commonAjax(
+				{
+					url: "goods/payed/goodslist",
+					method: "POST",
+					data: params
+				},
+				function(data){
+					if(data.current >= data.pages){
+						if((data.current == 1) &&  (data.records.length == 0)){
+							//空数据
+							$(".empty_text").show();
+							$("#pullrefresh").hide();
+						}else{
+							//没有更多数据了
+							getListData(refreshType, data.records, true);
+						}
+					}else{
+						getListData(refreshType, data.records, false);
+					}
+				},
+				function(err){
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				}
+			)
+		}
+        
+        var findList = [];
+        function getListData(refreshType, cells, isAll){
+        		findList = findList.concat(cells);
+        		//当前点击的 数据下标
+		    var index = 0;
+		    var table = document.body.querySelector('.mui-table-view-condensed');
+		
+		    if (refreshType == 0) {
+		        //下拉刷新
+		        //table.innerHTML = "";
+		        $(".mui-table-view-condensed").html = "";
+		    } else {
+		        //加载更多
+		        mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
+		        var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
+		        index = preList == null ? 0 : preList.length;
+		    }
+		    for (var i = 0, len = cells.length; i < len; i++) {
+		        var li = document.createElement('li');
+		        var item = cells[i];
+		        li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+		        li.innerHTML = '<div class="row item_tile_wrap">'+
+						'<div >'+
+							'<span>推荐产品</span>'+
+							'<span class="item_title_num">'+item.goodsSeq+'号</span>'+
+						'</div>'+
+						'<div class="row">'+
+							'<img src="../images/high_rate.png" class="high_rate"/>'+
+							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
+						'</div>'+
+					'</div>'+
+					
+					'<div class="item_center_wrap">'+
+						'<span >'+ item.loanAmount+
+							' /'+ 
+						'</span>'+
+						'<span class="item_center_day">'+
+							item.loanDay+
+						'</span>'+
+					'</div>'+
+					'<div class="progress_wrap" id="progress_id">'+
+						'<p class="mui-progressbar mui-progressbar-in" data-progress="'+item.recommendDegree+'"><span></span></p>'+
+						'<span class="success_rate">成功率：'+item.recommendDegree+'%</span>'+
+					'</div>';
+		        table.appendChild(li);
+		        index += 1;
+		        var progress = mui('#progress_id');
+		        mui(progress).progressbar().setProgress(item.recommendDegree);
+//				$(".mui-progressbar-in").setProgress(item.recommentDegree);
+		    }
+		
+		    if (refreshType == 0) {
+		        //下拉刷新
+		        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		    } else {
+		        //上拉加载
+		
+		    }
+        }
+        
 			
 			//进度条 设置
-			var progressbar = mui('#progress_id');
-			mui(progressbar).progressbar().setProgress(10);
+//			var progressbar = mui('#progress_id');
+//			console.log(mui(progressbar).progressbar());
+//			mui(progressbar).progressbar().setProgress(10);
 			
-			var $$ = jQuery.noConflict();
-			$$(document).ready(function(){
-				var highType = $$('.highType');
-				var timeType = $$('.timeType');
-				var preType = $$('.preType');
+			$('.highType').click(function(){
+					$('.highType').css('color', '#ff5445');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#333333');
+					current = 1;
+					currentType = "DEGREE";
+					isDes = false;
+					getMsglist(0);
+			})
 				
-				highType.click(function(){
-					highType.css('color', '#ff5445');
-					timeType.css('color', '#333333');
-					preType.css('color', '#333333');
+				$('.timeType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#ff5445');
+					$('.preType').css('color', '#333333');
+					if (currentType == 'TIME') {
+				        //当前期限
+				        isDes = !isDes;
+				   }
+					current = 1;
+					currentType = "TIME";
+					getMsglist(0);
 				})
 				
-				timeType.click(function(){
-					highType.css('color', '#333333');
-					timeType.css('color', '#ff5445');
-					preType.css('color', '#333333');
+				$('.preType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#ff5445');
+					current = 1;
+					currentType = "HISTORY";
+					isDes = false;
+					getMsglist(0);
 				})
-				
-				preType.click(function(){
-					highType.css('color', '#333333');
-					timeType.css('color', '#333333');
-					preType.css('color', '#ff5445');
-				})
-				
-			});
-			
-			//点击高成功率
-//			function highTypeClick(){
-//				highType.attr('color', '#ff5445');
-//				timeType.attr('color', '#333333');
-//				preType.attr('color', '#333333');
-//			}
-//			
-//			//点击高成功率
-//			function timeTypeClick(){
-//				highType.attr('color', '#333333');
-//				timeType.attr('color', '#ff5445');
-//				preType.attr('color', '#333333');
-//			}
 			
 			
 		</script>
