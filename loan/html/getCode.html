@@ -123,6 +123,7 @@
                     //token
                     myStorage.setItem("userToken", data.userToken);
 
+					clearInterval(intervalObj);
                     mui.openWindow({
                         url: 'home.html',
                         id: 'home.html',
@@ -195,7 +196,6 @@
                 } else {
                     $(this).text("");
                 }
-                console.log($(this))
             });
 
             $(".cursor").each(function(index) {
@@ -206,7 +206,6 @@
                 if (length == index) {
                     $(this).removeClass("hideClass");
                 }
-                console.log($(this))
             });
 
             if (length == 6) {
