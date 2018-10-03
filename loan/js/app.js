@@ -89,6 +89,7 @@ var Global = {};
         //网络请求
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "http://app.dev.xianghq.cn/api/";
+//          var baseUrl = "http://banxh.mynetgear.com:18081/api/";
             //应用版本号
 //          var appVersion = plus.runtime.version;
 //          //设备唯一标识
@@ -142,23 +143,27 @@ var Global = {};
                 			//token 过期
                 			var curr = plus.webview.currentWebview();
                 			var wvs=plus.webview.all();
-					    for(var i=0;i<wvs.length;i++){
-					    		if(wvs[i].getURL() == curr.getURL()){
-					    			continue;
-					    		}
-					        plus.webview.close(wvs[i]); 
-					    }
-					    plus.webview.open('login.html');
-					    if(myStorage){
-					    		myStorage.clear();
-					    }
-					    curr.close();
+                			console.log(wvs);
+                			if(wvs && wvs.length){
+                				for(var i=0;i<wvs.length;i++){
+						    		if(wvs[i].getURL() == curr.getURL()){
+						    			continue;
+						    		}
+						        plus.webview.close(wvs[i]); 
+						    }
+						    plus.webview.open('login.html');
+						    if(myStorage){
+						    		myStorage.clear();
+						    }
+						    curr.close();
+						    
+						    return;
+                			}
 					    
-					    return;
                 		}
                     if (data.code == "SUCCESS" || data.code == "OK" 
                     			|| data.code == "success" || data.code == "ok" ) {
-                        callback(data.data);
+                        callback(data.data ? data.data : "");
                     } else {
                         errorback(data.msg);
                     }
@@ -238,7 +243,7 @@ var Global = {};
     // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
     //公司
-    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
+//  $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
 
 
 }());

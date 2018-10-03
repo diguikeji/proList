@@ -59,7 +59,7 @@
 				margin-right: 10px;
 			}
 			
-			.icon_wrap span{
+			.item_name{
 				color: #333333;
 				font-size: 16px;
 			}
@@ -203,6 +203,11 @@
 				left: 50%;
 				margin-left: -104px;
 			}
+			
+			.support_style{
+				color: #FF9524;
+				font-size: 12px;
+			}
 
 		</style>
 	</head>
@@ -310,7 +315,7 @@
 							html += '<li class="item_wrap row">'+
 						         		'<div class="icon_wrap row">'+
 						         			'<img src="'+item.channelPic+'"/>'+
-						         			'<span>'+item.channelName+'</span>'+
+						         			'<span class="item_name">'+item.channelName+'<br> <span class="support_style">支持借记卡</span></span>'+
 						         		'</div>'+
 						         		'<img src="../images/unagress_icon.png" class="select_radio" data-index="'+index+'"/>'+
 						         	'</li>'
@@ -344,13 +349,13 @@
 				$(".select_radio").each(function(index){
 					if($(this).attr("src") == "../images/agress_icon.png"){
 						index = $(this).data("index");
-						break;
+						return false;
 					}
 				})
 				
 				mui.openWindow({
-	      			url: 'bank_list.html',
-	      			id: 'bank_list.html',
+	      			url: 'pay_action.html',
+	      			id: 'pay_action.html',
 	      			waiting: {
 	      				autoShow: false
 	      			},

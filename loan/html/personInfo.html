@@ -529,6 +529,15 @@
          * 信用评估 
          */
         function goToCredit() {
+        		mui.openWindow({
+                url: 'credit.html',
+                id: 'credit.html',
+                waiting: {
+                		autoShow: false
+                }
+            })
+        		return;
+        		
         		if(mui('#marry_value')[0].innerHTML == "请选择"){
         			mui.toast("请选择婚姻状态");
         			return;
@@ -554,6 +563,8 @@
                loansStatus: selectLoanValue,
                houseStatus: selectHouseValue
         		};
+        		
+        		
                Global.commonAjax({
                		url: "user/input/detail",
                		method: "POST",

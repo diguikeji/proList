@@ -571,8 +571,9 @@ var slider = mui("#slider").slider({
 function apply() {
        Global.commonAjax({ url: "user/input/status" },
            function(data) {
-               var url = "";
-               if(data){
+               var url = "identificateFirst.html";
+               
+               if((data != "") && (data != null)){
                		if(data.isInputIdcard == "N"){
                			url = "identificateFirst.html";
                		}else if(data.isInputDetail == "N"){
@@ -892,6 +893,7 @@ function jumpWeb() {
     }); //新的页面地址 
 }
 
+//推荐
 function goToRecommand(){
 	mui.openWindow({
 		url: 'recommand.html',
@@ -901,3 +903,14 @@ function goToRecommand(){
 		}
 	})
 }
+//信用评估
+function goToCredit(){
+	mui.openWindow({
+		url: 'credit_result.html',
+		id: 'credit_result.html',
+		waiting: {
+			autoShow: false
+		}
+	})
+}
+
