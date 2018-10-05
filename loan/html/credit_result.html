@@ -11,12 +11,19 @@
     <style type="text/css">
         html,
         body {
-            background: #ffffff;
             height: 100%;
-            background: url(../images/result_bg.png);
         }
         
-        
+        .bg{
+        		background: url(../images/result_bg.png);
+            background-size:100% 100%;  
+			background-attachment: fixed;
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			top: 0px;
+			bottom: 0px;
+        }
         
         .modal-mask {
             width: 100%;
@@ -136,6 +143,49 @@
             left: 50%;
             margin-left: -104px;
         }
+        
+        #canvas{
+        		position: absolute;
+        }
+        
+        .credit_text{
+        		position: relative;
+        		margin-top: 300px;
+        		margin-left: 20px;
+        		color: #ffffff;
+        		font-size: 13px;
+        }
+        
+        .credit_info{
+        		position: relative;
+        		margin-left: 20px;
+        		color: #ffffff;
+        		font-size: 13px;
+        }
+        
+        .next {
+		    width: 80%;
+		    height: 40px;
+		    text-align: center;
+		    font-size: 20px;
+		    margin: 50px 10%;
+		    border-radius: 30px;
+		    background: #ffffff;
+		    color: #F63934;
+		    box-shadow: 0px 2px 5px #888888;
+		    position: relative;
+		}
+		
+		.bottom_text{
+			font-size: 10px;
+			color: #ffffff;
+			opacity: 0.5;
+			position: absolute;
+			bottom: 20px;
+			text-align: center;
+			width: 100%;
+		}
+			
     </style>
 </head>
 
@@ -148,7 +198,16 @@
     </header>
 
     <div class="mui-content">
-       
+    		<div class="bg">
+    			
+    		</div>
+       <canvas id="canvas" ></canvas>
+       <div class="credit_text">信用评估：中等</div>
+       <div class="credit_info">借款评估：在一些风控较严的平台中，您可能依旧难以借到款，但只要有耐心多尝试几次，大概率会获得额度。</div>
+    		<button type="button" class="mui-btn mui-btn-link next" onclick="pay();">马上借款</div>
+    		<div class="bottom_text">
+    			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
+    		</div>	
     </div>
 
     <!--弹窗-->
@@ -213,7 +272,60 @@
     <script src="../js/myStorage.js"></script>
     <script type="text/javascript">
         mui.init();
+        
+        var screenWidth = document.body.clientWidth;
+		console.log(screenWidth);
+      	var ctx;
+      	initCanvas();
+      	drawAll();
+		
 
+		//canvas初始化
+		function initCanvas(){
+			var canvas = document.getElementById("canvas");
+	      	canvas.width = screenWidth;
+	      	canvas.height = screenWidth;
+	      	ctx = canvas.getContext('2d');
+		}
+		
+		//画出所有东西
+		function drawAll(){
+			drawArc(Math.PI, 2*Math.PI, "#FDC4A3");
+			drawArc(Math.PI, 1.5*Math.PI, "#FFFFFF");
+			drawText("300", screenWidth*0.15, screenWidth/2);
+			drawText("550", screenWidth*0.25, screenWidth/4);
+			drawText("650", screenWidth*0.5, screenWidth/6);
+			drawText("750", screenWidth*0.75, screenWidth/4);
+			drawText("850", screenWidth*0.85, screenWidth/2);
+			drawText("650", screenWidth*0.5, screenWidth*0.4, "45px");
+			drawText("信用中等", screenWidth*0.5, screenWidth*0.46, "18px");
+			drawText("评估时间：2018-10-03", screenWidth*0.5, screenWidth*0.5, "10px");
+		}
+		
+		function drawArc(s, e, color){
+	        var x = screenWidth/2;
+	        var y = screenWidth/2;
+	        ctx.beginPath();
+	        ctx.strokeStyle = color;
+	        ctx.lineWidth = 10;
+	        ctx.arc(x, y, screenWidth*0.3, s, e, false);
+	        ctx.stroke();
+	    }
+		
+		function drawText(text, x, y, fontSize){
+			ctx.fillStyle="#FFFFFF";
+			if(fontSize == "45px"){
+				ctx.font="bold "+ fontSize +" normal";
+			}else if(fontSize == "18px"){
+				ctx.font="normal "+ fontSize +" normal";
+			}else if(fontSize == "10px"){
+				ctx.font="normal "+ fontSize +" normal";
+				ctx.globalAlpha="0.7";
+			}
+			var tw=ctx.measureText(text).width;
+			ctx.fillText(text,x-tw/2,y);
+		}
+		
         //Android 物理返回
         var old_back = mui.back;
         mui.back = function() {
@@ -242,7 +354,7 @@
         };
 
 		mui.plusReady(function() {
-		    initData();
+		    //initData();
 		});
         
 
