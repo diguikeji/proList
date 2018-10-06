@@ -124,6 +124,23 @@ function myTabInit(){
 		}
 		
 	}
+	getUserScore();
+}
+//得到信用评估分数
+var scoreData;
+function getUserScore(){
+	Global.commonAjax(
+		{url: "user/score",
+		method: "POST"},
+		function(data){
+			if(data){
+				scoreData = data;
+			}
+		},
+		function (err){
+			
+		}
+	)
 }
 
 //设置页面返回的时候 更新
@@ -896,8 +913,8 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'recommand.html',
-		id: 'recommand.html',
+		url: 'pay_style.html',
+		id: 'pay_style.html',
 		waiting: {
 			autoShow: false
 		}
@@ -910,6 +927,10 @@ function goToCredit(){
 		id: 'credit_result.html',
 		waiting: {
 			autoShow: false
+		},
+		extras: {
+			score: scoreData.score,
+			scoreRange: scoreData.scoreRange
 		}
 	})
 }

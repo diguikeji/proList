@@ -315,7 +315,18 @@
 							html += '<li class="item_wrap row">'+
 						         		'<div class="icon_wrap row">'+
 						         			'<img src="'+item.channelPic+'"/>'+
-						         			'<span class="item_name">'+item.channelName+'<br> <span class="support_style">支持借记卡</span></span>'+
+						         			'<span class="item_name">'+item.channelName+'<br> <span class="support_style">';
+						    if((item.supportCardType.length == 1) && (item.supportCardType[0] == "01")){
+						    		html += "支持借记卡";
+						    }else if((item.supportCardType.length == 1) && (item.supportCardType[0] == "00")){
+						    		html += "支持信用卡";
+						    }else if(item.supportCardType.length == 2){
+						    		html += "支持借记卡和信用卡";
+						    }else{
+						    		html += "支持借记卡";
+						    }
+						    console.log(item.supportCardType.length + "---" + item.supportCardType[0])
+						    html += '</span></span>'+
 						         		'</div>'+
 						         		'<img src="../images/unagress_icon.png" class="select_radio" data-index="'+index+'"/>'+
 						         	'</li>'
@@ -346,7 +357,7 @@
 			//支付
 			function pay(){
 				var index = 0;
-				$(".select_radio").each(function(index){
+				$(".select_radio").each(function(){
 					if($(this).attr("src") == "../images/agress_icon.png"){
 						index = $(this).data("index");
 						return false;
@@ -370,7 +381,7 @@
 			var old_back = mui.back;
 			mui.back = function(){
 				if($('.selfModal').hasClass("hideClass")){
-					plus.webview.close('credit.html');
+					plus.webview.close('pay_style.html');
 				}else{
 					$('.selfModal').addClass("hideClass");
 				}

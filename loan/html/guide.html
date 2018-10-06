@@ -228,7 +228,16 @@
 			document.getElementById("close").addEventListener('tap', function(event) {
 				plus.storage.setItem("lauchFlag", "true");
 				plus.navigator.setFullscreen(false);
+				
+				mui.openWindow({
+                    url: 'home.html',
+                    id: 'home.html',
+                    waiting: {
+                        autoShow: false
+                    }
+                })
 				plus.webview.currentWebview().close();
+				
 			}, false);
 			//图片切换时，触发动画
 			document.querySelector('.mui-slider').addEventListener('slide', function(event) {

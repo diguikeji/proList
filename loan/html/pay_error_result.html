@@ -12,17 +12,7 @@
         html,
         body {
             height: 100%;
-        }
-        
-        .bg{
-        		background: url(../images/result_bg.png);
-            background-size:100% 100%;  
-			background-attachment: fixed;
-			height: 100%;
-			width: 100%;
-			position: fixed;
-			top: 0px;
-			bottom: 0px;
+            background: #F4F4F4;
         }
         
         .modal-mask {
@@ -144,23 +134,38 @@
             margin-left: -104px;
         }
         
-        #canvas{
-        		position: absolute;
+        .credit_text{
+        		margin-top: 100px;
+        		text-align: center;
         }
         
-        .credit_text{
-        		position: relative;
-        		margin-top: 300px;
-        		margin-left: 20px;
-        		color: #ffffff;
-        		font-size: 13px;
+        .credit_text img{
+        		width: 81px;
+        		height: 81px;
         }
         
         .credit_info{
-        		position: relative;
-        		margin-left: 20px;
-        		color: #ffffff;
-        		font-size: 13px;
+        		text-align: center;
+        		color: #303030;
+        		font-size: 18px;
+        }
+        
+        .error_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 14px;
+        		margin-top: 10px;
+        }
+        
+        .warning_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 12px;
+        		margin-top: 200px;
+        }
+        
+        .warning_info span{
+        		color: #000000;
         }
         
         .next {
@@ -168,10 +173,10 @@
 		    height: 40px;
 		    text-align: center;
 		    font-size: 20px;
-		    margin: 50px 10%;
+		    margin: 30px 10% 50px;
 		    border-radius: 30px;
-		    background: #ffffff;
-		    color: #F63934;
+		    background: #FF5445;
+		    color: #ffffff;
 		    box-shadow: 0px 2px 5px #888888;
 		    position: relative;
 		}
@@ -193,18 +198,18 @@
     <header class="mui-bar mui-bar-nav">
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
         <span class="header_close">关闭</span>
-        <h1 class="mui-title">评估结果</h1>
+        <h1 class="mui-title">支付结果</h1>
         <img src="../images/custom_icon.png" />
     </header>
 
-    <div class="mui-content">
-    		<div class="bg">
-    			
-    		</div>
-       <canvas id="canvas" ></canvas>
-       <div class="credit_text">信用评估：中等</div>
-       <div class="credit_info">借款评估：在一些风控较严的平台中，您可能依旧难以借到款，但只要有耐心多尝试几次，大概率会获得额度。</div>
-    		<button type="button" class="mui-btn mui-btn-link next" onclick="pay();">马上借款</div>
+    <div class="mui-content" style="background: #F4F4F4;">
+       <div class="credit_text">
+       		<img src="../images/pay_error_icon.png"/>
+       </div>
+       <div class="credit_info">支付失败，请重试！</div>
+       <div class="error_info">预留手机校验失败</div>
+       <div class="warning_info">注意：若您的银行卡已扣款，请  <span>联系客服。</span> </div>
+    		<button type="button" class="mui-btn mui-btn-link next" onclick="pay();">返回</div>
     		<div class="bottom_text">
     			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
     		</div>	
@@ -272,62 +277,6 @@
     <script src="../js/myStorage.js"></script>
     <script type="text/javascript">
         mui.init();
-        
-        var screenWidth = document.body.clientWidth;
-		console.log(screenWidth);
-      	var ctx;
-      	mui.plusReady(function() {
-		    var self = plus.webview.currentWebview();
-		    initCanvas();
-      		drawAll(self.score, self.scoreRange);
-		});
-		
-
-		//canvas初始化
-		function initCanvas(){
-			var canvas = document.getElementById("canvas");
-	      	canvas.width = screenWidth;
-	      	canvas.height = screenWidth;
-	      	ctx = canvas.getContext('2d');
-		}
-		
-		//画出所有东西
-		function drawAll(score, scoreRange){
-			drawArc(Math.PI, 2*Math.PI, "#FDC4A3");
-			drawArc(Math.PI,((score-300)/(850-300) + 1)*Math.PI, "#FFFFFF");
-			drawText("300", screenWidth*0.15, screenWidth/2);
-			drawText("550", screenWidth*0.25, screenWidth/4);
-			drawText("650", screenWidth*0.5, screenWidth/6);
-			drawText("750", screenWidth*0.75, screenWidth/4);
-			drawText("850", screenWidth*0.85, screenWidth/2);
-			drawText(score, screenWidth*0.5, screenWidth*0.4, "45px");
-			drawText(scoreRange, screenWidth*0.5, screenWidth*0.46, "18px");
-			drawText("评估时间："+new Date().Format("yyyy-MM-dd"), screenWidth*0.5, screenWidth*0.5, "10px");
-		}
-		
-		function drawArc(s, e, color){
-	        var x = screenWidth/2;
-	        var y = screenWidth/2;
-	        ctx.beginPath();
-	        ctx.strokeStyle = color;
-	        ctx.lineWidth = 10;
-	        ctx.arc(x, y, screenWidth*0.3, s, e, false);
-	        ctx.stroke();
-	    }
-		
-		function drawText(text, x, y, fontSize){
-			ctx.fillStyle="#FFFFFF";
-			if(fontSize == "45px"){
-				ctx.font="bold "+ fontSize +" normal";
-			}else if(fontSize == "18px"){
-				ctx.font="normal "+ fontSize +" normal";
-			}else if(fontSize == "10px"){
-				ctx.font="normal "+ fontSize +" normal";
-				ctx.globalAlpha="0.7";
-			}
-			var tw=ctx.measureText(text).width;
-			ctx.fillText(text,x-tw/2,y);
-		}
 		
         //Android 物理返回
         var old_back = mui.back;
@@ -353,9 +302,26 @@
 
         //弹窗中 关闭按钮
         function closeDialg() {
-            plus.webview.close('credit_result.html');
+            plus.webview.close('personInfo.html');
         };
 
+		mui.plusReady(function() {
+		    //initData();
+		});
+        
+
+        function initData() {
+            Global.commonAjax({
+                    url: "sys/latest/syscfg"
+                },
+                function(data) {
+                    
+                },
+                function(err) {
+					mui.toast(err.msg);
+                }
+            )
+        }
 
 		//浮层 奖金信息
 		function showMoneyInfo(){
@@ -373,22 +339,6 @@
 	            }
             }
         }
-		
-		Date.prototype.Format = function (fmt) { //author: meizz
-		    var o = {
-		        "M+": this.getMonth() + 1, //月份
-		        "d+": this.getDate(), //日
-		        "h+": this.getHours(), //小时
-		        "m+": this.getMinutes(), //分
-		        "s+": this.getSeconds(), //秒
-		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-		        "S": this.getMilliseconds() //毫秒
-		    };
-		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-		    for (var k in o)
-		        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-		    return fmt;
-		};
 
         
     </script>
