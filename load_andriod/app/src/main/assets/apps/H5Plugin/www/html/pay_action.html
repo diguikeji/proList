@@ -46,6 +46,10 @@
 			    opacity: 0.5;
 			}
 			
+			input{
+				caret-color:red;
+			}
+			
 			.phone_input {
 			    width: 70%;
 			    height: 58px!important;
@@ -275,12 +279,12 @@
 			
 			<div class="row item_name_wrap">
 	         	<span class="item_name_text">持卡人</span>
-	         	<input type="text"  class="phone_input"/>
+	         	<input type="text"  class="phone_input realName"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">身份证</span>
-	         	<input type="text"  class="phone_input"/>
+	         	<input type="text"  class="phone_input idCardNo"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap" style="margin-top: 10px;">
@@ -291,23 +295,23 @@
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">借记卡号</span>
-	         	<input type="text"  class="phone_input"/>
+	         	<input type="text"  class="phone_input cardNo"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">所属银行</span>
-	         	<input type="text"  class="phone_input" placeholder="输入卡号后点击获取"/>
+	         	<input type="text"  class="phone_input bankName" placeholder="输入卡号后点击获取" readonly="readonly" onclick="getSupportBank();"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap" style="margin-top: 10px;">
 	         	<span class="item_name_text">预留手机</span>
-	         	<input type="text"  class="phone_input"/>
+	         	<input type="tel"  class="phone_input phone" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">验证码</span>
-	         	<input type="text"  class="phone_input" style="width: 100px;"/>
-	         	<span class="time_style">60s后重新获取</span>
+	         	<input type="tel"  class="phone_input flex_item" />
+	         	<span class="time_style" onclick="getCode();">获取验证码</span>
 	         </div>
 	         
 	         <div class="row item_name_wrap" >
@@ -318,7 +322,7 @@
 	         
 	         <div class="row item_name_wrap" >
 	         	<span class="item_name_text">CVV2</span>
-	         	<input type="text"  class="phone_input" placeholder="输入3位数字"/>
+	         	<input type="tel" maxlength="3" class="phone_input" placeholder="输入3位数字"/>
 	         	<img src="../images/123.png" class="time_icon" onclick="cvvInfo();"/>
 	         </div>
 	         
@@ -445,6 +449,16 @@
             		amount = self.amount;
             		payChannel = self.payChannel;
             		initData();
+            		console.log(payChannel)
+            		if(payChannel == "fuyou"){
+            			//富友支付
+            			$(".item_name_wrap:nth-child(3)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(4)").css("margin-top", "20px");
+            			$(".item_name_wrap:nth-child(6)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(7)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(8)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
+            		}
 			});
 			
 			var styleList;
@@ -527,15 +541,68 @@
 				$(".cvvInfoModal").addClass("hideClass");
 			}
 			
+			//输入卡号后 点击获取
+			function getSupportBank(){
+				if(!$(".cardNo").val()){
+					mui.toast("请输入卡号");
+					return;
+				}
+				
+				Global.commonAjax(
+					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
+					function(data){
+						
+					},
+					function(err){
+						
+					}
+				)
+			}
+			
 			//支付
 			function pay(){
-				var index = 0;
-				$(".select_radio").each(function(index){
-					if($(this).attr("src") == "../images/agress_icon.png"){
-						index = $(this).data("index");
-						break;
+				if(!$(".idCardNo").val()){
+					mui.toast("请输入身份证号");
+					return;
+				}
+				
+				if(!$(".realName").val()){
+					mui.toast("请输入持卡人姓名");
+					return;
+				}
+				
+				if(!$(".bankName").val()){
+					mui.toast("请输入所属银行");
+					return;
+				}
+				
+				if(!$(".cardNo").val()){
+					mui.toast("请输入银行卡号");
+					return;
+				}
+				
+				var params = {
+					amount: amount,
+					payChannel: payChannel,
+					idCardNo: $(".idCardNo").val(),
+					realName: $(".realName").val(),
+					userId: myStorage.getItem("user").userId,
+					bankName: $(".bankName").val(),
+					bankCardNo: $(".cardNo").val()
+				}
+				Global.commonAjax(
+					{
+						url: "pay/fuyou/submit",
+						method: "POST",
+						data: params
+					},
+					function(data){
+						
+					},
+					function(err){
+						
 					}
-				})
+				)
 				
 				mui.openWindow({
 	      			url: 'bank_list.html',
@@ -549,6 +616,49 @@
 	      			}
 	      		})
 			}
+			
+			//得到手机验证码
+			function getCode(){
+				if(!$(".phone").val()){
+					mui.toast("请填写手机号");
+					return;
+				}
+				
+				if($(".time_style").text() == "重新获取"){
+					countDown();
+				}else if($(".time_style").text() == "获取验证码"){
+					countDown();
+				}else{
+					return;
+				}
+				
+				
+				Global.commonAjax(
+					{url: "pay/resendsms/"+myStorage.getItem("userToken")},
+					function(data){
+						
+					},
+					function(err){
+						mui.toast("获取验证码失败");
+					}
+				)
+			}
+			
+			var time = 60;
+			var intervalObj;
+			function countDown() {
+	            intervalObj = setInterval(function() {
+	                time--;
+	                if (time == 0) {
+	                    time = 60;
+	                    clearInterval(intervalObj);
+	                    $(".time_style").text("重新获取");
+	                } else {
+	                    $(".time_style").text(time + "秒后可重新获取");
+	                }
+	
+	            }, 1000);
+	        }
 			
 			//Android 物理返回
 			var old_back = mui.back;

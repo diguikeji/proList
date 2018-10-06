@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link href="../css/app.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            background: #F4F4F4;
+        }
+        
+        .modal-mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            z-index: 10;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-dialog {
+            width: 80%;
+            max-height: 100%;
+            overflow: auto;
+            border-radius: 18px;
+            position: relative;
+            border-radius: 20px;
+        }
+        
+        .modal-dialog .close_style {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 23px;
+            height: 23px;
+            z-index: 100000;
+        }
+        
+        .modal-content {
+            font-size: 12px;
+            position: relative;
+            z-index: 10000;
+            font-size: 12px;
+            color: #333333;
+            background: #ffffff;
+            padding: 0px;
+        }
+        
+        .modal-content .conten_bg {
+            width: 100%;
+            /*position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;*/
+        }
+        
+        .dialog_content_wrap {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            background: #ffffff;
+            z-index: 2;
+            width: 80%;
+            align-items: center;
+        }
+        
+        .dialog_step_wrap {
+            align-items: center;
+        }
+        
+        .dialog_step_wrap img {
+            width: 13px;
+            height: 13px;
+            margin-right: 20px;
+        }
+        
+        .dialog_step_text {
+            color: #000000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .dialog_step_bottom_text {
+            color: #dddddd;
+            font-size: 12px;
+        }
+        
+        .dialog_content_wrap .col {
+            padding: 10px 0px;
+        }
+        
+        .dialog_content_item_wrap {
+            position: relative;
+        }
+        
+        .addMoney {
+            position: absolute;
+            top: -5px;
+            right: -30px;
+            width: 66px;
+            height: 45px;
+        }
+        
+        .first_step_money,
+        .second_step_money,
+        .third_step_money{
+        		position: absolute;
+            top: 5px;
+            right: -10px;
+            font-size: 24px;
+            color: #FF5445;
+            font-weight: bold;
+        }
+        
+        .dialog_bottom_btn {
+            position: absolute;
+            bottom: 10px;
+            width: 208px;
+            height: 70px;
+            left: 50%;
+            margin-left: -104px;
+        }
+        
+        .credit_text{
+        		margin-top: 100px;
+        		text-align: center;
+        }
+        
+        .credit_text img{
+        		width: 81px;
+        		height: 81px;
+        }
+        
+        .credit_info{
+        		text-align: center;
+        		color: #303030;
+        		font-size: 18px;
+        }
+        
+        .error_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 14px;
+        		margin-top: 10px;
+        }
+        
+        .warning_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 12px;
+        		margin-top: 200px;
+        }
+        
+        .warning_info span{
+        		color: #000000;
+        }
+        
+        .next {
+		    width: 80%;
+		    height: 40px;
+		    text-align: center;
+		    font-size: 20px;
+		    margin: 30px 10% 50px;
+		    border-radius: 30px;
+		    background: #FF5445;
+		    color: #ffffff;
+		    box-shadow: 0px 2px 5px #888888;
+		    position: relative;
+		}
+		
+		.bottom_text{
+			font-size: 10px;
+			color: #ffffff;
+			opacity: 0.5;
+			position: absolute;
+			bottom: 20px;
+			text-align: center;
+			width: 100%;
+		}
+			
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <span class="header_close">关闭</span>
+        <h1 class="mui-title">支付结果</h1>
+        <img src="../images/custom_icon.png" />
+    </header>
+
+    <div class="mui-content" style="background: #F4F4F4;">
+       <div class="credit_text">
+       		<img src="../images/pay_error_icon.png"/>
+       </div>
+       <div class="credit_info">支付失败，请重试！</div>
+       <div class="error_info">预留手机校验失败</div>
+       <div class="warning_info">注意：若您的银行卡已扣款，请  <span>联系客服。</span> </div>
+    		<button type="button" class="mui-btn mui-btn-link next" onclick="pay();">返回</div>
+    		<div class="bottom_text">
+    			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
+    		</div>	
+    </div>
+
+    <!--弹窗-->
+    <div class="modal-mask row hideClass">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+            <div class="modal-content">
+                <img src="../images/close_dialog_bg.png" class="conten_bg" />
+                <div class="col dialog_content_wrap">
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" />
+                            <span class="dialog_step_text">真实身份认证</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money">12</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" />
+                            <span class="dialog_step_text">填写个人信息</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money">12</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" />
+                            <span class="dialog_step_text">完成信用评估</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money">12</span>
+                    </div>
+
+                </div>
+                <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/mui.picker.min.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <script type="text/javascript">
+        mui.init();
+		
+        //Android 物理返回
+        var old_back = mui.back;
+        mui.back = function() {
+            if ($('.modal-mask').hasClass("hideClass")) {
+                plus.webview.close('personInfo.html');
+            } else {
+                $('.modal-mask').addClass("hideClass");
+            }
+        }
+
+        //左上角 返回
+        function headLeftBack() {
+            $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
+        }
+
+        //左上角 关闭按钮
+        $('.header_close').click(function() {
+            $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
+        })
+
+        //弹窗中 关闭按钮
+        function closeDialg() {
+            plus.webview.close('personInfo.html');
+        };
+
+		mui.plusReady(function() {
+		    //initData();
+		});
+        
+
+        function initData() {
+            Global.commonAjax({
+                    url: "sys/latest/syscfg"
+                },
+                function(data) {
+                    
+                },
+                function(err) {
+					mui.toast(err.msg);
+                }
+            )
+        }
+
+		//浮层 奖金信息
+		function showMoneyInfo(){
+        		if(myStorage){
+            		if(myStorage.getItem("inputIdInfoReturn")){
+	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("inputBaseInfoReturn")){
+	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("payReturn")){
+	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            }
+            }
+        }
+
+        
+    </script>
+</body>
+
+</html>
