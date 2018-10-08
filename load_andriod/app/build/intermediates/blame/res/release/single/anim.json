@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_in_from_top.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_in_from_top.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_out_to_top.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_out_to_top.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_right_out.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_right_out.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_out_to_right.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_out_to_right.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_in_from_right.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_in_from_right.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_static.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_static.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/anim/dcloud_slide_right_in.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/anim/dcloud_slide_right_in.xml"
+    }
+]
