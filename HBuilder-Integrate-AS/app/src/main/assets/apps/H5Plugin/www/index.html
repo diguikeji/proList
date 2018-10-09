@@ -153,19 +153,37 @@ function plusReady(){
 				
 				} else {
 					//显示启动导航
-					mui.openWindow({
-						id: 'guide',
-						url: 'html/guide.html',
-						styles: {
-							popGesture: "none"
-						},
-						show: {
-							aniShow: 'none'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
+					var guides = myStorage.getItem("startup");
+					if(guides){
+						mui.openWindow({
+							id: 'guide',
+							url: 'html/guide.html',
+							styles: {
+								popGesture: "none"
+							},
+							show: {
+								aniShow: 'none'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}else{
+						mui.openWindow({
+							id: 'guide',
+							url: 'html/guide.html',
+							styles: {
+								popGesture: "none"
+							},
+							show: {
+								aniShow: 'none'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}
+					
 				
 				}
 

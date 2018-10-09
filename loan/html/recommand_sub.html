@@ -231,19 +231,10 @@
         			isDes: isDes,
         			queryType: currentType
         		};
+        		
         		$(".empty_text").hide();
 			$("#pullrefresh").show();
 			
-			getListData(refreshType, [
-				{recommendDegree: 20},
-				{recommendDegree: 30},
-				{recommendDegree: 40},
-				{recommendDegree: 50},
-				{recommendDegree: 60},
-				{recommendDegree: 70},
-			], true);
-			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-			return;
 			
 			Global.commonAjax(
 				{

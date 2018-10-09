@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>支付成功页面</title>
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script type="text/javascript" src="../js/mui.min.js"></script>
+    <style type="text/css">
+    		html, body{
+    			height: 100%;
+    			background: #ffffff;
+    		}
+    </style>
+</head>
+<body>
+	
+	<header class="mui-bar mui-bar-nav" >
+	    <a class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
+	</header>
+	
+	
+	<div class="mui-content" style="background: #ffffff;">
+		<div style="text-align: center; margin-top: 100px;">
+			支付成功,跳转中....
+		</div>
+	</div>	
+	
+	
+	
+</body>
+
+<script type="text/javascript">
+	
+	mui.init();
+	mui.plusReady(function() {
+		goHome();
+	});
+	
+	function goHome(){
+		
+		mui.openWindow({
+  			url: 'credit_result.html',
+  			id: 'credit_result.html',
+		    waiting:{
+		      autoShow:false
+		    }
+  		});
+  		plus.webview.close('pay_success.html');
+	};
+</script>
+</html>

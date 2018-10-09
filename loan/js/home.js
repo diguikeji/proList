@@ -30,6 +30,9 @@ mui.plusReady(function() {
     //获取最新引导页
     getStartUpPage();
     
+    var preWebView = plus.webview.getWebviewById('guide');
+    preWebView.close();
+    
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
 	    var index = $(this).index();
 	    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");

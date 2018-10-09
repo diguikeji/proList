@@ -80,7 +80,9 @@
             var phoneEnd = self.phone.substring(7);
             $(".code_text").html("请输入" + phoneHead + "****" + phoneEnd + "的短信验证码");
 
-            //sendsms(self.phone);
+            sendsms(self.phone);
+            initNativeObjects();
+            showSoftInput();
         });
 
         //得到验证码

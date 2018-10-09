@@ -423,7 +423,7 @@
                 //停止录像
                 var imgUrl = data.getStringExtra("result");
                 $("#zhengmian").attr("src", imgUrl);
-
+				uploadFile("front", getBase64(imgUrl));
             }
         }
 
@@ -440,18 +440,24 @@
                 //停止录像
                 var imgUrl = data.getStringExtra("result");
                 $("#fanmian").attr("src", imgUrl);
-
+				uploadFile("back", getBase64(imgUrl));
             }
 
 
 
         }
 
-        function uploadFile(idPicType, dataImg) {
+		//上传图片
+        function uploadFile(idPicType, base64) {
+        		var params = {
+        			data: base64,
+        			idPicType: idPicType
+        		};
+        		
             Global.commonAjax({
                     url: "user/upload/idpic",
-                    idPicType: idPicType,
-                    dataImg: dataImg
+                    method: "POST",
+                    data: params
                 },
                 function(data) {
                     if (idPicType == "font") {
@@ -481,6 +487,35 @@
                 }
             )
         }
+        
+        
+        
+	    function getBase64(imgUrl) {
+	      window.URL = window.URL || window.webkitURL;
+	      var xhr = new XMLHttpRequest();
+	      xhr.open("get", imgUrl, true);
+	      // 至关重要
+	      xhr.responseType = "blob";
+	      xhr.onload = function () {
+	        if (this.status == 200) {
+	          //得到一个blob对象
+	          var blob = this.response;
+	          console.log("blob:"+blob)
+	          // 至关重要
+	          var oFileReader = new FileReader();
+	          oFileReader.readAsDataURL(blob);
+	          console.log(oFileReader);
+	          oFileReader.onloadend = function (e) {
+	            var base64 = e.target.result;
+	            console.log("方式一》》》》》》》》》"+base64);
+	            uploadFile(base64);
+	          };
+	
+	        }
+	      }
+	      xhr.send();
+	    }
+	    
 
         //Android 物理返回
         var old_back = mui.back;
@@ -546,15 +581,15 @@
                    return;
                }
 
-            // if ($(".front_img").attr('src') == "../images/id_front.png") {
-            //     mui.toast("请上传身份证正面");
-            //     return;
-            // }
-
-            // if ($(".back_img").attr('src') == "../images/id_back.png") {
-            //     mui.toast("请上传身份证反面");
-            //     return;
-            // }
+//           if ($(".front_img").attr('src') == "../images/id_front.png") {
+//               mui.toast("请上传身份证正面");
+//               return;
+//           }
+//
+//           if ($(".back_img").attr('src') == "../images/id_back.png") {
+//               mui.toast("请上传身份证反面");
+//               return;
+//           }
             
             mui.openWindow({
                 url: 'personInfo.html',

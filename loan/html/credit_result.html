@@ -204,7 +204,7 @@
        <canvas id="canvas" ></canvas>
        <div class="credit_text">信用评估：中等</div>
        <div class="credit_info">借款评估：在一些风控较严的平台中，您可能依旧难以借到款，但只要有耐心多尝试几次，大概率会获得额度。</div>
-    		<button type="button" class="mui-btn mui-btn-link next" onclick="pay();">马上借款</div>
+    		<button type="button" class="mui-btn mui-btn-link next" onclick="goToNext();">马上借款</div>
     		<div class="bottom_text">
     			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
     		</div>	
@@ -327,6 +327,16 @@
 			}
 			var tw=ctx.measureText(text).width;
 			ctx.fillText(text,x-tw/2,y);
+		}
+		
+		function goToNext(){
+			mui.openWindow({
+	  			url: 'recommand.html',
+	  			id: 'recommand.html',
+			    waiting:{
+			      autoShow:false
+			    }
+	  		});
 		}
 		
         //Android 物理返回

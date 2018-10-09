@@ -27,6 +27,12 @@ mui.plusReady(function() {
     //首页接口
     mainPageInit();
     
+    //获取最新引导页
+    getStartUpPage();
+    
+    var preWebView = plus.webview.getWebviewById('guide');
+    preWebView.close();
+    
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
 	    var index = $(this).index();
 	    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
@@ -80,6 +86,21 @@ mui.plusReady(function() {
 	});
 
 });
+
+//获取最新引导页
+function getStartUpPage(){
+	Global.commonAjax(
+		{url: "sys/ad/latest/startup"},
+		function(data){
+			if(data && data.length>0){
+				myStorage.setItem("startup", data);
+			}
+		},
+		function(err){
+			
+		}
+	)
+}
 
 //我的页面 初始化
 function myTabInit(){

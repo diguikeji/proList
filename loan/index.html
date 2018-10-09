@@ -153,19 +153,31 @@ function plusReady(){
 				
 				} else {
 					//显示启动导航
-					mui.openWindow({
-						id: 'guide',
-						url: 'html/guide.html',
-						styles: {
-							popGesture: "none"
-						},
-						show: {
-							aniShow: 'none'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
+					var guides = myStorage.getItem("startup");
+					if(guides){
+						mui.openWindow({
+							id: 'guide',
+							url: 'html/guide.html',
+							styles: {
+								popGesture: "none"
+							},
+							show: {
+								aniShow: 'none'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}else{
+						mui.openWindow({
+							id: 'home',
+							url: 'html/home.html',
+							waiting: {
+								autoShow: false
+							}
+						});
+					}
+					
 				
 				}
 
@@ -183,7 +195,7 @@ plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
 				//console.log( entries[i] );
 			}
 		}, function ( e ) {
-			alert( "Read entries failed: " + e.message );
+			//alert( "Read entries failed: " + e.message );
 		} );
 	} );
 

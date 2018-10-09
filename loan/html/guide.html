@@ -216,6 +216,8 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/myStorage.js"></script>
 		<script>
 			mui.back = function() {};
 			mui.plusReady(function() {
@@ -229,14 +231,25 @@
 				plus.storage.setItem("lauchFlag", "true");
 				plus.navigator.setFullscreen(false);
 				
-				mui.openWindow({
-                    url: 'home.html',
-                    id: 'home.html',
-                    waiting: {
-                        autoShow: false
-                    }
-                })
-				plus.webview.currentWebview().close();
+				if(myStorage.getItem("userToken")){
+					mui.openWindow({
+	                    url: 'home.html',
+	                    id: 'home.html',
+	                    waiting: {
+	                        autoShow: false
+	                    }
+	                })
+				}else{
+					mui.openWindow({
+	                    url: 'login.html',
+	                    id: 'login.html',
+	                    waiting: {
+	                        autoShow: false
+	                    }
+	                })
+				}
+				
+				//plus.webview.currentWebview().close();
 				
 			}, false);
 			//图片切换时，触发动画
