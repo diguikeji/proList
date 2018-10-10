@@ -287,15 +287,15 @@
 	         	<input type="text"  class="phone_input idCardNo"/>
 	         </div>
 	         
-	         <div class="row item_name_wrap" style="margin-top: 10px;">
+	         <div class="row item_name_wrap" style="margin-top: 10px;" onclick="changeCardType();">
 	         	<span class="item_name_text">卡类型</span>
-	         	<input type="text"  class="phone_input"/>
+	         	<input type="text"  class="phone_input cardTypeInput" readonly="readonly"/>
 	         	<span style="color: #DFDFDF">></span>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">借记卡号</span>
-	         	<input type="text"  class="phone_input cardNo"/>
+	         	<input type="tel"  class="phone_input cardNo"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
@@ -314,15 +314,15 @@
 	         	<span class="time_style" onclick="getCode();">获取验证码</span>
 	         </div>
 	         
-	         <div class="row item_name_wrap" >
+	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">有效期</span>
 	         	<input type="text"  class="phone_input item_time" placeholder="月份/年份" readonly="readonly" onclick="lookTime();"/>
 	         	<img src="../images/123.png" class="time_icon" onclick="lookTimeInfo();"/>
 	         </div>
 	         
-	         <div class="row item_name_wrap" >
+	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">CVV2</span>
-	         	<input type="tel" maxlength="3" class="phone_input" placeholder="输入3位数字"/>
+	         	<input type="tel" maxlength="3" class="phone_input cvvInput" placeholder="输入3位数字"/>
 	         	<img src="../images/123.png" class="time_icon" onclick="cvvInfo();"/>
 	         </div>
 	         
@@ -440,6 +440,11 @@
 		<script type="text/javascript" src="../js/mui.dtpicker.js"></script>
 		<script src="../js/myStorage.js"></script>
 		<script src="../js/app.js"></script>
+		<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+		</script>
+		<script type='text/javascript'>
+		var qimoClientId =  myStorage.getItem("user").mobile;
+		</script>
 		<script type="text/javascript">
 			mui.init();
 			//金额
@@ -491,12 +496,15 @@
 			
 			$('body').on('click', '.bank_list_wrap .bank_item_name', function() {
 				var name = $(this).children('span').html();
+				$(".bankName").val(name);
 				closeBankListDialg();
 			})
 			
 			//有效期
 			var timePicker = new mui.DtPicker({
 						type: "date", //设置日历初始视图模式
+						beginYear: "1970",
+						endYear: "2070"
 					});
 			function lookTime(){
 				timePicker.show(function(SelectedItem) {
@@ -548,16 +556,47 @@
 					return;
 				}
 				
-				Global.commonAjax(
-					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
-					function(data){
-						
-					},
-					function(err){
-						
-					}
-				)
+//				Global.commonAjax(
+//					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
+//					function(data){
+//						
+//					},
+//					function(err){
+//						
+//					}
+//				)
+				lookBank();
 			}
+			
+			//卡类型
+			var cardPicker = new mui.PopPicker();
+			cardPicker.setData([
+				{value: "01",
+                  text: "借记卡"},
+				{value: "00",
+                  text: "信用卡"},
+			]);
+			var cardTypeValue = "00";
+			function changeCardType(){
+				cardPicker.show(function(SelectedItem) {
+	                console.log(SelectedItem[0].text);
+	                $(".cardTypeInput").val(SelectedItem[0].text);
+	                changeBankCardType(SelectedItem[0].text);
+	                cardTypeValue = SelectedItem[0].value;
+	            })
+			}
+			
+			function changeBankCardType(text){
+				if(text == '信用卡'){
+					$(".item_name_wrap:nth-child(8)").removeClass("hideClass");
+            			$(".item_name_wrap:nth-child(9)").removeClass("hideClass");
+				}else{
+					$(".item_name_wrap:nth-child(8)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
+				}
+			}
+			
+			var token = "";
 			
 			//支付
 			function pay(){
@@ -581,60 +620,172 @@
 					return;
 				}
 				
-				var params = {
-					amount: amount,
-					payChannel: payChannel,
-					idCardNo: $(".idCardNo").val(),
-					realName: $(".realName").val(),
-					userId: myStorage.getItem("user").userId,
-					bankName: $(".bankName").val(),
-					bankCardNo: $(".cardNo").val()
-				}
-				Global.commonAjax(
-					{
-						url: "pay/fuyou/submit",
-						method: "POST",
-						data: params
-					},
-					function(data){
+				if(payChannel == "fuyou"){
+					var params = {
+						amount: amount,
+						payChannel: payChannel,
+						idCardNo: $(".idCardNo").val(),
+						realName: $(".realName").val(),
+						userId: myStorage.getItem("user").userId,
+						bankName: $(".bankName").val(),
+						bankCardNo: $(".cardNo").val()
+					}
+					Global.commonAjax(
+						{
+							url: "pay/fuyou/submit",
+							method: "POST",
+							data: params
+						},
+						function(data){
+							mui.openWindow({
+				                url: 'webview.html',
+				                id: 'webview.html?url=' + data,
+				                waiting: {
+				                    autoShow: false
+				                },
+				                extras: {
+				                		title: "支付"
+				                }
+				            })
+						},
+						function(err){
+							mui.openWindow({
+				      			url: 'pay_error_result.html',
+				      			id: 'pay_error_result.html',
+				      			waiting: {
+				      				autoShow: false
+				      			}
+				      		})
+						}
+					)
+				}else{
+					if(!$(".phone").val()){
+						mui.toast("请输入银行预留手机号");
+						return;
+					}
+					
+					if(!$(".cardTypeInput").val()){
+						mui.toast("请输入选择卡类型");
+						return;
+					}
+					
+					if($(".cardTypeInput").val() == "信用卡"){
+						if(!$(".cvvInput").val()){
+							mui.toast("请输入cvv码");
+							return;
+						}
 						
-					},
-					function(err){
+						if(!$(".item_time").val()){
+							mui.toast("请输入有效期");
+							return;
+						}
+					}
+					
+					
+					
+					var params = {
+						amount: 0.1,
+						payChannel: payChannel,
+						idCardNo: $(".idCardNo").val(),
+						realName: $(".realName").val(),
+						userId: myStorage.getItem("user").userId,
+						bankName: $(".bankName").val(),
+						bankCardNo: $(".cardNo").val(),
+						bankMobile: $(".phone").val(),
+						cardType: cardTypeValue,
+						cardCvv: $(".cvvInput").val(),
+						cardExprDt: $(".item_time").val()
+					}
+					
+					if($(".time_style").text() == "获取验证码"){
+						countDown();
+						Global.commonAjax(
+							{
+								url: "pay/changpay/prepare",
+								method: "POST",
+								data: params
+							},
+							function(data){
+								mui.toast("发送成功");
+								token = data;
+							},
+							function(err){
+							}
+						)
+					}else{
+						if(!$(".flex_item").val()){
+							mui.toast("请输入验证码");
+							return;
+						}
+						
+						if(!token){
+							mui.toast("请获取验证码");
+							return;
+						}
+				
+						params = {
+							token: token,
+							smsCode: $(".flex_item").val()
+						}
+						Global.commonAjax(
+							{
+								url: "pay/changpay/submit",
+								method: "POST",
+								data: params
+							},
+							function(data){
+								mui.toast("支付成功");
+								mui.openWindow({
+					                url: 'recommand.html',
+					                id: 'recommand.html',
+					                waiting: {
+					                    autoShow: false
+					                }
+					            })
+							},
+							function(err){
+								mui.openWindow({
+					      			url: 'pay_error_result.html',
+					      			id: 'pay_error_result.html',
+					      			waiting: {
+					      				autoShow: false
+					      			},
+					      			extras: {
+					      				msg: err.msg
+					      			}
+					      		})
+							}
+						)
 						
 					}
-				)
+					
+				}
 				
-				mui.openWindow({
-	      			url: 'bank_list.html',
-	      			id: 'bank_list.html',
-	      			waiting: {
-	      				autoShow: false
-	      			},
-	      			extras:{
-	      				amount: amount,
-	      				payChannel: styleList[index].channelCode
-	      			}
-	      		})
+				
+				
 			}
 			
 			//得到手机验证码
 			function getCode(){
-				if(!$(".phone").val()){
-					mui.toast("请填写手机号");
-					return;
-				}
 				
 				if($(".time_style").text() == "重新获取"){
 					countDown();
 				}else if($(".time_style").text() == "获取验证码"){
-					countDown();
+					pay();
+					return;
 				}else{
 					return;
 				}
 				
-				
+				if(!token){
+					mui.toast("预支付失败");
+					clearInterval(intervalObj);
+					$(".time_style").text("获取验证码");
+					return;
+				}
+				console.log(token);
 				Global.commonAjax(
-					{url: "pay/resendsms/"+myStorage.getItem("userToken")},
+					{url: "pay/resendsms/"+token},
 					function(data){
 						
 					},
@@ -644,13 +795,13 @@
 				)
 			}
 			
-			var time = 60;
+			var time = 180;
 			var intervalObj;
 			function countDown() {
 	            intervalObj = setInterval(function() {
 	                time--;
 	                if (time == 0) {
-	                    time = 60;
+	                    time = 180;
 	                    clearInterval(intervalObj);
 	                    $(".time_style").text("重新获取");
 	                } else {

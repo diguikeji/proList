@@ -314,13 +314,13 @@
 	         	<span class="time_style" onclick="getCode();">获取验证码</span>
 	         </div>
 	         
-	         <div class="row item_name_wrap" >
+	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">有效期</span>
 	         	<input type="text"  class="phone_input item_time" placeholder="月份/年份" readonly="readonly" onclick="lookTime();"/>
 	         	<img src="../images/123.png" class="time_icon" onclick="lookTimeInfo();"/>
 	         </div>
 	         
-	         <div class="row item_name_wrap" >
+	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">CVV2</span>
 	         	<input type="tel" maxlength="3" class="phone_input cvvInput" placeholder="输入3位数字"/>
 	         	<img src="../images/123.png" class="time_icon" onclick="cvvInfo();"/>
@@ -440,6 +440,11 @@
 		<script type="text/javascript" src="../js/mui.dtpicker.js"></script>
 		<script src="../js/myStorage.js"></script>
 		<script src="../js/app.js"></script>
+		<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+		</script>
+		<script type='text/javascript'>
+		var qimoClientId =  myStorage.getItem("user").mobile;
+		</script>
 		<script type="text/javascript">
 			mui.init();
 			//金额
@@ -566,16 +571,29 @@
 			//卡类型
 			var cardPicker = new mui.PopPicker();
 			cardPicker.setData([
-				{value: "借记卡",
+				{value: "01",
                   text: "借记卡"},
-				{value: "信用卡",
+				{value: "00",
                   text: "信用卡"},
 			]);
+			var cardTypeValue = "00";
 			function changeCardType(){
 				cardPicker.show(function(SelectedItem) {
 	                console.log(SelectedItem[0].text);
 	                $(".cardTypeInput").val(SelectedItem[0].text);
+	                changeBankCardType(SelectedItem[0].text);
+	                cardTypeValue = SelectedItem[0].value;
 	            })
+			}
+			
+			function changeBankCardType(text){
+				if(text == '信用卡'){
+					$(".item_name_wrap:nth-child(8)").removeClass("hideClass");
+            			$(".item_name_wrap:nth-child(9)").removeClass("hideClass");
+				}else{
+					$(".item_name_wrap:nth-child(8)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
+				}
 			}
 			
 			var token = "";
@@ -651,18 +669,22 @@
 						return;
 					}
 					
-					if(!$(".cvvInput").val()){
-						mui.toast("请输入cvv码");
-						return;
+					if($(".cardTypeInput").val() == "信用卡"){
+						if(!$(".cvvInput").val()){
+							mui.toast("请输入cvv码");
+							return;
+						}
+						
+						if(!$(".item_time").val()){
+							mui.toast("请输入有效期");
+							return;
+						}
 					}
 					
-					if(!$(".item_time").val()){
-						mui.toast("请输入有效期");
-						return;
-					}
+					
 					
 					var params = {
-						amount: amount,
+						amount: 0.1,
 						payChannel: payChannel,
 						idCardNo: $(".idCardNo").val(),
 						realName: $(".realName").val(),
@@ -670,7 +692,7 @@
 						bankName: $(".bankName").val(),
 						bankCardNo: $(".cardNo").val(),
 						bankMobile: $(".phone").val(),
-						cardType: $(".cardTypeInput").val(),
+						cardType: cardTypeValue,
 						cardCvv: $(".cvvInput").val(),
 						cardExprDt: $(".item_time").val()
 					}
@@ -696,7 +718,7 @@
 							return;
 						}
 						
-						if(token){
+						if(!token){
 							mui.toast("请获取验证码");
 							return;
 						}
@@ -727,6 +749,9 @@
 					      			id: 'pay_error_result.html',
 					      			waiting: {
 					      				autoShow: false
+					      			},
+					      			extras: {
+					      				msg: err.msg
 					      			}
 					      		})
 							}
@@ -752,7 +777,13 @@
 					return;
 				}
 				
-				
+				if(!token){
+					mui.toast("预支付失败");
+					clearInterval(intervalObj);
+					$(".time_style").text("获取验证码");
+					return;
+				}
+				console.log(token);
 				Global.commonAjax(
 					{url: "pay/resendsms/"+token},
 					function(data){

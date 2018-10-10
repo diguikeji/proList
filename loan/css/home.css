@@ -529,6 +529,16 @@ oa-contact-position {
 	color: #ff5445;
 	font-size: 16px;
 	background: transparent;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.no_balance_css{
+	color: #000000;
+	font-size: 16px;
+	background: transparent;
+	display: inline-block;
+	margin-right: 10px;
 }
 
 .applyMoneyBtn{

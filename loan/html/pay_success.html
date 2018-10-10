@@ -15,11 +15,6 @@
 </head>
 <body>
 	
-	<header class="mui-bar mui-bar-nav" >
-	    <a class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
-	</header>
-	
-	
 	<div class="mui-content" style="background: #ffffff;">
 		<div style="text-align: center; margin-top: 100px;">
 			支付成功,跳转中....
@@ -40,13 +35,12 @@
 	function goHome(){
 		
 		mui.openWindow({
-  			url: 'credit_result.html',
+  			url: '_www/html/credit_result.html',
   			id: 'credit_result.html',
 		    waiting:{
 		      autoShow:false
 		    }
   		});
-  		plus.webview.close('pay_success.html');
 	};
 </script>
 </html>

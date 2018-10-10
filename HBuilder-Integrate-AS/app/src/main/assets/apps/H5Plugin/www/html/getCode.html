@@ -81,8 +81,9 @@
             $(".code_text").html("请输入" + phoneHead + "****" + phoneEnd + "的短信验证码");
 
             sendsms(self.phone);
-            initNativeObjects();
-            showSoftInput();
+            //自动弹出键盘
+           initNativeObjects();
+           showSoftInput();
         });
 
         //得到验证码

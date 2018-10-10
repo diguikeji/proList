@@ -31,9 +31,13 @@ mui.plusReady(function() {
     getStartUpPage();
     
     var preWebView = plus.webview.getWebviewById('guide');
-    preWebView.close();
+    if(preWebView){
+    		preWebView.close();
+    }
+    
     
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
+    		console.log("touchstart---")
 	    var index = $(this).index();
 	    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
 	    $(this).addClass("mui-active");
@@ -114,21 +118,24 @@ function myTabInit(){
 	
 	var wallet = myStorage.getItem("wallet");
 	
+	apply("parmas");
 	if(user){
 		$(".my_phone").html(user.mobile);
 		
 		if(user.isPayFee){
 			//已经付费
 			if(wallet){
-				$(".goCreditClass").html("￥"+wallet.balance);
-				$(".goCreditClass").addClass("balance_css");
-				$(".goCreditClass").removeClass("top-badge");
+//				$(".goCreditClass").html("￥"+wallet.balance);
+//				$(".goCreditClass").addClass("balance_css");
+//				$(".goCreditClass").removeClass("top-badge");
+			}else{
+				
 			}
 			
 		}else{
-			$(".goCreditClass").html("去评估");
-			$(".goCreditClass").addClass("top-badge");
-			$(".goCreditClass").removeClass("balance_css");
+//			$(".goCreditClass").html("去评估");
+//			$(".goCreditClass").addClass("top-badge");
+//			$(".goCreditClass").removeClass("balance_css");
 		}
 	}
 	//我的页面 绑定
@@ -151,8 +158,7 @@ function myTabInit(){
 var scoreData;
 function getUserScore(){
 	Global.commonAjax(
-		{url: "user/score",
-		method: "POST"},
+		{url: "user/score"},
 		function(data){
 			if(data){
 				scoreData = data;
@@ -606,7 +612,7 @@ var slider = mui("#slider").slider({
 });
 
 //申请贷款			
-function apply() {
+function apply(params) {
        Global.commonAjax({ url: "user/input/status" },
            function(data) {
                var url = "identificateFirst.html";
@@ -621,14 +627,31 @@ function apply() {
                		}else{
                			url = "recommand.html";
                		}
+               		
+               		if(params){
+               			if(data && data.score){
+	                 		$(".goCreditClass").html(data.score+"分");
+							$(".goCreditClass").addClass("balance_css");
+							$(".goCreditClass").removeClass("no_balance_css");
+	               		}else{
+	                 		$(".goCreditClass").html("去评估");
+							$(".goCreditClass").addClass("no_balance_css");
+							$(".goCreditClass").removeClass("balance_css");
+	               		}
+	               		
+               		}
+               		
                }
-               mui.openWindow({
-			        url: url,
-			        id: url,
-			        waiting: {
-			            autoShow: false
-			        }
-			    })
+               if(!params){
+               		mui.openWindow({
+				        url: url,
+				        id: url,
+				        waiting: {
+				            autoShow: false
+				        }
+				    })
+               }
+               
                
            },
            function(err) {
@@ -934,8 +957,8 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'pay_style.html',
-		id: 'pay_style.html',
+		url: 'recommand.html',
+		id: 'recommand.html',
 		waiting: {
 			autoShow: false
 		}

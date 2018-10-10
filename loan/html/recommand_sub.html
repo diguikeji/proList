@@ -165,6 +165,11 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/app.js"></script>
 		<script src="../js/myStorage.js"></script>
+		<!--<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+		</script>
+		<script type='text/javascript'>
+		var qimoClientId =  myStorage.getItem("user").mobile;
+		</script>-->
 		<script type="text/javascript">
 			mui.init({
 				pullRefresh: {
@@ -184,7 +189,7 @@
 			    
 			    //点击上次浏览
 			    window.addEventListener('updatePreType',function(event){
-			    		console.log("收到事件"+event.detail);
+			    		console.log("收到事件"+event.detail.currentType);
 					updateClick(event.detail);
 				}, false);
 
@@ -234,7 +239,7 @@
         		
         		$(".empty_text").hide();
 			$("#pullrefresh").show();
-			
+			console.log("-----"+currentType);
 			
 			Global.commonAjax(
 				{
@@ -284,6 +289,7 @@
 		        var li = document.createElement('li');
 		        var item = cells[i];
 		        li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+		        li.setAttribute("data-index", index);
 		        li.innerHTML = '<div class="row item_tile_wrap">'+
 						'<div >'+
 							'<span>推荐产品</span>'+
@@ -312,7 +318,10 @@
 		        var progress = $('.progress_index'+index);
 		        console.log(progress.length);
 		        index += 1;
-		        mui(progress).progressbar().setProgress(item.recommendDegree);
+		        if(mui(progress).progressbar().setProgress){
+		        		mui(progress).progressbar().setProgress(item.recommendDegree);
+		        }
+		        
 		    }
 		
 		    if (refreshType == 0) {
@@ -322,47 +331,42 @@
 		        //上拉加载
 		
 		    }
-        }
+       }
         
-			
-			//进度条 设置
-//			var progressbar = mui('#progress_id');
-//			console.log(mui(progressbar).progressbar());
-//			mui(progressbar).progressbar().setProgress(10);
-			
-			$('.highType').click(function(){
-					$('.highType').css('color', '#ff5445');
-					$('.timeType').css('color', '#333333');
-					$('.preType').css('color', '#333333');
-					current = 1;
-					currentType = "DEGREE";
-					isDes = false;
-					getMsglist(0);
-			})
-				
-				$('.timeType').click(function(){
-					$('.highType').css('color', '#333333');
-					$('.timeType').css('color', '#ff5445');
-					$('.preType').css('color', '#333333');
-					if (currentType == 'TIME') {
-				        //当前期限
-				        isDes = !isDes;
-				   }
-					current = 1;
-					currentType = "TIME";
-					getMsglist(0);
-				})
-				
-				function updateClick(){
-					$('.highType').css('color', '#333333');
-					$('.timeType').css('color', '#333333');
-					$('.preType').css('color', '#ff5445');
-					current = 1;
-					currentType = "HISTORY";
-					isDes = false;
-					getMsglist(0);
+        
+	    
+	    $('body').on('click', '.mui-table-view-condensed li', function() {
+		    var index = $(this).data("index");
+		    var item = findList[index];
+		    if(!(item && item.goodsUrl)){
+		    		return;
+		    }
+				var params = {
+					goodsCode: item.goodsCode
 				}
-			
+		       Global.commonAjax(
+		           { 
+		               url: "goods/click",
+		               data: params,
+		               method: "POST"
+		            },
+		           function(data) {
+						mui.openWindow({
+			                url: 'webview.html',
+			                id: 'webview.html?url=' + item.goodsUrl,
+			                waiting: {
+			                    autoShow: false
+			                },
+			                extras: {
+			                		title: item.goodsTitle
+			                }
+			            })
+		           },
+		           function(err) {
+		
+		           }
+		       )
+		});
 			
 		</script>
 	</body>

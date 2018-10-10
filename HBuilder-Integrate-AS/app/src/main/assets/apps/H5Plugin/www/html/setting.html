@@ -142,6 +142,7 @@
                 plus.io.resolveLocalFileSystemURL(e, function(entry) {
                     var path = entry.toLocalURL();
                     $('.top-img').attr('src', path);
+                    getBase64(path);
                 }, function(e) {
                     mui.toast("读取拍照文件错误：" + e.message);
                 });
