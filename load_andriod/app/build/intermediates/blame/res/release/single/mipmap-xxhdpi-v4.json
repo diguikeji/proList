@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\camera_result_cancel.png",
         "source": "E:\\github\\proList\\load_andriod\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_result_cancel.png"
     },
@@ -38,5 +39,45 @@
     {
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v4\\camera_take.png",
         "source": "E:\\github\\proList\\load_andriod\\certificateCamera\\build\\intermediates\\bundles\\default\\res\\mipmap-xxhdpi-v4\\camera_take.png"
+=======
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_result_ok.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_result_ok.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_idcard_front.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_idcard_front.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_flash_off.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_flash_off.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_idcard_back.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_idcard_back.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_close.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_close.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_company.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_company.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_company_landscape.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_company_landscape.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_result_cancel.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_result_cancel.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_flash_on.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_flash_on.png"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/mipmap-xxhdpi-v4/camera_take.png",
+        "source": "/Users/guzhenfu/Documents/proList/load_andriod/certificateCamera/build/intermediates/bundles/default/res/mipmap-xxhdpi-v4/camera_take.png"
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
     }
 ]

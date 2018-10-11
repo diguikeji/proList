@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-zh\\values-zh.xml",
+=======
+        "outputFile": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-zh/values-zh.xml",
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
         "map": [
             {
                 "to": {
@@ -11,7 +15,11 @@
                     "endOffset": 119
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "C:\\Users\\867123882\\.android\\build-cache\\21a71eafcdb002528252d9384acf70b66b34a089\\output\\res\\values-zh\\values-zh.xml",
+=======
+                    "file": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/values-zh/values-zh.xml",
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +38,11 @@
                     "endOffset": 163
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "C:\\Users\\867123882\\.android\\build-cache\\21a71eafcdb002528252d9384acf70b66b34a089\\output\\res\\values-zh\\values-zh.xml",
+=======
+                    "file": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/values-zh/values-zh.xml",
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,

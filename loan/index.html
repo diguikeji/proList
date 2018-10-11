@@ -110,9 +110,7 @@
 		
 		//window.location.href = "http://project.youzewang.com/app/app.html";
 		
-		
-		
-		
+
 		
 var sweixin=null;
 var buttons=[
@@ -122,7 +120,7 @@ var buttons=[
 ];
 // H5 plus事件处理
 function plusReady(){
-	
+//	return;
 	//读取本地存储，检查是否为首次启动
 				var showGuide = plus.storage.getItem("lauchFlag");
 
@@ -148,27 +146,40 @@ function plusReady(){
 						mui.openWindow({
 							id: 'login.html',
 							url: 'html/login.html',
-							waiting:{
-								autoShow:false
+
+							waiting: {
+								autoshow: false
 							}
 						});
 					}
 				
 				} else {
 					//显示启动导航
-					mui.openWindow({
-						id: 'guide',
-						url: 'html/guide.html',
-						styles: {
-							popGesture: "none"
-						},
-						show: {
-							aniShow: 'none'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
+					var guides = myStorage.getItem("startup");
+					if(guides){
+						mui.openWindow({
+							id: 'guide',
+							url: 'html/guide.html',
+							styles: {
+								popGesture: "none"
+							},
+							show: {
+								aniShow: 'none'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}else{
+						mui.openWindow({
+							id: 'home',
+							url: 'html/home.html',
+							waiting: {
+								autoShow: false
+							}
+						});
+					}
+					
 				
 				}
 
@@ -186,7 +197,7 @@ plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
 				//console.log( entries[i] );
 			}
 		}, function ( e ) {
-			alert( "Read entries failed: " + e.message );
+			//alert( "Read entries failed: " + e.message );
 		} );
 	} );
 

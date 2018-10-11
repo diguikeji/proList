@@ -1,0 +1,444 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link href="../css/app.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+        }
+        
+        .bg{
+        		background: url(../images/result_bg.png);
+            background-size:100% 100%;  
+			background-attachment: fixed;
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			top: 0px;
+			bottom: 0px;
+        }
+        
+        .modal-mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            z-index: 10;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-dialog {
+            width: 80%;
+            max-height: 100%;
+            overflow: auto;
+            border-radius: 18px;
+            position: relative;
+            border-radius: 20px;
+        }
+        
+        .modal-dialog .close_style {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 23px;
+            height: 23px;
+            z-index: 100000;
+        }
+        
+        .modal-content {
+            font-size: 12px;
+            position: relative;
+            z-index: 10000;
+            font-size: 12px;
+            color: #333333;
+            background: #ffffff;
+            padding: 0px;
+        }
+        
+        .modal-content .conten_bg {
+            width: 100%;
+            /*position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;*/
+        }
+        
+        .dialog_content_wrap {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            background: #ffffff;
+            z-index: 2;
+            width: 80%;
+            align-items: center;
+        }
+        
+        .dialog_step_wrap {
+            align-items: center;
+        }
+        
+        .dialog_step_wrap img {
+            width: 13px;
+            height: 13px;
+            margin-right: 20px;
+        }
+        
+        .dialog_step_text {
+            color: #000000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .dialog_step_bottom_text {
+            color: #dddddd;
+            font-size: 12px;
+        }
+        
+        .dialog_content_wrap .col {
+            padding: 10px 0px;
+        }
+        
+        .dialog_content_item_wrap {
+            position: relative;
+        }
+        
+        .addMoney {
+            position: absolute;
+            top: -5px;
+            right: -30px;
+            width: 66px;
+            height: 45px;
+        }
+        
+        .first_step_money,
+        .second_step_money,
+        .third_step_money{
+        		position: absolute;
+            top: 5px;
+            right: -10px;
+            font-size: 24px;
+            color: #FF5445;
+            font-weight: bold;
+        }
+        
+        .dialog_bottom_btn {
+            position: absolute;
+            bottom: 10px;
+            width: 208px;
+            height: 70px;
+            left: 50%;
+            margin-left: -104px;
+        }
+        
+        #canvas{
+        		position: absolute;
+        }
+        
+        .credit_text{
+        		position: relative;
+        		margin-top: 300px;
+        		margin-left: 20px;
+        		color: #ffffff;
+        		font-size: 13px;
+        }
+        
+        .credit_info{
+        		position: relative;
+        		margin-left: 20px;
+        		color: #ffffff;
+        		font-size: 13px;
+        }
+        
+        .next {
+		    width: 80%;
+		    height: 40px;
+		    text-align: center;
+		    font-size: 20px;
+		    margin: 50px 10%;
+		    border-radius: 30px;
+		    background: #ffffff;
+		    color: #F63934;
+		    box-shadow: 0px 2px 5px #888888;
+		    position: relative;
+		}
+		
+		.bottom_text{
+			font-size: 10px;
+			color: #ffffff;
+			opacity: 0.5;
+			position: absolute;
+			bottom: 20px;
+			text-align: center;
+			width: 100%;
+		}
+			
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <span class="header_close">关闭</span>
+        <h1 class="mui-title">评估结果</h1>
+        <img src="../images/custom_icon.png" />
+    </header>
+
+    <div class="mui-content">
+    		<div class="bg">
+    			
+    		</div>
+       <canvas id="canvas" ></canvas>
+       <div class="credit_text">信用评估：中等</div>
+       <div class="credit_info">借款评估：在一些风控较严的平台中，您可能依旧难以借到款，但只要有耐心多尝试几次，大概率会获得额度。</div>
+    		<button type="button" class="mui-btn mui-btn-link next" onclick="goToNext();">马上借款</div>
+    		<div class="bottom_text">
+    			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
+    		</div>	
+    </div>
+
+    <!--弹窗-->
+    <div class="modal-mask row hideClass">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+            <div class="modal-content">
+                <img src="../images/close_dialog_bg.png" class="conten_bg" />
+                <div class="col dialog_content_wrap">
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" />
+                            <span class="dialog_step_text">真实身份认证</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money">12</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" />
+                            <span class="dialog_step_text">填写个人信息</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money">12</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" />
+                            <span class="dialog_step_text">完成信用评估</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money">12</span>
+                    </div>
+
+                </div>
+                <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/mui.picker.min.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <script type="text/javascript">
+        mui.init();
+        
+        var screenWidth = document.body.clientWidth;
+		console.log(screenWidth);
+      	var ctx;
+      	mui.plusReady(function() {
+		    var self = plus.webview.currentWebview();
+		    initCanvas();
+      		getUserScore();
+      		//closeOtherWindow();
+		});
+		
+		function closeOtherWindow(){
+			var curr = plus.webview.currentWebview();
+
+			//获取所有已经打开的webview窗口
+			var wvs = plus.webview.all();
+			
+			
+			for(var i = 0, len = wvs.length; i < len; i++) {
+			//关闭除当前页面外的其他页面
+			if(wvs[i].getURL().indexOf("credit_result.html") != -1)
+				//遇到当前页跳过
+				continue;
+			
+			if(wvs[i].getURL().indexOf("home.html") != -1){
+				continue;
+			}
+			
+				//非当前页执行关闭
+				plus.webview.close(wvs[i]);
+			}
+		}
+		
+		function getUserScore(){
+			Global.commonAjax(
+				{url: "user/score"},
+				function(data){
+					if(data){
+						drawAll(data.score, data.scoreRange);
+					}
+				},
+				function (err){
+					
+				}
+			)
+		}
+		
+
+		//canvas初始化
+		function initCanvas(){
+			var canvas = document.getElementById("canvas");
+	      	canvas.width = screenWidth;
+	      	canvas.height = screenWidth;
+	      	ctx = canvas.getContext('2d');
+		}
+		
+		//画出所有东西
+		function drawAll(score, scoreRange){
+			drawArc(Math.PI, 2*Math.PI, "#FDC4A3");
+			drawArc(Math.PI,((score-300)/(850-300) + 1)*Math.PI, "#FFFFFF");
+			drawText("300", screenWidth*0.15, screenWidth/2);
+			drawText("550", screenWidth*0.25, screenWidth/4);
+			drawText("650", screenWidth*0.5, screenWidth/6);
+			drawText("750", screenWidth*0.75, screenWidth/4);
+			drawText("850", screenWidth*0.85, screenWidth/2);
+			drawText(score, screenWidth*0.5, screenWidth*0.4, "45px");
+			drawText(scoreRange, screenWidth*0.5, screenWidth*0.46, "18px");
+			drawText("评估时间："+new Date().Format("yyyy-MM-dd"), screenWidth*0.5, screenWidth*0.5, "10px");
+		}
+		
+		function drawArc(s, e, color){
+	        var x = screenWidth/2;
+	        var y = screenWidth/2;
+	        ctx.beginPath();
+	        ctx.strokeStyle = color;
+	        ctx.lineWidth = 10;
+	        ctx.arc(x, y, screenWidth*0.3, s, e, false);
+	        ctx.stroke();
+	    }
+		
+		function drawText(text, x, y, fontSize){
+			ctx.fillStyle="#FFFFFF";
+			if(fontSize == "45px"){
+				ctx.font="bold "+ fontSize +" normal";
+			}else if(fontSize == "18px"){
+				ctx.font="normal "+ fontSize +" normal";
+			}else if(fontSize == "10px"){
+				ctx.font="normal "+ fontSize +" normal";
+				ctx.globalAlpha="0.7";
+			}
+			var tw=ctx.measureText(text).width;
+			ctx.fillText(text,x-tw/2,y);
+		}
+		
+		function goToNext(){
+			mui.openWindow({
+	  			url: 'recommand.html',
+	  			id: 'recommand.html',
+			    waiting:{
+			      autoShow:false
+			    }
+	  		});
+		}
+		
+        //Android 物理返回
+        var old_back = mui.back;
+        mui.back = function() {
+            if ($('.modal-mask').hasClass("hideClass")) {
+                plus.webview.close('credit_result.html');
+            } else {
+                $('.modal-mask').addClass("hideClass");
+            }
+        }
+
+        //左上角 返回
+        function headLeftBack() {
+            $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
+        }
+
+        //左上角 关闭按钮
+        $('.header_close').click(function() {
+            $('.modal-mask').removeClass("hideClass");
+            showMoneyInfo();
+        })
+
+        //弹窗中 关闭按钮
+        function closeDialg() {
+            plus.webview.close('credit_result.html');
+        };
+
+
+		//浮层 奖金信息
+		function showMoneyInfo(){
+        		if(myStorage){
+            		if(myStorage.getItem("inputIdInfoReturn")){
+	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("inputBaseInfoReturn")){
+	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            }
+            		
+            		if(myStorage.getItem("payReturn")){
+	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            }
+            }
+        }
+		
+		Date.prototype.Format = function (fmt) { //author: meizz
+		    var o = {
+		        "M+": this.getMonth() + 1, //月份
+		        "d+": this.getDate(), //日
+		        "h+": this.getHours(), //小时
+		        "m+": this.getMinutes(), //分
+		        "s+": this.getSeconds(), //秒
+		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+		        "S": this.getMilliseconds() //毫秒
+		    };
+		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		    return fmt;
+		};
+
+        
+    </script>
+</body>
+
+</html>

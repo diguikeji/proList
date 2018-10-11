@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 -injars 'E:\github\proList\load_andriod\app\build\intermediates\transforms\jarMerging\release\jars\1\1f\combined.jar'
 -outjars 'E:\github\proList\load_andriod\app\build\intermediates\multi-dex\release\componentClasses.jar'
 
 -libraryjars 'E:\Tool\EclipseAndriod\sdk\build-tools\25.0.3\lib\shrinkedAndroid.jar'
+=======
+-injars /Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/transforms/jarMerging/release/jars/1/1f/combined.jar
+-outjars /Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/multi-dex/release/componentClasses.jar
+
+-libraryjars /Users/guzhenfu/Documents/adt/sdk/build-tools/25.0.3/lib/shrinkedAndroid.jar
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
 
 -forceprocessing
 -dontoptimize
@@ -10,7 +17,11 @@
 -dontpreverify
 -dontnote **
 -dontwarn **
+<<<<<<< HEAD
 -printconfiguration 'E:\github\proList\load_andriod\app\build\intermediates\multi-dex\release\components.flags'
+=======
+-printconfiguration /Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/multi-dex/release/components.flags
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
 
 
 # view AndroidManifest.xml #generated:694

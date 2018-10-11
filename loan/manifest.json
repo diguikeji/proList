@@ -47,7 +47,11 @@
 		"Speech": {
 			"description": "管理语音识别插件"
 		},
+<<<<<<< HEAD
 		"Push": {},
+=======
+
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
 		"Share": {}
 	},
 	"plus": {
@@ -104,15 +108,17 @@
 				"permissions": [
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
 					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
 					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
 					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-					"<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>",
 					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+
 					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
 					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
 					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
@@ -125,6 +131,7 @@
 					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
 					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
 					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
 					"<uses-feature android:name=\"android.hardware.camera\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
@@ -166,6 +173,7 @@
 						"notification@3x": "unpackage/res/icons/60x60.png",
 						"notification@2x": "unpackage/res/icons/40x40.png"
 					},
+					
 					"ipad": {
 						"normal": "",
 						/*iPad普通屏幕程序图标，分辨率：72x72*/
@@ -199,6 +207,19 @@
 				},
 				"android": {
 					
+					"appstore": "D:/图片/touxiang.png"
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png",
+					/*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png",
+					/*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png",
+					/*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",
+					/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
 				}
 			},
 			"splashscreen": {
@@ -283,7 +304,11 @@
 					"html/about.html",
 					"html/errornet.html",
 					"index.html",
-					"html/error404.html"
+					"html/error404.html",
+					"html/credit.html",
+					"html/recommand.html",
+					"html/login.html",
+					"html/webview.html"
 				],
 				"priority": 0
 			},
@@ -360,7 +385,8 @@
 				"refer": [
 					"html/error500.html",
 					"html/errornet.html",
-					"index.html"
+					"index.html",
+					"html/error404.html"
 				],
 				"priority": 0
 			},

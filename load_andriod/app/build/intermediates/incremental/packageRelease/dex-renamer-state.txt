@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Thu Sep 27 19:31:10 CST 2018
 base.0=E\:\\github\\proList\\load_andriod\\app\\build\\intermediates\\transforms\\dex\\release\\folders\\1000\\1f\\main
 renamed.1=classes2.dex
@@ -5,3 +6,9 @@ renamed.0=classes.dex
 file.1=E\:\\github\\proList\\load_andriod\\app\\build\\intermediates\\transforms\\dex\\release\\folders\\1000\\1f\\main\\classes2.dex
 base.1=E\:\\github\\proList\\load_andriod\\app\\build\\intermediates\\transforms\\dex\\release\\folders\\1000\\1f\\main
 file.0=E\:\\github\\proList\\load_andriod\\app\\build\\intermediates\\transforms\\dex\\release\\folders\\1000\\1f\\main\\classes.dex
+=======
+#Sat Oct 06 22:41:13 CST 2018
+base.0=/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/transforms/dex/release/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/transforms/dex/release/folders/1000/1f/main/classes.dex
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2

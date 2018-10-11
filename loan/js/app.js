@@ -48,8 +48,12 @@ var Global = {};
             $(".mui-content").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
 
         },
-        showModal: function(title, msg, callback) {
-            if ($('.global-modal').length == 0) {
+        emptyList: function() {
+            $(".mui-table-view-condensed").html('<div class="error-col"><img src="../images/error/xiaoxi.png"/></div>');
+
+        },
+        showModal: function(title, reload, callback) {
+            if ($('.global-modal').length == 0 || reload) {
 
 
                 // var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content"><div class="dialog_title">'
@@ -85,6 +89,7 @@ var Global = {};
         //网络请求
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "http://app.dev.xianghq.cn/api/";
+//          var baseUrl = "http://banxh.mynetgear.com:18081/api/";
             //应用版本号
 //          var appVersion = plus.runtime.version;
 //          //设备唯一标识
@@ -134,16 +139,47 @@ var Global = {};
                 },
                 success: function(data) {
                 		console.log(data);
-                    if (data.code == "SUCCESS" || data.code == "OK") {
-                        callback(data.data);
+                		if(data.code == "token.overdue"){
+                			//token 过期
+                			var curr = plus.webview.currentWebview();
+                			var wvs=plus.webview.all();
+                			console.log(wvs);
+                			if(wvs && wvs.length){
+                				for(var i=0;i<wvs.length;i++){
+						    		if(wvs[i].getURL() == curr.getURL()){
+						    			continue;
+						    		}
+						        plus.webview.close(wvs[i]); 
+						    }
+						    plus.webview.open('login.html');
+						    if(myStorage){
+						    		myStorage.clear();
+						    }
+						    curr.close();
+						    
+						    return;
+                			}
+					    
+                		}
+                		
+                		//畅捷支付
+                		if(data.code == "pay.ok"){
+                			callback(data.data ? data.data : "");
+                		}
+                    if (data.code == "SUCCESS" || data.code == "OK" 
+                    			|| data.code == "success" || data.code == "ok" ) {
+                        callback(data.data ? data.data : "");
                     } else {
                         errorback(data.msg);
                     }
 
                 },
                 error: function(data) {
-                		console.log(data);
-                      errorback(data);
+                    console.log(data);
+                    if(errorback){
+                        errorback(data);
+                    }
+                      
                 },
                 complete: function(xhr, status) {
                 		console.log(xhr);
@@ -207,12 +243,22 @@ var Global = {};
         })
 
     });
+    
+    //智能客服
+    $(".mui-bar-nav").on("click", "img", function(){
+    		qimoChatClick();
+    })
 
     //家里
     //$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
     //公司
      $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
+    // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
+
+    //公司
+//  $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
+
 
 
 }());

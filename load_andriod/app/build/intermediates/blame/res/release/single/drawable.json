@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
     },
@@ -234,5 +235,89 @@
     {
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\drawable\\abc_textfield_search_material.xml"
+=======
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_shortcut_guide_xiaomi.gif",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_shortcut_guide_xiaomi.gif"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_about_buttons_button_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_about_buttons_button_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_shortcut_guide_huawei.gif",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_shortcut_guide_huawei.gif"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_point_dd524d.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_point_dd524d.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_longding_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_longding_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_about_buttons_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_about_buttons_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_other_bt_bottom.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_other_bt_bottom.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_streamapp_about_first_start_short_cut_checkbox.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_streamapp_about_first_start_short_cut_checkbox.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_webview_activity_title_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_webview_activity_title_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/ad_dcloud_main_skip_shape.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/ad_dcloud_main_skip_shape.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_other_bt_single.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_other_bt_single.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_dialog_shape_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_dialog_shape_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_shortcut_guide_meizu.gif",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_shortcut_guide_meizu.gif"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_cancel_bt.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_cancel_bt.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_other_bt_middle.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_other_bt_middle.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_other_bt_top.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_other_bt_top.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_dialog_shape.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_dialog_shape.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/ad_dcloud_main_skip_bg.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/ad_dcloud_main_skip_bg.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_slt_as_ios7_other_bt_title.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_slt_as_ios7_other_bt_title.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_image_pick_title_sel.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_image_pick_title_sel.xml"
+    },
+    {
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable/dcloud_point_f32720.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable/dcloud_point_f32720.xml"
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
     }
 ]

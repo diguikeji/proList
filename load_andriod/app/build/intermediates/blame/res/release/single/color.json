@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\color\\abc_primary_text_material_dark.xml"
     },
@@ -82,5 +83,9 @@
     {
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\color\\abc_tint_btn_checkable.xml"
+=======
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/color/dcloud_slt_about_text_color.xml",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/color/dcloud_slt_about_text_color.xml"
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
     }
 ]

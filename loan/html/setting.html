@@ -59,7 +59,7 @@
              <img class="top-img" src="../images/default_head.png" data-src=""> 
             <!--<img class="top-img" src="file///storage/emulated/0/DCIM/Screenshots/Screenshot_2018-08-20-10-52-37-32.png">-->
         </div>
-        <div class="center" onclick="changeHeadImg();">修改头像</div>
+        <div class="center" id="changeHead">修改头像</div>
         <div class="bottom-center">退出登录</div>
 
     </div>
@@ -68,9 +68,51 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
-    <script src="html5plus://ready"></script>
+    <!-- <script src="html5plus://ready"></script> -->
     <script type="text/javascript">
-        mui.init();
+        mui.init({
+        		beforeback: function(){
+        			var preList = plus.webview.getWebviewById('home.html');
+        			mui.fire(preList,'updateFunc');
+        			return true;
+        		}
+        });
+
+        var changeHead = document.getElementById("changeHead");
+
+        mui.plusReady(function(){
+        		var headPic = myStorage.getItem("headPic");
+	    		console.log(headPic);
+	    		if(headPic){
+	    			$(".top-img").attr("src", headPic);
+	    		}
+            changeHead.addEventListener("tap", function(){
+                plus.nativeUI.actionSheet({
+                    cancel: "取消",
+                    buttons: [{
+                        title: "拍照"
+                    }, {
+                        title: "从相册中选择"
+                    }]
+                }, function(e) { //1 是拍照  2 从相册中选择 
+                    switch (e.index) {
+                        case 1:
+                            appendByCamera();
+                            break;
+                        case 2:
+                            appendByGallery();
+                            break;
+                    }
+                });
+            });
+            //返回刷新页面
+//          var primaryBack = mui.back;        
+//          mui.back = function() {           
+//	            	var wobj = plus.webview.getWebviewById("home.html");              
+//	            	wobj.reload(true);           
+//	            	primaryBack();       
+//	            }
+        })
 
         //修改头像
         function changeHeadImg() {
@@ -99,7 +141,9 @@
                 console.log("e is" + e);
                 plus.io.resolveLocalFileSystemURL(e, function(entry) {
                     var path = entry.toLocalURL();
+                    console.log(path);
                     $('.top-img').attr('src', path);
+                    getBase64(path);
                 }, function(e) {
                     mui.toast("读取拍照文件错误：" + e.message);
                 });
@@ -110,14 +154,7 @@
         function appendByGallery() {
             plus.gallery.pick(function(path) {
                 $('.top-img').attr('src', path);
-                getBase64("https://img.alicdn.com/bao/uploaded/TB1qimQIpXXXXXbXFXXSutbFXXX.jpg");
-//              Global.getCanvasBase64(path)
-//			      .then(function (base64) {
-//			        console.log("方式二》》》》》》》》》"+base64);
-//			        uploadFile(base64);
-//			      }, function (err) {
-//			        console.log(err);
-//			      });
+				getBase64(path);
 	      
             });
         }
@@ -129,21 +166,27 @@
         		if(user){
         			userId = user.userId;
         		}else{
-        			userId = "10";
+        			return;
         		}
+        		var params = {
+        			data: base64,
+        			userId: userId
+        		};
         		Global.commonAjax(
         			{
         				url: "user/upload/headpic",
         				method: "POST",
-        				data: base64,
-        				userId: userId
+        				data: params
         			},
         			function(data){
-        				mui.toast("上传成功"+data);
+                        console.log(data+"-------");
+        				mui.toast("上传成功");
+        				//$('.top-img').data('src') = data;
         				myStorage.setItem("headPic", data);
         			},
         			function(err){
         				mui.toast("上传失败");
+        				$('.top-img').attr('src', "../images/default_head.png");
         			}
         		);
         }

@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
@@ -190,5 +191,9 @@
     {
         "merged": "E:\\github\\proList\\load_andriod\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
         "source": "C:\\Users\\867123882\\.android\\build-cache\\4c0be90e741f98135d26567dcfa96584605fe893\\output\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
+=======
+        "merged": "/Users/guzhenfu/Documents/proList/load_andriod/app/build/intermediates/res/merged/release/drawable-xxhdpi-v4/dcloud_assistan_loc.png",
+        "source": "/Users/guzhenfu/.android/build-cache/cb3d5e88101eed6df022e24cdffca7ca9876edd7/output/res/drawable-xxhdpi-v4/dcloud_assistan_loc.png"
+>>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
     }
 ]

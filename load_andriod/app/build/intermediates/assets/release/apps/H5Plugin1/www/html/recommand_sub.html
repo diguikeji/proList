@@ -1,0 +1,379 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/app.css" rel="stylesheet" />
+		<style type="text/css">
+			body, html{
+				width: 100%;
+				height: 90%;
+				background: #F2F2F2;
+			}
+			.top_img{
+				width: 261px;
+				height: 37px;
+				margin: auto;
+			}
+			
+			.select_type{
+				height: 40px;
+				align-items: center;
+				justify-content: space-around;
+				background: #ffffff;
+				color: #333333;
+				font-size: 14px;
+				font-weight: bold;
+				position: fixed;
+				width: 100%;
+			}
+			
+			.center_wrap{
+				align-items: center;
+			}
+			
+			.center_wrap img{
+				width: 9px;
+				height: 11px;
+				margin-left: 10px;
+			}
+			
+			.active{
+				color: #ff5445;
+			}
+			
+			.list_wrap{
+				padding: 0px;
+				box-sizing: border-box;
+			}
+			
+			.item_wrap{
+				background-image: url(../images/card_bg.png);
+				background-size: 100% 100%;
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				height: 97px;
+				width: 100%;
+				padding: 10px 20px;
+			}
+			
+			.item_tile_wrap{
+				justify-content: space-between;
+				align-items: center;
+				font-size: 12px;
+				color: #333333;
+				font-weight: bold;
+				padding: 5px 0px;
+				border-bottom: 1px solid #dddddd;
+				height: 25px;
+				line-height: 25px;
+			}
+			
+			.high_rate{
+				width: 49px;
+				height: 15px;
+				margin-right: 5px;
+			}
+			
+			.recommand_icon{
+				width: 32px;
+				height: 15px;
+			}
+			
+			.item_title_num{
+				margin-left: 5px;
+			}
+			
+			.item_center_wrap{
+				text-align: left;
+				font-size: 14px;
+				font-weight: bold;
+				padding: 10px 0px;
+			}
+			
+			.item_center_day{
+				font-size: 12px;
+			}
+			
+			.mui-progressbar{
+				height: 16px;
+				border-radius: 10px;
+				background: #FFD9D6;
+			}
+			.mui-progressbar span{
+				background: #Ff5445;
+				border-radius: 10px;
+			}
+			
+			.progress_wrap{
+				position: relative;
+			}
+			
+			.success_rate{
+				position: absolute;
+				top: -2px;
+				left: 0px;
+				color: #ffffff;
+				font-size: 12px;
+				padding-left: 10px;
+			}
+			
+			.empty_text{
+				width: 100%; 
+				height: 400px; 
+				line-height: 400px; 
+				text-align: center;
+				background: #f4f4f4; 
+				border: none; 
+				z-index: 10;
+				background: #f2f2f2;
+			}
+			
+			/*#pullrefresh{
+				background: #f4f4f4;
+				top: 130px;
+			}*/
+			
+			/*.mui-pull-top-pocket{
+				top: 130px!important;
+				position: absolute;
+			}*/
+
+		</style>
+	</head>
+
+	<body>
+		
+		
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <!--数据列表-->
+                <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped list_wrap">
+
+                </ul>
+            </div>
+			
+        </div>
+        <div class="empty_text">
+				数据为空
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/myStorage.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				pullRefresh: {
+	                container: '#pullrefresh',
+	                down: {
+	                    callback: pulldownRefresh
+	                },
+	                up: {
+	                    contentrefresh: '正在加载...',
+	                    callback: pullupRefresh
+	                }
+	            }
+			});
+			
+			mui.plusReady(function() {
+			    pulldownRefresh();
+			    
+			    //点击上次浏览
+			    window.addEventListener('updatePreType',function(event){
+			    		console.log("收到事件"+event.detail);
+					updateClick(event.detail);
+				}, false);
+
+			});
+			
+			
+			
+			//pulldownRefresh();
+			
+			function updateClick(msg){
+				currentType = msg.currentType;
+				isDes = msg.isDes;
+				pulldownRefresh();
+			}
+			
+		/**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+        		current = 1;
+        		findList = []; 
+        		getMsglist(0);
+        }
+
+        /**
+         * 上拉加载具体业务实现
+         */
+        function pullupRefresh() {
+        		current++;
+        		getMsglist(1);
+       }
+        
+        //查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
+		var currentType = "DEGREE";
+		//当前查询  页数
+		var current = 1;
+		//根据期限查询是，是否倒序
+		var isDes = false;
+
+        function getMsglist(refreshType){
+			var params = {
+        			current: current,
+        			size: 20,
+        			isDes: isDes,
+        			queryType: currentType
+        		};
+        		$(".empty_text").hide();
+			$("#pullrefresh").show();
+			
+			getListData(refreshType, [
+				{recommendDegree: 20},
+				{recommendDegree: 30},
+				{recommendDegree: 40},
+				{recommendDegree: 50},
+				{recommendDegree: 60},
+				{recommendDegree: 70},
+			], true);
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			return;
+			
+			Global.commonAjax(
+				{
+					url: "goods/payed/goodslist",
+					method: "POST",
+					data: params
+				},
+				function(data){
+					if(data.current >= data.pages){
+						if((data.current == 1) &&  (data.records.length == 0)){
+							//空数据
+							$(".empty_text").show();
+							$("#pullrefresh").hide();
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						}else{
+							//没有更多数据了
+							getListData(refreshType, data.records, true);
+						}
+					}else{
+						getListData(refreshType, data.records, false);
+					}
+				},
+				function(err){
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				}
+			)
+		}
+        
+        var findList = [];
+        function getListData(refreshType, cells, isAll){
+        		findList = findList.concat(cells);
+        		//当前点击的 数据下标
+		    var index = 0;
+		    var table = document.body.querySelector('.mui-table-view-condensed');
+			
+		    if (refreshType == 0) {
+		        //下拉刷新
+		        //table.innerHTML = "";
+		        $(".mui-table-view-condensed").html = "";
+		    } else {
+		        //加载更多
+		        mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
+		        var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
+		        index = preList == null ? 0 : preList.length;
+		    }
+		    for (var i = 0, len = cells.length; i < len; i++) {
+		        var li = document.createElement('li');
+		        var item = cells[i];
+		        li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+		        li.innerHTML = '<div class="row item_tile_wrap">'+
+						'<div >'+
+							'<span>推荐产品</span>'+
+							'<span class="item_title_num">'+item.goodsSeq+'号</span>'+
+						'</div>'+
+						'<div class="row">'+
+							'<img src="../images/high_rate.png" class="high_rate"/>'+
+							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
+						'</div>'+
+					'</div>'+
+					
+					'<div class="item_center_wrap">'+
+						'<span >'+ item.loanAmount+
+							' /'+ 
+						'</span>'+
+						'<span class="item_center_day">'+
+							item.loanDay+
+						'</span>'+
+					'</div>'+
+					'<div class="progress_wrap progress_index'+index+'" id="progress_id">'+
+						'<p class="mui-progressbar mui-progressbar-in" data-progress="'+item.recommendDegree+'"><span></span></p>'+
+						'<span class="success_rate">成功率：'+item.recommendDegree+'%</span>'+
+					'</div>';
+		        table.appendChild(li);
+		        
+		        var progress = $('.progress_index'+index);
+		        console.log(progress.length);
+		        index += 1;
+		        mui(progress).progressbar().setProgress(item.recommendDegree);
+		    }
+		
+		    if (refreshType == 0) {
+		        //下拉刷新
+		        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		    } else {
+		        //上拉加载
+		
+		    }
+        }
+        
+			
+			//进度条 设置
+//			var progressbar = mui('#progress_id');
+//			console.log(mui(progressbar).progressbar());
+//			mui(progressbar).progressbar().setProgress(10);
+			
+			$('.highType').click(function(){
+					$('.highType').css('color', '#ff5445');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#333333');
+					current = 1;
+					currentType = "DEGREE";
+					isDes = false;
+					getMsglist(0);
+			})
+				
+				$('.timeType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#ff5445');
+					$('.preType').css('color', '#333333');
+					if (currentType == 'TIME') {
+				        //当前期限
+				        isDes = !isDes;
+				   }
+					current = 1;
+					currentType = "TIME";
+					getMsglist(0);
+				})
+				
+				function updateClick(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#ff5445');
+					current = 1;
+					currentType = "HISTORY";
+					isDes = false;
+					getMsglist(0);
+				}
+			
+			
+		</script>
+	</body>
+
+</html>

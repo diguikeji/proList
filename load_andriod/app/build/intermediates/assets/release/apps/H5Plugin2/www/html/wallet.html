@@ -238,14 +238,27 @@
     <script src="../js/mui.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
 
         //钱包余额
-        var user = myStorage.getItem("user");
-        if (user && user.wallet) {
-            $(".money_text").html(user.wallet.balance);
-        }
+        var wallet = myStorage.getItem("wallet");
+        
+        if (wallet && wallet.balance) {
+            $(".money_text").html(parseInt(wallet.balance));
+        }else{
+        		$(".money_text").html("0");
+        };
+        
+        mui.plusReady(function() {
+        		var self = plus.webview.currentWebview();
+        		console.log(self.miniApplyAmount)
+	        //最小提现余额
+	        $(".money_dirction").html("(最低提现"+self.miniApplyAmount+"元，仅可提现整数金额)");
+        });
+        
 
         /**
          * 钱包明细 
@@ -262,7 +275,7 @@
 
         //立即提现
         function getMoney() {
-            if (!accountName || !accountNum) {
+            if (isSetAlipay == "N") {
                 setZFB();
             } else {
                 //提现申请
@@ -276,16 +289,23 @@
                     mui.toast("请输入大于最低提现额的数字");
                     return;
                 }
-
+                
+                if(parseInt($(".money_text").html()) < parseInt(money)){
+                		mui.toast("超过余额");
+                    return;
+                }
+				var params = {applyAmount: money};
                 Global.commonAjax({
                         url: "user/apply/deposit",
-                        applyAmount: money
+                        data: params,
+                        method: "POST"
                     },
                     function(data) {
-
+						mui.toast("申请提现成功");
+						$(".money_input").val("");
                     },
                     function(err) {
-
+						mui.toast("申请提现失败");
                     }
                 )
             }
@@ -304,23 +324,24 @@
                 mui.toast("请设置收款人账号");
                 return;
             }
-
+			var params = {
+				alipayName: accountName,
+                alipayAccount: accountNum
+			}
             Global.commonAjax({
                     url: "user/modify/alipay",
-                    alipayName: accountName,
-                    alipayAccount: accountNum
+                    data: params,
+                    method: "POST"
                 },
                 function(data) {
-                    closeDialg();
-                    mui.toast("设置成功");
+            			closeDialg();
+                		mui.toast("设置账户成功");
+                    
                 },
                 function(err) {
-
+					mui.toast("设置账户失败");
                 }
-            )
-
-            closeDialg();
-            mui.toast("设置成功");
+           )
         }
 
         //设置支付宝
@@ -333,6 +354,24 @@
             var dialogEle = document.querySelector('.modal-mask');
             dialogEle.classList.add('hideClass');
         }
+        //是否设置支付宝
+        var isSetAlipay = "N";
+        function isSetAliPay(){
+        		Global.commonAjax({ url: "user/input/status" },
+	           function(data) {
+	               var url = "";
+	               if(data){
+	               		isSetAlipay = data.isSetAlipay;
+	               }
+	               
+	           },
+	           function(err) {
+					mui.toast(err.msg);
+	           }
+	       );
+        }
+        
+       
     </script>
 </body>
 
