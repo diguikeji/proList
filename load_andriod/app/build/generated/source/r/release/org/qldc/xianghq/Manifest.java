@@ -9,6 +9,6 @@ package org.qldc.xianghq;
 
 public final class Manifest {
     public static final class permission {
-        public static final String integrate="getui.permission.GetuiService.com.HBuilder.integrate";
+        public static final String JPUSH_MESSAGE="org.qldc.xianghq.permission.JPUSH_MESSAGE";
     }
 }

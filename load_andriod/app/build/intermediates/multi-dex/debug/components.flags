@@ -1,7 +1,7 @@
--injars 'D:\YunFile\github\mui_android\HBuilder-Integrate-AS\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'D:\YunFile\github\mui_android\HBuilder-Integrate-AS\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'E:\github\proList\load_andriod\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'E:\github\proList\load_andriod\app\build\intermediates\multi-dex\debug\componentClasses.jar'
 
--libraryjars 'C:\Tool\Android\sdk\build-tools\25.0.3\lib\shrinkedAndroid.jar'
+-libraryjars 'E:\Tool\EclipseAndriod\sdk\build-tools\25.0.3\lib\shrinkedAndroid.jar'
 
 -forceprocessing
 -dontoptimize
@@ -10,10 +10,10 @@
 -dontpreverify
 -dontnote **
 -dontwarn **
--printconfiguration 'D:\YunFile\github\mui_android\HBuilder-Integrate-AS\app\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'E:\github\proList\load_andriod\app\build\intermediates\multi-dex\debug\components.flags'
 
 
-# view AndroidManifest.xml #generated:663
+# view AndroidManifest.xml #generated:694
 -keep class io.dcloud.multiprocess.activity.WebAppActivity1 {
     <init>(...);
 }

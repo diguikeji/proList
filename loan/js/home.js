@@ -70,6 +70,9 @@ function initData() {
             url: "sys/latest/syscfg"
         },
         function(data) {
+        	
+        	alert(JSON.stringify(data));
+        	
             myStorage.setItem("highestDegree", data.highestDegree);
             myStorage.setItem("maritalStatus", data.maritalStatus);
             myStorage.setItem("houseStatus", data.houseStatus);

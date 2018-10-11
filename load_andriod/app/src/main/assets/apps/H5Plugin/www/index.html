@@ -1,392 +1,55 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-
-
 	<head>
-		<meta charset="utf-8">
-		<title>首页</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<!--标准mui.css-->
-		<link rel="stylesheet" href="css/mui.min.css">
-		<!--App自定义的css-->
-		
-		<style>
-			
-			.title{
-				margin: 20px 15px 10px;
-				color: #6d6d72;
-				font-size: 15px;
-			}
-			
-			.oa-contact-cell.mui-table .mui-table-cell {
-				padding: 11px 0;
-				vertical-align: middle;
-			}
-			
-			.oa-contact-cell {
-				position: relative;
-				margin: -11px 0;
-			}
-	
-			.oa-contact-avatar {
-				width: 75px;
-			}
-			.oa-contact-avatar img {
-				border-radius: 50%;
-			}
-			.oa-contact-content {
-				width: 100%;
-			}
-			.oa-contact-name {
-				margin-right: 20px;
-			}
-			.oa-contact-name, oa-contact-position {
-				float: left;
-			}
-		</style>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>H5Plugin</title>
+		<script type="text/javascript" src="./js/common.js"></script>
+		<script type="text/javascript" src="./js/test.js"></script>
+		<script type="text/javascript">
+		document.addEventListener('plusready',function(){
+		// Android�������ؼ�
+		plus.key.addEventListener('backbutton',function(){
+				plus.runtime.quit();
+		},false);
+		},false);
+
+  		function pluginShow() {
+            plus.plugintest.PluginTestFunction("Html5","Plus","AsyncFunction","MultiArgument!", function( result ) {alert( result[0]  + "_" + result[1]  + "_" + result[2]  + "_" + result[3] );},function(result){alert(result)});
+        }
+        
+        function pluginShowArrayArgu() {
+            plus.plugintest.PluginTestFunctionArrayArgu( ["Html5","Plus","AsyncFunction","ArrayArgument!"], function( result ) {alert( result );},function(result){alert(result)});
+        }
+        
+        function pluginGetString()
+        {
+            alert(plus.plugintest.PluginTestFunctionSync("Html5","Plus","SyncFunction","MultiArgument!"));
+        }
+        
+        function pluginGetStringArrayArgu()
+        {
+            var Argus = plus.plugintest.PluginTestFunctionSyncArrayArgu(["Html5","Plus","SyncFunction","ArrayArgument!"]);
+            alert( Argus.RetArgu1 + "_" +  Argus.RetArgu2 + "_" + Argus.RetArgu3  + "_" + Argus.RetArgu4 );
+        }
+    
+		</script>
+		<link rel="stylesheet" href="./css/common.css" type="text/css" charset="utf-8"/>
 	</head>
-
 	<body>
-		
-		<div class="mui-content">
-			<ul id="list" class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell">
-
-					<a class="mui-navigate-right" href="html/login.html">login</a>
-
-				</li>
-
-
-				<li class="mui-table-view-cell" >
-
-					 <p class="heading">分享网页：</p>
-			<table style="width:100%;">
-				<tbody>
-					<tr>
-						<td style="width:20%;text-align:right;font-size:12px;">网页地址</td>
-						<td style="width:65%">
-              <input id="web_href" class="share_input" type="url" value="https://www.baidu.com/" placeholder="请输入要分享的网页地址"/>
-            </td>
-					</tr>
-					<tr>
-						<td style="width:20%;text-align:right;font-size:12px;">网页标题</td>
-						<td style="width:65%">
-              <input id="web_title" class="share_input" type="url" value="测试测试" placeholder="请输入要分享的网页地址"/>
-            </td>
-					</tr>
-					<tr>
-						<td style="width:20%;text-align:right;font-size:12px;">网页描述</td>
-						<td style="width:65%">
-              <input id="web_content" class="share_input" type="url" value="测试测试，赶紧跟我一起来体验！" placeholder="请输入要分享的网页描述"/>
-            </td>
-					</tr>
-				</tbody>
-			</table>
-      <p class="des">分享网页需要设置缩略图，否则可能会分享失败。</p>
-      <div class="button" onclick="shareWeb()">分享网页</div>
-      
-      <p class="heading">分享文本：</p>
-			<textarea id="text_title" class="sharecontent" rows="3">测试测试测试</textarea>
-      <p class="des">注意：QQ分享Android平台需设置链接地址（iOS可选）。</p>
-      <div class="button" onclick="shareText()">分享文本</div>
-      
-
-				</li>
-
-		</ul>
+		<header>
+			<div class="nvbt" onclick="back();"><div class="iback"></div></div>
+			<div class="nvtt">PluginTest</div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			 <div class="button" onclick="pluginShow()">PluginTestFunction()</div>
+            <div class="button" onclick="pluginShowArrayArgu()">PluginTestFunctionArrayArgu()</div>
+            <div class="button" onclick="pluginGetString()">PluginTestFunctionSync()</div>
+            <div class="button" onclick="pluginGetStringArrayArgu()">PluginTestFunctionSyncArrayArgu()</div>	
+			<br/>
 		</div>
-		
-		<button id="download" onclick="createDownload()">Create download task</button>
-		
 	</body>
-	<script src="js/mui.min.js"></script>
-	<script src="js/jquery-2.1.1.min.js"></script>
-	<script src="js/app.js"></script>
-	<script>
-		
-		//window.location.href = "http://project.youzewang.com/app/app.html";
-		
-		
-var sweixin=null;
-var buttons=[
-  {title:'我的好友',extra:{scene:'WXSceneSession'}},
-  {title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
-  {title:'我的收藏',extra:{scene:'WXSceneFavorite'}}
-];
-// H5 plus事件处理
-function plusReady(){
-	
-	//读取本地存储，检查是否为首次启动
-				var showGuide = plus.storage.getItem("lauchFlag");
-
-				//仅支持竖屏显示
-				plus.screen.lockOrientation("portrait-primary");
-				if(showGuide) {
-					//有值，说明已经显示过了，无需显示；
-					//关闭splash页面；
-					plus.navigator.closeSplashscreen();
-					plus.navigator.setFullscreen(false);
-				
-				} else {
-					//显示启动导航
-					mui.openWindow({
-						id: 'guide',
-						url: 'html/guide.html',
-						styles: {
-							popGesture: "none"
-						},
-						show: {
-							aniShow: 'none'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
-				
-				}
-
-	
-	updateSerivces();
-
-
-plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
-		// fs.root是根目录操作对象DirectoryEntry
-		// 创建读取目录信息对象 
-		var directoryReader = fs.root.createReader();
-		directoryReader.readEntries( function( entries ){
-			var i;
-			for( i=0; i < entries.length; i++ ) {
-				//console.log( entries[i] );
-			}
-		}, function ( e ) {
-			alert( "Read entries failed: " + e.message );
-		} );
-	} );
-
-plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
-		// 可通过fs操作PRIVATE_WWW文件系统 
-		var imgPath=fs.root.fullPath;
-		console.log(fs);
-		//alert(imgPath);
-		
-
-		plus.io.resolveLocalFileSystemURL( fs.root.fullPath+"images/error", function( entry ) {
-		// 可通过entry对象操作test.html文件 
-		// entry.file( function(file){
-		// 	var fileReader = new plus.io.FileReader();
-		// 	console.log("getFile:" + JSON.stringify(file));
-			//fileReader.readAsText(file, 'utf-8');
-			// fileReader.onloadend = function(evt) {
-			// 	console.log("11" + evt);
-			// 	console.log("evt.target" + evt.target);
-			// 	console.log(evt.target.result);
-			// }
-		// 	console.log(file.size + '--' + file.name);
-		// } );
-
-		console.log(entry);
-
-var directoryReader = entry.createReader();
-		directoryReader.readEntries( function( entries ){
-			var i;
-			for( i=0; i < entries.length; i++ ) {
-				console.log( entries[i].name);
-			}
-		}, function ( e ) {
-			alert( "Read entries failed: " + e.message );
-		} );
-
-
-	}, function ( e ) {
-		console.log( "Resolve file URL failed: " + e.message );
-	} );
-
-	}, function ( e ) {
-		console.log( "Request file system failed: " + e.message );
-	} );
-
-
-}
-
-
-// 创建下载任务
-function createDownload() {
-
-	var dtask = plus.downloader.createDownload( "http://rb.pro.youzewang.com/public/assets/img/logo.png", {filename:"_www/images/error/"}, function ( d, status ) {
-		// 下载完成
-
-		alert();
-
-		if ( status == 200 ) { 
-			alert( "Download success: " + d.filename );
-		} else {
-			 alert( "Download failed: " + status ); 
-		}  
-	});
-	//dtask.addEventListener( "statechanged", onStateChanged, false );
-	dtask.start(); 
-}
-
-
-if(window.plus){
-	plusReady();
-}else{
-	document.addEventListener('plusready', plusReady, false);
-}
-
-    /**
-     * 更新分享服务
-     */
-    function updateSerivces() {
-        plus.share.getServices(function(s) {
-            shares = {};
-            for (var i in s) {
-                var t = s[i];
-                shares[t.id] = t;
-            }
-            sweixin = shares['weixin'];
-            sqq = shares['qq'];
-        }, function(e) {
-            console.log('获取分享服务列表失败：' + e.message);
-        });
-    }
-
-
-
-    // 分享网页
-    function shareWeb() {
-        var msg = {
-            type: 'web',
-            thumbs: ['_www/logo.png']
-        };
-        if (!web_href.value) {
-            plus.nativeUI.alert('请输入分享网页的链接地址!');
-            web_href.focus();
-            return;
-        }
-        msg.href = web_href.value;
-        if (!web_title.value) {
-            plus.nativeUI.alert('请输入分享网页的标题!');
-            web_title.focus();
-            return;
-        }
-        msg.title = web_title.value;
-        if (!web_content.value) {
-            plus.nativeUI.alert('请输入分享网页的描述!');
-            web_content.focus();
-            return;
-        }
-        msg.content = web_content.value;
-        sweixin ? plus.nativeUI.actionSheet({
-            title: '分享网页到微信',
-            cancel: '取消',
-            buttons: buttons
-        }, function(e) {
-            (e.index > 0) && share(sweixin, msg, buttons[e.index - 1]);
-        }) : plus.nativeUI.alert('当前环境不支持微信分享操作!');
-    }
-
-    // 分享
-    function share(srv, msg, button) {
-        console.log('分享操作：');
-        if (!srv) {
-            console.log('无效的分享服务！');
-            return;
-        }
-        button && (msg.extra = button.extra);
-        // 发送分享
-        if (srv.authenticated) {
-            console.log('---已授权---');
-            doShare(srv, msg);
-        } else {
-            console.log('---未授权---');
-            srv.authorize(function() {
-                doShare(srv, msg);
-            }, function(e) {
-                console.log('认证授权失败：' + JSON.stringify(e));
-            });
-        }
-    }
-    // 发送分享
-    function doShare(srv, msg) {
-        alert(JSON.stringify(msg));
-        srv.send(msg, function() {
-            alert('分享到"' + srv.description + '"成功！');
-        }, function(e) {
-            alert('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
-        });
-    }
-    // 解除授权
-    function cancelAuth() {
-        console.log('解除授权：');
-        if (sweixin) {
-            if (sweixin.authenticated) {
-                console.log('取消"' + sweixin.description + '"');
-            }
-            sweixin.forbid();
-        } else {
-            console.log('当前环境不支持微信分享操作!');
-        }
-    }
-
-    // 分享文本 
-    function shareText() {
-        var msg = {
-            type: 'text'
-        };
-        if (!text_title.value) {
-            plus.nativeUI.alert('请输入要分享的内容!');
-            return;
-        }
-        msg.title = text_title.value;
-        msg.href = 'https://www.baidu.com';
-        sqq ? share(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
-    }
-
-    // 分享
-    function share1(srv, msg, button) {
-        alert('分享操作：');
-        if (!srv) {
-            console.log('无效的分享服务！');
-            return;
-        }
-        button && (msg.extra = button.extra);
-        // 发送分享
-        if (srv.authenticated) {
-            console.log('---已授权---');
-            doShare1(srv, msg);
-        } else {
-            console.log('---未授权---');
-            srv.authorize(function() {
-                doShare1(srv, msg);
-            }, function(e) {
-                console.log('认证授权失败：' + JSON.stringify(e));
-            });
-        }
-    }
-    // 发送分享
-    function doShare1(srv, msg) {
-        console.log(JSON.stringify(msg));
-        srv.send(msg, function() {
-            console.log('分享到"' + srv.description + '"成功！');
-        }, function(e) {
-            console.log('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
-        });
-    }
-    // 解除授权
-    function cancelAuth1() {
-        alert('解除授权：');
-        if (sqq) {
-            if (sqq.authenticated) {
-                console.log('取消"' + sqq.description + '"');
-            }
-            sqq.forbid();
-        } else {
-            console.log('当前环境不支持QQ分享操作!');
-        }
-    }
-</script>
-
 </html>
