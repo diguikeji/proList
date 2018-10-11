@@ -16,6 +16,7 @@ mui.init({
 var makeMoneySwiperObj;
 
 mui.plusReady(function() {
+    
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -29,6 +30,9 @@ mui.plusReady(function() {
     
     //获取最新引导页
     getStartUpPage();
+
+    //分享
+    updateSerivces();
     
     var preWebView = plus.webview.getWebviewById('guide');
     if(preWebView){
@@ -783,20 +787,101 @@ function newbieTaskBanner(listData) {
 /**
  *  shareData {description   iconUrl  linkUrl  title}
  */
+ function share(srv, msg) {
+        console.log('分享操作：');
+        if (!srv) {
+            console.log('无效的分享服务！');
+            return;
+        }
+       
+        if (srv.authenticated) {
+            console.log('---已授权---');
+            doShare(srv, msg);
+        } else {
+            console.log('---未授权---');
+            srv.authorize(function() {
+                doShare(srv, msg);
+            }, function(e) {
+                console.log('认证授权失败：' + JSON.stringify(e));
+            });
+        }
+    }
+    // 发送分享
+    function doShare(srv, msg) {
+        //alert(JSON.stringify(msg));
+        srv.send(msg, function() {
+            console.log('分享到"' + srv.description + '"成功！');
+        }, function(e) {
+            console.log('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
+        });
+    }
+
+
 //分享到各个平台的点击事件
+var msg = {
+        type: 'web',
+        thumbs: ['_www/logo.png'],
+        href:"https://www.baidu.com",
+        title:"8888",
+        content:"测试测试"
+    };
 $(".wx_wrap").click(function() {
+    
     if(shareData){
-    		mui.toast(JSON.stringify(shareData.wx));
+    
+        msg.extra={scene:'WXSceneSession'};
+        share(sweixin, msg);
+    		//mui.toast(JSON.stringify(shareData.wx));
+
     }
 })
 $(".wx_friend_wrap").click(function() {
     if(shareData){
-    		mui.toast(JSON.stringify(shareData.pyq));
+    		msg.extra={scene:'WXSceneTimeline'};
+            share(sweixin, msg);
     }
 })
+
+//qq分享
+ // 分享
+    function qqShare(srv, msg) {
+        
+        if (!srv) {
+            console.log('无效的分享服务！');
+            return;
+        }
+       
+        // 发送分享
+        if (srv.authenticated) {
+            console.log('---已授权---');
+            doQQShare(srv, msg);
+        } else {
+            console.log('---未授权---');
+            srv.authorize(function() {
+                doQQShare(srv, msg);
+            }, function(e) {
+                console.log('认证授权失败：' + JSON.stringify(e));
+            });
+        }
+    }
+    // 发送分享
+    function doQQShare(srv, msg) {
+        //alert(JSON.stringify(msg));
+        srv.send(msg, function() {
+            console.log('分享到"' + srv.description + '"成功！');
+        }, function(e) {
+            console.log('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
+        });
+    }
+
+var qqMsg={
+    type: 'text',
+    href:"https://www.baidu.com",
+    title:"8888"
+};
 $(".qq_wrap").click(function() {
     if(shareData){
-    		mui.toast(JSON.stringify(shareData.qq));
+    		qqShare(sqq,qqMsg);
     }
 })
 $(".copy_wrap").click(function() {
@@ -923,11 +1008,14 @@ function goToMakeMoneyTab() {
 
 //邀请好友 弹出浮层
 function invaliteFriend() {
+    
 	Global.commonAjax(
 		{
 			url: "user/sharelist?isShowPic=true"
 		},
 		function(data){
+
+
 			$('.inviteModal').removeClass('hideClass');
 			if(data && data.adUrl){
 				$(".invalite_bg").attr("src", data.adUrl);
@@ -936,6 +1024,7 @@ function invaliteFriend() {
 			
 		},
 		function(err){
+           
 		}
 	)
     
@@ -979,3 +1068,28 @@ function goToCredit(){
 	})
 }
 
+//分享
+var sweixin=null;
+var buttons=[
+{title:'我的好友',extra:{scene:'WXSceneSession'}},
+{title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
+{title:'我的收藏',extra:{scene:'WXSceneFavorite'}}
+];
+
+
+ /**
+     * 更新分享服务
+     */
+    function updateSerivces() {
+        plus.share.getServices(function(s) {
+            shares = {};
+            for (var i in s) {
+                var t = s[i];
+                shares[t.id] = t;
+            }
+            sweixin = shares['weixin'];
+            sqq = shares['qq'];
+        }, function(e) {
+            console.log('获取分享服务列表失败：' + e.message);
+        });
+    }

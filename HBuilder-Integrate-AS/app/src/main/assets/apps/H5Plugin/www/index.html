@@ -54,7 +54,7 @@
 			<ul id="list" class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 
-					<a class="mui-navigate-right" href="html/log	in.html">login</a>
+					<a class="mui-navigate-right" href="html/home.html">login</a>
 
 				</li>
 
@@ -108,14 +108,15 @@
 	<script src="html5plus://ready"></script>
 	<script>
 		
-//		 window.location.href = "http://project.youzewang.com/app/app.html";
+		//window.location.href = "http://project.youzewang.com/app/app.html";
 		
+
 		
 var sweixin=null;
 var buttons=[
-  {title:'我的好友',extra:{scene:'WXSceneSession'}},
-  {title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
-  {title:'我的收藏',extra:{scene:'WXSceneFavorite'}}
+{title:'我的好友',extra:{scene:'WXSceneSession'}},
+{title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
+{title:'我的收藏',extra:{scene:'WXSceneFavorite'}}
 ];
 // H5 plus事件处理
 function plusReady(){
@@ -136,8 +137,8 @@ function plusReady(){
 						mui.openWindow({
 							id: 'home.html',
 							url: 'html/home.html',
-							waiting: {
-								autoshow: false
+							waiting:{
+								autoShow:false
 							}
 						});
 					}else{
@@ -145,6 +146,7 @@ function plusReady(){
 						mui.openWindow({
 							id: 'login.html',
 							url: 'html/login.html',
+
 							waiting: {
 								autoshow: false
 							}

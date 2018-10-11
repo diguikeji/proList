@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="E:\github\proList\load_andriod\app\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\github\proList\load_andriod\app\src\release\shaders"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="/Users/guzhenfu/Documents/proList/load_andriod/app/src/main/shaders"/></dataSet><dataSet config="release"><source path="/Users/guzhenfu/Documents/proList/load_andriod/app/src/release/shaders"/></dataSet></merger>
->>>>>>> 358f876403f777e308e6371f28f7ad9586664ab2
