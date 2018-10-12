@@ -141,6 +141,7 @@
                 console.log("e is" + e);
                 plus.io.resolveLocalFileSystemURL(e, function(entry) {
                     var path = entry.toLocalURL();
+                    console.log(path);
                     $('.top-img').attr('src', path);
                     getBase64(path);
                 }, function(e) {

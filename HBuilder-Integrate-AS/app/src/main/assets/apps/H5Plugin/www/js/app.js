@@ -124,18 +124,18 @@ var Global = {};
                     'Content-Type': 'application/json'
                 },
                 beforeSend: function(xhr) {
-                    Global.showLoading();
-                    xhr.setRequestHeader("deviceId", deviceId);
-                    xhr.setRequestHeader("osVersion", osVersion);
-                    xhr.setRequestHeader("appVersion", appVersion);
-                    xhr.setRequestHeader("appType", appType);
-                    xhr.setRequestHeader("appName", appName);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    var token = myStorage.getItem("userToken");
-                    if (token) {
-                        xhr.setRequestHeader("Authorization", "Bearer " + token);
-                    };
-                    Global.showLoading();
+//                  Global.showLoading();
+//                  xhr.setRequestHeader("deviceId", deviceId);
+//                  xhr.setRequestHeader("osVersion", osVersion);
+//                  xhr.setRequestHeader("appVersion", appVersion);
+//                  xhr.setRequestHeader("appType", appType);
+//                  xhr.setRequestHeader("appName", appName);
+//                  xhr.setRequestHeader("Content-Type", "application/json");
+//                  var token = myStorage.getItem("userToken");
+//                  if (token) {
+//                      xhr.setRequestHeader("Authorization", "Bearer " + token);
+//                  };
+//                  Global.showLoading();
                 },
                 success: function(data) {
                 		console.log(data);
@@ -250,10 +250,15 @@ var Global = {};
     })
 
     //家里
+    //$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
+
+    //公司
+     $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
     // $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
 
     //公司
 //  $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.150:1337/vorlon.js'></script>");
+
 
 
 }());
