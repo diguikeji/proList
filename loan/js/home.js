@@ -1109,3 +1109,18 @@ var buttons=[
             console.log('获取分享服务列表失败：' + e.message);
         });
     }
+ //关闭所有页面   
+function closeOtherWindow(){
+	var curr = plus.webview.currentWebview();
+	//获取所有已经打开的webview窗口
+	var wvs = plus.webview.all();
+	for(var i = 0, len = wvs.length; i < len; i++) {
+		if(wvs[i].getURL().indexOf("home.html") != -1){
+			continue;
+		}
+		//非当前页执行关闭
+		plus.webview.close(wvs[i]);
+	}
+}
+		
+		

@@ -13,7 +13,11 @@
 		<!--App自定义的css-->
 		
 		<style>
-			
+			html,body{
+				height: 100%;
+				width: 100%;
+				background: transparent;
+			}
 			.title{
 				margin: 20px 15px 10px;
 				color: #6d6d72;
@@ -50,7 +54,7 @@
 
 	<body>
 		
-		<div class="mui-content">
+		<!--<div class="mui-content">
 			<ul id="list" class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 
@@ -98,11 +102,11 @@
 		</ul>
 		</div>
 		
-		<button id="download" onclick="createDownload()">Create download task</button>
+		<button id="download" onclick="createDownload()">Create download task</button>-->
 		
 	</body>
 	<script src="js/mui.min.js"></script>
-	<script src="js/jquery-2.1.1.min.js"></script>
+	<!--<script src="js/jquery-2.1.1.min.js"></script>-->
 	<script src="js/app.js"></script>
 	<script src="js/myStorage.js"></script>
 	<!--<script src="html5plus://ready"></script>-->
@@ -184,7 +188,7 @@ function plusReady(){
 				}
 
 	
-	updateSerivces();
+	//updateSerivces();
 
 
 plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
