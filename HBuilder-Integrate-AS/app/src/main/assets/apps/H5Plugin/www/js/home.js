@@ -14,9 +14,9 @@ mui.init({
 
 //切换底部tab
 var makeMoneySwiperObj;
-
+var tabIndex = 0;
 mui.plusReady(function() {
-    
+    fastQuit();
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -34,21 +34,19 @@ mui.plusReady(function() {
     //分享
     updateSerivces();
     
-    var preWebView = plus.webview.getWebviewById('guide');
-    if(preWebView){
-    		preWebView.close();
-    }
+    //关闭所有其他页面
+    closeOtherWindow();
     
     
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
     		console.log("touchstart---")
-	    var index = $(this).index();
+	    tabIndex = $(this).index();
 	    $(".mui-bar-tab .mui-tab-item").removeClass("mui-active");
 	    $(this).addClass("mui-active");
 	    $("#tabContent>.mui-control-content").removeClass("mui-active");
-	    $("#tabContent>.mui-control-content").eq(index).addClass("mui-active");
+	    $("#tabContent>.mui-control-content").eq(tabIndex).addClass("mui-active");
 	
-	    if (index == 0) {
+	    if (tabIndex == 0) {
 	        if (swiper) {
 	            swiper.destroy();
 	        }
@@ -58,7 +56,7 @@ mui.plusReady(function() {
 	            loop: true,
 	            autoplay: true
 	        });
-	    } else if (index == 1) {
+	    } else if (tabIndex == 1) {
 	    		//初始化
 	    		moneyPageInit();
 	        if (makeMoneySwiperObj) {
@@ -71,12 +69,7 @@ mui.plusReady(function() {
 	            autoplay: true
 	        });
 	
-	        //赚钱的无限
-	        mui("#slider1").slider({
-	            interval: 5000
-	        });
-	
-	    }else if(index == 2){
+	    }else if(tabIndex == 2){
 	    		var height = plus.display.resolutionHeight;
 	    		//alert(height);
 	    		$("#tabbar-with-contact").css("height",  height);
@@ -84,7 +77,7 @@ mui.plusReady(function() {
 	    		pulldownRefresh();
 	    		$('#pullrefresh').scroll({indicators: false});
 	    		plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
-	    }else if(index == 3){
+	    }else if(tabIndex == 3){
 	    		//我的页面
 	    		myTabInit();
 	    		findList = [];
@@ -196,7 +189,8 @@ $(".goCreditClass").click(function(){
 
 //申请借款
 $(".applyMoneyBtn").click(function(){
-	
+	apply();
+	return;
 	if(myStorage && myStorage.getItem("user")){
 		var user = myStorage.getItem("user");
 		
@@ -228,7 +222,7 @@ $(".goMakeMoneyClass").click(function(){
 //通过token 登录
 function loginByToken(){
 	if(myStorage && myStorage.getItem("userToken")){
-		
+			
 		var params = {
 			token: myStorage.getItem("userToken")
 		}
@@ -243,6 +237,7 @@ function loginByToken(){
 				if(data.toFindAd){
 					//有新口子 
 					myStorage.setItem("toFindAd", data.toFindAd);
+					$('.selfModal').removeClass('hideClass');
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
 									.attr("src", data.toFindAd.picUrl);
 				}else{
@@ -337,12 +332,25 @@ function moneyPageInit() {
             		var user = myStorage.getItem("user");
             		if(user.isPayFee){
             			//已经付费了
-            			$("#slider1").addClass("hideClass");
+            			//$("#slider1").addClass("hideClass");
             		}
             }
             if(data && data.newbieTaskBanner){
             		newbieTaskBanner(data.newbieTaskBanner);
+            		//赚钱的无限
+		        mui("#slider1").slider({
+		            interval: 5000
+		        });
             }
+            
+            if(data && data.banner){
+            		newbieTaskBanner(data.banner);
+            		//赚钱的无限
+		        mui("#slider1").slider({
+		            interval: 5000
+		        });
+            }
+            
             //顶部 邀请好友 和 自己 所得奖励
             if(data && data.topAd){
             		$(".get_money_top_ad").attr("src", data.topAd.picUrl);
@@ -499,8 +507,11 @@ function pulldownRefresh() {
  * 上拉加载具体业务实现
  */
 function pullupRefresh() {
-	current++;
-    payedGoodslist(1);
+	if(tabIndex == 2){
+		current++;
+    		payedGoodslist(1);
+	}
+	
 }
 
 /**
@@ -562,36 +573,44 @@ function setGetMoneyBanner(listData) {
     if (listData && listData.length > 0) {
         //无限轮播要求  前面加一个节点
         html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
-            '<a href="#">' +
+            '<a href="javascript:void(0);">' +
             '<img src="' + listData[length - 1].picUrl + '" class="bottom_slider"> ' +
             '</a>' +
             '</div>';
         for (var i = 0; i < length; i++) {
             html += '<div class="mui-slider-item">' +
-                '<a href="#">' +
+                '<a href="javascript:void(0);">' +
                 '<img src="' + listData[i].picUrl + '" class="bottom_slider" data-url="' + listData[i].adValue + '">' +
                 '</a></div>';
         }
         //无限轮播要求  最后加一个节点
         html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
-            '<a href="#">' +
+            '<a href="javascript:void(0);">' +
             '<img src="' + listData[0].picUrl + '" class="bottom_slider"> ' +
             '</a>' +
             '</div>';
 
         $(".getMoneyLoop").append(html);
-
-        $(".bottom_slider").click(function() {
-            var that = $(this);
-            mui.openWindow({
+        
+    };
+    
+    $(".getMoneyLoop").on("click", ".bottom_slider", function(){
+    		var that = $(this);
+        if(that.data("url") == "undefined"){
+        		console.log(that.data("url")+'-----===');
+        		return;
+        }
+        
+        mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + that.data("url"),
                 waiting: {
                     autoShow: false
                 }
             })
-        })
-    }
+    })
+    
+    
 }
 
 //红包无限晃动
@@ -629,7 +648,7 @@ function apply(params) {
                		}else if(data.isPay == "N"){
                			url = "credit.html";
                		}else{
-               			url = "recommand.html";
+               			url = "credit_result.html";
                		}
                		
                		if(params){
@@ -769,16 +788,19 @@ function newbieTaskBanner(listData) {
             '</div>';
 
         $(".makeMoneyLoop").append(html);
-
+		//console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
-            mui.openWindow({
-                url: 'webview.html',
-                id: 'webview.html?url=' + that.data("url"),
-                waiting: {
-                    autoShow: false
-                }
-            })
+            if(that.data("url") != "undefined"){
+            		mui.openWindow({
+	                url: 'webview.html',
+	                id: 'webview.html?url=' + that.data("url"),
+	                waiting: {
+	                    autoShow: false
+	                }
+	            })
+            }
+            
         })
     }
 }
@@ -1046,8 +1068,8 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'recommand.html',
-		id: 'recommand.html',
+		url: 'identificateFirst.html',
+		id: 'identificateFirst.html',
 		waiting: {
 			autoShow: false
 		}
@@ -1055,17 +1077,7 @@ function goToRecommand(){
 }
 //信用评估
 function goToCredit(){
-	mui.openWindow({
-		url: 'credit_result.html',
-		id: 'credit_result.html',
-		waiting: {
-			autoShow: false
-		},
-		extras: {
-			score: scoreData.score,
-			scoreRange: scoreData.scoreRange
-		}
-	})
+	apply();
 }
 
 //分享
@@ -1093,3 +1105,37 @@ var buttons=[
             console.log('获取分享服务列表失败：' + e.message);
         });
     }
+ //关闭所有页面   
+function closeOtherWindow(){
+	var curr = plus.webview.currentWebview();
+	//获取所有已经打开的webview窗口
+	var wvs = plus.webview.all();
+	for(var i = 0, len = wvs.length; i < len; i++) {
+		if(wvs[i].getURL().indexOf("home.html") != -1){
+			continue;
+		}
+		//非当前页执行关闭
+		plus.webview.close(wvs[i]);
+	}
+}
+	var backcount=0;
+	function fastQuit(){
+		//双击退出登录
+		mui.back = function () {
+			if(plus.webview.currentWebview().id == "home.html"){
+				
+				if (mui.os.ios) return;
+				if (backcount > 0) {
+					if (window.plus) plus.runtime.quit();
+					return;
+				};
+				mui.toast("再按一次退出应用");
+				backcount++;
+				setTimeout(function () {
+					backcount = 0;
+				}, 2000);
+				}
+		};
+
+		
+	}

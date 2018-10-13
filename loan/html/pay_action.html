@@ -80,6 +80,13 @@
 				text-align: right;
 				margin-right: 20px;
 				margin-top: 20px;
+				align-items: center;
+			}
+			
+			.look_bank img{
+				width: 12px;
+				height: 12px;
+				margin-right: 5px;
 			}
 			
 			.next {
@@ -317,16 +324,18 @@
 	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">有效期</span>
 	         	<input type="text"  class="phone_input item_time" placeholder="月份/年份" readonly="readonly" onclick="lookTime();"/>
-	         	<img src="../images/123.png" class="time_icon" onclick="lookTimeInfo();"/>
+	         	<img src="../images/warning_icon.png" class="time_icon" onclick="lookTimeInfo();"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap hideClass" >
 	         	<span class="item_name_text">CVV2</span>
 	         	<input type="tel" maxlength="3" class="phone_input cvvInput" placeholder="输入3位数字"/>
-	         	<img src="../images/123.png" class="time_icon" onclick="cvvInfo();"/>
+	         	<img src="../images/warning_icon.png" class="time_icon" onclick="cvvInfo();"/>
 	         </div>
 	         
-	         <div class="look_bank" onclick="lookBank();">
+	         <div class="row look_bank" onclick="lookBank();">
+	         	<span style="flex: 1;"></span>
+	         	<img src="../images/bank_warning_icon.png"/>
 	         	<span style="color: #FFA39B; font-size: 14px;">查看支持的银行</span>
 	         </div>
 	         <button type="button" class="mui-btn mui-btn-link next" onclick="pay();">下一步</div>
@@ -556,16 +565,16 @@
 					return;
 				}
 				
-//				Global.commonAjax(
-//					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
-//					function(data){
-//						
-//					},
-//					function(err){
-//						
-//					}
-//				)
-				lookBank();
+				Global.commonAjax(
+					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
+					function(data){
+						
+					},
+					function(err){
+						lookBank();
+					}
+				)
+				//lookBank();
 			}
 			
 			//卡类型

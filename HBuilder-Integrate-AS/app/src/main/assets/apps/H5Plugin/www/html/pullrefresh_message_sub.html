@@ -122,22 +122,24 @@
             }
         });
         
-//      if (mui.os.plus) {
-//          mui.plusReady(function() {
-//              setTimeout(function() {
-//                  mui('#pullrefresh').pullRefresh().pullupLoading();
-//              }, 10);
-//          });
-//      } else {
-//          mui.ready(function() {
-//              mui('#pullrefresh').pullRefresh().pullupLoading();
-//          });
-//      }
+        if (mui.os.plus) {
+            mui.plusReady(function() {
+                setTimeout(function() {
+                    //mui('#pullrefresh').pullRefresh().pullupLoading();
+                    pulldownRefresh();
+                }, 10);
+            });
+        } else {
+            mui.ready(function() {
+                //mui('#pullrefresh').pullRefresh().pullupLoading();
+                pulldownRefresh();
+            });
+        }
         
 
         $('body').on('click', '.mui-table-view li .item_wrap', function() {
             var index = $(this).data("index");
-            alert(index)
+            //alert(index)
         });
 		
         //查看消息详情
@@ -174,8 +176,9 @@
            )
         }
 
-		pulldownRefresh();
+		//pulldownRefresh();
 		var current = 1;
+		//Global.errorNews();
 		/**
 		 * 
 		 * @param {Object} refreshType 0下拉刷新
@@ -195,7 +198,9 @@
 					if(data.current >= data.pages){
 						if(data.current == 1){
 							//空数据
+							//$("#pullrefresh").addClass("hideClass");
 							Global.errorNews();
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}else{
 							//没有更多数据了
 							getListData(refreshType, data.records, true);

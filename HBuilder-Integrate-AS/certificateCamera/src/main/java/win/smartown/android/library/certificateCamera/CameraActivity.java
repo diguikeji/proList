@@ -1,12 +1,16 @@
 package win.smartown.android.library.certificateCamera;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 /**
  * Created by smartown on 2018/2/24 11:46.
@@ -154,6 +160,26 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         flashImageView.setOnClickListener(this);
         findViewById(R.id.camera_result_ok).setOnClickListener(this);
         findViewById(R.id.camera_result_cancel).setOnClickListener(this);
+
+        //checkPermission();
+    }
+
+    private void checkPermission() {
+        //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PERMISSION_GRANTED) {
+            //用户已经拒绝过一次，再次弹出权限申请对话框需要给用户一个解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission
+                    .WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "请开通相关权限，否则无法正常使用本应用！", Toast.LENGTH_SHORT).show();
+            }
+            //申请权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+
+        } else {
+            Toast.makeText(this, "授权成功！", Toast.LENGTH_SHORT).show();
+            //Log.e(TAG_SERVICE, "checkPermission: 已经授权！");
+        }
     }
 
     @Override
@@ -296,6 +322,21 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         intent.putExtra("result", getCropFile().getPath());
         setResult(RESULT_CODE, intent);
         finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PERMISSION_GRANTED) {
+                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
 }

@@ -304,7 +304,10 @@
 					"html/credit.html",
 					"html/recommand.html",
 					"html/login.html",
-					"html/webview.html"
+					"html/webview.html",
+					"html/personInfo.html",
+					"html/pay_error_result.html",
+					"html/pay_success.html"
 				],
 				"priority": 0
 			},
@@ -365,7 +368,8 @@
 			"html/pay_style.html": {
 				"resources": [],
 				"refer": [
-					"html/recommand.html"
+					"html/recommand.html",
+					"html/pay_action.html"
 				],
 				"priority": 0
 			},
@@ -390,6 +394,20 @@
 				"resources": [],
 				"refer": [
 					"html/error404.html"
+				],
+				"priority": 0
+			},
+			"html/pay_action.html": {
+				"resources": [],
+				"refer": [
+					"html/error500.html"
+				],
+				"priority": 0
+			},
+			"html/pay_success.html": {
+				"resources": [],
+				"refer": [
+					"html/credit_result.html"
 				],
 				"priority": 0
 			}

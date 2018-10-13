@@ -106,7 +106,7 @@
 		
 	</body>
 	<script src="js/mui.min.js"></script>
-	<!--<script src="js/jquery-2.1.1.min.js"></script>-->
+	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/myStorage.js"></script>
 	<!--<script src="html5plus://ready"></script>-->
@@ -175,13 +175,26 @@ function plusReady(){
 							}
 						});
 					}else{
-						mui.openWindow({
-							id: 'home',
-							url: 'html/home.html',
-							waiting: {
-								autoShow: false
-							}
-						});
+						if(myStorage && myStorage.getItem("user")){
+							//如果有值，证明登录过了
+							mui.openWindow({
+								id: 'home.html',
+								url: 'html/home.html',
+								waiting:{
+									autoShow:false
+								}
+							});
+						}else{
+							//没有登录
+							mui.openWindow({
+								id: 'login.html',
+								url: 'html/login.html',
+
+								waiting: {
+									autoshow: false
+								}
+							});
+						}
 					}
 					
 				

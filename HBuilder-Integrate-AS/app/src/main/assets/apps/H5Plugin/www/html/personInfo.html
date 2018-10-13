@@ -377,7 +377,7 @@
 	</script>
     <script type="text/javascript">
         mui.init();
-
+        
         //Android 物理返回
         var old_back = mui.back;
         mui.back = function() {
@@ -412,7 +412,7 @@
         var marryPickerList = [];
         var housePickerList = [];
         var loanPickerList = [];
-        
+       
 
         function initData() {
             Global.commonAjax({
@@ -534,15 +534,6 @@
          * 信用评估 
          */
         function goToCredit() {
-        		mui.openWindow({
-                url: 'credit.html',
-                id: 'credit.html',
-                waiting: {
-                		autoShow: false
-                }
-            })
-        		return;
-        		
         		if(mui('#marry_value')[0].innerHTML == "请选择"){
         			mui.toast("请选择婚姻状态");
         			return;

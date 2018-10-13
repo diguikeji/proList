@@ -107,6 +107,7 @@
 						if(data.current >= data.pages){
 							//空数据
 							Global.errorDetail();
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}else{
 							//没有更多数据了
 							getListData(refreshType, data.records, true);

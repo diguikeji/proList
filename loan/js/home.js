@@ -14,9 +14,9 @@ mui.init({
 
 //切换底部tab
 var makeMoneySwiperObj;
-var tabIndex = 0
+var tabIndex = 0;
 mui.plusReady(function() {
-    
+    fastQuit();
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -34,10 +34,8 @@ mui.plusReady(function() {
     //分享
     updateSerivces();
     
-    var preWebView = plus.webview.getWebviewById('guide');
-    if(preWebView){
-    		preWebView.close();
-    }
+    //关闭所有其他页面
+    closeOtherWindow();
     
     
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
@@ -69,11 +67,6 @@ mui.plusReady(function() {
 	            direction: 'vertical',
 	            loop: true,
 	            autoplay: true
-	        });
-	
-	        //赚钱的无限
-	        mui("#slider1").slider({
-	            interval: 5000
 	        });
 	
 	    }else if(tabIndex == 2){
@@ -196,7 +189,8 @@ $(".goCreditClass").click(function(){
 
 //申请借款
 $(".applyMoneyBtn").click(function(){
-	
+	apply();
+	return;
 	if(myStorage && myStorage.getItem("user")){
 		var user = myStorage.getItem("user");
 		
@@ -243,6 +237,7 @@ function loginByToken(){
 				if(data.toFindAd){
 					//有新口子 
 					myStorage.setItem("toFindAd", data.toFindAd);
+					$('.selfModal').removeClass('hideClass');
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
 									.attr("src", data.toFindAd.picUrl);
 				}else{
@@ -337,12 +332,25 @@ function moneyPageInit() {
             		var user = myStorage.getItem("user");
             		if(user.isPayFee){
             			//已经付费了
-            			$("#slider1").addClass("hideClass");
+            			//$("#slider1").addClass("hideClass");
             		}
             }
             if(data && data.newbieTaskBanner){
             		newbieTaskBanner(data.newbieTaskBanner);
+            		//赚钱的无限
+		        mui("#slider1").slider({
+		            interval: 5000
+		        });
             }
+            
+            if(data && data.banner){
+            		newbieTaskBanner(data.banner);
+            		//赚钱的无限
+		        mui("#slider1").slider({
+		            interval: 5000
+		        });
+            }
+            
             //顶部 邀请好友 和 自己 所得奖励
             if(data && data.topAd){
             		$(".get_money_top_ad").attr("src", data.topAd.picUrl);
@@ -780,7 +788,7 @@ function newbieTaskBanner(listData) {
             '</div>';
 
         $(".makeMoneyLoop").append(html);
-
+		//console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
             if(that.data("url") != "undefined"){
@@ -1060,8 +1068,8 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'recommand.html',
-		id: 'recommand.html',
+		url: 'identificateFirst.html',
+		id: 'identificateFirst.html',
 		waiting: {
 			autoShow: false
 		}
@@ -1069,18 +1077,6 @@ function goToRecommand(){
 }
 //信用评估
 function goToCredit(){
-//	mui.openWindow({
-//		url: 'credit_result.html',
-//		id: 'credit_result.html',
-//		waiting: {
-//			autoShow: false
-//		},
-//		extras: {
-//			score: scoreData.score,
-//			scoreRange: scoreData.scoreRange
-//		}
-//	})
-	
 	apply();
 }
 
@@ -1122,5 +1118,25 @@ function closeOtherWindow(){
 		plus.webview.close(wvs[i]);
 	}
 }
+	var backcount=0;
+	function fastQuit(){
+		//双击退出登录
+		mui.back = function () {
+			//console.log(plus.webview.currentWebview().id);
+			if(plus.webview.currentWebview().id == "home.html"){
+				
+				if (mui.os.ios) return;
+				if (backcount > 0) {
+					if (window.plus) plus.runtime.quit();
+					return;
+				};
+				mui.toast("再按一次退出应用");
+				backcount++;
+				setTimeout(function () {
+					backcount = 0;
+				}, 2000);
+				}
+		};
+
 		
-		
+	}

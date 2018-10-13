@@ -113,13 +113,13 @@ input::-webkit-input-placeholder {
 
 .realInput{
     position: absolute;
-    width: 100%;
+    width: 1000px;
     height: 100px;
     top: 160px;
-    left: 0;
+    left: -100px;
     background-color: transparent!important;
     border: 0!important;
-    font-size: 0px;
+    font-size: 10px;
 }
 
 .cursor {
