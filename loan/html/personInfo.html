@@ -243,7 +243,7 @@
 
 <body>
     <header class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <span class="header_close">关闭</span>
         <h1 class="mui-title">个人信息认证</h1>
         <img src="../images/custom_icon.png" />
@@ -319,44 +319,44 @@
                 <div class="col dialog_content_wrap">
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" />
+                            <img src="../images/agress_icon.png" class="first_step_icon"/>
                             <span class="dialog_step_text">真实身份认证</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                            <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="first_step_money">12</span>
+                        <span class="first_step_money">0</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" />
+                            <img src="../images/agress_icon.png" class="second_step_icon"/>
                             <span class="dialog_step_text">填写个人信息</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                            <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="second_step_money">12</span>
+                        <span class="second_step_money">0</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/unagress_icon.png" />
+                            <img src="../images/unagress_icon.png" class="third_step_icon"/>
                             <span class="dialog_step_text">完成信用评估</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+                            <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="third_step_money">12</span>
+                        <span class="third_step_money">0</span>
                     </div>
 
                 </div>
@@ -382,7 +382,7 @@
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-                plus.webview.close('personInfo.html');
+            		$('.modal-mask').removeClass("hideClass")
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -390,24 +390,76 @@
 
         //左上角 返回
         function headLeftBack() {
-            $('.modal-mask').removeClass("hideClass");
-            showMoneyInfo();
+            mui.openWindow({
+                url: 'identificateFirst.html',
+                id: 'identificateFirst.html',
+                waiting: {
+                		autoShow: false
+                }
+            });
+            
+//          setTimeout(function(){
+//          		mui.currentWebview.close();
+//          }, 500);
+            
+            
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
-            showMoneyInfo();
+        })
+        
+        $(".dialog_bottom_btn").click(function(){
+        		$('.modal-mask').addClass("hideClass");
         })
 
         //弹窗中 关闭按钮
         function closeDialg() {
-            plus.webview.close('personInfo.html');
+            //plus.webview.currentWebview().close();
+            Global.closeStepWindow();
         };
 
 		mui.plusReady(function() {
 		    initData();
+		    showMoneyInfo();
+		    initStatus();
 		});
+		
+		var step = 0;
+		function initStatus(){
+			Global.commonAjax({ url: "user/input/status" },
+		           function(data) {
+		               
+		               if((data != "") && (data != null)){
+		               		if(data.isInputIdcard == "N"){
+		               			step = 0;
+		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else if(data.isInputDetail == "N"){
+		               			step = 1;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else if(data.isPay == "N"){
+		               			step = 2;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else{
+		               			step = 3;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
+		               		}
+		               	}
+		               
+		               
+		          }
+           );
+		}
+		
         var studyPickerList = [];
         var marryPickerList = [];
         var housePickerList = [];
@@ -458,6 +510,32 @@
                         loanPickerList.push(item);
                     });
 					loanPicker.setData(loanPickerList);
+					
+					if(myStorage && myStorage.getItem("userInfo")){
+		        			var userInfo = myStorage.getItem("userInfo");
+		        			selectStudyValue = userInfo.highestDegree;
+		        			selectMarryValue = userInfo.maritalStatus;
+		                selectLoanValue = userInfo.loansStatus;
+		               	selectHouseValue = userInfo.houseStatus;
+		               	
+		               	mui('#study_value')[0].style.color = "#333333";
+		                mui('#study_value')[0].style.opacity = "1";
+		                mui('#study_value')[0].innerHTML = studyPickerList[selectStudyValue].text;
+                			
+                			mui('#marry_value')[0].style.color = "#333333";
+		                mui('#marry_value')[0].style.opacity = "1";
+		                mui('#marry_value')[0].innerHTML = marryPickerList[selectMarryValue].text;
+                			
+                			mui('#house_value')[0].style.color = "#333333";
+		                mui('#house_value')[0].style.opacity = "1";
+		                mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
+                
+                			mui('#loan_value')[0].style.color = "#333333";
+		                mui('#loan_value')[0].style.opacity = "1";
+		                mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
+                
+		        		}
+					
                 },
                 function(err) {
 					mui.toast(err.msg);
@@ -518,16 +596,21 @@
         		if(myStorage){
             		if(myStorage.getItem("inputIdInfoReturn")){
 	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            		$(".first_text").html("完成即可获得"+myStorage.getItem("inputIdInfoReturn")+"元现金");
+	            		
 	            }
             		
             		if(myStorage.getItem("inputBaseInfoReturn")){
 	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            		$(".second_text").html("完成即可获得"+myStorage.getItem("inputBaseInfoReturn")+"元现金");
 	            }
             		
             		if(myStorage.getItem("payReturn")){
 	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            		$(".third_text").html("完成即可获得"+myStorage.getItem("payReturn")+"元现金");
 	            }
-            }
+           }
+        		
         }
 
         /**

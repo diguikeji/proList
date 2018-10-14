@@ -234,12 +234,13 @@ function loginByToken(){
 			},
 			function (data){
 				//广告
-				if(data.toFindAd){
+				if(data && data.toFindAd){
 					//有新口子 
 					myStorage.setItem("toFindAd", data.toFindAd);
-					$('.selfModal').removeClass('hideClass');
+					
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
 									.attr("src", data.toFindAd.picUrl);
+					Global.imgLoading(content_id, "selfModal");
 				}else{
 					$('.selfModal').addClass('hideClass');
 				}
@@ -994,16 +995,21 @@ function sharePage() {
 
 //提现金额 openGetMoney
 function openGetMoney() {
-    mui.openWindow({
-        url: 'wallet.html',
-        id: 'wallet.html',
-        waiting: {
-            autoShow: false
-        },
-        extras:{
-        		miniApplyAmount: miniApplyAmount
-        }
-    })
+	if(parseInt(miniApplyAmount) > 0){
+		mui.openWindow({
+	        url: 'wallet.html',
+	        id: 'wallet.html',
+	        waiting: {
+	            autoShow: false
+	        },
+	        extras:{
+	        		miniApplyAmount: miniApplyAmount
+	        }
+	    })
+	}else{
+		mui.toast("没有余额可以提现");
+	}
+    
 }
 
 
@@ -1030,27 +1036,31 @@ function goToMakeMoneyTab() {
 
 //邀请好友 弹出浮层
 function invaliteFriend() {
-    
 	Global.commonAjax(
 		{
 			url: "user/sharelist?isShowPic=true"
 		},
 		function(data){
-
-
-			$('.inviteModal').removeClass('hideClass');
 			if(data && data.adUrl){
 				$(".invalite_bg").attr("src", data.adUrl);
 				shareData = data;
+				Global.imgLoading(invalite_id, "inviteModal");
+				
 			}
-			
 		},
 		function(err){
            
 		}
 	)
-    
+}
 
+function imgLoad(img, callback) {
+	var timer = setInterval(function() {
+		if (img.complete) {
+			callback(img)
+			clearInterval(timer)
+		}
+	}, 50)
 }
 
 //关闭邀请好友 弹出浮层

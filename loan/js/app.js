@@ -198,6 +198,45 @@ var Global = {};
 
 
         },
+        
+        imgLoading: function(idName, className){
+        		Global.showLoading();
+        		
+        		idName.onload = function(){
+        			$('.'+className).removeClass('hideClass');
+				Global.hideLoading();
+				
+			}
+        },
+        closeStepWindow: function (){
+			var curr = plus.webview.currentWebview();
+			//获取所有已经打开的webview窗口
+			var wvs = plus.webview.all();
+			for(var i = 0, len = wvs.length; i < len; i++) {
+				if(wvs[i].getURL().indexOf("personInfo.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				if(wvs[i].getURL().indexOf("credit.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				if(wvs[i].getURL().indexOf("identificateFirst.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				if(wvs[i].getURL().indexOf("pay_style.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				
+				if(wvs[i].getURL().indexOf("pay_action.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+			}
+			//curr.close();
+		},
         GetQueryString: function(url, name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = url.substr(1).match(reg);
