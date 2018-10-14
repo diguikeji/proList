@@ -39,7 +39,7 @@ android {
                 storeFile file("./keystore/xianghq.keystore")
                 storePassword "xhq@1809"
                 keyAlias "xianghq"
-                keyPassword "xunao123456"
+                keyPassword "xhq@1809"
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
             }
