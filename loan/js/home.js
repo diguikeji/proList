@@ -1147,6 +1147,8 @@ function closeOtherWindow(){
 				}, 2000);
 				}
 		};
-
-		
 	}
+	
+$(".contact_service").click(function(){
+	qimoChatClick();
+})
