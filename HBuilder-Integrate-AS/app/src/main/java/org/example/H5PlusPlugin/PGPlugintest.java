@@ -62,13 +62,14 @@ public class PGPlugintest extends StandardFeature
         this.pContext=pWebview.getActivity();
         Log.i("dianji", "setAlias："+pContext);
 
-        setAlias();
+
 
     	// 原生代码中获取JS层传递的参数，
     	// 参数的获取顺序与JS层传递的顺序一致
         String CallBackID = array.optString(0);
         JSONArray newArray = new JSONArray();
         newArray.put(array.optString(1));
+        setAlias(array.optString(1));
         newArray.put(array.optString(2));
         newArray.put(array.optString(3));
         newArray.put(array.optString(4));
@@ -153,9 +154,9 @@ public class PGPlugintest extends StandardFeature
 
     }
 
-    private void setAlias() {
+    private void setAlias(String phone) {
 
-        String alias = "17373349812";
+        String alias = phone;
         if (TextUtils.isEmpty(alias)) {
 //            Toast.makeText(MainActivity.this,R.string.error_alias_empty, Toast.LENGTH_SHORT).show();
             return;
@@ -176,6 +177,7 @@ public class PGPlugintest extends StandardFeature
                 case 0:
                     logs = "Set tag and alias success";
                     Log.d("ceshi", logs);
+                    Log.d("ceshi", alias);
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
                     break;
                 case 6002:

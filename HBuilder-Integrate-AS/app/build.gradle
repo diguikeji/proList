@@ -29,7 +29,6 @@ android {
                 storePassword "xhq@1809"
                 keyAlias "xianghq"
                 keyPassword "xhq@1809"
-                v2SigningEnabled false
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
             }
@@ -40,8 +39,7 @@ android {
                 storeFile file("./keystore/xianghq.keystore")
                 storePassword "xhq@1809"
                 keyAlias "xianghq"
-                keyPassword "xhq@1809"
-                v2SigningEnabled false
+                keyPassword "xunao123456"
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
             }
@@ -81,7 +79,6 @@ dependencies {
     compile(name: 'lib.5plus.base-release', ext: 'aar')
     compile project(':certificateCamera')
     compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
     testCompile 'junit:junit:4.12'
     compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
