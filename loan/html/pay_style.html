@@ -388,7 +388,7 @@
 			var old_back = mui.back;
 			mui.back = function(){
 				if ($('.modal-mask').hasClass("hideClass")) {
-	            		$('.modal-mask').removeClass("hideClass")
+	            		headLeftBack();
 	            } else {
 	                $('.modal-mask').addClass("hideClass");
 	            }
@@ -413,7 +413,7 @@
 			
 			//弹窗中 关闭按钮
 			function closeDialg(){
-				//mui.currentWebview.close();
+				Global.openKouzi();
 				Global.closeStepWindow();
 			};
 			

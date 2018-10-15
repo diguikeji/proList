@@ -404,7 +404,9 @@
 			"html/pay_action.html": {
 				"resources": [],
 				"refer": [
-					"html/error500.html"
+					"html/error500.html",
+					"html/webview.html",
+					"html/webviewDetail.html"
 				],
 				"priority": 0
 			},
@@ -413,6 +415,13 @@
 				"refer": [
 					"html/credit_result.html"
 				],
+				"priority": 0
+			},
+			"html/recommand.html": {
+				"resources": [
+					"html/recommand_sub.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

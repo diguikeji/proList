@@ -100,14 +100,6 @@ var Global = {};
                var appType = plus.os.name;
             var appName = "xhq";
 
-//          appVersion = "1.0.0";
-            //设备唯一标识
-//          var deviceId = "129404038389203";
-            //系统的版本信息
-//          var osVersion = "android 5.1";
-
-//          var appType = "ANDROID";
-
             //默认 get请求
             if (!params.method) {
                 params.method = "GET";
@@ -213,6 +205,11 @@ var Global = {};
 			//获取所有已经打开的webview窗口
 			var wvs = plus.webview.all();
 			for(var i = 0, len = wvs.length; i < len; i++) {
+				console.log(wvs[i].getURL());
+				if(wvs[i].getURL().indexOf("http") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
 				if(wvs[i].getURL().indexOf("personInfo.html") != -1){
 					plus.webview.close(wvs[i]);
 					continue;
@@ -234,9 +231,32 @@ var Global = {};
 					plus.webview.close(wvs[i]);
 					continue;
 				}
+				
+				if(wvs[i].getURL().indexOf("webview.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				
+				if(wvs[i].getURL().indexOf("webviewDetail.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				
+				if(wvs[i].getURL().indexOf("credit_result.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
 			}
 			//curr.close();
 		},
+		
+		openKouzi: function (){
+			console.log("发送事件");
+			var h = plus.webview.getWebviewById("home.html");
+			mui.fire(h,'openKouzi');
+		},
+		
+		
         GetQueryString: function(url, name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = url.substr(1).match(reg);

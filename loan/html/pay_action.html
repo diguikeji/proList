@@ -565,17 +565,7 @@
 					mui.toast("请输入卡号");
 					return;
 				}
-				
-				Global.commonAjax(
-					{url: "pay/"+payChannel+"/card/"+$(".cardNo").val()},
-					function(data){
-						
-					},
-					function(err){
-						lookBank();
-					}
-				)
-				//lookBank();
+				lookBank();
 			}
 			
 			//卡类型
@@ -648,13 +638,13 @@
 						},
 						function(data){
 							mui.openWindow({
-				                url: 'webview.html',
+				                url: 'webviewDetail.html',
 				                id: 'webview.html?url=' + data,
 				                waiting: {
 				                    autoShow: false
 				                },
 				                extras: {
-				                		title: "支付"
+				                		title: "fuyou"
 				                }
 				            })
 						},
@@ -694,7 +684,7 @@
 					
 					
 					var params = {
-						amount: 0.1,
+						amount: amount,
 						payChannel: payChannel,
 						idCardNo: $(".idCardNo").val(),
 						realName: $(".realName").val(),
@@ -824,10 +814,10 @@
 			//Android 物理返回
 			var old_back = mui.back;
 			mui.back = function(){
-				if ($('.backModal').hasClass("hideClass")) {
-	            		$('.backModal').removeClass("hideClass")
+				if ($('.modal-mask').hasClass("hideClass")) {
+	            		headLeftBack();
 	            } else {
-	                $('.backModal').addClass("hideClass");
+	                $('.modal-mask').addClass("hideClass");
 	            }
 			}
 			
@@ -850,7 +840,7 @@
 			
 			//弹窗中 关闭按钮
 			function closeDialg(){
-				//mui.currentWebview.close();
+				Global.openKouzi();
 				Global.closeStepWindow();
 			};
 			

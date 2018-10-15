@@ -27,7 +27,13 @@
 					bottom: 0
 				});
                 self.append(baiduWV);
-                $("#close_page").html(self.title);
+                
+                if(self.title == "fuyou"){
+                		$(".mui-bar").addClass("hideClass");
+                }else{
+                		$("#close_page").html(self.title);
+                }
+                
 
                 baiduWV.addEventListener('loaded',function(){  //监听页面，当页面加载完成时
                     plus.nativeUI.closeWaiting();

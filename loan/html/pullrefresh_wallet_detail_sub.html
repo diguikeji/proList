@@ -103,8 +103,8 @@
                 },
                 function(data) {
                 	// data.current >= data.pages
-					if(data.current == 1){
-						if(data.current >= data.pages){
+					if(data.records && (data.records.length==0)){
+						if(data.current == 1){
 							//空数据
 							Global.errorDetail();
 							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
