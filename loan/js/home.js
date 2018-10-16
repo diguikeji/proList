@@ -118,22 +118,6 @@ function myTabInit(){
 	apply("parmas");
 	if(user){
 		$(".my_phone").html(user.mobile);
-		
-		if(user.isPayFee){
-			//已经付费
-			if(wallet){
-//				$(".goCreditClass").html("￥"+wallet.balance);
-//				$(".goCreditClass").addClass("balance_css");
-//				$(".goCreditClass").removeClass("top-badge");
-			}else{
-				
-			}
-			
-		}else{
-//			$(".goCreditClass").html("去评估");
-//			$(".goCreditClass").addClass("top-badge");
-//			$(".goCreditClass").removeClass("balance_css");
-		}
 	}
 	//我的页面 绑定
 	
@@ -149,22 +133,6 @@ function myTabInit(){
 		}
 		
 	}
-	getUserScore();
-}
-//得到信用评估分数
-var scoreData;
-function getUserScore(){
-	Global.commonAjax(
-		{url: "user/score"},
-		function(data){
-			if(data){
-				scoreData = data;
-			}
-		},
-		function (err){
-			
-		}
-	)
 }
 
 //设置页面返回的时候 更新
@@ -794,6 +762,7 @@ function newbieTaskBanner(listData) {
 		//console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
+            console.log(that.data("url"));
             if(that.data("url") != "undefined"){
             		mui.openWindow({
 	                url: 'webview.html',
@@ -1082,8 +1051,8 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'recommand.html',
-		id: 'recommand.html',
+		url: 'pay_success.html',
+		id: 'pay_success.html',
 		waiting: {
 			autoShow: false
 		}

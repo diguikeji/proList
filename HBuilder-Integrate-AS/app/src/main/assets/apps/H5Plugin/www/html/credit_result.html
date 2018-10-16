@@ -191,7 +191,7 @@
 
 <body>
     <header class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <span class="header_close">关闭</span>
         <h1 class="mui-title">评估结果</h1>
         <img src="../images/custom_icon.png" />
@@ -219,50 +219,51 @@
                 <div class="col dialog_content_wrap">
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" />
+                            <img src="../images/agress_icon.png" class="first_step_icon"/>
                             <span class="dialog_step_text">真实身份认证</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                            <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="first_step_money">12</span>
+                        <span class="first_step_money">0</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" />
+                            <img src="../images/agress_icon.png" class="second_step_icon"/>
                             <span class="dialog_step_text">填写个人信息</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得10元现金</span>
+                            <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="second_step_money">12</span>
+                        <span class="second_step_money">0</span>
                     </div>
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/unagress_icon.png" />
+                            <img src="../images/unagress_icon.png" class="third_step_icon"/>
                             <span class="dialog_step_text">完成信用评估</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text">完成即可获得18元现金</span>
+                            <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
                         </div>
 
                         <img src="../images/add_money_icon.png" class="addMoney" />
-                        <span class="third_step_money">12</span>
+                        <span class="third_step_money">0</span>
                     </div>
 
                 </div>
                 <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
             </div>
         </div>
+    
     </div>
 
     <script src="../js/mui.min.js"></script>
@@ -285,7 +286,8 @@
 		    var self = plus.webview.currentWebview();
 		    initCanvas();
       		getUserScore();
-      		//closeOtherWindow();
+      		initStatus();
+      		showMoneyInfo();
 		});
 		
 		function closeOtherWindow(){
@@ -385,7 +387,7 @@
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-                plus.webview.close('credit_result.html');
+            		headLeftBack();
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -394,36 +396,75 @@
         //左上角 返回
         function headLeftBack() {
             $('.modal-mask').removeClass("hideClass");
-            showMoneyInfo();
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
-            showMoneyInfo();
+            
         })
 
         //弹窗中 关闭按钮
         function closeDialg() {
-            plus.webview.close('credit_result.html');
+            Global.openKouzi();
+            Global.closeStepWindow();
         };
 
+		var step = 0;
+		function initStatus(){
+			Global.commonAjax({ url: "user/input/status" },
+		           function(data) {
+		               
+		               if((data != "") && (data != null)){
+		               		if(data.isInputIdcard == "N"){
+		               			step = 0;
+		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else if(data.isInputDetail == "N"){
+		               			step = 1;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else if(data.isPay == "N"){
+		               			step = 2;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
+		               		}else{
+		               			step = 3;
+		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
+		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
+		               		}
+		               	}
+		               
+		               
+		          }
+           );
+		}
+		
 
 		//浮层 奖金信息
 		function showMoneyInfo(){
         		if(myStorage){
             		if(myStorage.getItem("inputIdInfoReturn")){
 	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+	            		$(".first_text").html("完成即可获得"+myStorage.getItem("inputIdInfoReturn")+"元现金");
+	            		
 	            }
             		
             		if(myStorage.getItem("inputBaseInfoReturn")){
 	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+	            		$(".second_text").html("完成即可获得"+myStorage.getItem("inputBaseInfoReturn")+"元现金");
 	            }
             		
             		if(myStorage.getItem("payReturn")){
 	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
+	            		$(".third_text").html("完成即可获得"+myStorage.getItem("payReturn")+"元现金");
 	            }
-            }
+           }
+        		
         }
 		
 		Date.prototype.Format = function (fmt) { //author: meizz

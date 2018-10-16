@@ -202,6 +202,7 @@
 			function updateClick(msg){
 				currentType = msg.currentType;
 				isDes = msg.isDes;
+				findList = [];
 				pulldownRefresh();
 			}
 			
@@ -271,13 +272,14 @@
         var findList = [];
         function getListData(refreshType, cells, isAll){
         		findList = findList.concat(cells);
+        		
         		//当前点击的 数据下标
 		    var index = 0;
 		    var table = document.body.querySelector('.mui-table-view-condensed');
 			
 		    if (refreshType == 0) {
 		        //下拉刷新
-		        //table.innerHTML = "";
+		        table.innerHTML = "";
 		        $(".mui-table-view-condensed").html = "";
 		    } else {
 		        //加载更多

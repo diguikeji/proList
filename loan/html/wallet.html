@@ -242,15 +242,6 @@
     <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
-
-        //钱包余额
-        var wallet = myStorage.getItem("wallet");
-        
-        if (wallet && wallet.balance) {
-            $(".money_text").html(parseInt(wallet.balance));
-        }else{
-        		$(".money_text").html("0");
-        };
         
         var miniApplyAmount = 50;
         mui.plusReady(function() {
@@ -258,7 +249,7 @@
         		miniApplyAmount = self.miniApplyAmount;
 	        //最小提现余额
 	        $(".money_dirction").html("(最低提现"+self.miniApplyAmount+"元，仅可提现整数金额)");
-	        //isSetAliPayFun();
+	        isSetAliPayFun();
         });
         
 
@@ -364,12 +355,16 @@
         }
         //是否设置支付宝
         var isSetAlipay = "N";
+        //余额
+        var balance = 0;
         function isSetAliPayFun(){
         		Global.commonAjax({ url: "user/input/status" },
 	           function(data) {
 	               var url = "";
 	               if(data){
 	               		isSetAlipay = data.isSetAlipay;
+	               		balance  = data.balance;
+	               		$(".money_text").html(balance);
 	               }
 	               
 	           },

@@ -201,7 +201,9 @@
         
 	    function logout(){
 	    		Global.commonAjax(
-	    			{url: "app/logout"},
+	    			{url: "app/logout",
+	    			method: "POST"
+	    			},
 	    			function(data){
 	    				myStorage.removeItem("userToken");
 	    				myStorage.removeItem("user");

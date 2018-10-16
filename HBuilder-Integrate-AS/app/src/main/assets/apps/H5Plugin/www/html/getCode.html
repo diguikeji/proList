@@ -207,6 +207,9 @@
             });
 
             $(".cursor").each(function(index) {
+            		if(length >= 6){
+            			return;
+            		}
                 if (length != index) {
                     $(this).addClass("hideClass");
                 }
@@ -243,11 +246,13 @@
             } else {
                 var value = $(".realInput").val();
                 var length = value.length;
-                if (length < 6) {
+                if (length == 0) {
+                    mui.toast("请输入验证码");
+                }else if (length < 6) {
                     mui.toast("请输入正确的验证码");
                 } else {
                     loginAjax(phone, value.substring(0, 6));
-					//return;
+					
 					//注册推送
 					 plus.plugintest.PluginTestFunction(phone,"Plus","AsyncFunction","MultiArgument!", function( result ) {
 					 console.log( result[0]  + "_" + result[1]  + "_" + result[2]  + "_" + result[3] );

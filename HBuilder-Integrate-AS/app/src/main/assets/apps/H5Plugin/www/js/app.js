@@ -89,7 +89,7 @@ var Global = {};
         //网络请求
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "http://app.dev.xianghq.cn/api/";
-            //          var baseUrl = "http://banxh.mynetgear.com:18081/api/";
+//                      var baseUrl = "http://banxh.mynetgear.com:18081/api/";
             //应用版本号
                         var appVersion = plus.runtime.version;
             //          //设备唯一标识
@@ -99,14 +99,6 @@ var Global = {};
             //
                var appType = plus.os.name;
             var appName = "xhq";
-
-//          appVersion = "1.0.0";
-            //设备唯一标识
-//          var deviceId = "129404038389203";
-            //系统的版本信息
-//          var osVersion = "android 5.1";
-
-//          var appType = "ANDROID";
 
             //默认 get请求
             if (!params.method) {
@@ -138,23 +130,32 @@ var Global = {};
                 },
                 success: function(data) {
                     //console.log(JSON.stringify(data));
-                    if (data.code.indexOf("token") != -1) {
+                    if (data.code.indexOf("token") != -1 || params.url.indexOf("logout") != -1) {
                         //token 过期
+                        if (myStorage) {
+                                myStorage.removeItem("userToken");
+                            }
                         var curr = plus.webview.currentWebview();
                         var wvs = plus.webview.all();
-                        console.log(wvs);
+                        console.log(data.code);
                         if (wvs && wvs.length) {
                             for (var i = 0; i < wvs.length; i++) {
-                                if (wvs[i].getURL() == curr.getURL()) {
-                                    continue;
-                                }
-                                plus.webview.close(wvs[i]);
+                            		if(wvs[i]){
+                            			if (wvs[i].getURL() == curr.getURL()) {
+	                                    continue;
+	                                }
+	                                plus.webview.close(wvs[i]);
+                            		}
+                                
                             }
-                            mui.toast("登录信息已失效，请重新登录");
+                            if(params.url.indexOf("logout") != -1){
+                            		mui.toast("请重新登录"); 
+                            }else{
+                            		mui.toast("登录信息已失效，请重新登录");
+                            }
+                            
                             plus.webview.open('login.html');
-                            if (myStorage) {
-                                myStorage.clear();
-                            }
+                            
                             curr.close();
 
                             return;
@@ -213,6 +214,11 @@ var Global = {};
 			//获取所有已经打开的webview窗口
 			var wvs = plus.webview.all();
 			for(var i = 0, len = wvs.length; i < len; i++) {
+				console.log(wvs[i].getURL());
+				if(wvs[i].getURL().indexOf("http") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
 				if(wvs[i].getURL().indexOf("personInfo.html") != -1){
 					plus.webview.close(wvs[i]);
 					continue;
@@ -234,9 +240,32 @@ var Global = {};
 					plus.webview.close(wvs[i]);
 					continue;
 				}
+				
+				if(wvs[i].getURL().indexOf("webview.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				
+				if(wvs[i].getURL().indexOf("webviewDetail.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
+				
+				if(wvs[i].getURL().indexOf("credit_result.html") != -1){
+					plus.webview.close(wvs[i]);
+					continue;
+				}
 			}
 			//curr.close();
 		},
+		
+		openKouzi: function (){
+			console.log("发送事件");
+			var h = plus.webview.getWebviewById("home.html");
+			mui.fire(h,'openKouzi');
+		},
+		
+		
         GetQueryString: function(url, name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = url.substr(1).match(reg);

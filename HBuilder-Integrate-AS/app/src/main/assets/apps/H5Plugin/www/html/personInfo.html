@@ -382,7 +382,7 @@
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-            		$('.modal-mask').removeClass("hideClass")
+            		headLeftBack();
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -398,10 +398,6 @@
                 }
             });
             
-//          setTimeout(function(){
-//          		mui.currentWebview.close();
-//          }, 500);
-            
             
         }
 
@@ -416,7 +412,7 @@
 
         //弹窗中 关闭按钮
         function closeDialg() {
-            //plus.webview.currentWebview().close();
+            Global.openKouzi();
             Global.closeStepWindow();
         };
 
@@ -520,20 +516,38 @@
 		               	
 		               	mui('#study_value')[0].style.color = "#333333";
 		                mui('#study_value')[0].style.opacity = "1";
-		                mui('#study_value')[0].innerHTML = studyPickerList[selectStudyValue].text;
+		                studyPickerList.map(function(item){
+		                		if(item.value == selectStudyValue){
+		                			mui('#study_value')[0].innerHTML = item.text;
+		                		}
+		                })
+		                
                 			
                 			mui('#marry_value')[0].style.color = "#333333";
 		                mui('#marry_value')[0].style.opacity = "1";
-		                mui('#marry_value')[0].innerHTML = marryPickerList[selectMarryValue].text;
+                			marryPickerList.map(function(item){
+		                		if(item.value == selectMarryValue){
+		                			mui('#marry_value')[0].innerHTML = item.text;
+		                		}
+		                })
                 			
                 			mui('#house_value')[0].style.color = "#333333";
 		                mui('#house_value')[0].style.opacity = "1";
-		                mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
+		                //mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
+		                housePickerList.map(function(item){
+		                		if(item.value == selectHouseValue){
+		                			mui('#house_value')[0].innerHTML = item.text;
+		                		}
+		                })
                 
                 			mui('#loan_value')[0].style.color = "#333333";
 		                mui('#loan_value')[0].style.opacity = "1";
-		                mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
-                
+		                //mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
+                			loanPickerList.map(function(item){
+		                		if(item.value == selectLoanValue){
+		                			mui('#loan_value')[0].innerHTML = item.text;
+		                		}
+		                })
 		        		}
 					
                 },

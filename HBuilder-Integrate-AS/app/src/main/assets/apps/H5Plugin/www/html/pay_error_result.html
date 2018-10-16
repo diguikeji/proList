@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>支付失败</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet" />
     <style type="text/css">
         html,
         body {
@@ -91,7 +91,7 @@
     <header class="mui-bar mui-bar-nav">
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
         <h1 class="mui-title">支付结果</h1>
-        <img src="https://nydstatic.nongyaodai.com/image/error/kef.png" />
+        <img src="https://nydstatic.nongyaodai.com/image/error/kef.png" onclick="qimoChatClick();"/>
     </header>
 
     <div class="mui-content" style="background: #F4F4F4;">
@@ -101,25 +101,22 @@
        <div class="credit_info">支付失败，请重试！</div>
        <div class="error_info">预留手机校验失败</div>
        <div class="warning_info">注意：若您的银行卡已扣款，请  <span>联系客服。</span> </div>
-    		<button type="button" class="mui-btn mui-btn-link next" onclick="close();">返回</div>
+    		<a  class="mui-btn mui-btn-link mui-action-back next" >返回</a>
     		<div class="bottom_text">
     			特别声明：信用评估仅作为意见参考，不作为100%放款保证。
     		</div>	
     </div>
 
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/myStorage.js"></script>
+    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <script src="https://nydstatic.nongyaodai.com/image/error/myStorage.js"></script>
     <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
-		</script>
-		<script type='text/javascript'>
-		var qimoClientId =  myStorage.getItem("user").mobile;
-		</script>
+	</script>
     <script type="text/javascript">
         mui.init();
-		
+		var qimoClientId;
 		mui.plusReady(function() {
-      });
-
+			qimoClientId =  myStorage.getItem("user").mobile;
+    });
         
     </script>
 </body>

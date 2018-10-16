@@ -35,7 +35,7 @@ mui.plusReady(function() {
     updateSerivces();
     
     //关闭所有其他页面
-    closeOtherWindow();
+    //closeOtherWindow();
     
     
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
@@ -118,22 +118,6 @@ function myTabInit(){
 	apply("parmas");
 	if(user){
 		$(".my_phone").html(user.mobile);
-		
-		if(user.isPayFee){
-			//已经付费
-			if(wallet){
-//				$(".goCreditClass").html("￥"+wallet.balance);
-//				$(".goCreditClass").addClass("balance_css");
-//				$(".goCreditClass").removeClass("top-badge");
-			}else{
-				
-			}
-			
-		}else{
-//			$(".goCreditClass").html("去评估");
-//			$(".goCreditClass").addClass("top-badge");
-//			$(".goCreditClass").removeClass("balance_css");
-		}
 	}
 	//我的页面 绑定
 	
@@ -149,22 +133,6 @@ function myTabInit(){
 		}
 		
 	}
-	getUserScore();
-}
-//得到信用评估分数
-var scoreData;
-function getUserScore(){
-	Global.commonAjax(
-		{url: "user/score"},
-		function(data){
-			if(data){
-				scoreData = data;
-			}
-		},
-		function (err){
-			
-		}
-	)
 }
 
 //设置页面返回的时候 更新
@@ -240,7 +208,7 @@ function loginByToken(){
 					
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
 									.attr("src", data.toFindAd.picUrl);
-					Global.imgLoading(content_id, "selfModal");
+					Global.imgLoading(content_id, "");
 				}else{
 					$('.selfModal').addClass('hideClass');
 				}
@@ -476,7 +444,7 @@ function payedGoodslist(refreshType){
 				$("#pullrefresh").show();
 						
            		if(data.current >= data.pages){
-					if(data.current == 1){
+					if(data.records && (data.records.length==0)){
 						//空数据
 						//$(".mui-content").append('<div class="empty_text">数据为空</div>');
 						$(".empty_text").show();
@@ -520,13 +488,14 @@ function pullupRefresh() {
  */
 function setRefreshData(refreshType, cells, isAll) {
 	findList = findList.concat(cells);
+	
     //当前点击的 数据下标
     var index = 0;
     var table = document.body.querySelector('.mui-table-view-condensed');
-
+	console.log(table.length); 
     if (refreshType == 0) {
         //下拉刷新
-        //table.innerHTML = "";
+        table.innerHTML = "";
         $(".mui-table-view-condensed").html = "";
     } else {
         //加载更多
@@ -546,15 +515,16 @@ function setRefreshData(refreshType, cells, isAll) {
             '<div class="oa-contact-content mui-table-cell">' +
             '<div class="mui-clearfix">' + item.goodsName +
             '</div>' +
-            '<p>' +
-            '<span>期限：' + item.loanDay + '</span>' +
-            '<span>额度：' + item.loanAmount + '</span>' +
-            '</p>' +
+            '<div class="time_text_span">' + 
+            '<span>期限:' + item.loanDay + '</span>' + '  '+
+            '<span>额度:' + item.loanAmount + '</span>' +
+            '</div>' +
             '<span class="mui-icon mui-icon-arrowright"></span>' +
             '</div>' +
             '</div>' +
             '<div class="bottom">' + item.goodsTitle + '</div></div>';
         table.appendChild(li);
+        //$(".mui-table-view-condensed").append(li);
         index += 1;
     }
 
@@ -792,6 +762,7 @@ function newbieTaskBanner(listData) {
 		//console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
+            console.log(that.data("url"));
             if(that.data("url") != "undefined"){
             		mui.openWindow({
 	                url: 'webview.html',
@@ -803,6 +774,8 @@ function newbieTaskBanner(listData) {
             }
             
         })
+    }else{
+    		$(".makeMoneyLoop").html("");
     }
 }
 
@@ -1078,13 +1051,14 @@ function jumpWeb() {
 //推荐
 function goToRecommand(){
 	mui.openWindow({
-		url: 'identificateFirst.html',
-		id: 'identificateFirst.html',
+		url: 'pay_success.html',
+		id: 'pay_success.html',
 		waiting: {
 			autoShow: false
 		}
 	})
 }
+
 //信用评估
 function goToCredit(){
 	apply();
@@ -1128,6 +1102,13 @@ function closeOtherWindow(){
 		plus.webview.close(wvs[i]);
 	}
 }
+
+//打开口子浮层
+window.addEventListener('openKouzi',function(event){
+	console.log("收到事件");
+	$(".selfModal").removeClass("hideClass");
+}, false);
+				
 	var backcount=0;
 	function fastQuit(){
 		//双击退出登录

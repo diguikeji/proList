@@ -89,7 +89,7 @@ var Global = {};
         //网络请求
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "http://app.dev.xianghq.cn/api/";
-            //          var baseUrl = "http://banxh.mynetgear.com:18081/api/";
+//                      var baseUrl = "http://banxh.mynetgear.com:18081/api/";
             //应用版本号
                         var appVersion = plus.runtime.version;
             //          //设备唯一标识
@@ -130,23 +130,32 @@ var Global = {};
                 },
                 success: function(data) {
                     //console.log(JSON.stringify(data));
-                    if (data.code.indexOf("token") != -1) {
+                    if (data.code.indexOf("token") != -1 || params.url.indexOf("logout") != -1) {
                         //token 过期
+                        if (myStorage) {
+                                myStorage.removeItem("userToken");
+                            }
                         var curr = plus.webview.currentWebview();
                         var wvs = plus.webview.all();
-                        console.log(wvs);
+                        console.log(data.code);
                         if (wvs && wvs.length) {
                             for (var i = 0; i < wvs.length; i++) {
-                                if (wvs[i].getURL() == curr.getURL()) {
-                                    continue;
-                                }
-                                plus.webview.close(wvs[i]);
+                            		if(wvs[i]){
+                            			if (wvs[i].getURL() == curr.getURL()) {
+	                                    continue;
+	                                }
+	                                plus.webview.close(wvs[i]);
+                            		}
+                                
                             }
-                            mui.toast("登录信息已失效，请重新登录");
+                            if(params.url.indexOf("logout") != -1){
+                            		mui.toast("请重新登录"); 
+                            }else{
+                            		mui.toast("登录信息已失效，请重新登录");
+                            }
+                            
                             plus.webview.open('login.html');
-                            if (myStorage) {
-                                myStorage.clear();
-                            }
+                            
                             curr.close();
 
                             return;

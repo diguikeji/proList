@@ -600,6 +600,7 @@
 
         //弹窗中 关闭按钮
         function closeDialg() {
+        	Global.openKouzi();
             Global.closeStepWindow();
         };
         
@@ -652,6 +653,9 @@
 
             if (!card) {
                 mui.toast("请上传身份证正面");
+                return;
+            }else if(card.length != 18){
+            		mui.toast("请输入正确的身份证号");
                 return;
             }
 

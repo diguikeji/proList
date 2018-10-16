@@ -59,7 +59,7 @@
             background: #ff5445;
             border-radius: 50%;
             width: 7px;
-            height: 4px;
+            height: 7px;
             margin-top: 5px;
         }
         
@@ -195,7 +195,7 @@
 					data: params
 				},
 				function(data){
-					if(data.current >= data.pages){
+					if(data.records && (data.records.length==0)){
 						if(data.current == 1){
 							//空数据
 							//$("#pullrefresh").addClass("hideClass");
@@ -256,7 +256,7 @@
                 var li = document.createElement('li');
                 li.className = 'mui-table-view-cell';
                 li.innerHTML = '<div class="item_wrap col" data-index="' + index + '">' +
-                    '<span class="item_time">' + cells[i].time + '</span>' +
+                    '<span class="item_time">' + cells[i].sendTime + '</span>' +
                     '<div class="row content_wrap">' + (cells[i].isRead ? '' : '<span class="read_flag"></span>') +
                     '<div class="col title_wrap">' +
                     '<span class="main_title">' + cells[i].msgTitle + '</span>' +
