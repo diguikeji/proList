@@ -359,6 +359,7 @@
 					$(this).attr("src", "../images/unagress_icon.png");
 				});
 				$(this).attr("src", "../images/agress_icon.png");
+				closeActionWindow();
 			})
 			
 			//支付
@@ -382,6 +383,18 @@
 	      				payChannel: styleList[index].channelCode
 	      			}
 	      		})
+			}
+			
+			function closeActionWindow (){
+				//获取所有已经打开的webview窗口
+				var wvs = plus.webview.all();
+				for(var i = 0, len = wvs.length; i < len; i++) {
+					
+					if(wvs[i].getURL() && wvs[i].getURL().indexOf("pay_action") != -1){
+						plus.webview.close(wvs[i]);
+						return;
+					}
+				}
 			}
 			
 			//Android 物理返回

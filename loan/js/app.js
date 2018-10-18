@@ -167,6 +167,7 @@ var Global = {};
                         data.code == "success" || data.code == "ok") {
                         callback(data.data ? data.data : "");
                     } else {
+                    		console.log("7484737383");
                         errorback(data.msg);
                     }
 
@@ -174,7 +175,7 @@ var Global = {};
                 error: function(data) {
                     console.log(data);
                     if (errorback) {
-                        errorback(data);
+                        errorback(data.msg);
                     }
 
                 },
@@ -182,6 +183,12 @@ var Global = {};
                     Global.hideLoading();
                     if(params.url.indexOf("card") != -1){
                     		console.log("9999999");
+                    		return;
+                    }
+                    
+                    if(params.url.indexOf("changpay/prepare")){
+                    		//支付短信平台出错
+                    		
                     		return;
                     }
                     
@@ -215,6 +222,9 @@ var Global = {};
 			var wvs = plus.webview.all();
 			for(var i = 0, len = wvs.length; i < len; i++) {
 				console.log(wvs[i].getURL());
+				if(!wvs[i].getURL()){
+					continue;
+				}
 				if(wvs[i].getURL().indexOf("http") != -1){
 					plus.webview.close(wvs[i]);
 					continue;
@@ -384,7 +394,7 @@ var Global = {};
     })
 
     //家里
-    //$("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.199.203:1337/vorlon.js'></script>");
+//    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.3.31:1337/vorlon.js'></script>");
 
     //公司
     //   $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");

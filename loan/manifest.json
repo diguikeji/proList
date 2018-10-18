@@ -376,7 +376,8 @@
 					"html/recommand.html",
 					"html/pay_action.html",
 					"html/personInfo.html",
-					"html/errornet.html"
+					"html/errornet.html",
+					"html/login.html"
 				],
 				"priority": 0
 			},
@@ -411,7 +412,9 @@
 					"html/error500.html",
 					"html/webview.html",
 					"html/webviewDetail.html",
-					"html/errornet.html"
+					"html/errornet.html",
+					"html/recommand.html",
+					"html/login.html"
 				],
 				"priority": 0
 			},
@@ -433,6 +436,13 @@
 				"resources": [],
 				"refer": [
 					"html/errornet.html"
+				],
+				"priority": 0
+			},
+			"html/pullrefresh_message_sub.html": {
+				"resources": [],
+				"refer": [
+					"html/webview.html"
 				],
 				"priority": 0
 			}

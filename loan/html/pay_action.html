@@ -519,7 +519,7 @@
 			function lookTime(){
 				timePicker.show(function(SelectedItem) {
 	                console.log(SelectedItem.text);
-	                $(".item_time").val(SelectedItem.text.substring(5, 7)+"/"+SelectedItem.text.substring(0, 4))
+	                $(".item_time").val(SelectedItem.text.substring(5, 7)+"/"+SelectedItem.text.substring(2, 4))
 	                
 	            })
 			}
@@ -594,14 +594,14 @@
 				}else{
 					$(".item_name_wrap:nth-child(8)").addClass("hideClass");
             			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
-            			$(".card_type_text").text("借计卡号");
+            			$(".card_type_text").text("借记卡号");
 				}
 			}
 			
 			var token = "";
 			
 			//支付
-			function pay(){
+			function pay(codeText){
 				if(!$(".idCardNo").val()){
 					mui.toast("请输入身份证号");
 					return;
@@ -700,6 +700,15 @@
 					}
 					
 					if($(".time_style").text() == "获取验证码"){
+						if(!codeText){
+							if(!$(".flex_item").val()){
+								mui.toast("请输入验证码");
+								return;
+							}else{
+								mui.toast("请获取验证码");
+								return;
+							}
+						}
 						countDown();
 						Global.commonAjax(
 							{
@@ -712,16 +721,18 @@
 								token = data;
 							},
 							function(err){
+								mui.toast(err);
 							}
 						)
 					}else{
+						console.log($(".flex_item").val());
 						if(!$(".flex_item").val()){
 							mui.toast("请输入验证码");
 							return;
 						}
 						
 						if(!token){
-							mui.toast("请获取验证码");
+							mui.toast("请输入正确验证码");
 							return;
 						}
 				
@@ -738,24 +749,15 @@
 							function(data){
 								mui.toast("支付成功");
 								mui.openWindow({
-					                url: 'recommand.html',
-					                id: 'recommand.html',
+					                url: 'credit_result.html',
+					                id: 'credit_result.html',
 					                waiting: {
 					                    autoShow: false
 					                }
 					            })
 							},
 							function(err){
-								mui.openWindow({
-					      			url: 'pay_error_result.html',
-					      			id: 'pay_error_result.html',
-					      			waiting: {
-					      				autoShow: false
-					      			},
-					      			extras: {
-					      				msg: err.msg
-					      			}
-					      		})
+								mui.toast(err);
 							}
 						)
 						
@@ -773,7 +775,7 @@
 				if($(".time_style").text() == "重新获取"){
 					countDown();
 				}else if($(".time_style").text() == "获取验证码"){
-					pay();
+					pay("code");
 					return;
 				}else{
 					return;

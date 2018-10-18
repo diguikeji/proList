@@ -46,6 +46,7 @@
 			<module name="Sina" value="io.dcloud.share.sina.SinaWeiboApiManager"/>
 			<module name="Tencent" value="io.dcloud.share.tencent.TencentWeiboApiManager"/>
 			<module name="Weixin" value="io.dcloud.share.mm.WeiXinApiManager"/>
+			<module name="QQ" value="io.dcloud.share.qq.QQApiManager"/>
 		</feature>
 		<feature name="OAuth" value="io.dcloud.feature.oauth.OAuthFeatureImpl">
 			<module name="OAuth-Weixin" value="io.dcloud.feature.oauth.weixin.WeiXinOAuthService"/>

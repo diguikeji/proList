@@ -176,8 +176,8 @@
                     var li = document.createElement('li');
                     li.className = 'mui-table-view-cell list_wrap row';
                     li.innerHTML = '<div class="col" data-index="' + index + '">' +
-                        '<span class="left_top_text">邀请赚钱</span>' +
-                        '<span class="leave_money">余额' + cells[i].lastestBalance + '</span>' +
+                        '<span class="left_top_text">'+cells[i].consumeType+'</span>' +
+                        '<span class="leave_money">余额：' + cells[i].lastestBalance + '</span>' +
                         '</div>' +
                         '<div class="col ">' +
                         '<span class="leave_time">' + cells[i].consumeTm + '</span>' +

@@ -139,7 +139,8 @@
 
         $('body').on('click', '.mui-table-view li .item_wrap', function() {
             var index = $(this).data("index");
-            //alert(index)
+            
+            goToDetail(findList[index]);
         });
 		
         //查看消息详情
@@ -161,17 +162,21 @@
                 },
                 function(data) {
 					if (item && item.jumpUrl) {
+						console.log(item.jumpUrl);
 			                mui.openWindow({
 			                    url: 'webview.html',
 			                    id: 'webview.html?url=' + item.jumpUrl,
 			                    waiting: {
 			                        autoShow: false
+			                    },
+			                    extras:{
+			                    		title: item.msgTitle
 			                    }
 			                })
 			            }
                 },
                 function(err) {
-
+					mui.toast(err);
                 }
            )
         }
@@ -220,6 +225,7 @@
         function pulldownRefresh() {
         		current = 1;
         		console.log("44444");
+        		findList = [];
         		getMsglist(0);
         }
 
@@ -231,6 +237,7 @@
         		getMsglist(1);
        }
         
+        var findList = [];
         /**
          * 	请求列表数据
          * @param {Object} refreshType 0 下拉刷新 1 上拉加载
@@ -238,6 +245,7 @@
          * @param {Object} isAll true 是最后一页
          */
         function getListData(refreshType, cells, isAll){
+        		findList = findList.concat(cells);
         		//当前点击的 数据下标
 		    var index = 0;
 		    var table = document.body.querySelector('.mui-table-view');

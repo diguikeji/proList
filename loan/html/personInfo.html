@@ -221,8 +221,8 @@
         
         .first_step_money,
         .second_step_money,
-        .third_step_money{
-        		position: absolute;
+        .third_step_money {
+            position: absolute;
             top: 5px;
             right: -10px;
             font-size: 24px;
@@ -319,7 +319,7 @@
                 <div class="col dialog_content_wrap">
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" class="first_step_icon"/>
+                            <img src="../images/agress_icon.png" class="first_step_icon" />
                             <span class="dialog_step_text">真实身份认证</span>
                         </div>
                         <div class="row dialog_step_wrap">
@@ -333,7 +333,7 @@
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" class="second_step_icon"/>
+                            <img src="../images/agress_icon.png" class="second_step_icon" />
                             <span class="dialog_step_text">填写个人信息</span>
                         </div>
                         <div class="row dialog_step_wrap">
@@ -347,7 +347,7 @@
 
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
-                            <img src="../images/unagress_icon.png" class="third_step_icon"/>
+                            <img src="../images/unagress_icon.png" class="third_step_icon" />
                             <span class="dialog_step_text">完成信用评估</span>
                         </div>
                         <div class="row dialog_step_wrap">
@@ -371,18 +371,18 @@
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
     <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
-	</script>
-	<script type='text/javascript'>
-	var qimoClientId =  myStorage.getItem("user").mobile;
-	</script>
+    </script>
+    <script type='text/javascript'>
+        var qimoClientId = myStorage.getItem("user").mobile;
+    </script>
     <script type="text/javascript">
         mui.init();
-        
+
         //Android 物理返回
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-            		headLeftBack();
+                headLeftBack();
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -394,20 +394,20 @@
                 url: 'identificateFirst.html',
                 id: 'identificateFirst.html',
                 waiting: {
-                		autoShow: false
+                    autoShow: false
                 }
             });
-            
-            
+
+
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
         })
-        
-        $(".dialog_bottom_btn").click(function(){
-        		$('.modal-mask').addClass("hideClass");
+
+        $(".dialog_bottom_btn").click(function() {
+            $('.modal-mask').addClass("hideClass");
         })
 
         //弹窗中 关闭按钮
@@ -416,51 +416,54 @@
             Global.closeStepWindow();
         };
 
-		mui.plusReady(function() {
-		    initData();
-		    showMoneyInfo();
-		    initStatus();
-		});
-		
-		var step = 0;
-		function initStatus(){
-			Global.commonAjax({ url: "user/input/status" },
-		           function(data) {
-		               
-		               if((data != "") && (data != null)){
-		               		if(data.isInputIdcard == "N"){
-		               			step = 0;
-		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isInputDetail == "N"){
-		               			step = 1;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isPay == "N"){
-		               			step = 2;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else{
-		               			step = 3;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
-		               		}
-		               	}
-		               
-		               
-		          }
-           );
-		}
-		
+        mui.plusReady(function() {
+            initData();
+            showMoneyInfo();
+            initStatus();
+        });
+
+        var step = 0;
+
+        function initStatus() {
+            Global.commonAjax({
+                    url: "user/input/status"
+                },
+                function(data) {
+
+                    if ((data != "") && (data != null)) {
+                        if (data.isInputIdcard == "N") {
+                            step = 0;
+                            $(".first_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else if (data.isInputDetail == "N") {
+                            step = 1;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else if (data.isPay == "N") {
+                            step = 2;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else {
+                            step = 3;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                        }
+                    }
+
+
+                }
+            );
+        }
+
         var studyPickerList = [];
         var marryPickerList = [];
         var housePickerList = [];
         var loanPickerList = [];
-       
+
 
         function initData() {
             Global.commonAjax({
@@ -505,59 +508,59 @@
                         };
                         loanPickerList.push(item);
                     });
-					loanPicker.setData(loanPickerList);
-					
-					if(myStorage && myStorage.getItem("userInfo")){
-		        			var userInfo = myStorage.getItem("userInfo");
-		        			selectStudyValue = userInfo.highestDegree;
-		        			selectMarryValue = userInfo.maritalStatus;
-		                selectLoanValue = userInfo.loansStatus;
-		               	selectHouseValue = userInfo.houseStatus;
-		               	
-		               	mui('#study_value')[0].style.color = "#333333";
-		                mui('#study_value')[0].style.opacity = "1";
-		                studyPickerList.map(function(item){
-		                		if(item.value == selectStudyValue){
-		                			mui('#study_value')[0].innerHTML = item.text;
-		                		}
-		                })
-		                
-                			
-                			mui('#marry_value')[0].style.color = "#333333";
-		                mui('#marry_value')[0].style.opacity = "1";
-                			marryPickerList.map(function(item){
-		                		if(item.value == selectMarryValue){
-		                			mui('#marry_value')[0].innerHTML = item.text;
-		                		}
-		                })
-                			
-                			mui('#house_value')[0].style.color = "#333333";
-		                mui('#house_value')[0].style.opacity = "1";
-		                //mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
-		                housePickerList.map(function(item){
-		                		if(item.value == selectHouseValue){
-		                			mui('#house_value')[0].innerHTML = item.text;
-		                		}
-		                })
-                
-                			mui('#loan_value')[0].style.color = "#333333";
-		                mui('#loan_value')[0].style.opacity = "1";
-		                //mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
-                			loanPickerList.map(function(item){
-		                		if(item.value == selectLoanValue){
-		                			mui('#loan_value')[0].innerHTML = item.text;
-		                		}
-		                })
-		        		}
-					
+                    loanPicker.setData(loanPickerList);
+
+                    if (myStorage && myStorage.getItem("userInfo")) {
+                        var userInfo = myStorage.getItem("userInfo");
+                        selectStudyValue = userInfo.highestDegree;
+                        selectMarryValue = userInfo.maritalStatus;
+                        selectLoanValue = userInfo.loansStatus;
+                        selectHouseValue = userInfo.houseStatus;
+
+                        mui('#study_value')[0].style.color = "#333333";
+                        mui('#study_value')[0].style.opacity = "1";
+                        studyPickerList.map(function(item) {
+                            if (item.value == selectStudyValue) {
+                                mui('#study_value')[0].innerHTML = item.text;
+                            }
+                        })
+
+
+                        mui('#marry_value')[0].style.color = "#333333";
+                        mui('#marry_value')[0].style.opacity = "1";
+                        marryPickerList.map(function(item) {
+                            if (item.value == selectMarryValue) {
+                                mui('#marry_value')[0].innerHTML = item.text;
+                            }
+                        })
+
+                        mui('#house_value')[0].style.color = "#333333";
+                        mui('#house_value')[0].style.opacity = "1";
+                        //mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
+                        housePickerList.map(function(item) {
+                            if (item.value == selectHouseValue) {
+                                mui('#house_value')[0].innerHTML = item.text;
+                            }
+                        })
+
+                        mui('#loan_value')[0].style.color = "#333333";
+                        mui('#loan_value')[0].style.opacity = "1";
+                        //mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
+                        loanPickerList.map(function(item) {
+                            if (item.value == selectLoanValue) {
+                                mui('#loan_value')[0].innerHTML = item.text;
+                            }
+                        })
+                    }
+
                 },
                 function(err) {
-					mui.toast(err.msg);
+                    mui.toast(err);
                 }
             )
         }
 
-		var selectStudyValue, selectMarryValue, selectLoanValue, selectHouseValue;
+        var selectStudyValue, selectMarryValue, selectLoanValue, selectHouseValue;
         var studyPicker = new mui.PopPicker();
 
         function showStudyPicker() {
@@ -605,80 +608,80 @@
                 selectLoanValue = SelectedItem[0].value;
             })
         }
-		//浮层 奖金信息
-		function showMoneyInfo(){
-        		if(myStorage){
-            		if(myStorage.getItem("inputIdInfoReturn")){
-	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
-	            		$(".first_text").html("完成即可获得"+myStorage.getItem("inputIdInfoReturn")+"元现金");
-	            		
-	            }
-            		
-            		if(myStorage.getItem("inputBaseInfoReturn")){
-	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
-	            		$(".second_text").html("完成即可获得"+myStorage.getItem("inputBaseInfoReturn")+"元现金");
-	            }
-            		
-            		if(myStorage.getItem("payReturn")){
-	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
-	            		$(".third_text").html("完成即可获得"+myStorage.getItem("payReturn")+"元现金");
-	            }
-           }
-        		
+        //浮层 奖金信息
+        function showMoneyInfo() {
+            if (myStorage) {
+                if (myStorage.getItem("inputIdInfoReturn")) {
+                    $(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+                    $(".first_text").html("完成即可获得" + myStorage.getItem("inputIdInfoReturn") + "元现金");
+
+                }
+
+                if (myStorage.getItem("inputBaseInfoReturn")) {
+                    $(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+                    $(".second_text").html("完成即可获得" + myStorage.getItem("inputBaseInfoReturn") + "元现金");
+                }
+
+                if (myStorage.getItem("payReturn")) {
+                    $(".third_step_money").html(myStorage.getItem("payReturn"));
+                    $(".third_text").html("完成即可获得" + myStorage.getItem("payReturn") + "元现金");
+                }
+            }
+
         }
 
         /**
          * 信用评估 
          */
         function goToCredit() {
-        		if(mui('#marry_value')[0].innerHTML == "请选择"){
-        			mui.toast("请选择婚姻状态");
-        			return;
-        		}
-        		
-        		if(mui('#study_value')[0].innerHTML == "请选择"){
-        			mui.toast("请选择学历");
-        			return;
-        		}
-        		
-        		if(mui('#house_value')[0].innerHTML == "请选择"){
-        			mui.toast("请选择住房状态");
-        			return;
-        		}
-        		
-        		if(mui('#loan_value')[0].innerHTML == "请选择"){
-        			mui.toast("请选择借款状态");
-        			return;
-        		}
-        		var params = {
-        			maritalStatus: selectMarryValue,
-               highestDegree: selectStudyValue,
-               loansStatus: selectLoanValue,
-               houseStatus: selectHouseValue
-        		};
-        		
-        		
-               Global.commonAjax({
-               		url: "user/input/detail",
-               		method: "POST",
-                    data: params
-                   },
-                   function(data) {
-						mui.toast("提交成功");
-						mui.openWindow({
-			                url: 'credit.html',
-			                id: 'credit.html',
-			                waiting: {
-			                		autoShow: false
-			                }
-			            })
-                   },
-                   function(err) {
-						mui.toast(err.msg);
-                   }
-               )
+            if (mui('#marry_value')[0].innerHTML == "请选择") {
+                mui.toast("请选择婚姻状态");
+                return;
+            }
 
-            
+            if (mui('#study_value')[0].innerHTML == "请选择") {
+                mui.toast("请选择学历");
+                return;
+            }
+
+            if (mui('#house_value')[0].innerHTML == "请选择") {
+                mui.toast("请选择住房状态");
+                return;
+            }
+
+            if (mui('#loan_value')[0].innerHTML == "请选择") {
+                mui.toast("请选择借款状态");
+                return;
+            }
+            var params = {
+                maritalStatus: selectMarryValue,
+                highestDegree: selectStudyValue,
+                loansStatus: selectLoanValue,
+                houseStatus: selectHouseValue
+            };
+
+
+            Global.commonAjax({
+                    url: "user/input/detail",
+                    method: "POST",
+                    data: params
+                },
+                function(data) {
+                    mui.toast("提交成功");
+                    mui.openWindow({
+                        url: 'credit.html',
+                        id: 'credit.html',
+                        waiting: {
+                            autoShow: false
+                        }
+                    })
+                },
+                function(err) {
+                    mui.toast(err);
+                }
+            )
+
+
         }
     </script>
 </body>

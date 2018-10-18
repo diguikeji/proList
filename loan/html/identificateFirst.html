@@ -245,7 +245,7 @@
             color: #FF5445;
             font-weight: bold;
         }
-
+        
         .dialog_bottom_btn {
             position: absolute;
             bottom: 10px;
@@ -258,170 +258,170 @@
 </head>
 
 <body>
-<header class="mui-bar mui-bar-nav">
-    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
-    <span class="header_close">关闭</span>
-    <h1 class="mui-title">身份证认证</h1>
-    <img src="../images/custom_icon.png" />
-</header>
+    <header class="mui-bar mui-bar-nav">
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
+        <span class="header_close">关闭</span>
+        <h1 class="mui-title">身份证认证</h1>
+        <img src="../images/custom_icon.png" />
+    </header>
 
-<div class="mui-content">
-    <div class="head col">
+    <div class="mui-content">
+        <div class="head col">
 
-        <div class="row step_wrap">
-            <img src="../images/first_step_icon.png" alt="" />
-            <div class="line_style flex_item"></div>
-            <img src="../images/second_step_icon.png" alt="" />
-            <div class="line_style flex_item"></div>
-            <img src="../images/third_step_icon.png" alt="" />
-        </div>
+            <div class="row step_wrap">
+                <img src="../images/first_step_icon.png" alt="" />
+                <div class="line_style flex_item"></div>
+                <img src="../images/second_step_icon.png" alt="" />
+                <div class="line_style flex_item"></div>
+                <img src="../images/third_step_icon.png" alt="" />
+            </div>
 
-        <div class="row step_wrap_bottom">
-            <span class="firstStep" style="color: #ff5445;">身份认证</span>
-            <span class="firstStep">个人信息</span>
-            <span class="firstStep">信用评估</span>
-        </div>
-
-    </div>
-
-    <div class="content">
-        <div class="row photo_wrap">
-            <img id="zhengmian" src="../images/id_front.png" onclick="takeFrontPhoto();" class="front_img" />
-            <img id="fanmian" src="../images/id_back.png" onclick="takeBackPhoto();" class="back_img" />
-        </div>
-
-        <div class="form_style row">
-            <span>姓名</span>
-            <input type="text" placeholder="身份证上传后才可修改" id="name" />
-            <img src="../images/change_icon.png" class="change_name_icon hideClass" />
+            <div class="row step_wrap_bottom">
+                <span class="firstStep" style="color: #ff5445;">身份认证</span>
+                <span class="firstStep">个人信息</span>
+                <span class="firstStep">信用评估</span>
+            </div>
 
         </div>
 
+        <div class="content">
+            <div class="row photo_wrap">
+                <img id="zhengmian" src="../images/id_front.png" onclick="takeFrontPhoto();" class="front_img" />
+                <img id="fanmian" src="../images/id_back.png" onclick="takeBackPhoto();" class="back_img" />
+            </div>
 
-        <div class="form_style row">
-            <span>身份证</span>
-            <input type="text" placeholder="身份证上传后才可修改" id="card" />
-            <img src="../images/change_icon.png" class="change_card_icon hideClass" />
-        </div>
-
-
-        <button type="button" class="mui-btn mui-btn-link next" onclick="goToPersonInfo();">下一步</button>
-
-
-        <div class="bank_info">银行级用户信息安全保障</div>
-    </div>
-</div>
-
-<!--弹窗-->
-<div class="modal-mask row hideClass">
-    <div class="modal-dialog">
-        <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
-        <div class="modal-content">
-            <img src="../images/close_dialog_bg.png" class="conten_bg" />
-            <div class="col dialog_content_wrap">
-                <div class="col dialog_content_item_wrap">
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/agress_icon.png" class="first_step_icon"/>
-                        <span class="dialog_step_text">真实身份认证</span>
-                    </div>
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                        <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
-                    </div>
-
-                    <img src="../images/add_money_icon.png" class="addMoney" />
-                    <span class="first_step_money ">0</span>
-                </div>
-
-                <div class="col dialog_content_item_wrap">
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/unagress_icon.png" class="second_step_icon"/>
-                        <span class="dialog_step_text">填写个人信息</span>
-                    </div>
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/unagress_icon.png" style="visibility: hidden;" />
-                        <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
-                    </div>
-
-                    <img src="../images/add_money_icon.png" class="addMoney" />
-                    <span class="second_step_money ">0</span>
-                </div>
-
-                <div class="col dialog_content_item_wrap">
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/unagress_icon.png" class="third_step_icon"/>
-                        <span class="dialog_step_text">完成信用评估</span>
-                    </div>
-                    <div class="row dialog_step_wrap">
-                        <img src="../images/unagress_icon.png" style="visibility: hidden;" />
-                        <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
-                    </div>
-
-                    <img src="../images/add_money_icon.png" class="addMoney" />
-                    <span class="third_step_money ">0</span>
-                </div>
+            <div class="form_style row">
+                <span>姓名</span>
+                <input type="text" placeholder="身份证上传后才可修改" id="name" />
+                <img src="../images/change_icon.png" class="change_name_icon hideClass" />
 
             </div>
-            <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
+
+
+            <div class="form_style row">
+                <span>身份证</span>
+                <input type="text" placeholder="身份证上传后才可修改" id="card" />
+                <img src="../images/change_icon.png" class="change_card_icon hideClass" />
+            </div>
+
+
+            <button type="button" class="mui-btn mui-btn-link next" onclick="goToPersonInfo();">下一步</button>
+
+
+            <div class="bank_info">银行级用户信息安全保障</div>
         </div>
     </div>
-</div>
 
-<script src="../js/mui.min.js"></script>
-<script src="../js/jquery-2.1.1.min.js"></script>
-<script src="../js/app.js"></script>
-<script src="../js/myStorage.js"></script>
-<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
-</script>
-<script type='text/javascript'>
+    <!--弹窗-->
+    <div class="modal-mask row hideClass">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+            <div class="modal-content">
+                <img src="../images/close_dialog_bg.png" class="conten_bg" />
+                <div class="col dialog_content_wrap">
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" class="first_step_icon" />
+                            <span class="dialog_step_text">真实身份认证</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money ">0</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" class="second_step_icon" />
+                            <span class="dialog_step_text">填写个人信息</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money ">0</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" class="third_step_icon" />
+                            <span class="dialog_step_text">完成信用评估</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/unagress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money ">0</span>
+                    </div>
+
+                </div>
+                <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+    </script>
+    <script type='text/javascript'>
         var qimoClientId = myStorage.getItem("user").mobile;
     </script>
-<script type="text/javascript">
+    <script type="text/javascript">
         mui.init();
 
         var main;
         var Intent;
         var intent
         document.addEventListener('plusready', function() {
-            
+
             main = plus.android.runtimeMainActivity();
             Intent = plus.android.importClass("android.content.Intent");
             intent = new Intent(main.getIntent());
-			initData();
-			//浮层中的状态
-			initStatus();
-			//浮层中的信息
-			showMoneyInfo();
-			//关闭其他页面
-			//closeOtherWindow();
+            initData();
+            //浮层中的状态
+            initStatus();
+            //浮层中的信息
+            showMoneyInfo();
+            //关闭其他页面
+            //closeOtherWindow();
         }, false);
 
         function initData() {
             var userInfo = myStorage.getItem("userInfo");
-            if(userInfo && userInfo.idCardFontPic){
-            		$("#zhengmian").attr("src", userInfo.idCardFontPic);
+            if (userInfo && userInfo.idCardFontPic) {
+                $("#zhengmian").attr("src", userInfo.idCardFontPic);
             }
-            if(userInfo && userInfo.idCardBackPic){
-            		$("#fanmian").attr("src", userInfo.idCardBackPic);
+            if (userInfo && userInfo.idCardBackPic) {
+                $("#fanmian").attr("src", userInfo.idCardBackPic);
             }
-            
-            if(userInfo && userInfo.idCardFontPic && userInfo.idCardBackPic){
-            		main = "";
+
+            if (userInfo && userInfo.idCardFontPic && userInfo.idCardBackPic) {
+                main = "";
             }
-            
+
             if (userInfo && userInfo.idCard && userInfo.realName) {
                 //存在
                 $('#name').val(userInfo.realName);
                 $('#card').val(userInfo.idCard);
-                
-				$('#name').attr("readonly", "readonly");
+
+                $('#name').attr("readonly", "readonly");
                 $('#card').attr("readonly", "readonly");
-                
+
                 $('.change_name_icon').addClass("hideClass");
                 $('.change_card_icon').addClass("hideClass");
-                
+
                 $(".next").css("background", "#ff493D");
-                
+
             } else {
                 $('#name').removeAttr("readonly");
                 $('#card').removeAttr("readonly");
@@ -433,56 +433,56 @@
         }
 
         function takeFrontPhoto() {
-        		if(main){
-        			//身份证正面
-	            intent.putExtra("type", 1);
-	            intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
-	            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            main.startActivity(intent);
-	            main.startActivityForResult(intent, 19);
-	            main.onActivityResult = function(request, code, data) {
-	                //停止录像
-	                var imgUrl = data.getStringExtra("result");
-	                $("#zhengmian").attr("src", imgUrl);
-	
-	                Global.getCanvasBase64(imgUrl)
-						.then(function(base64){
-							console.log(base64);
-							uploadFile("front", base64)
-						}, function(err){
-							console.log(err);
-						})
-	
-	            }
-        		}else{
-        			mui.toast("不可修改");
-        		}
-            
+            if (main) {
+                //身份证正面
+                intent.putExtra("type", 1);
+                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                main.startActivity(intent);
+                main.startActivityForResult(intent, 19);
+                main.onActivityResult = function(request, code, data) {
+                    //停止录像
+                    var imgUrl = data.getStringExtra("result");
+                    $("#zhengmian").attr("src", imgUrl);
+
+                    Global.getCanvasBase64(imgUrl)
+                        .then(function(base64) {
+                            console.log(base64);
+                            uploadFile("front", base64)
+                        }, function(err) {
+                            console.log(err);
+                        })
+
+                }
+            } else {
+                mui.toast("不可修改");
+            }
+
         }
 
         function takeBackPhoto() {
-        		if(main){
-        			//身份证反面
-	            intent.putExtra("type", 2);
-	            intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
-	            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            main.startActivity(intent);
-	            main.startActivityForResult(intent, 19);
-	            main.onActivityResult = function(request, code, data) {
-	                //停止录像
-	                var imgUrl = data.getStringExtra("result");
-	                $("#fanmian").attr("src", imgUrl);
-	                Global.getCanvasBase64(imgUrl)
-						.then(function(base64){
-							console.log(base64);
-							uploadFile("back",base64);
-						}, function(err){
-							console.log(err);
-						})
-	            }
-        		}else{
-        			mui.toast("不可修改");
-        		}
+            if (main) {
+                //身份证反面
+                intent.putExtra("type", 2);
+                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                main.startActivity(intent);
+                main.startActivityForResult(intent, 19);
+                main.onActivityResult = function(request, code, data) {
+                    //停止录像
+                    var imgUrl = data.getStringExtra("result");
+                    $("#fanmian").attr("src", imgUrl);
+                    Global.getCanvasBase64(imgUrl)
+                        .then(function(base64) {
+                            console.log(base64);
+                            uploadFile("back", base64);
+                        }, function(err) {
+                            console.log(err);
+                        })
+                }
+            } else {
+                mui.toast("不可修改");
+            }
 
         }
 
@@ -532,7 +532,7 @@
                 function(err) {
                     if (idPicType == "front") {
                         $(".front_img").attr('src', "../images/id_front.png");
-                    }else{
+                    } else {
                         $(".back_img").attr('src', "../images/id_back.png");
                     }
                     mui.toast(err);
@@ -541,39 +541,42 @@
         }
 
 
-		var step = 0;
-		function initStatus(){
-			Global.commonAjax({ url: "user/input/status" },
-		           function(data) {
-		               
-		               if((data != "") && (data != null)){
-		               		if(data.isInputIdcard == "N"){
-		               			step = 0;
-		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isInputDetail == "N"){
-		               			step = 1;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isPay == "N"){
-		               			step = 2;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else{
-		               			step = 3;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
-		               		}
-		               	}
-		               
-		               
-		          }
-           );
-		}
+        var step = 0;
+
+        function initStatus() {
+            Global.commonAjax({
+                    url: "user/input/status"
+                },
+                function(data) {
+
+                    if ((data != "") && (data != null)) {
+                        if (data.isInputIdcard == "N") {
+                            step = 0;
+                            $(".first_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else if (data.isInputDetail == "N") {
+                            step = 1;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else if (data.isPay == "N") {
+                            step = 2;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                        } else {
+                            step = 3;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                        }
+                    }
+
+
+                }
+            );
+        }
 
 
 
@@ -581,7 +584,7 @@
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-            		$('.modal-mask').removeClass("hideClass")
+                $('.modal-mask').removeClass("hideClass")
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -595,37 +598,37 @@
         //左上角 关闭按钮
         $('.header_close').click(function() {
             $('.modal-mask').removeClass("hideClass");
-            
+
         })
 
         //弹窗中 关闭按钮
         function closeDialg() {
-        	Global.openKouzi();
+            Global.openKouzi();
             Global.closeStepWindow();
         };
-        
-        $(".dialog_bottom_btn").click(function(){
-        		$('.modal-mask').addClass("hideClass");
+
+        $(".dialog_bottom_btn").click(function() {
+            $('.modal-mask').addClass("hideClass");
         })
 
         //浮层 奖金信息
-		function showMoneyInfo(){
-        		if(myStorage){
-            		if(myStorage.getItem("inputIdInfoReturn")){
-	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
-	            		$(".first_text").html("完成即可获得"+myStorage.getItem("inputIdInfoReturn")+"元现金");
-	            		
-	            }
-            		
-            		if(myStorage.getItem("inputBaseInfoReturn")){
-	            		$(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
-	            		$(".second_text").html("完成即可获得"+myStorage.getItem("inputBaseInfoReturn")+"元现金");
-	            }
-            		
-            		if(myStorage.getItem("payReturn")){
-	            		$(".third_step_money").html(myStorage.getItem("payReturn"));
-	            		$(".third_text").html("完成即可获得"+myStorage.getItem("payReturn")+"元现金");
-	            }
+        function showMoneyInfo() {
+            if (myStorage) {
+                if (myStorage.getItem("inputIdInfoReturn")) {
+                    $(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
+                    $(".first_text").html("完成即可获得" + myStorage.getItem("inputIdInfoReturn") + "元现金");
+
+                }
+
+                if (myStorage.getItem("inputBaseInfoReturn")) {
+                    $(".second_step_money").html(myStorage.getItem("inputBaseInfoReturn"));
+                    $(".second_text").html("完成即可获得" + myStorage.getItem("inputBaseInfoReturn") + "元现金");
+                }
+
+                if (myStorage.getItem("payReturn")) {
+                    $(".third_step_money").html(myStorage.getItem("payReturn"));
+                    $(".third_text").html("完成即可获得" + myStorage.getItem("payReturn") + "元现金");
+                }
             }
         }
 
@@ -633,16 +636,16 @@
          * 个人信息认证
          */
         function goToPersonInfo() {
-        		if(step >= 1){
-        			mui.openWindow({
-                        url: 'personInfo.html',
-                        id: 'personInfo.html',
-                        waiting: {
-                            autoShow: false
-                        }
-                    })
-        			return;
-        		}
+            if (step >= 1) {
+                mui.openWindow({
+                    url: 'personInfo.html',
+                    id: 'personInfo.html',
+                    waiting: {
+                        autoShow: false
+                    }
+                })
+                return;
+            }
             var name = $('#name').val();
             var card = $('#card').val();
 
@@ -654,20 +657,20 @@
             if (!card) {
                 mui.toast("请上传身份证正面");
                 return;
-            }else if(card.length != 18){
-            		mui.toast("请输入正确的身份证号");
+            } else if (card.length != 18) {
+                mui.toast("请输入正确的身份证号");
                 return;
             }
 
-	         if ($(".front_img").attr('src') == "../images/id_front.png") {
-	             mui.toast("请上传身份证正面");
-	                 return;
-	             }
+            if ($(".front_img").attr('src') == "../images/id_front.png") {
+                mui.toast("请上传身份证正面");
+                return;
+            }
 
-	             if ($(".back_img").attr('src') == "../images/id_back.png") {
-	             mui.toast("请上传身份证反面");
-	             return;
-	         }
+            if ($(".back_img").attr('src') == "../images/id_back.png") {
+                mui.toast("请上传身份证反面");
+                return;
+            }
 
 
             var params = {
@@ -696,12 +699,10 @@
                     })
                 },
                 function(err) {
-                    mui.toast(err.msg);
+                    mui.toast(err);
                 }
-           )
+            )
         }
-        
-        
     </script>
 </body>
 

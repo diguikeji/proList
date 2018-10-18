@@ -242,16 +242,16 @@
     <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
-        
+
         var miniApplyAmount = 50;
         mui.plusReady(function() {
-        		var self = plus.webview.currentWebview();
-        		miniApplyAmount = self.miniApplyAmount;
-	        //最小提现余额
-	        $(".money_dirction").html("(最低提现"+self.miniApplyAmount+"元，仅可提现整数金额)");
-	        isSetAliPayFun();
+            var self = plus.webview.currentWebview();
+            miniApplyAmount = self.miniApplyAmount;
+            //最小提现余额
+            $(".money_dirction").html("(最低提现" + self.miniApplyAmount + "元，仅可提现整数金额)");
+            isSetAliPayFun();
         });
-        
+
 
         /**
          * 钱包明细 
@@ -268,41 +268,42 @@
 
         //立即提现
         function getMoney() {
-        	//提现申请
-                var money = $(".money_input").val();
-                if (!money) {
-                    mui.toast("请输入金额");
-                    return;
-                }
+            //提现申请
+            var money = $(".money_input").val();
+            if (!money) {
+                mui.toast("请输入金额");
+                return;
+            }
 
-                if (parseInt(money) < parseInt(miniApplyAmount)) {
-                    mui.toast("请输入大于最低提现额的数字");
-                    return;
-                }
-                
-                if(parseInt($(".money_text").html()) < parseInt(money)){
-                		mui.toast("超过余额");
-                    return;
-                }
-                console.log(isSetAlipay);
+            if (parseInt(money) < parseInt(miniApplyAmount)) {
+                mui.toast("请输入大于最低提现额的数字");
+                return;
+            }
+
+            if (parseInt($(".money_text").html()) < parseInt(money)) {
+                mui.toast("超过余额");
+                return;
+            }
+            console.log(isSetAlipay);
             if (isSetAlipay == "N") {
                 setZFB();
             } else {
-                
-				var params = {applyAmount: money};
+
+                var params = {
+                    applyAmount: money
+                };
                 Global.commonAjax({
                         url: "user/apply/deposit",
                         data: params,
                         method: "POST"
                     },
                     function(data) {
-						mui.toast("申请提现成功");
-						var lastMoney = parseInt(wallet.balance) - parseInt(money);
-						$(".money_text").html(lastMoney+"");
-						$(".money_input").val("");
+                        mui.toast("申请提现成功");
+                        isSetAliPayFun();
+                        $(".money_input").val("");
                     },
                     function(err) {
-						mui.toast("申请提现失败");
+                        mui.toast("申请提现失败");
                     }
                 )
             }
@@ -321,26 +322,26 @@
                 mui.toast("请设置收款人账号");
                 return;
             }
-			var params = {
-				alipayName: accountName,
+            var params = {
+                alipayName: accountName,
                 alipayAccount: accountNum
-			}
+            }
             Global.commonAjax({
                     url: "user/modify/alipay",
                     data: params,
                     method: "POST"
                 },
                 function(data) {
-            			closeDialg();
-            			isSetAliPayFun();
-            			console.log(isSetAlipay);
-                		mui.toast("设置账户成功");
-                    
+                    closeDialg();
+                    isSetAliPayFun();
+                    console.log(isSetAlipay);
+                    mui.toast("设置账户成功");
+
                 },
                 function(err) {
-					mui.toast("设置账户失败");
+                    mui.toast("设置账户失败");
                 }
-           )
+            )
         }
 
         //设置支付宝
@@ -357,24 +358,25 @@
         var isSetAlipay = "N";
         //余额
         var balance = 0;
-        function isSetAliPayFun(){
-        		Global.commonAjax({ url: "user/input/status" },
-	           function(data) {
-	               var url = "";
-	               if(data){
-	               		isSetAlipay = data.isSetAlipay;
-	               		balance  = data.balance;
-	               		$(".money_text").html(balance);
-	               }
-	               
-	           },
-	           function(err) {
-					mui.toast(err.msg);
-	           }
-	       );
+
+        function isSetAliPayFun() {
+            Global.commonAjax({
+                    url: "user/input/status"
+                },
+                function(data) {
+                    var url = "";
+                    if (data) {
+                        isSetAlipay = data.isSetAlipay;
+                        balance = data.balance;
+                        $(".money_text").html(balance);
+                    }
+
+                },
+                function(err) {
+                    mui.toast(err);
+                }
+            );
         }
-        
-       
     </script>
 </body>
 

@@ -164,7 +164,7 @@
         <!-- QQ 分享 配置和授权登陆相同 -->
         <meta-data
             android:name="QQ_APPID"
-            android:value="%appid%" />
+            android:value="101505109" />
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -176,7 +176,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="%appid%" />
+                <data android:scheme="tencent101505109" />
             </intent-filter>
         </activity>
         <activity
@@ -324,10 +324,10 @@
         <!-- 微信分享 配置begin -->
         <meta-data
             android:name="WX_SECRET"
-            android:value="fdc6251421d3d688a563b4f00dd540e7" />
+            android:value="dddb14ae5d1d6f6550c2ac6a857655b2" />
         <meta-data
             android:name="WX_APPID"
-            android:value="wx0411fa6a39d61297" />
+            android:value="wx1bf53359705734f1" />
 
         <activity
             android:name="com.HBuilder.integrate.wxapi.WXEntryActivity"
@@ -365,10 +365,6 @@
             android:name="com.HBuilder.integrate.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-
-        <meta-data
-            android:name="WX_APPID"
-            android:value="wx0411fa6a39d61297" />
 
         <!-- 微信支付配置end -->
         <!-- 小米分享 -->
