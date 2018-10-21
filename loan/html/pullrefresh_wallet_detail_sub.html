@@ -76,6 +76,12 @@
                 }
             }
         });
+        
+        mui.plusReady(function() {
+			    pulldownRefresh();
+
+			});
+			
 
         //pulldownRefresh();
         var user = myStorage.getItem("user");
@@ -133,22 +139,27 @@
          * 上拉加载具体业务实现
          */
         function pullupRefresh() {
+        		var preList = document.body.querySelectorAll('.mui-table-view-cell');
+        		if(preList.length == 0){
+        			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+        			return;
+        		}
         		current ++;
         		getFlowList(1);
         }
         
-       if (mui.os.plus) {
-           mui.plusReady(function() {
-               setTimeout(function() {
-                   mui('#pullrefresh').pullRefresh().pullupLoading();
-               }, 10);
-
-           });
-       } else {
-           mui.ready(function() {
-               mui('#pullrefresh').pullRefresh().pullupLoading();
-           });
-       }
+//     if (mui.os.plus) {
+//         mui.plusReady(function() {
+//             setTimeout(function() {
+//                 mui('#pullrefresh').pullRefresh().pullupLoading();
+//             }, 10);
+//
+//         });
+//     } else {
+//         mui.ready(function() {
+//             mui('#pullrefresh').pullRefresh().pullupLoading();
+//         });
+//     }
         
         /**
          * 	请求列表数据

@@ -99,7 +99,7 @@
 					mui.toast("验证码发送成功");
                 },
                 function(err) {
-                    mui.toast("发送失败");
+                    mui.toast(err);
                 });
         }
 
@@ -143,7 +143,7 @@
                     })
                 },
                 function(err) {
-                    mui.toast("登录失败");
+                    mui.toast(err);
                 })
         }
 
@@ -152,7 +152,7 @@
         function countDown() {
             intervalObj = setInterval(function() {
                 time--;
-                if (time == 0) {
+                if (time <= 0) {
                     time = 60;
                     clearInterval(intervalObj);
                     $(".sixty").text("重新获取");
@@ -162,12 +162,24 @@
 
             }, 1000);
         }
-
+		
+		var isclick = true;
         $('.sixty').click(function() {
-            if ($(this).text() == "重新获取") {
-                countDown();
-                login();
-            }
+        		if(isclick){
+        			isclick = false;
+        			
+        			if ($(this).text() == "重新获取") {
+	                countDown();
+	                sendsms(phone);
+	            }
+        			
+        			//定时器
+		        setTimeout(function(){ 
+		            isclick = true;
+		        }, 2000);
+        			
+        		}
+        
         })
 
         var nativeWebview, imm, InputMethodManager;

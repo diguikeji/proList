@@ -102,7 +102,6 @@
     <!-- Speech - 讯飞语音云 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -112,14 +111,13 @@
 
     <!-- Statistic(统计)  begin -->
     <!-- Statistic - 友盟统计 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <!-- Statistic(统计)  end -->
 
 
     <!-- 小米分享 -->
-    <uses-permission android:name="com.xiaomi.permission.AUTH_SERVICE" />
+    <!--<uses-permission android:name="com.xiaomi.permission.AUTH_SERVICE" />-->
 
     <!-- 小米分享 end -->
     <application

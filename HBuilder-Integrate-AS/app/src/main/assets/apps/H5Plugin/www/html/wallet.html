@@ -186,7 +186,7 @@
             <img src="../images/wallet_detail_icon.png" onclick="goToWalletDetail();" />
         </div>
 
-        <div class="money_text">600.00</div>
+        <div class="money_text">0</div>
         <div class="money_info">钱包余额(元)</div>
 
         <div class="content_wrap">
@@ -369,6 +369,8 @@
                         isSetAlipay = data.isSetAlipay;
                         balance = data.balance;
                         $(".money_text").html(balance);
+                        $(".accountName").val(data.alipayRealName);
+            				$(".accountNum").val(data.alipayAccount);
                     }
 
                 },

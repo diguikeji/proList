@@ -14,13 +14,13 @@
         }
         
         .credit_text{
-        		margin-top: 100px;
+        		margin-top: 60px;
         		text-align: center;
         }
         
         .credit_text img{
-        		width: 81px;
-        		height: 81px;
+        		width: 80%;
+        		height: 234px;
         }
         
         .credit_info{
@@ -34,7 +34,6 @@
         		color: #A2A2A2;
         		font-size: 14px;
         		margin-top: 10px;
-        		text-decoration: line-through;
         }
         
         .warning_info{
@@ -53,7 +52,7 @@
 		    height: 40px;
 		    text-align: center;
 		    font-size: 20px;
-		    margin: 200px 10% 50px;
+		    margin: 80px 10% 50px;
 		    border-radius: 30px;
 		    background: #FF5445;
 		    color: #ffffff;
@@ -100,9 +99,9 @@
        <div class="credit_text">
        		<img src="https://nydstatic.nongyaodai.com/image/error/success.png"/>
        </div>
-       <div class="credit_info">68.00</div>
-       <div class="error_info">原价199.00</div>
-    		<a class="mui-btn mui-btn-link next " onclick="pay();">完成
+       <div class="credit_info">大数据智能信用评估中...</div>
+       <div class="error_info" id="time">3s后自动跳转评估结果</div>
+    		<a class="mui-btn mui-btn-link next " onclick="pay();">马上查看
     		</a>
     		
     </div>
@@ -113,9 +112,20 @@
 	</script>
     <script type="text/javascript">
         mui.init();
-		var qimoClientId;
+		var qimoClientId, time = 3;
 		mui.plusReady(function() {
 			qimoClientId =  myStorage.getItem("user").mobile;
+			
+			var intervalHandler = setInterval(function(){
+				time--;
+				console.log(time);
+				if(time <= 0){
+					time = 0;
+					pay();
+					clearInterval(intervalHandler);
+				}
+				document.getElementById('time').innerHTML = time+"s后自动跳转评估结果";
+			}, 1000);
     		});
     		
         function pay(){

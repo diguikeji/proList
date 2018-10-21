@@ -370,6 +370,8 @@
 			
 			mui.plusReady(function() {
 			    initData();
+			    //浮层中的信息
+            		showMoneyInfo(); 
 			});
 			
 			function initData(){
@@ -508,7 +510,8 @@
 			
 			//浮层 奖金信息
 		function showMoneyInfo(){
-        		if(myStorage){
+        		if(myStorage){ 
+        			console.log(myStorage.getItem("inputIdInfoReturn")); 
             		if(myStorage.getItem("inputIdInfoReturn")){
 	            		$(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
 	            		$(".first_text").html("完成即可获得"+myStorage.getItem("inputIdInfoReturn")+"元现金");

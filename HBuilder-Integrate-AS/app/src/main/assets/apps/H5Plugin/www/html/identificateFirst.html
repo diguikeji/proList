@@ -381,7 +381,9 @@
 
         var main;
         var Intent;
-        var intent
+        var intent;
+        var hasData = false;
+        Global.showLoading();
         document.addEventListener('plusready', function() {
 
             main = plus.android.runtimeMainActivity();
@@ -406,7 +408,7 @@
             }
 
             if (userInfo && userInfo.idCardFontPic && userInfo.idCardBackPic) {
-                main = "";
+                hasData = true;
             }
 
             if (userInfo && userInfo.idCard && userInfo.realName) {
@@ -432,9 +434,11 @@
             }
         }
 
+		var flag = false;
         function takeFrontPhoto() {
-            if (main) {
+            if (!hasData) {
                 //身份证正面
+                flag = false;
                 intent.putExtra("type", 1);
                 intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -442,17 +446,22 @@
                 main.startActivityForResult(intent, 19);
                 main.onActivityResult = function(request, code, data) {
                     //停止录像
-                    var imgUrl = data.getStringExtra("result");
-                    $("#zhengmian").attr("src", imgUrl);
-
-                    Global.getCanvasBase64(imgUrl)
-                        .then(function(base64) {
-                            console.log(base64);
-                            uploadFile("front", base64)
-                        }, function(err) {
-                            console.log(err);
-                        })
-
+                    if(!flag){
+                    		var imgUrl = data.getStringExtra("result");
+	                    $("#zhengmian").attr("src", imgUrl);
+						
+	                    Global.getCanvasBase64(imgUrl)
+	                        .then(function(base64) {
+	                            console.log(base64);
+	                            flag = true;
+	                            uploadFile("front", base64)
+	                        }, function(err) {
+	                        		flag = true;
+	                            console.log(err);
+	                        })
+						return;
+                    }
+                    
                 }
             } else {
                 mui.toast("不可修改");
@@ -461,8 +470,9 @@
         }
 
         function takeBackPhoto() {
-            if (main) {
+            if (!hasData) {
                 //身份证反面
+                flag = false;
                 intent.putExtra("type", 2);
                 intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -470,15 +480,20 @@
                 main.startActivityForResult(intent, 19);
                 main.onActivityResult = function(request, code, data) {
                     //停止录像
-                    var imgUrl = data.getStringExtra("result");
-                    $("#fanmian").attr("src", imgUrl);
-                    Global.getCanvasBase64(imgUrl)
-                        .then(function(base64) {
-                            console.log(base64);
-                            uploadFile("back", base64);
-                        }, function(err) {
-                            console.log(err);
-                        })
+                    if(!flag){
+	                    var imgUrl = data.getStringExtra("result");
+	                    $("#fanmian").attr("src", imgUrl);
+	                    Global.getCanvasBase64(imgUrl)
+	                        .then(function(base64) {
+	                            console.log(base64);
+	                            flag = true;
+	                            uploadFile("back", base64);
+	                        }, function(err) {
+	                            console.log(err);
+	                            flag = true;
+	                        })
+	                    return; 
+                    }
                 }
             } else {
                 mui.toast("不可修改");
@@ -527,6 +542,7 @@
                         //mui.toast($(".back_img").attr('src'));
                         $(".next").css("background-color", "#c3c3c3");
                     }
+                    Global.hideLoading();
 
                 },
                 function(err) {
@@ -535,6 +551,7 @@
                     } else {
                         $(".back_img").attr('src', "../images/id_back.png");
                     }
+                    Global.hideLoading();
                     mui.toast(err);
                 }
             )
@@ -544,11 +561,12 @@
         var step = 0;
 
         function initStatus() {
+        		
             Global.commonAjax({
                     url: "user/input/status"
                 },
                 function(data) {
-
+					
                     if ((data != "") && (data != null)) {
                         if (data.isInputIdcard == "N") {
                             step = 0;

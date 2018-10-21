@@ -25,15 +25,18 @@
 		<header class="mui-bar mui-bar-nav" >
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">消息中心</h1>
-		    <img src="../images/custom_icon.png"  />
+		    <img src="../images/custom_icon.png"  onclick="sendCustom();"/>
 		</header>
 		
 		<div class="mui-content">
 		</div>
 		
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript">
-			//启用双击监听
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/myStorage.js"></script>
+		<!--<script src="../js/app.js"></script>-->
+		<script type='text/javascript'>
+			//启用双击监听 
 		mui.init({
 			gestureConfig:{
 				doubletap:true
@@ -55,6 +58,12 @@
 			}
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
+		
+		function sendCustom(){
+			console.log("909090");
+			var h = plus.webview.getWebviewById("pullrefresh_message_sub.html");
+			mui.fire(h,'sendCustom',{}); 
+		}
 		</script>
 	</body>
 

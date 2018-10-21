@@ -92,8 +92,8 @@
 
 <body>
     <!--下拉刷新容器-->
-    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-        <div class="mui-scroll">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper" >
+        <div class="mui-scroll" >
             <!--数据列表-->
             <ul class="mui-table-view" style="background: #f4f4f4;">
             </ul>
@@ -107,7 +107,11 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
-    <!--<script src="html5plus://ready"></script>-->
+    <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+		</script>
+		<script type='text/javascript'>
+		var qimoClientId =  myStorage.getItem("user").mobile;
+		</script>
     <script>
         mui.init({
             pullRefresh: {
@@ -133,14 +137,26 @@
             mui.ready(function() {
                 //mui('#pullrefresh').pullRefresh().pullupLoading();
                 pulldownRefresh();
+				
             });
-        }
+        };
+        
+        window.addEventListener('sendCustom',function(event){
+                		console.log("00000")
+					qimoChatClick();
+				}, false);
         
 
         $('body').on('click', '.mui-table-view li .item_wrap', function() {
             var index = $(this).data("index");
             
             goToDetail(findList[index]);
+            var item = $(this).find('.read_flag');
+//          var item = $('.mui-table-view li .item_wrap .content_wrap');
+            if(item && item.length > 0){
+            		item.addClass("hideClass");
+            }
+            
         });
 		
         //查看消息详情
@@ -163,6 +179,7 @@
                 function(data) {
 					if (item && item.jumpUrl) {
 						console.log(item.jumpUrl);
+						
 			                mui.openWindow({
 			                    url: 'webview.html',
 			                    id: 'webview.html?url=' + item.jumpUrl,
@@ -265,14 +282,14 @@
                 li.className = 'mui-table-view-cell';
                 li.innerHTML = '<div class="item_wrap col" data-index="' + index + '">' +
                     '<span class="item_time">' + cells[i].sendTime + '</span>' +
-                    '<div class="row content_wrap">' + (cells[i].isRead ? '' : '<span class="read_flag"></span>') +
+                    '<div class="row content_wrap">' + (cells[i].isRead=="Y" ? '' : '<span class="read_flag"></span>') +
                     '<div class="col title_wrap">' +
                     '<span class="main_title">' + cells[i].msgTitle + '</span>' +
                     '<span class="main_content">' + cells[i].msgContent + '</span>' +
                     '</div></div></div>';
                 table.appendChild(li);
                 index += 1;
-            }
+            } 
             
             if (refreshType == 0) {
 		        //下拉刷新

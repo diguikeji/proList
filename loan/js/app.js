@@ -5,7 +5,7 @@ var Global = {};
     Global = {
         showLoading: function() {
             if ($("#ShowLoading").length == 0) {
-                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: absolute;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='../images/loading.gif'/></div></div>");
+                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: fixed;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='../images/loading.gif'/></div></div>");
             }
         },
         hideLoading: function() {
@@ -106,6 +106,11 @@ var Global = {};
             } else {
                 params.method = "POST";
             }
+            
+            if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			        Global.errorNet();
+					return; 
+			   }
 
             mui.ajax(baseUrl + params.url, {
                 dataType: "json",
@@ -126,6 +131,12 @@ var Global = {};
                     if (token) {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     };
+                    console.log("----"+params.url+"---"+params.url.indexOf("goodslist"));
+//                  if((params.url.indexOf("pay") != -1) || 
+//                  		(params.url.indexOf("upload") != -1) || (params.url.indexOf("goodslist") != -1)){
+//              			console.log("--444444-"+params.url);
+//              			Global.showLoading();
+//              		}
                     Global.showLoading();
                 },
                 success: function(data) {
@@ -173,13 +184,17 @@ var Global = {};
 
                 },
                 error: function(data) {
-                    console.log(data);
+                    console.log(JSON.stringify(data));
                     if (errorback) {
                         errorback(data.msg);
                     }
 
                 },
                 complete: function(xhr, status) {
+//              		if((params.url.indexOf("pay") != -1) || 
+//                  		(params.url.indexOf("upload") != -1) || (params.url.indexOf("goodslist") != -1)){
+//              			Global.hideLoading();
+//              		}
                     Global.hideLoading();
                     if(params.url.indexOf("card") != -1){
                     		console.log("9999999");

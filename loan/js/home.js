@@ -21,24 +21,29 @@ mui.plusReady(function() {
     if(!isfirst){
     		//用户信息接口
     		loginByToken();
+    }else{
+    		//系统参数接口
+	    initData();
+
+	    //首页接口
+	    mainPageInit();
+
+	    //获取最新引导页
+	    getStartUpPage();
+
+	    //分享
+	    updateSerivces();
+
+
+
     }
-            
+
     fastQuit();
     //红包左右晃动
     setInterval(function() {
         gaibian();
     }, 500);
-    //系统参数接口
-    initData();
-    
-    //首页接口
-    mainPageInit();
 
-    //获取最新引导页
-    getStartUpPage();
-
-    //分享
-    updateSerivces();
 
     //关闭所有其他页面
     //closeOtherWindow();
@@ -86,9 +91,9 @@ mui.plusReady(function() {
             plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
         } else if (tabIndex == 3) {
             //我的页面
-            
+
             updatePage(tabIndex);
-            
+
 //          myTabInit();
 //          findList = [];
 			console.log("tabIndex3333");
@@ -129,7 +134,7 @@ function myTabInit() {
         $(".my_phone").html(user.mobile);
     }
     //我的页面 绑定
-    
+
     if (updateData && updateData.score) {
         $(".goCreditClass").html(updateData.score + "分");
         $(".goCreditClass").addClass("balance_css");
@@ -139,7 +144,7 @@ function myTabInit() {
         $(".goCreditClass").addClass("no_balance_css");
         $(".goCreditClass").removeClass("balance_css");
     }
-                    
+
 
     if (updateData && updateData.balance) {
         if (parseInt(updateData.balance) <= 0) {
@@ -151,13 +156,27 @@ function myTabInit() {
             $(".goMakeMoneyClass").addClass("balance_css");
             $(".goMakeMoneyClass").removeClass("top-badge");
         }
+    }
 
+    console.log(updateData.isPay);
+    //付费了
+    if(updateData && (updateData.isPay == "Y")){
+//  		$(".credit_item").addClass("hideClass");
+//  		$(".wallet_item").css("margin-bottom", "20px");
+		$(".recommand_icon").removeClass("hideClass");
+		$(".newFind").removeClass("hideClass");
+		$(".oldFind").removeClass("hideClass");
+    }else{
+    		$(".recommand_icon").addClass("hideClass");
+    		$(".newFind").addClass("hideClass");
+    		$(".oldFind").addClass("hideClass");
     }
 }
 
 //设置页面返回的时候 更新
 function updateMyTab() {
-    myTabInit();
+    //myTabInit();
+    updatePage(0);
 }
 
 window.addEventListener('updateFunc', function(event) {
@@ -222,7 +241,7 @@ function loginByToken() {
             function(data) {
                 //广告
                 if (data && data.toFindAd) {
-                    //有新口子 
+                    //有新口子
                     myStorage.setItem("toFindAd", data.toFindAd);
 
                     $('.selfModal .modal-dialog .modal-content .conten_bg')
@@ -240,7 +259,27 @@ function loginByToken() {
                 myStorage.setItem("wallet", data.wallet);
                 //token
                 myStorage.setItem("userToken", data.userToken);
-                
+                //系统参数接口
+			    initData();
+
+			    //首页接口
+			    mainPageInit();
+
+			    //获取最新引导页
+			    getStartUpPage();
+
+			    //分享
+			    updateSerivces();
+
+			    if(data && (data.isShowFindPage == "Y")){
+					$(".newFind").addClass("hideClass");
+					$(".oldFind").removeClass("hideClass");
+			    }else{
+                    $(".newFind").removeClass("hideClass");
+                    $(".oldFind").addClass("hideClass");
+                    $(".newFindText").css("margin-right", "60px");
+			    }
+
             },
             function(error) {
 
@@ -308,14 +347,14 @@ function moneyPageInit() {
             //余额
             if (data && data.miniApplyAmount) {
                 miniApplyAmount = data.miniApplyAmount;
-                
+
                 if (updateData && updateData.balance) {
                     //可用余额
                     $(".balance").html(updateData.balance);
                 }else{
                 		$(".balance").html("0");
                 }
-                
+
 
             } else {
                 $(".balance").html("0");
@@ -366,12 +405,12 @@ function moneyPageInit() {
     )
 }
 
-//查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率 
+//查询类型：HISTORY（查询历史浏览记录） TIME （根据期间） DEGREE: 高成功率
 var currentType = "DEGREE";
 //当前查询  页数
 var current = 1;
 //根据期限查询是，是否倒序
-var isDes = false;
+var isDesc = false;
 //高成功率点击
 $('.highType').click(function() {
     $('.highType').css('color', '#ff5445');
@@ -379,7 +418,7 @@ $('.highType').click(function() {
     $('.preType').css('color', '#333333');
     currentType = 'DEGREE';
     current = 1;
-    isDes = false;
+    isDesc = false;
     pulldownRefresh();
 })
 
@@ -390,7 +429,7 @@ $('.timeType').click(function() {
     $('.preType').css('color', '#333333');
     if (currentType == 'TIME') {
         //当前期限
-        isDes = !isDes;
+        isDesc = !isDesc;
     }
 
     currentType = 'TIME';
@@ -406,7 +445,7 @@ $('.preType').click(function() {
 
     currentType = 'HISTORY';
     current = 1;
-    isDes = false;
+    isDesc = false;
     pulldownRefresh();
 });
 
@@ -450,7 +489,7 @@ function payedGoodslist(refreshType) {
         queryType: currentType,
         size: 20,
         current: current,
-        isDes: isDes
+        isDesc: isDesc
     }
     Global.commonAjax({
             url: "goods/findpage/goodslist",
@@ -461,7 +500,7 @@ function payedGoodslist(refreshType) {
             $(".empty_text").hide();
             $("#pullrefresh").show();
 
-            if (data.current >= data.pages) {
+            if (data.current == 1) {
                 if (data.records && (data.records.length == 0)) {
                     //空数据
                     //$(".mui-content").append('<div class="empty_text">数据为空</div>');
@@ -486,11 +525,11 @@ function payedGoodslist(refreshType) {
  */
 function pulldownRefresh() {
     current = 1;
-    findList = []; 
-    
+    findList = [];
+
    	document.body.querySelector('.mui-table-view-condensed').innerHTML = "";
     $(".mui-table-view-condensed").html = "";
-          
+
     payedGoodslist(0);
 }
 
@@ -499,6 +538,10 @@ function pulldownRefresh() {
  */
 function pullupRefresh() {
     if (tabIndex == 2) {
+    		if(findList.length < 20){
+    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+    			return;
+    		}
         current++;
         payedGoodslist(1);
     }
@@ -514,7 +557,7 @@ function setRefreshData(refreshType, cells, isAll) {
     //当前点击的 数据下标
     var index = 0;
     var table = document.body.querySelector('.mui-table-view-condensed');
-    console.log(table.length);
+    console.log(refreshType +"----"+isAll);
     if (refreshType == 0) {
         //下拉刷新
         table.innerHTML = "";
@@ -528,7 +571,12 @@ function setRefreshData(refreshType, cells, isAll) {
     for (var i = 0, len = cells.length; i < len; i++) {
         var li = document.createElement('li');
         var item = cells[i];
-        li.className = 'mui-table-view-cell mui-table-view-cell-item';
+        if(item.clicked){
+        		li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
+        }else{
+        		li.className = 'mui-table-view-cell mui-table-view-cell-item';
+        }
+
         li.innerHTML = '<div class="mui-slider-cell" data-index="' + index + '">' +
             '<div class="oa-contact-cell mui-table">' +
             '<div class="oa-contact-avatar mui-table-cell">' +
@@ -553,11 +601,11 @@ function setRefreshData(refreshType, cells, isAll) {
     if (refreshType == 0) {
         //下拉刷新
         mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-         
+
         $('html, body').animate({
 	        scrollTop: -$(".mui-table-view-condensed").offset().top
 	    }, 20);
-    
+
     } else {
         //上拉加载
 
@@ -632,7 +680,7 @@ var slider = mui("#slider").slider({
     interval: 5000
 });
 
-//申请贷款			
+//申请贷款
 function apply(params) {
     Global.commonAjax({ url: "user/input/status" },
         function(data) {
@@ -695,10 +743,27 @@ function updatePage(tabNum){
             		//我的页面
             		myTabInit();
         			findList = [];
+            }else if(tabNum == 0){
+            		//赚钱页面
+            		moneyPageInit();
+            		//我的页面
+            		myTabInit();
+        			findList = [];
             }
+            var isShowFindPage = myStorage.getItem("isShowFindPage");
+
+            if(isShowFindPage && (isShowFindPage == "Y")){
+                $(".newFind").addClass("hideClass");
+                $(".oldFind").removeClass("hideClass");
+            }else{
+                $(".newFind").removeClass("hideClass");
+                $(".oldFind").addClass("hideClass");
+                $(".newFindText").css("margin-right", "60px");
+            }
+
         },
         function(err){
-        		
+
         }
       );
 }
@@ -947,10 +1012,10 @@ $(".qq_wrap").click(function() {
 })
 $(".copy_wrap").click(function() {
     if (shareData) {
-        if (mui.os.ios) { //ios			
+        if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
             var generalPasteboard = UIPasteboard.generalPasteboard();  
-            //设置/获取文本内容:		    
+            //设置/获取文本内容:		   
             generalPasteboard.plusCallMethod({    
                 setValue: shareData.link,
                     
@@ -960,7 +1025,7 @@ $(".copy_wrap").click(function() {
                 valueForPasteboardType: "public.utf8-plain-text"  
             });
         } else {
-            //安卓			
+            //安卓
             var context = plus.android.importClass("android.content.Context"); 
             var main = plus.android.runtimeMainActivity(); 
             var clip = main.getSystemService(context.CLIPBOARD_SERVICE); 
@@ -1052,7 +1117,7 @@ function openGetMoney() {
 }
 
 
-//关闭新口子	
+//关闭新口子
 function closeDialg() {
     $('.selfModal').addClass('hideClass');
 }
@@ -1110,15 +1175,15 @@ function closeInviteDialg() {
 function jumpWeb() {
     plus.webview.create("webview.html", "", {
         bottom: "0px"
-    }); //新的页面地址 
+    }); //新的页面地址
 }
 
 //推荐
 function goToRecommand() {
-	 return;
+	// return;
     mui.openWindow({
-        url: 'credit_result.html',
-        id: 'credit_result.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }
@@ -1172,7 +1237,7 @@ function closeOtherWindow() {
 //打开口子浮层
 window.addEventListener('openKouzi', function(event) {
     console.log("收到事件");
-    
+    updateMyTab();
     var item = myStorage.getItem("toFindAd");
     console.log("收到事件" + item.picUrl); 
     if (item && item.picUrl) {
