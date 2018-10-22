@@ -198,7 +198,7 @@
 					$('.timeType').css('color', '#333333');
 					$('.preType').css('color', '#333333');
 					currentType = "DEGREE";
-					isDes = false;
+					isDesc = false;
 					sendClickType();
 			})
 				
@@ -208,9 +208,9 @@
 					$('.preType').css('color', '#333333');
 					if (currentType == 'TIME') {
 				        //当前期限
-				        isDes = !isDes;
+				        isDesc = !isDesc;
 				   }else{
-				   		isDes = false;
+				   		isDesc = false;
 				   }
 					currentType = "TIME";
 					sendClickType();
@@ -221,16 +221,15 @@
 					$('.timeType').css('color', '#333333');
 					$('.preType').css('color', '#ff5445');
 					currentType = "HISTORY";
-					isDes = false;
+					isDesc = false;
 					sendClickType();
 				})
 				
 				function sendClickType(){
 					console.log("发送事件");
 					var h = plus.webview.getWebviewById("recommand_sub.html");
-					mui.fire(h,'updatePreType',{currentType: currentType, isDes: isDes});
+					mui.fire(h,'updatePreType',{currentType: currentType, isDesc: isDesc});
 				}
-			
 			
 		</script>
 	</body>

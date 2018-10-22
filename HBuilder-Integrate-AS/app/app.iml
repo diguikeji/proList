@@ -152,6 +152,7 @@
     <orderEntry type="library" exported="" name="Gradle: com.android.support:support-vector-drawable-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/guzhenfu/Documents/proList/HBuilder-Integrate-AS/app/libs/aps.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:support-core-utils-25.2.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.blankj:utilcode-1.13.5" level="project" />
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/guzhenfu/Documents/proList/HBuilder-Integrate-AS/app/libs/contacts.jar:unspecified@jar" level="project" />
     <orderEntry type="module" module-name="certificateCamera" exported="" />
   </component>

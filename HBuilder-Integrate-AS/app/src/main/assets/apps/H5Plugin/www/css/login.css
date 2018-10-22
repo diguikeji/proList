@@ -58,8 +58,8 @@ input::-webkit-input-placeholder {
 }
 
 .numin {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border: 1px solid #dddddd;
     text-align: center;
     padding: 5px;
@@ -70,8 +70,8 @@ input::-webkit-input-placeholder {
 
 .number {
     text-align: center;
-    margin: 10px 5%;
-    width: 90%;
+    margin: 10px 8%;
+    width: 84%;
     justify-content: space-around;
     position: relative;
 }
@@ -113,11 +113,13 @@ input::-webkit-input-placeholder {
 
 .realInput{
     position: absolute;
-    width: 1000px;
+    width: 2000px;
     height: 100px;
-    top: 160px;
-    left: -100px;
+    top: 150px;
+    left: -50px;
+    right: 0px;
     background-color: transparent!important;
+    /*background-color: #000000;*/ 
     border: 0!important;
     font-size: 10px;
 }

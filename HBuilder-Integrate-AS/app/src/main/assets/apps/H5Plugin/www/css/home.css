@@ -632,3 +632,16 @@ oa-contact-position {
 	right: 5%;
 	top: 30px;
 }
+
+.msgIcon{
+	width: 57px;
+	height: 54px;
+	padding: 20px;
+	position: absolute;
+}
+
+.find_bottom_img{
+	width: 100%; 
+	position: absolute; 
+	bottom: -130px;
+}

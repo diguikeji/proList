@@ -71,9 +71,36 @@ var buttons=[
 {title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
 {title:'我的收藏',extra:{scene:'WXSceneFavorite'}}
 ];
+
+function goToNext(){
+	if(myStorage && myStorage.getItem("user")){
+		//如果有值，证明登录过了
+		mui.openWindow({
+			id: 'home.html',
+			url: 'html/home.html',
+			waiting:{
+				autoShow:false
+			},
+			extras: {
+				isfirst: false
+			}
+		});
+	}else{
+		//没有登录
+		mui.openWindow({
+			id: 'login.html',
+			url: 'html/login.html',
+
+			waiting: {
+				autoshow: false
+			}
+		});
+	}
+}
 // H5 plus事件处理
 function plusReady(){
-//	return;
+	goToNext();
+	return;
 	//读取本地存储，检查是否为首次启动
 				var showGuide = plus.storage.getItem("lauchFlag");
 

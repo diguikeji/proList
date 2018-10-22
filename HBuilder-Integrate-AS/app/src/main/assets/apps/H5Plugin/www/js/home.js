@@ -16,6 +16,7 @@ mui.init({
 var makeMoneySwiperObj;
 var tabIndex = 0;
 mui.plusReady(function() {
+	checkPermission();
 	var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if(!isfirst){
@@ -82,13 +83,8 @@ mui.plusReady(function() {
             });
 
         } else if (tabIndex == 2) {
-            var height = plus.display.resolutionHeight;
-            //alert(height);
-            $("#tabbar-with-contact").css("height", height);
-            //发现
-            pulldownRefresh();
-            $('#pullrefresh').scroll({ indicators: false });
-            plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
+            
+            updatePage(tabIndex);
         } else if (tabIndex == 3) {
             //我的页面
 
@@ -102,6 +98,28 @@ mui.plusReady(function() {
     });
 
 });
+
+//检查权限
+function checkPermission(){
+	if(mui.os.ios || (mui.os.android&&parseFloat(mui.os.version)<6.0)){
+	     //...操作
+	     return;
+	 } 
+	var mainAct = plus.android.runtimeMainActivity();
+	plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
+	var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+			"success": function() {
+				//申请权限成功或已经获取到了权限都会执行到这里
+				//mui.alert("获取成功");
+			},
+			"failure": function() {
+				//mui.alert("权限请求失败！");
+			}
+		});
+	//调用申请权限的静态方法
+	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+
+}
 
 //获取最新引导页
 function getStartUpPage() {
@@ -120,7 +138,7 @@ function getStartUpPage() {
 //我的页面 初始化
 function myTabInit() {
     var headPic = myStorage.getItem("headPic");
-    console.log(headPic);
+    //console.log(headPic);
     if (headPic) {
         $(".my_head").attr("src", headPic);
     };
@@ -163,11 +181,12 @@ function myTabInit() {
     if(updateData && (updateData.isPay == "Y")){
 //  		$(".credit_item").addClass("hideClass");
 //  		$(".wallet_item").css("margin-bottom", "20px");
-		$(".recommand_icon").removeClass("hideClass");
+		$(".recommand_icon").addClass("hideClass");
 		$(".newFind").removeClass("hideClass");
 		$(".oldFind").removeClass("hideClass");
     }else{
-    		$(".recommand_icon").addClass("hideClass");
+    		$(".recommand_icon").removeClass("hideClass");
+    		$(".newFindText").css("margin-right", "60px");
     		$(".newFind").addClass("hideClass");
     		$(".oldFind").addClass("hideClass");
     }
@@ -277,7 +296,6 @@ function loginByToken() {
 			    }else{
                     $(".newFind").removeClass("hideClass");
                     $(".oldFind").addClass("hideClass");
-                    $(".newFindText").css("margin-right", "60px");
 			    }
 
             },
@@ -645,15 +663,19 @@ function setGetMoneyBanner(listData) {
         if (that.data("url") == "undefined") {
             console.log(that.data("url") + '-----===');
             return;
+        }else if(that.data("url") == "findTab"){
+        		goToFindTab();
+        }else{
+        		mui.openWindow({
+	            url: 'webview.html',
+	            id: 'webview.html?url=' + that.data("url"),
+	            waiting: {
+	                autoShow: false
+	            }
+	        })
         }
 
-        mui.openWindow({
-            url: 'webview.html',
-            id: 'webview.html?url=' + that.data("url"),
-            waiting: {
-                autoShow: false
-            }
-        })
+        
     })
 
 
@@ -694,7 +716,7 @@ function apply(params) {
                 } else if (data.isPay == "N") {
                     url = "credit.html";
                 } else {
-                    url = "credit_result.html";
+                    url = "recommand.html";
                 }
 
                 if (params) {
@@ -743,29 +765,79 @@ function updatePage(tabNum){
             		//我的页面
             		myTabInit();
         			findList = [];
-            }else if(tabNum == 0){
+            }else if(tabNum == 2){
+            		//发现页面
+            		initFindPage(data);
+            } else if(tabNum == 0){
             		//赚钱页面
             		moneyPageInit();
             		//我的页面
             		myTabInit();
         			findList = [];
+        			//发现页面
+            		initFindPage(data);
+            }else if(tabNum == -1){
+            		//摇摆红包
+            		if(data.isPay == "Y"){
+            			invaliteFriend();
+            		}else{
+            			var url;
+            			if (data.isInputIdcard == "N") {
+	                    url = "identificateFirst.html";
+	                } else if (data.isInputDetail == "N") {
+	                    url = "personInfo.html";
+	                } else if (data.isPay == "N") {
+	                    url = "credit.html";
+	                } 
+	                
+	                mui.openWindow({
+	                    url: url,
+	                    id: url,
+	                    waiting: {
+	                        autoShow: false
+	                    }
+	                })
+	                
+            		}
+            		return;
             }
-            var isShowFindPage = myStorage.getItem("isShowFindPage");
-
-            if(isShowFindPage && (isShowFindPage == "Y")){
-                $(".newFind").addClass("hideClass");
-                $(".oldFind").removeClass("hideClass");
-            }else{
-                $(".newFind").removeClass("hideClass");
-                $(".oldFind").addClass("hideClass");
-                $(".newFindText").css("margin-right", "60px");
-            }
+            
 
         },
         function(err){
 
         }
       );
+}
+
+function initFindPage(data){
+	var isShowFindPage = myStorage.getItem("isShowFindPage");
+			
+    if(isShowFindPage && (isShowFindPage == "Y")){
+        $(".newFind").addClass("hideClass");
+        $(".oldFind").removeClass("hideClass");
+        var height = plus.display.resolutionHeight;
+        //alert(height);
+        $("#tabbar-with-contact").css("height", height);
+        //发现
+        pulldownRefresh();
+        $('#pullrefresh').scroll({ indicators: false });
+        plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
+            
+    }else{
+        $(".newFind").removeClass("hideClass");
+        $(".oldFind").addClass("hideClass");
+        if (data.isPay == "N"){
+        		//未付费
+        		$(".recommand_icon").removeClass("hideClass");
+        		$(".newFindText").css("margin-right", "60px");
+        }else{
+        		//已付费
+        		$(".recommand_icon").addClass("hideClass");
+        		
+        }
+        
+    }
 }
 
 
@@ -812,8 +884,8 @@ getMoneySwiper();
 function getMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
-        html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + Math.floor(Math.random() * 1000 + 1000) + ' 元</div>';
-    };
+        html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + parseInt(randomNum(500, 20000)/100)*100 + ' 元</div>';
+    }; 
     html += '</div>';
     $(".top-swiper-container").append(html);
 
@@ -825,7 +897,20 @@ function getMoneySwiper() {
     });
 }
 
-
+//生成从minNum到maxNum的随机数
+function randomNum(minNum,maxNum){ 
+    switch(arguments.length){ 
+        case 1: 
+            return parseInt(Math.random()*minNum+1,10); 
+        break; 
+        case 2: 
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+        break; 
+            default: 
+                return 0; 
+            break; 
+    } 
+} 
 
 
 //tab切换  赚钱无限上下滚动
@@ -834,7 +919,7 @@ makeMoneySwiper();
 function makeMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
-        html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + Math.floor(Math.random() * 1000 + 100) + ' 元</div>';
+        html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + parseInt(randomNum(500, 20000)/100)*100 + ' 元</div>';
     };
     html += '</div>';
     $(".getMoney-swiper-container").append(html);
@@ -1124,12 +1209,20 @@ function closeDialg() {
 
 //去发现tab
 function goToFindTab() {
-    console.log("00000")
-        //$('.tabbar-with-contact').addClass('mui-active');
-    closeDialg();
-    // mui.toast("9999999")
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
-    mui.trigger($('.mui-tab-item').eq(2)[0], 'tap')
+    mui.trigger($('.mui-tab-item').eq(2)[0], 'tap');
+    
+    updatePage(1);
+    if (makeMoneySwiperObj) {
+        makeMoneySwiperObj.destroy();
+    }
+
+    makeMoneySwiperObj = new Swiper('.getMoney-swiper-container', {
+        direction: 'vertical',
+        loop: true,
+        autoplay: true
+    });
+            
 }
 
 //去赚钱tab
@@ -1180,10 +1273,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	 return;
+	// return; 
     mui.openWindow({
-        url: 'recommand.html',
-        id: 'recommand.html',
+        url: 'pay_style.html',
+        id: 'pay_style.html',
         waiting: {
             autoShow: false
         }
@@ -1192,7 +1285,31 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
-    apply();
+    Global.commonAjax({ url: "user/input/status" },
+        function(data) {
+            var url = "identificateFirst.html";
+
+            if ((data != "") && (data != null)) {
+                if (data.isInputIdcard == "N") {
+                    url = "identificateFirst.html";
+                } else if (data.isInputDetail == "N") {
+                    url = "personInfo.html";
+                } else if (data.isPay == "N") {
+                    url = "credit.html";
+                } else {
+                    url = "credit_result.html";
+                }
+            }
+            
+            mui.openWindow({
+                url: url,
+                id: url,
+                waiting: {
+                    autoShow: false
+                }
+            })
+            
+        });
 }
 
 //分享
@@ -1239,7 +1356,7 @@ window.addEventListener('openKouzi', function(event) {
     console.log("收到事件");
     updateMyTab();
     var item = myStorage.getItem("toFindAd");
-    console.log("收到事件" + item.picUrl); 
+//  console.log("收到事件" + item.picUrl); 
     if (item && item.picUrl) {
         $('.selfModal .modal-dialog .modal-content .conten_bg')
             .attr("src", item.picUrl);

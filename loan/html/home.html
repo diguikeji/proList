@@ -59,11 +59,11 @@
                 <div class="swiper-container top-swiper-container">
 
                 </div>
-                <img class="noticeIcon right" onclick="goToMessage();" src="../images/msg_icon.png" />
+                <img class="noticeIcon right msgIcon" onclick="goToMessage();" src="../images/msg_icon.png" />
                 <span class="msg_cnt">0</span>
             </div>
 
-            <img src="../images/hongbao.png" class="hongbao_gif" onclick="invaliteFriend();" />
+            <img src="../images/hongbao.png" class="hongbao_gif" onclick="updatePage(-1);"  />
         </div>
 
         <div class="home_content col">
@@ -85,7 +85,7 @@
                 <input type="range" id="edu" value="10000" min="500" max="20000">
                 <span class="mui-tooltip mui-hidden"></span>
 
-                <div class="bottom-value">
+                <div class="bottom-value" style="padding-left:8px;  ">
                     <span>500</span>
                     <span>20000</span>
                 </div>
@@ -99,7 +99,7 @@
 
                 <input type="range" id="jiekuan" value="6" min="0" max="12" step="1">
                 <span class="mui-tooltip mui-hidden money_rate"></span>
-                <div class="bottom-value">
+                <div class="bottom-value" style="padding: 0px 10px 0px 8px; ">
                     <span>0.5</span>
                     <span>12</span>
                 </div>
@@ -122,7 +122,7 @@
     <div id="tabbar-with-chat" class="mui-control-content" style="background: #4641d4;">
 
         <!--../images/zuanqian_02.png-->
-        <img style="width:100%;display: block;" src="" class="get_money_top_ad" onerror="this.src='../images/zuanqian_02.png';this.onerror=null"/>
+        <img style="width:100%;display: block;" src="../images/zuanqian_02.png" class="get_money_top_ad" onerror="this.src='../images/zuanqian_02.png';this.onerror=null"/>
 
         <div style="position: relative;">
             <img style="width:100%;display: block;" src="../images/zuanqian_03.png" />
@@ -224,7 +224,7 @@
     <div id="tabbar-with-contact" class="mui-control-content" style="background-color: #f4f4f4;">
         <div class="oldFind">
             <div class="find-top">
-                <div class="active highType">高成功率</div>
+                <div class="active highType">默认</div>
                 <div class="timeType">
                     <span>期限</span>
                     <img src="../images/change_type_icon.png" />
@@ -288,15 +288,15 @@
 
             </div>
             <div class="find_bottom_wrap">
-                <img src="../images/find_bottom.png" style="width: 100%; position: absolute; z-index: -1;"/>
+                <img src="../images/find_bottom.png" class="find_bottom_img"/>
                 <div class="bottom_center">
-    						<span style="color: #ffffff;" class="newFindText">
-    							完成信用评估,未来将自动成为白金会员
-    						</span>
+					<span style="color: #ffffff;" class="newFindText">
+						完成信用评估,未来将自动成为白金会员
+					</span>
                 </div>
                 <img src="../images/bottom_center_icon.png" class="bottom_center_icon"/>
                 <img src="../images/self_icon.png" class="self_icon"/>
-                <img src="../images/recommand_icon.png" class="recommand_icon" onclick="goToCredit();"/>
+                <img src="../images/recommand_icon.png" class="recommand_icon" onclick="apply();"/>
             </div>
 
         </div>
@@ -350,11 +350,6 @@
             <li class="mui-table-view-cell contact_service">
                 <a class="mui-navigate-right">
                     <img src="../images/kefu.png" /> 联系客服
-                </a>
-            </li>
-            <li class="mui-table-view-cell" onclick="goToAbout();">
-                <a class="mui-navigate-right">
-                    <img src="../images/guanyu.png" /> 关于我们
                 </a>
             </li>
             <li class="mui-table-view-cell" onclick="goToSetting();">

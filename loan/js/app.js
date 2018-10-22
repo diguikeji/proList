@@ -145,6 +145,10 @@ var Global = {};
                         //token 过期
                         if (myStorage) {
                                 myStorage.removeItem("userToken");
+				    				myStorage.removeItem("user");
+				    				myStorage.removeItem("userInfo");
+				    				myStorage.removeItem("wallet");
+				    				myStorage.removeItem("headPic");
                             }
                         var curr = plus.webview.currentWebview();
                         var wvs = plus.webview.all();
@@ -185,6 +189,10 @@ var Global = {};
                 },
                 error: function(data) {
                     console.log(JSON.stringify(data));
+                    if(!data.response || !data.responseText){
+                    		Global.error500();
+                    		return;
+                    }
                     if (errorback) {
                         errorback(data.msg);
                     }

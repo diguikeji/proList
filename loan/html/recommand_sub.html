@@ -151,7 +151,7 @@
 			.clip-auto{clip:rect(auto, auto, auto, auto);} .percent{box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; top:-1px; left:-1px;}
 			.left{border:0.2rem solid #ff6300; clip: rect(0,2rem,4rem,0);} .right{border:0.2rem solid #FF6300; clip: rect(0,4rem,4rem,2rem);}
 			.wth0{width:0;}
-			.num{position: absolute; box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; width:56px; height:56px; line-height: 16px; text-align: center; font-size: 1rem; left:2px; top:2px; border-radius: 50%; color:#FF6300; background: white; z-index: 1;} 
+			.num{position: absolute; box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; width:56px; height:56px; line-height: 16px; text-align: center;  left:2px; top:2px; border-radius: 50%; color:#FF6300; background: white; z-index: 1;} 
 			.success_rate{position: absolute; top: 10px; line-height: 20px; left: 12px; font-size: 10px;}
 		</style>
 	</head>
@@ -252,6 +252,7 @@
 			//pulldownRefresh();
 			
 			function updateClick(msg){
+				console.log("99999")
 				currentType = msg.currentType;
 				isDesc = msg.isDesc;
 				findList = [];
@@ -378,11 +379,11 @@
 						'<div class="percent left" style="-webkit-transform:rotate('+
 								parseInt(item.recommendDegree*3.6) +'deg);"></div>'
 								+'<div class="percent right"></div>'+
-								'</div>'+
+								'</div>'+ 
 								'<div class="num row" style="align-items: center; justify-content: center;">'+
 									'<div >'+
-										'<span>'+item.recommendDegree+'</span>%<br>'+
-										'<span style="font-size: 0.3rem;">成功率</span>'+
+										'<span style="font-size: 12px;">'+item.recommendDegree+'</span>%<br>'+
+										'<span style="font-size: 10px;">成功率</span>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -421,8 +422,8 @@
 								'</div>'+
 								'<div class="num row" style="align-items: center; justify-content: center;">'+
 									'<div >'+
-										'<span>'+item.recommendDegree+'</span>%<br>'+
-										'<span style="font-size: 0.3rem;">成功率</span>'+
+										'<span style="font-size: 12px;">'+item.recommendDegree+'</span>%<br>'+
+										'<span style="font-size: 10px;">成功率</span>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+

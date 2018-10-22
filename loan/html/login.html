@@ -68,8 +68,30 @@
         //自动弹出键盘
         // initNativeObjects();
         // showSoftInput();
-
+		checkPermission();
     });
+    
+    //检查权限
+function checkPermission(){
+	if(mui.os.ios || (mui.os.android&&parseFloat(mui.os.version)<6.0)){
+	     //...操作
+	     return;
+	 } 
+	var mainAct = plus.android.runtimeMainActivity();
+	plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
+	var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+			"success": function() {
+				//申请权限成功或已经获取到了权限都会执行到这里
+				//mui.alert("获取成功");
+			},
+			"failure": function() {
+				//mui.alert("权限请求失败！");
+			}
+		});
+	//调用申请权限的静态方法
+	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+
+}
     
     /**
      * 获取验证码

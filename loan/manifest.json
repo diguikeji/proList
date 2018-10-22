@@ -275,7 +275,9 @@
 					"html/pay_error_result.html",
 					"html/pay_success.html",
 					"html/error500.html",
-					"html/credit_result.html"
+					"html/credit_result.html",
+					"html/test.html",
+					"html/pay_style.html"
 				],
 				"priority": 0
 			},
@@ -406,6 +408,13 @@
 				"priority": 0
 			},
 			"html/pullrefresh_message_sub.html": {
+				"resources": [],
+				"refer": [
+					"html/webview.html"
+				],
+				"priority": 0
+			},
+			"html/recommand_sub.html": {
 				"resources": [],
 				"refer": [
 					"html/webview.html"

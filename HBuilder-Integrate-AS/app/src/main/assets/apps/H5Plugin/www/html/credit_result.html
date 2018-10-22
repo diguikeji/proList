@@ -201,7 +201,7 @@
     		<div class="bg">
     			
     		</div>
-       <canvas id="canvas" ></canvas>
+       <canvas id="canvas" style="width: 100%; height: 400px; "></canvas>
        <div class="credit_text">信用评估：中等</div>
        <div class="credit_info">借款评估：在一些风控较严的平台中，您可能依旧难以借到款，但只要有耐心多尝试几次，大概率会获得额度。</div>
     		<button type="button" class="mui-btn mui-btn-link next" onclick="goToNext();">马上借款</div>
@@ -331,23 +331,29 @@
 		//canvas初始化
 		function initCanvas(){
 			var canvas = document.getElementById("canvas");
-	      	canvas.width = screenWidth;
-	      	canvas.height = screenWidth;
+	      	canvas.width = screenWidth*4;
+	      	canvas.height = screenWidth*4;
+	      	screenWidth = screenWidth*4;
 	      	ctx = canvas.getContext('2d');
 		}
 		
 		//画出所有东西
 		function drawAll(score, scoreRange){
 			drawArc(Math.PI, 2*Math.PI, "#FDC4A3");
-			drawArc(Math.PI,((score-300)/(850-300) + 1)*Math.PI, "#FFFFFF");
+			if(score > 550){
+				drawArc(Math.PI,((score-450)/(850-450) + 1)*Math.PI, "#FFFFFF");
+			}else{
+				drawArc(Math.PI,((score-300)/(1300-300) + 1)*Math.PI, "#FFFFFF");
+			}
+			
 			drawText("300", screenWidth*0.15, screenWidth/2);
 			drawText("550", screenWidth*0.25, screenWidth/4);
 			drawText("650", screenWidth*0.5, screenWidth/6);
 			drawText("750", screenWidth*0.75, screenWidth/4);
 			drawText("850", screenWidth*0.85, screenWidth/2);
-			drawText(score, screenWidth*0.5, screenWidth*0.4, "45px");
-			drawText(scoreRange, screenWidth*0.5, screenWidth*0.46, "18px");
-			drawText("评估时间："+new Date().Format("yyyy-MM-dd"), screenWidth*0.5, screenWidth*0.5, "10px");
+			drawText(score, screenWidth*0.5, screenWidth*0.4, "180px");
+			drawText(scoreRange, screenWidth*0.5, screenWidth*0.46, "72px");
+			drawText("评估时间："+new Date().Format("yyyy-MM-dd"), screenWidth*0.5, screenWidth*0.5, "40px");
 		}
 		
 		function drawArc(s, e, color){
@@ -362,13 +368,15 @@
 		
 		function drawText(text, x, y, fontSize){
 			ctx.fillStyle="#FFFFFF";
-			if(fontSize == "45px"){
+			if(fontSize == "180px"){
 				ctx.font="bold "+ fontSize +" normal";
-			}else if(fontSize == "18px"){
+			}else if(fontSize == "72px"){
 				ctx.font="normal "+ fontSize +" normal";
-			}else if(fontSize == "10px"){
+			}else if(fontSize == "40px"){
 				ctx.font="normal "+ fontSize +" normal";
 				ctx.globalAlpha="0.7";
+			}else{
+				ctx.font="normal 40px normal";
 			}
 			var tw=ctx.measureText(text).width;
 			ctx.fillText(text,x-tw/2,y);

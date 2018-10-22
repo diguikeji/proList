@@ -145,6 +145,10 @@ var Global = {};
                         //token 过期
                         if (myStorage) {
                                 myStorage.removeItem("userToken");
+				    				myStorage.removeItem("user");
+				    				myStorage.removeItem("userInfo");
+				    				myStorage.removeItem("wallet");
+				    				myStorage.removeItem("headPic");
                             }
                         var curr = plus.webview.currentWebview();
                         var wvs = plus.webview.all();
@@ -157,16 +161,16 @@ var Global = {};
 	                                }
 	                                plus.webview.close(wvs[i]);
                             		}
-
+                                
                             }
                             if(params.url.indexOf("logout") != -1){
-                            		mui.toast("请重新登录");
+                            		mui.toast("请重新登录"); 
                             }else{
                             		mui.toast("登录信息已失效，请重新登录");
                             }
-
+                            
                             plus.webview.open('login.html');
-
+                            
                             curr.close();
 
                             return;
@@ -185,13 +189,17 @@ var Global = {};
                 },
                 error: function(data) {
                     console.log(JSON.stringify(data));
+                    if(!data.response || !data.responseText){
+                    		Global.error500();
+                    		return;
+                    }
                     if (errorback) {
                         errorback(data.msg);
                     }
 
                 },
                 complete: function(xhr, status) {
-//              		if((params.url.indexOf("pay") != -1) ||
+//              		if((params.url.indexOf("pay") != -1) || 
 //                  		(params.url.indexOf("upload") != -1) || (params.url.indexOf("goodslist") != -1)){
 //              			Global.hideLoading();
 //              		}

@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<link href="../css/mui.min.css" rel="stylesheet" />
-	<link href="../css/app.css" rel="stylesheet" />
-	<style type="text/css">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/app.css" rel="stylesheet" />
+		<style type="text/css">
 			body, html{
 				width: 100%;
 				height: 90%;
@@ -151,79 +151,79 @@
 			.clip-auto{clip:rect(auto, auto, auto, auto);} .percent{box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; top:-1px; left:-1px;}
 			.left{border:0.2rem solid #ff6300; clip: rect(0,2rem,4rem,0);} .right{border:0.2rem solid #FF6300; clip: rect(0,4rem,4rem,2rem);}
 			.wth0{width:0;}
-			.num{position: absolute; box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; width:56px; height:56px; line-height: 16px; text-align: center; font-size: 1rem; left:2px; top:2px; border-radius: 50%; color:#FF6300; background: white; z-index: 1;} 
+			.num{position: absolute; box-sizing: border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; width:56px; height:56px; line-height: 16px; text-align: center;  left:2px; top:2px; border-radius: 50%; color:#FF6300; background: white; z-index: 1;} 
 			.success_rate{position: absolute; top: 10px; line-height: 20px; left: 12px; font-size: 10px;}
 		</style>
-</head>
+	</head>
 
-<body>
-
-
-<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-	<div class="mui-scroll">
-		<!--数据列表-->
-		<ul class="mui-table-view mui-table-view-condensed mui-table-view-striped list_wrap">
-			<!--<li class="mui-table-view-cell mui-table-view-cell-item item_wrap col">
-
-            <div class="row item_tile_wrap">
-
-                <div class="row">
-                    <img src="../images/high_rate.png" class="high_rate"/>
-                    <img src="../images/recommend_icon.png" class="recommand_icon"/>
-                </div>
-
-                <div class="text_info" style="margin-left: 40px;">
-                    <span>推荐产品</span>
-                    <span class="item_title_num">1号</span>
-                </div>
-
+	<body>
+		
+		
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <!--数据列表-->
+                <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped list_wrap">
+					<!--<li class="mui-table-view-cell mui-table-view-cell-item item_wrap col">
+						
+					<div class="row item_tile_wrap">
+						
+						<div class="row">
+							<img src="../images/high_rate.png" class="high_rate"/>
+							<img src="../images/recommend_icon.png" class="recommand_icon"/>
+						</div>
+						
+						<div class="text_info" style="margin-left: 40px;">
+							<span>推荐产品</span>
+							<span class="item_title_num">1号</span>
+						</div>
+						
+					</div>
+					
+					<div class="row item_center_wrap">
+						<div class="">
+							<span >500-1000</span> <br>
+							<span class="text_info">借款金额(元)</span>
+						</div>
+						<div class="">
+							<span >500-1000</span> <br>
+							<span class="text_info">借款金额(元)</span>
+						</div>
+						
+ 
+						<section>
+							<div class="wrap">
+								<div class="circle clip-auto">
+									<div class="percent left" style="-webkit-transform:rotate(288deg);"></div>
+									
+									<div class='percent right '></div>
+								</div>
+								<div class="num row" style="align-items: center; justify-content: center;">
+									<div >
+										<span>80</span>%<br>
+										<span style="font-size: 0.3rem;">成功率</span>
+									</div>
+									
+								</div>
+							</div>
+						</section>
+						
+					</div>
+					
+						
+					</li>-->
+                </ul>
             </div>
-
-            <div class="row item_center_wrap">
-                <div class="">
-                    <span >500-1000</span> <br>
-                    <span class="text_info">借款金额(元)</span>
-                </div>
-                <div class="">
-                    <span >500-1000</span> <br>
-                    <span class="text_info">借款金额(元)</span>
-                </div>
-
-
-                <section>
-                    <div class="wrap">
-                        <div class="circle clip-auto">
-                            <div class="percent left" style="-webkit-transform:rotate(288deg);"></div>
-
-                            <div class='percent right '></div>
-                        </div>
-                        <div class="num row" style="align-items: center; justify-content: center;">
-                            <div >
-                                <span>80</span>%<br>
-                                <span style="font-size: 0.3rem;">成功率</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-
-
-            </li>-->
-		</ul>
-	</div>
-
-</div>
-<div class="empty_text">
-	数据为空
-</div>
-
-<script src="../js/mui.min.js"></script>
-<script src="../js/jquery-2.1.1.min.js"></script>
-<script src="../js/app.js"></script>
-<script src="../js/myStorage.js"></script>
-<script type="text/javascript">
+			
+        </div>
+        <div class="empty_text">
+				数据为空
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/myStorage.js"></script>
+		<script type="text/javascript">
 			mui.init({
 				pullRefresh: {
 	                container: '#pullrefresh',
@@ -252,6 +252,7 @@
 			//pulldownRefresh();
 			
 			function updateClick(msg){
+				console.log("99999")
 				currentType = msg.currentType;
 				isDesc = msg.isDesc;
 				findList = [];
@@ -378,11 +379,11 @@
 						'<div class="percent left" style="-webkit-transform:rotate('+
 								parseInt(item.recommendDegree*3.6) +'deg);"></div>'
 								+'<div class="percent right"></div>'+
-								'</div>'+
+								'</div>'+ 
 								'<div class="num row" style="align-items: center; justify-content: center;">'+
 									'<div >'+
-										'<span>'+item.recommendDegree+'</span>%<br>'+
-										'<span style="font-size: 0.3rem;">成功率</span>'+
+										'<span style="font-size: 12px;">'+item.recommendDegree+'</span>%<br>'+
+										'<span style="font-size: 10px;">成功率</span>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -421,8 +422,8 @@
 								'</div>'+
 								'<div class="num row" style="align-items: center; justify-content: center;">'+
 									'<div >'+
-										'<span>'+item.recommendDegree+'</span>%<br>'+
-										'<span style="font-size: 0.3rem;">成功率</span>'+
+										'<span style="font-size: 12px;">'+item.recommendDegree+'</span>%<br>'+
+										'<span style="font-size: 10px;">成功率</span>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -483,6 +484,6 @@
 		});
 			
 		</script>
-</body>
+	</body>
 
 </html>

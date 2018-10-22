@@ -292,16 +292,16 @@
 
             <div class="form_style row">
                 <span>姓名</span>
-                <input type="text" placeholder="身份证上传后才可修改" id="name" />
-                <img src="../images/change_icon.png" class="change_name_icon hideClass" />
+                <input type="text" placeholder="上传后自动识别" id="name" readonly="readonly"/>
+                <!--<img src="../images/change_icon.png" class="change_name_icon hideClass" />-->
 
             </div>
 
 
             <div class="form_style row">
                 <span>身份证</span>
-                <input type="text" placeholder="身份证上传后才可修改" id="card" />
-                <img src="../images/change_icon.png" class="change_card_icon hideClass" />
+                <input type="text" placeholder="上传后自动识别" id="card" readonly="readonly"/>
+                <!--<img src="../images/change_icon.png" class="change_card_icon hideClass" />-->
             </div>
 
 
@@ -416,19 +416,19 @@
                 $('#name').val(userInfo.realName);
                 $('#card').val(userInfo.idCard);
 
-                $('#name').attr("readonly", "readonly");
-                $('#card').attr("readonly", "readonly");
+//              $('#name').attr("readonly", "readonly");
+//              $('#card').attr("readonly", "readonly");
 
-                $('.change_name_icon').addClass("hideClass");
-                $('.change_card_icon').addClass("hideClass");
+//              $('.change_name_icon').addClass("hideClass");
+//              $('.change_card_icon').addClass("hideClass");
 
                 $(".next").css("background", "#ff493D");
 
             } else {
-                $('#name').removeAttr("readonly");
-                $('#card').removeAttr("readonly");
-                $('.change_name_icon').removeClass("hideClass");
-                $('.change_card_icon').removeClass("hideClass");
+//              $('#name').removeAttr("readonly");
+//              $('#card').removeAttr("readonly");
+//              $('.change_name_icon').removeClass("hideClass");
+//              $('.change_card_icon').removeClass("hideClass");
 
                 $(".next").css("background", "#c3c3c3");
             }
@@ -520,11 +520,11 @@
                         $('#name').val(data.userInfo.realName);
                         $('#card').val(data.userInfo.idCard);
 
-                        $('#name').removeAttr("readonly");
-                        $('#card').removeAttr("readonly");
+//                      $('#name').removeAttr("readonly");
+//                      $('#card').removeAttr("readonly");
 
-                        $('.change_name_icon').removeClass("hideClass");
-                        $('.change_card_icon').removeClass("hideClass");
+//                      $('.change_name_icon').removeClass("hideClass");
+//                      $('.change_card_icon').removeClass("hideClass");
                     } else {
                         //$(".back_img").attr('src') = data.idPicUrl;
 
@@ -573,16 +573,22 @@
                             $(".first_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".second_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".first_step_money").css("color", "#C3C3C3");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
                         } else if (data.isInputDetail == "N") {
                             step = 1;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
                         } else if (data.isPay == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_money").css("color", "#C3C3C3");
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
@@ -660,6 +666,9 @@
                     id: 'personInfo.html',
                     waiting: {
                         autoShow: false
+                    },
+                    extras: {
+                    		isStep: true
                     }
                 })
                 return;
@@ -703,16 +712,19 @@
                 function(data) {
                     mui.toast("保存信息成功");
 
-                    $('#name').attr("readonly", "readonly");
-                    $('#card').attr("readonly", "readonly");
-                    $('.change_name_icon').addClass("hideClass");
-                    $('.change_card_icon').addClass("hideClass");
+//                  $('#name').attr("readonly", "readonly");
+//                  $('#card').attr("readonly", "readonly");
+//                  $('.change_name_icon').addClass("hideClass");
+//                  $('.change_card_icon').addClass("hideClass");
 
                     mui.openWindow({
                         url: 'personInfo.html',
                         id: 'personInfo.html',
                         waiting: {
                             autoShow: false
+                        },
+                        extras: {
+                        		isStep: true
                         }
                     })
                 },

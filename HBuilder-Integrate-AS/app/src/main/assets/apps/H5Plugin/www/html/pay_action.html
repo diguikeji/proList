@@ -73,7 +73,7 @@
 			
 			.time_icon{
 				width: 19px;
-				height: 19px;
+				height: 14px;
 			}
 			
 			.look_bank{
@@ -307,18 +307,7 @@
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">所属银行</span>
-	         	<input type="text"  class="phone_input bankName" placeholder="输入卡号后点击获取" readonly="readonly" onclick="getSupportBank();"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap" style="margin-top: 10px;">
-	         	<span class="item_name_text">预留手机</span>
-	         	<input type="tel"  class="phone_input phone" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
-	         </div>
-	         
-	         <div class="row item_name_wrap">
-	         	<span class="item_name_text">验证码</span>
-	         	<input type="tel"  class="phone_input flex_item" />
-	         	<span class="time_style" onclick="getCode();">获取验证码</span>
+	         	<input type="text"  class="phone_input bankName" placeholder="输入卡号后点击获取" readonly="readonly" onclick="showBankPicker();"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap hideClass" >
@@ -333,7 +322,20 @@
 	         	<img src="../images/warning_icon.png" class="time_icon" onclick="cvvInfo();"/>
 	         </div>
 	         
-	         <div class="row look_bank" onclick="lookBank();">
+	         <div class="row item_name_wrap" style="margin-top: 10px;">
+	         	<span class="item_name_text">预留手机</span>
+	         	<input type="tel"  class="phone_input phone" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
+	         </div>
+	         
+	         <div class="row item_name_wrap">
+	         	<span class="item_name_text">验证码</span>
+	         	<input type="tel"  class="phone_input flex_item" />
+	         	<span class="time_style" onclick="getCode();">获取验证码</span>
+	         </div>
+	         
+	         
+	         
+	         <div class="row look_bank" onclick="showBankPicker();">
 	         	<span style="flex: 1;"></span>
 	         	<img src="../images/bank_warning_icon.png"/>
 	         	<span style="color: #FFA39B; font-size: 14px;">查看支持的银行</span>
@@ -458,6 +460,7 @@
 			mui.init();
 			//金额
 			var amount = 0, payChannel = '';
+			var isStep;	//可以回退标志
 			mui.plusReady(function() {
 			    var self = plus.webview.currentWebview();
             		amount = self.amount;
@@ -474,9 +477,15 @@
             			$(".item_name_wrap:nth-child(8)").addClass("hideClass");
             			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
             		}
+            		
+            		//上页中的 传递的值
+	            var self = plus.webview.currentWebview();
+	            isStep = self.isStep;
 			});
 			
 			var styleList;
+			var bankList = [];
+			var bankPicker = new mui.PopPicker();
 			function initData(){
 				var params = {
 					amount: amount ? amount : 0.1,
@@ -489,13 +498,24 @@
 						data: params
 					},
 					function(data){
-						var html = "";
-						data.bankList.forEach(function(item, index){
-							html += '<div class="row bank_item_name">'+
-		        				'<span>'+item.codeName+'</span>'+
-		        			'</div>'
-						})
-						$(".bank_list_wrap").append(html);
+						
+						data.bankList.map(function(resItem) {
+	                        var item = {
+	                            value: resItem.codeValue,
+	                            text: resItem.codeName
+	                        };
+	                        bankList.push(item);
+	                    });
+	                    bankPicker.setData(bankList);
+						
+						
+//						var html = "";
+//						data.bankList.forEach(function(item, index){
+//							html += '<div class="row bank_item_name">'+
+//		        				'<span>'+item.codeName+'</span>'+
+//		        			'</div>'
+//						})
+//						$(".bank_list_wrap").append(html);
 						
 						if(data && data.idCardNo){
 			        			$(".idCardNo").val(data.idCardNo); 
@@ -511,6 +531,14 @@
 					}
 				)
 			}
+			
+			function showBankPicker() {
+	            bankPicker.show(function(SelectedItem) {
+	                console.log(SelectedItem[0].text);
+	                $(".bankName").val(SelectedItem[0].text);
+	            })
+	        }
+			
 			
 			$('body').on('click', '.bank_list_wrap .bank_item_name', function() {
 				var name = $(this).children('span').html();
@@ -596,12 +624,12 @@
 			
 			function changeBankCardType(text){
 				if(text == '信用卡'){
-					$(".item_name_wrap:nth-child(8)").removeClass("hideClass");
-            			$(".item_name_wrap:nth-child(9)").removeClass("hideClass");
+					$(".item_name_wrap:nth-child(6)").removeClass("hideClass");
+            			$(".item_name_wrap:nth-child(7)").removeClass("hideClass");
             			$(".card_type_text").text("信用卡号");
 				}else{
-					$(".item_name_wrap:nth-child(8)").addClass("hideClass");
-            			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
+					$(".item_name_wrap:nth-child(6)").addClass("hideClass");
+            			$(".item_name_wrap:nth-child(7)").addClass("hideClass");
             			$(".card_type_text").text("借记卡号");
 				}
 			}
@@ -679,19 +707,6 @@
 						return;
 					}
 					
-					if($(".cardTypeInput").val() == "信用卡"){
-						if(!$(".cvvInput").val()){
-							mui.toast("请输入cvv码");
-							return;
-						}
-						
-						if(!$(".item_time").val()){
-							mui.toast("请输入有效期");
-							return;
-						}
-					}
-					
-					
 					
 					var params = {
 						amount: amount,
@@ -735,6 +750,18 @@
 							}
 						)
 					}else{
+						if($(".cardTypeInput").val() == "信用卡"){
+							if(!$(".cvvInput").val()){
+								mui.toast("请输入cvv码");
+								return;
+							}
+							
+							if(!$(".item_time").val()){
+								mui.toast("请输入有效期");
+								return;
+							}
+						}
+						
 						console.log($(".flex_item").val());
 						if(!$(".flex_item").val()){
 							mui.toast("请输入验证码");
@@ -838,13 +865,19 @@
 			
 			//左上角 返回
 			function headLeftBack(){
-				mui.openWindow({
-	                url: 'pay_style.html',
-	                id: 'pay_style.html',
-	                waiting: {
-	                		autoShow: false
-	                }
-	           });
+	           
+	           if(isStep){
+	        			mui.openWindow({
+		                url: 'pay_style.html',
+		                id: 'pay_style.html',
+		                waiting: {
+		                    autoShow: false
+		                }
+		            });
+	        		}else{
+	        			$('.backModal').removeClass("hideClass");
+	        		}
+        		
 			}
 			
 			//左上角 关闭按钮
@@ -868,29 +901,35 @@
 			Global.commonAjax({ url: "user/input/status" },
 		           function(data) {
 		               
-		               if((data != "") && (data != null)){
-		               		if(data.isInputIdcard == "N"){
-		               			step = 0;
-		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isInputDetail == "N"){
-		               			step = 1;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isPay == "N"){
-		               			step = 2;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else{
-		               			step = 3;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
-		               		}
-		               	}
+		               if ((data != "") && (data != null)) {
+                        if (data.isInputIdcard == "N") {
+                            step = 0;
+                            $(".first_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".first_step_money").css("color", "#C3C3C3");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else if (data.isInputDetail == "N") {
+                            step = 1;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else if (data.isPay == "N") {
+                            step = 2;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else {
+                            step = 3;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                        }
+                    }
 		               
 		               
 		          }
@@ -917,6 +956,7 @@
 	            }
            }
         }
+		
 		
 			
 		</script>

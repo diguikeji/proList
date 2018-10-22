@@ -303,7 +303,12 @@
 			mui.init();
 			//金额
 			var amount = 0;
+			var isStep;	//可以回退标志
 			mui.plusReady(function() {
+				//上页中的 传递的值
+	            var self = plus.webview.currentWebview();
+	            isStep = self.isStep;
+            
 			    initData();
 			    var self = plus.webview.currentWebview();
             		amount = self.amount;
@@ -362,6 +367,14 @@
 				closeActionWindow();
 			})
 			
+			$('body').on('click', '.pay_style_list li ', function() {
+				$(".select_radio").each(function(i){
+					$(this).attr("src", "../images/unagress_icon.png");
+				});
+				$(this).find(".select_radio").attr("src", "../images/agress_icon.png");
+				closeActionWindow();
+			})
+			
 			//支付
 			function pay(){
 				var index = 0;
@@ -380,7 +393,8 @@
 	      			},
 	      			extras:{
 	      				amount: amount,
-	      				payChannel: styleList[index].channelCode
+	      				payChannel: styleList[index].channelCode,
+	      				isStep: true
 	      			}
 	      		})
 			}
@@ -409,13 +423,17 @@
 			
 			//左上角 返回
 			function headLeftBack(){
-				mui.openWindow({
-	                url: 'credit.html',
-	                id: 'credit.html',
-	                waiting: {
-	                		autoShow: false
-	                }
-	           });
+				if(isStep){
+	        			mui.openWindow({
+		                url: 'credit.html',
+		                id: 'credit.html',
+		                waiting: {
+		                    autoShow: false
+		                }
+		            });
+	        		}else{
+	        			$('.modal-mask').removeClass("hideClass");
+	        		}
 			}
 			
 			//左上角 关闭按钮
@@ -439,29 +457,35 @@
 			Global.commonAjax({ url: "user/input/status" },
 		           function(data) {
 		               
-		               if((data != "") && (data != null)){
-		               		if(data.isInputIdcard == "N"){
-		               			step = 0;
-		               			$(".first_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isInputDetail == "N"){
-		               			step = 1;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/unagress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else if(data.isPay == "N"){
-		               			step = 2;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/unagress_icon.png");
-		               		}else{
-		               			step = 3;
-		               			$(".first_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".second_step_icon").attr("src", "../images/agress_icon.png");
-		               			$(".third_step_icon").attr("src", "../images/agress_icon.png");
-		               		}
-		               	}
+		               if ((data != "") && (data != null)) {
+                        if (data.isInputIdcard == "N") {
+                            step = 0;
+                            $(".first_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".first_step_money").css("color", "#C3C3C3");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else if (data.isInputDetail == "N") {
+                            step = 1;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".second_step_money").css("color", "#C3C3C3");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else if (data.isPay == "N") {
+                            step = 2;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".third_step_money").css("color", "#C3C3C3");
+                        } else {
+                            step = 3;
+                            $(".first_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".second_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                        }
+                    }
 		               
 		               
 		          }
