@@ -131,6 +131,13 @@
                     myStorage.setItem("userToken", data.userToken);
 
 					clearInterval(intervalObj);
+					
+					var clickType = {
+						source: data.user.sourceCode,
+						mobile: data.user.mobile
+					}
+					plus.statistic.eventTrig("channelregister", JSON.stringify(clickType) );
+					
                     mui.openWindow({
                         url: 'home.html',
                         id: 'home.html',

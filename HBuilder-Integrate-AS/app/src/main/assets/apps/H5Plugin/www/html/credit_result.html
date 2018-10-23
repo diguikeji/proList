@@ -288,6 +288,11 @@
       		getUserScore();
       		initStatus();
       		showMoneyInfo();
+      		var clickType = {
+        			source: myStorage.getItem("user").sourceCode
+        		}
+            plus.statistic.eventTrig("paysroce", JSON.stringify(clickType) )
+	            
 		});
 		
 		function closeOtherWindow(){

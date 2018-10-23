@@ -627,6 +627,12 @@
 
         //弹窗中 关闭按钮
         function closeDialg() {
+        		var clickType = {
+        			source: myStorage.getItem("user").sourceCode,
+        			page: 'idcard'
+        		}
+            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
+            
             Global.openKouzi();
             Global.closeStepWindow();
         };
@@ -716,7 +722,11 @@
 //                  $('#card').attr("readonly", "readonly");
 //                  $('.change_name_icon').addClass("hideClass");
 //                  $('.change_card_icon').addClass("hideClass");
-
+					var clickType = {
+		        			source: myStorage.getItem("user").sourceCode
+		        		}
+		            plus.statistic.eventTrig("applyidcard", JSON.stringify(clickType) )
+	            
                     mui.openWindow({
                         url: 'personInfo.html',
                         id: 'personInfo.html',

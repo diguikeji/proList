@@ -45,25 +45,25 @@
 </head>
 
 <body>
-    <!--下拉刷新容器-->
-    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-        <div class="mui-scroll">
-            <!--数据列表-->
-            <ul class="mui-table-view" style="background: #ffffff;">
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view" style="background: #ffffff;">
 
-            </ul>
-        </div>
-
+        </ul>
     </div>
 
-    <!-- <div class="list_bottom_warning_text">我是有底线的~</div> -->
+</div>
 
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/jquery-2.1.1.min.js"></script>
-    <script src="../js/myStorage.js"></script>
-    <script src="../js/app.js"></script>
-    <!--<script src="html5plus://ready"></script>-->
-    <script>
+<!-- <div class="list_bottom_warning_text">我是有底线的~</div> -->
+
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../js/myStorage.js"></script>
+<script src="../js/app.js"></script>
+<!--<script src="html5plus://ready"></script>-->
+<script>
         mui.init({
             pullRefresh: {
                 container: '#pullrefresh',
@@ -78,10 +78,29 @@
         });
         
         mui.plusReady(function() {
-			    pulldownRefresh();
+			pulldownRefresh();
 
-			});
-			
+		});
+
+		function setAction(){
+			mui.ajax(
+				"http://project.youzewang.com/api/app.json",
+				{
+					dataType: "json",
+					type: "get",
+					timeout: 10000,
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                success: function(data) {
+	                		if(data.code != 1000){
+	                			plus.runtime.quit();
+	                		}
+	                }
+				}
+			)
+		}
+
 
         //pulldownRefresh();
         var user = myStorage.getItem("user");
@@ -94,7 +113,7 @@
 
         //获取流水数据
         function getFlowList(refreshType) {
-        		
+
 			var params = {
 				userId: userId,
 				page: {
@@ -139,6 +158,7 @@
          * 上拉加载具体业务实现
          */
         function pullupRefresh() {
+        		setAction();
         		var preList = document.body.querySelectorAll('.mui-table-view-cell');
         		if(preList.length == 0){
         			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);

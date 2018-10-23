@@ -15,8 +15,15 @@ mui.init({
 //切换底部tab
 var makeMoneySwiperObj;
 var tabIndex = 0;
-mui.plusReady(function() {
 
+
+var MobclickAgent, mainActivity;
+mui.plusReady(function() {
+	//友盟统计
+	mainActivity = plus.android.runtimeMainActivity();
+    MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
+	MobclickAgent.onPageStart("MainScreen");
+	
 	var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if(!isfirst){
@@ -84,7 +91,10 @@ mui.plusReady(function() {
             });
 
         } else if (tabIndex == 2) {
-
+        		var clickType = {
+        			source: myStorage.getItem("user").sourceCode
+        		}
+            plus.statistic.eventTrig("findpage", JSON.stringify(clickType) )
             updatePage(tabIndex);
         } else if (tabIndex == 3) {
             //我的页面
@@ -485,6 +495,13 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
     if (!(item && item.goodsUrl)) {
         return;
     }
+    var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		goodsCode: item.goodsCode,
+		page: "find"
+	}
+    plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
+            
     var params = {
         goodsCode: item.goodsCode
     }
@@ -675,6 +692,10 @@ function setGetMoneyBanner(listData) {
             console.log(that.data("url") + '-----===');
             return;
         }else if(that.data("url") == "findTab"){
+        		var clickType = {
+        			source: myStorage.getItem("user").sourceCode
+        		}
+            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType) )
         		goToFindTab();
         }else{
         		mui.openWindow({
@@ -745,6 +766,12 @@ function apply(params) {
 
             }
             if (!params) {
+            		
+            		var clickType = {
+	        			source: myStorage.getItem("user").sourceCode
+	        		}
+	            plus.statistic.eventTrig("apply", JSON.stringify(clickType) )
+            
                 mui.openWindow({
                     url: url,
                     id: url,
@@ -1033,7 +1060,13 @@ var msg = {
     content: "测试测试"
 };
 $(".wx_wrap").click(function() {
-
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "main",
+		channel: "wx"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
     if (shareData) {
 
         msg.extra = { scene: 'WXSceneSession' };
@@ -1047,6 +1080,13 @@ $(".wx_wrap").click(function() {
     }
 })
 $(".wx_friend_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "main",
+		channel: "pyq"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
     if (shareData) {
         msg.extra = { scene: 'WXSceneTimeline' };
         msg.href = shareData.pyq.linkUrl;
@@ -1056,6 +1096,45 @@ $(".wx_friend_wrap").click(function() {
         share(sweixin, msg);
     }
 })
+
+$(".money_wx_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "money",
+		channel: "wx"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
+    if (shareData) {
+
+        msg.extra = { scene: 'WXSceneSession' };
+        msg.href = shareData.wx.linkUrl;
+        msg.title = shareData.wx.title;
+        msg.content = shareData.wx.description;
+        msg.thumbs = shareData.wx.iconUrl;
+        share(sweixin, msg);
+        //mui.toast(JSON.stringify(shareData.wx));
+
+    }
+})
+$(".money_wx_friend_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "money",
+		channel: "pyq"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
+    if (shareData) {
+        msg.extra = { scene: 'WXSceneTimeline' };
+        msg.href = shareData.pyq.linkUrl;
+        msg.title = shareData.pyq.title;
+        msg.content = shareData.pyq.description;
+        msg.thumbs = shareData.pyq.iconUrl;
+        share(sweixin, msg);
+    }
+})
+
 
 //qq分享
 // 分享
@@ -1097,6 +1176,13 @@ var qqMsg = {
     pictures: ["_www/logo.png"]
 };
 $(".qq_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "main",
+		channel: "qq"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+						    
     if (shareData) {
     		qqMsg.href = shareData.qq.linkUrl;
         qqMsg.title = shareData.qq.title;
@@ -1107,6 +1193,13 @@ $(".qq_wrap").click(function() {
     }
 })
 $(".copy_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "main",
+		channel: "link"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
     if (shareData) {
         if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
@@ -1131,6 +1224,57 @@ $(".copy_wrap").click(function() {
         mui.toast("复制成功");
     }
 })
+
+$(".money_qq_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "money",
+		channel: "qq"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+						    
+    if (shareData) {
+    		qqMsg.href = shareData.qq.linkUrl;
+        qqMsg.title = shareData.qq.title;
+        qqMsg.content = shareData.qq.description;
+        qqMsg.thumbs = shareData.qq.iconUrl;
+        qqMsg.pictures = shareData.qq.iconUrl;
+        qqShare(sqq, qqMsg);
+    }
+})
+$(".money_copy_wrap").click(function() {
+	var clickType = {
+		source: myStorage.getItem("user").sourceCode,
+		page: "money",
+		channel: "link"
+	}
+    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
+    
+    if (shareData) {
+        if (mui.os.ios) { //ios
+            var UIPasteboard = plus.ios.importClass("UIPasteboard");  
+            var generalPasteboard = UIPasteboard.generalPasteboard();  
+            //设置/获取文本内容:		   
+            generalPasteboard.plusCallMethod({    
+                setValue: shareData.link,
+                    
+                forPasteboardType: "public.utf8-plain-text"  
+            });  
+            generalPasteboard.plusCallMethod({    
+                valueForPasteboardType: "public.utf8-plain-text"  
+            });
+        } else {
+            //安卓
+            var context = plus.android.importClass("android.content.Context"); 
+            var main = plus.android.runtimeMainActivity(); 
+            var clip = main.getSystemService(context.CLIPBOARD_SERVICE); 
+            plus.android.invoke(clip, "setText", shareData.link);
+        }
+
+        mui.toast("复制成功");
+    }
+})
+
 
 
 
@@ -1284,7 +1428,9 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	// return; 
+	MobclickAgent.onEvent(mainActivity, "channelpage");
+	plus.statistic.eventTrig("channelpage", "goToRecommand" )
+	return; 
     mui.openWindow({
         url: 'pay_style.html',
         id: 'pay_style.html',

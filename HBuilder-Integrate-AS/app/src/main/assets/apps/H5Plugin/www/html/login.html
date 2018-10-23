@@ -122,7 +122,7 @@ function checkPermission(){
 	//调用申请权限的静态方法
 	//照相
 	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
-		"android.permission-group.STORAGE", "android.permission-group.PHONE",
+		"android.permission-group.STORAGE", "android.permission.READ_PHONE_STATE",
 		"android.permission.INTERNET"], callBack);
 
 //	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.STORAGE"], callBack);

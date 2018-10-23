@@ -324,7 +324,7 @@
 						styleList = data;
 						var html = "";
 						data.forEach(function(item, index){
-							html += '<li class="item_wrap row">'+
+							html += '<li class="item_wrap row" data-channelCode="'+item.channelCode+'">'+
 						         		'<div class="icon_wrap row">'+
 						         			'<img src="'+item.channelPic+'"/>'+
 						         			'<span class="item_name">'+item.channelName+'<br> <span class="support_style">';
@@ -359,13 +359,13 @@
 				)
 			}
 			
-			$('body').on('click', '.pay_style_list li .select_radio', function() {
-				$(".select_radio").each(function(i){
-					$(this).attr("src", "../images/unagress_icon.png");
-				});
-				$(this).attr("src", "../images/agress_icon.png");
-				closeActionWindow();
-			})
+//			$('body').on('click', '.pay_style_list li .select_radio', function() {
+//				$(".select_radio").each(function(i){
+//					$(this).attr("src", "../images/unagress_icon.png");
+//				});
+//				$(this).attr("src", "../images/agress_icon.png");
+//				closeActionWindow();
+//			})
 			
 			$('body').on('click', '.pay_style_list li ', function() {
 				$(".select_radio").each(function(i){
@@ -373,6 +373,12 @@
 				});
 				$(this).find(".select_radio").attr("src", "../images/agress_icon.png");
 				closeActionWindow();
+				var clickType = {
+					source: myStorage.getItem("user").sourceCode,
+					payChannel: $(this).data("channelCode")
+				}
+			    plus.statistic.eventTrig("paydetail", JSON.stringify(clickType) )
+		    
 			})
 			
 			//支付
@@ -444,6 +450,12 @@
 			
 			//弹窗中 关闭按钮
 			function closeDialg(){
+				var clickType = {
+	        			source: myStorage.getItem("user").sourceCode,
+	        			page: 'paylist'
+	        		}
+	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
+	            
 				Global.openKouzi();
 				Global.closeStepWindow();
 			};

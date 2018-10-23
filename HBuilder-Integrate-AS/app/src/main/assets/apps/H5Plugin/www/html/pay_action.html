@@ -675,6 +675,12 @@
 							data: params
 						},
 						function(data){
+							var clickType = {
+								source: myStorage.getItem("user").sourceCode,
+								payChannel: payChannel
+							}
+						    plus.statistic.eventTrig("payclick", JSON.stringify(clickType) )
+							    
 							mui.openWindow({
 				                url: 'webviewDetail.html',
 				                id: 'webview.html?url=' + data,
@@ -784,6 +790,12 @@
 								data: params
 							},
 							function(data){
+								var clickType = {
+									source: myStorage.getItem("user").sourceCode,
+									payChannel: payChannel
+								}
+							    plus.statistic.eventTrig("payclick", JSON.stringify(clickType) )
+			    
 								mui.toast("支付成功");
 								mui.openWindow({
 					                url: 'credit_result.html',
@@ -888,6 +900,11 @@
 			
 			//弹窗中 关闭按钮
 			function closeDialg(){
+				var clickType = {
+	        			source: myStorage.getItem("user").sourceCode,
+	        			page: 'pay'
+	        		}
+	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
 				Global.openKouzi();
 				Global.closeStepWindow();
 			};

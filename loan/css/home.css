@@ -521,6 +521,14 @@ oa-contact-position {
     align-items: center;
 }
 
+.money_wx_friend_wrap,
+.money_qq_wrap,
+.money_copy_wrap,
+.money_wx_wrap {
+    justify-content: center;
+    align-items: center;
+}
+
 .my_head {
     width: 62px;
     height: 62px;

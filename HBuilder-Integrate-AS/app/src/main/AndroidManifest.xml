@@ -136,10 +136,10 @@
         <!-- meta-data节点android:name="UMENG_CHANNEL"项中android:value值为发行渠道标识，可任意取值，用于各种发行渠道效果统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="%UMENG_APPKEY%" />
+            android:value="5bad0c61b465f5e61900014a" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="googleplay" />
+            android:value="yingyongbao" />
         <!-- 友盟统计  配置  end -->
 
 

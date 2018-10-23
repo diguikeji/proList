@@ -50,6 +50,13 @@
 				}
 			}]
 		});
+		
+		mui.plusReady(function() {
+			var clickType = {
+				source: myStorage.getItem("user").sourceCode
+			}
+		    plus.statistic.eventTrig("entermsglist", JSON.stringify(clickType) )
+	    });
 	
 		var contentWebview = null;
 		document.querySelector('header').addEventListener('doubletap',function () {

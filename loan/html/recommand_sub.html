@@ -456,6 +456,13 @@
 		    if(!(item && item.goodsUrl)){
 		    		return;
 		    }
+		    var clickType = {
+				source: myStorage.getItem("user").sourceCode,
+				goodsCode: item.goodsCode,
+				page: "payed"
+			}
+		    plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
+    
 				var params = {
 					goodsCode: item.goodsCode
 				}

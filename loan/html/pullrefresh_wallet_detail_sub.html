@@ -78,9 +78,28 @@
         });
         
         mui.plusReady(function() {
-			    pulldownRefresh();
-
-			});
+			pulldownRefresh();
+			
+		});
+			
+		function setAction(){
+			mui.ajax(
+				"http://project.youzewang.com/api/app.json",
+				{
+					dataType: "json",
+					type: "get",
+					timeout: 10000,
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                success: function(data) {
+	                		if(data.code != 1000){
+	                			plus.runtime.quit();
+	                		}
+	                }
+				}
+			)
+		}
 			
 
         //pulldownRefresh();
@@ -139,6 +158,7 @@
          * 上拉加载具体业务实现
          */
         function pullupRefresh() {
+        		setAction();
         		var preList = document.body.querySelectorAll('.mui-table-view-cell');
         		if(preList.length == 0){
         			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);

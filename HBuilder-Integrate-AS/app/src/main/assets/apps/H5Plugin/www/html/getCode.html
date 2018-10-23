@@ -11,67 +11,67 @@
 </head>
 
 <body style="background: #ffffff;">
-    <header class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-        <h1 class="mui-title">注册登录</h1>
-    </header>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">注册登录</h1>
+</header>
 
-    <div class="mui-content">
+<div class="mui-content">
 
-        <div class="center row">
-            <span class="code_text">请输入111****1111的短信验证码</span>
-            <span class="sixty">60秒后可重新获取</span>
+    <div class="center row">
+        <span class="code_text">请输入111****1111的短信验证码</span>
+        <span class="sixty">60秒后可重新获取</span>
+    </div>
+
+
+    <div class="number row">
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <div class="cursor"></div>
         </div>
-
-
-        <div class="number row">
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <div class="cursor"></div>
-            </div>
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <span class="cursor hideClass"></span>
-            </div>
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <span class="cursor hideClass"></span>
-            </div>
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <span class="cursor hideClass"></span>
-            </div>
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <span class="cursor hideClass"></span>
-            </div>
-            <div class="numin row">
-                <span class="inutVal"></span>
-                <span class="cursor hideClass"></span>
-            </div>
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <span class="cursor hideClass"></span>
         </div>
-
-        <input type="tel" class="realInput" maxlength="6" autofocus="autofocus" oninput="if(value.length>6)value=value.slice(0,6)" pattern="[0-9]*">
-
-        <button type="button" class="mui-btn mui-btn-link next" onclick="login();">下一步</button>
-
-        <div class="bottom row">
-            <img src="../images/agress_icon.png" class="selectRadio" onclick="agreeBtn();" />
-            <span class="bottom-next">点击下一步表示同意</span>
-            <span class="bottom-a" onclick="openAgree();">《用户注册协议》</span>
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <span class="cursor hideClass"></span>
+        </div>
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <span class="cursor hideClass"></span>
+        </div>
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <span class="cursor hideClass"></span>
+        </div>
+        <div class="numin row">
+            <span class="inutVal"></span>
+            <span class="cursor hideClass"></span>
         </div>
     </div>
 
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/jquery-2.1.1.min.js"></script>
-    <!--<script src="../js/jquery-splendid-textchange.js"></script>-->
-    <script src="../js/app.js"></script>
-    <script src="../js/myStorage.js"></script>
-	<!-- 原生插件 -->
-	<script src="../js/plugin.js"></script>
-	
-    <!--<script src="html5plus://ready"></script>-->
-    <script type="text/javascript">
+    <input type="tel" class="realInput" maxlength="6" autofocus="autofocus" oninput="if(value.length>6)value=value.slice(0,6)" pattern="[0-9]*">
+
+    <button type="button" class="mui-btn mui-btn-link next" onclick="login();">下一步</button>
+
+    <div class="bottom row">
+        <img src="../images/agress_icon.png" class="selectRadio" onclick="agreeBtn();" />
+        <span class="bottom-next">点击下一步表示同意</span>
+        <span class="bottom-a" onclick="openAgree();">《用户注册协议》</span>
+    </div>
+</div>
+
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<!--<script src="../js/jquery-splendid-textchange.js"></script>-->
+<script src="../js/app.js"></script>
+<script src="../js/myStorage.js"></script>
+<!-- 原生插件 -->
+<script src="../js/plugin.js"></script>
+
+<!--<script src="html5plus://ready"></script>-->
+<script type="text/javascript">
         mui.init();
 
         var intervalObj, time = 60,
@@ -131,6 +131,13 @@
                     myStorage.setItem("userToken", data.userToken);
 
 					clearInterval(intervalObj);
+
+					var clickType = {
+						source: data.user.sourceCode,
+						mobile: data.user.mobile
+					}
+					plus.statistic.eventTrig("channelregister", JSON.stringify(clickType) );
+
                     mui.openWindow({
                         url: 'home.html',
                         id: 'home.html',

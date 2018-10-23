@@ -430,6 +430,12 @@
 			
 			//弹窗中 关闭按钮
 			function closeDialg(){
+				var clickType = {
+	        			source: myStorage.getItem("user").sourceCode,
+	        			page: 'assess'
+	        		}
+	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
+            
 				Global.openKouzi();
 				Global.closeStepWindow();
 			};
@@ -512,6 +518,11 @@
 			
 			//支付方式
 			function goPayStyle(){
+				var clickType = {
+	        			source: myStorage.getItem("user").sourceCode
+	        		}
+	            plus.statistic.eventTrig("paypage", JSON.stringify(clickType) )
+		            
 				mui.openWindow({
 	      			url: 'pay_style.html',
 	      			id: 'pay_style.html',
