@@ -4,11 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 
-import org.qldc.xianghq.permissions.ObjectUtils;
-import org.qldc.xianghq.permissions.PermissionUtils;
-import org.qldc.xianghq.permissions.Utils;
+import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.Utils;
 
-import java.util.List;
 
 /**
  * Description:
@@ -38,33 +37,6 @@ public class Tools {
      */
     @SuppressLint("WrongConstant")
     public static void permission(String[] permissions, final CallBack callBack){
-
-        PermissionUtils.permission(permissions)
-                .rationale(new PermissionUtils.OnRationaleListener() {
-                    @Override
-                    public void rationale(final ShouldRequest shouldRequest) {
-                        PermissionHelper.showRationaleDialog(shouldRequest);
-                    }
-                })
-                .callback(new PermissionUtils.FullCallback() {
-                    @Override
-                    public void onGranted(List<String> permissionsGranted) {
-                        updateAboutPermission();
-                    }
-                    @Override
-                    public void onDenied(List<String> permissionsDeniedForever,
-                                         List<String> permissionsDenied) {
-                        if (!permissionsDeniedForever.isEmpty()) {
-                            PermissionHelper.showOpenAppSettingDialog();
-                        }
-                    }
-                })
-                .theme(new PermissionUtils.ThemeCallback() {
-                    @Override
-                    public void onActivityCreate(Activity activity) {
-                    }
-                })
-                .request();
 
 
 

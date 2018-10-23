@@ -198,7 +198,7 @@ public final class PermissionUtils {
     private void startPermissionActivity() {
         mPermissionsDenied = new ArrayList<>();
         mPermissionsDeniedForever = new ArrayList<>();
-        PermissionActivity.start(Utils.getApp());
+        com.blankj.utilcode.util.PermissionUtils.PermissionActivity.start(Utils.getApp());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -273,58 +273,58 @@ public final class PermissionUtils {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public static class PermissionActivity extends Activity {
-
-        public static void start(final Context context) {
-            Intent starter = new Intent(context, PermissionActivity.class);
-            starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(starter);
-        }
-
-        @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
-            if (sInstance == null) {
-                super.onCreate(savedInstanceState);
-                Log.e("PermissionUtils", "request permissions failed");
-                finish();
-                return;
-            }
-            if (sInstance.mThemeCallback != null) {
-                sInstance.mThemeCallback.onActivityCreate(this);
-            }
-            super.onCreate(savedInstanceState);
-
-            if (sInstance.rationale(this)) {
-                finish();
-                return;
-            }
-            if (sInstance.mPermissionsRequest != null) {
-                int size = sInstance.mPermissionsRequest.size();
-                if (size <= 0) {
-                    finish();
-                    return;
-                }
-                requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
-            }
-        }
-
-        @Override
-        public void onRequestPermissionsResult(int requestCode,
-                                               @NonNull String[] permissions,
-                                               @NonNull int[] grantResults) {
-            sInstance.onRequestPermissionsResult(this);
-            finish();
-        }
-
-        @Override
-        public boolean dispatchTouchEvent(MotionEvent ev) {
-            finish();
-            return true;
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    public static class PermissionActivity extends Activity {
+//
+//        public static void start(final Context context) {
+//            Intent starter = new Intent(context, PermissionActivity.class);
+//            starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(starter);
+//        }
+//
+//        @Override
+//        protected void onCreate(@Nullable Bundle savedInstanceState) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+//            if (sInstance == null) {
+//                super.onCreate(savedInstanceState);
+//                Log.e("PermissionUtils", "request permissions failed");
+//                finish();
+//                return;
+//            }
+//            if (sInstance.mThemeCallback != null) {
+//                sInstance.mThemeCallback.onActivityCreate(this);
+//            }
+//            super.onCreate(savedInstanceState);
+//
+//            if (sInstance.rationale(this)) {
+//                finish();
+//                return;
+//            }
+//            if (sInstance.mPermissionsRequest != null) {
+//                int size = sInstance.mPermissionsRequest.size();
+//                if (size <= 0) {
+//                    finish();
+//                    return;
+//                }
+//                requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
+//            }
+//        }
+//
+//        @Override
+//        public void onRequestPermissionsResult(int requestCode,
+//                                               @NonNull String[] permissions,
+//                                               @NonNull int[] grantResults) {
+//            sInstance.onRequestPermissionsResult(this);
+//            finish();
+//        }
+//
+//        @Override
+//        public boolean dispatchTouchEvent(MotionEvent ev) {
+//            finish();
+//            return true;
+//        }
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     // interface

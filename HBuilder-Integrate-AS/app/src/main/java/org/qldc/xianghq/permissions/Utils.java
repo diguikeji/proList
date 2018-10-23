@@ -11,12 +11,16 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 
+import com.blankj.utilcode.util.PermissionUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import io.dcloud.common.adapter.util.PermissionUtil;
 
 public final class Utils {
 

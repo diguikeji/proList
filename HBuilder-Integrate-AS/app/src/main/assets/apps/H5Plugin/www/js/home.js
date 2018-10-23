@@ -16,12 +16,13 @@ mui.init({
 var makeMoneySwiperObj;
 var tabIndex = 0;
 mui.plusReady(function() {
-	checkPermission();
+
 	var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if(!isfirst){
     		//用户信息接口
     		loginByToken();
+    		checkPermission();
     }else{
     		//系统参数接口
 	    initData();
@@ -83,7 +84,7 @@ mui.plusReady(function() {
             });
 
         } else if (tabIndex == 2) {
-            
+
             updatePage(tabIndex);
         } else if (tabIndex == 3) {
             //我的页面
@@ -104,20 +105,30 @@ function checkPermission(){
 	if(mui.os.ios || (mui.os.android&&parseFloat(mui.os.version)<6.0)){
 	     //...操作
 	     return;
-	 } 
+	 }
 	var mainAct = plus.android.runtimeMainActivity();
 	plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
 	var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
 			"success": function() {
 				//申请权限成功或已经获取到了权限都会执行到这里
-				//mui.alert("获取成功");
+
+				var callBack1 = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+                    "success": function() {},
+                    "failure": function() {}
+                });
+
+                plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.LOCATION"], callBack1);
+
 			},
 			"failure": function() {
-				//mui.alert("权限请求失败！");
+				plus.runtime.quit();
 			}
 		});
 	//调用申请权限的静态方法
-	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+	//照相
+	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
+		"android.permission-group.STORAGE", "android.permission-group.PHONE",
+		"android.permission.INTERNET"], callBack);
 
 }
 
