@@ -656,3 +656,30 @@ oa-contact-position {
 	bottom: 0px;
 	z-index: -1;;
 }
+
+.update_content_bg{
+	background: #ffffff;
+	border-radius: 20px;
+	width: 80%;
+	margin-left: 10%;
+	box-sizing: border-box;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	height:200px;
+	color: #000000; 
+	font-size: 20px; 
+}
+
+.update_msg{
+	border-bottom: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
+	padding: 20px;
+}
+
+.update_content_bg div{
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}

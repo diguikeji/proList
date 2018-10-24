@@ -144,6 +144,17 @@
 				color: #ffffff;
 			}
 			
+			.text_info_new{
+				display: inline-block;
+				border-radius: 10px;
+				color: #ffffff;
+				font-size: 10px;
+				background: #F99534;
+				height: 20px;
+				line-height: 20px;
+				padding : 2px 5px 0px;
+			}
+			
 			section{width:60px;height:60px;position: relative;}
 			.wrap,.circle,.percent{position: absolute; width: 60px; height: 60px; border-radius: 50%;}
 			.wrap{top:0; left:0; background-color:#ccc;}
@@ -353,24 +364,25 @@
 		        console.log(item.goodsSeq + "--"+item.recommendDegree+"-"+parseInt(item.recommendDegree*3.6));
 		        if(item.recommendDegree > 50){
 		        		li.innerHTML = '<div class="row item_tile_wrap">'+
-		        			'<div class="row">'+
-							'<img src="../images/high_rate.png" class="high_rate"/>'+
-							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
-						'</div>'+
-						'<div class="text_info" style="margin-left: 40px;">'+
+		        			
+						'<div class="text_info_new" >'+
 							'<span>推荐产品</span>'+
 							'<span class="item_title_num">'+item.goodsSeq+'号</span>'+
+						'</div>'+
+						'<div class="row hideClass">'+
+							'<img src="../images/high_rate.png" class="high_rate"/>'+
+							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
 						'</div>'+
 						
 					'</div>'+
 					'<div class="row item_center_wrap">'+
 						'<div>'+
 							'<span >'+item.loanAmount+'</span><br>'+
-							'<span class="text_info">借款金额(元)</span>'+
+							'<span class="text_info">借款金额</span>'+
 						'</div>'+
 						'<div>'+
 							'<span >'+item.loanDay+'</span><br>'+
-							'<span class="text_info">借款期限(天)</span>'+
+							'<span class="text_info">借款期限</span>'+
 						'</div>'+
 						
 						'<section>'+
@@ -393,24 +405,24 @@
 					
 		        }else{
 		        		li.innerHTML = '<div class="row item_tile_wrap">'+
-		        			'<div class="row">'+
-							'<img src="../images/high_rate.png" class="high_rate"/>'+
-							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
-						'</div>'+
-						'<div class="text_info" style="margin-left: 40px;">'+
+						'<div class="text_info_new" >'+
 							'<span>推荐产品</span>'+
 							'<span class="item_title_num">'+item.goodsSeq+'号</span>'+
+						'</div>'+
+						'<div class="row hideClass">'+
+							'<img src="../images/high_rate.png" class="high_rate"/>'+
+							'<img src="../images/recommend_icon.png" class="recommand_icon"/>'+
 						'</div>'+
 						
 					'</div>'+
 					'<div class="row item_center_wrap">'+
 						'<div>'+
 							'<span >'+item.loanAmount+'</span><br>'+
-							'<span class="text_info">借款金额(元)</span>'+
+							'<span class="text_info">借款金额</span>'+
 						'</div>'+
 						'<div>'+
 							'<span >'+item.loanDay+'</span><br>'+
-							'<span class="text_info">借款期限(天)</span>'+
+							'<span class="text_info">借款期限</span>'+
 						'</div>'+
 						
 						'<section>'+

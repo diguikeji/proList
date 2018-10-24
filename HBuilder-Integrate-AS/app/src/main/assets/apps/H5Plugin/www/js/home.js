@@ -26,7 +26,7 @@ mui.plusReady(function() {
     MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
 	MobclickAgent.onPageStart("MainScreen");
 	checkUpdateApk();
-
+	
 	var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if(!isfirst){
@@ -49,7 +49,7 @@ mui.plusReady(function() {
 	    isShowFindPage = self.isShowFindPage;
     }
 
-    fastQuit();
+    fastQuit(); 
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -118,66 +118,46 @@ function checkUpdateApk(){
 	     //...操作
 	     return;
 	}
-
+	
 	Global.commonAjax(
 		{
 			url: "app/check/version"
 		},
 		function(data){
 			plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
-//			    console.log(wgtinfo.version);
+//			    console.log(wgtinfo.version); 
 			    if(wgtinfo && wgtinfo.version && data && data.version){
-
+			    		
 				    if(versionfunegt(data.version, wgtinfo.version)){
 				    	console.log(wgtinfo.version+"-----"+data.version)
 						// data.version  新
-						if(data.isForce == "N"){
-							//强制升级
+						if(data.isForce == "Y"){
+							//强制升级 
 							if(data.osType == "android"){
-								var mainAct = plus.android.runtimeMainActivity();
-								var AlertDialog = plus.android.importClass("android.support.v7.app.AlertDialog");
-								var DialogInterface = plus.android.importClass("android.content.DialogInterface");
-								new AlertDialog.Builder(mainAct)
-					                .setTitle("提示")
-					                .setMessage("请升级到最新版本")
-					                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					                    @Override
-					                    public void onClick(DialogInterface dialog, int which) {
-					                        dialog.dismiss();
-
-					                    }
-					                })
-					                .setCancelable(false)
-					                .show();
-								return;
-
-
-								var mainAct = plus.android.runtimeMainActivity();
-								var updateCallBack = plus.android.implements("org.qldc.xianghq.Tools$UpdateCallBack", {
-									"success": function() {
-										//android 手机
-										if(data.urlType == "store"){
-											//商店地址
-											var mainAct = plus.android.runtimeMainActivity();
-											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-
-										}else if(data.urlType == "apk"){
-											//下载文件
-											if(data.downloadUrl){
-												downloadAPP(data.downloadUrl)
-											}
-
+								$(".updateApp").removeClass("hideClass");
+								mui.back = function(){};
+								$(".updateAction").click(function(){
+									//android 手机
+									if(data.urlType == "store"){
+										//商店地址
+										var mainAct = plus.android.runtimeMainActivity();
+										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+										
+									}else if(data.urlType == "apk"){
+										//下载文件
+										if(data.downloadUrl){
+											downloadAPP(data.downloadUrl);
+											$(".update_content_bg").addClass("hideClass");
 										}
+										
 									}
-								});
-
-								plus.android.invoke("org.qldc.xianghq.Tools", "showDialog", mainAct, updateCallBack);
-
-
+								})
+								
+								
 							}else{
 								//IOS 强制更新
 							}
-
+							
 						}else{
 							//非强制更新
 							var btnArray = ['以后再说', '现在升级'];
@@ -190,27 +170,27 @@ function checkUpdateApk(){
 											//商店地址
 											var mainAct = plus.android.runtimeMainActivity();
 											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-
+											
 										}else if(data.urlType == "apk"){
 											//下载文件
 											downloadAPP(data.downloadUrl)
 										}else{
-
+											
 										}
 									}
-
+									
 								}else{
 									//否
 									console.log("不升级");
 								}
-
+								
 							});
 						}
 					}
 			    }
 			});
 
-
+			
 		}
 	)
 }
@@ -221,21 +201,21 @@ function downloadAPP(url){
 	var w = plus.nativeUI.showWaiting("下载升级文件...");
 	var dtask = plus.downloader.createDownload(url, {filename:"_doc/update/"}, function(d, status){
 		if(status == 200){
-			plus.nativeUI.closeWaiting();
-			//下载完成
+			plus.nativeUI.closeWaiting();  
+			//下载完成 
 			mui.alert("下载完成是否安装最新版本？", '提示', function() {
 				plus.runtime.install(d.filename, {}, function(){
-
-				}, function(){
-
+				
+				}, function(){ 
+					
 				});
 			});
-
+			
 		}else{
 			alert("下载失败");
-			plus.nativeUI.closeWaiting();
+			plus.nativeUI.closeWaiting(); 
 		}
-
+		
 	});
 	dtask.start();
 	dtask.addEventListener("statechanged", function(task,status){
@@ -441,20 +421,17 @@ function loginByToken() {
                     //有新口子
                     myStorage.setItem("toFindAd", data.toFindAd);
 					$('.selfModal').removeClass('hideClass');
+					$('.selfModal .modal-dialog').addClass('hideClass');
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
                         .attr("src", data.toFindAd.picUrl);
-                    console.log("000777777000");
+                    
 					Global.showLoading();
     					content_id.onload = function(){
-    						console.log("000000999999");
-    						setTimeout(function(){
-    							console.log("000000");
-    							Global.hideLoading();
-    						}, 1000)
-
+    						Global.hideLoading();
+    						$('.selfModal .modal-dialog').removeClass('hideClass');
     					}
-
-
+    
+                    
                     //Global.imgLoading(content_id, "");
                 } else {
                     $('.selfModal').addClass('hideClass');
@@ -638,7 +615,7 @@ $('.timeType').click(function() {
     $('.preType').css('color', '#333333');
     if (currentType == 'TIME') {
         //当前期限
-        isDesc = !isDesc;
+        isDesc = !isDesc; 
     }
     if(isDesc){
     		$(".sortImg").attr('src', "../images/sort_front.png");
@@ -676,7 +653,7 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
 		page: "find"
 	}
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-
+            
     var params = {
         goodsCode: item.goodsCode
     }
@@ -882,7 +859,7 @@ function setGetMoneyBanner(listData) {
 	        })
         }
 
-
+        
     })
 
 
@@ -941,12 +918,12 @@ function apply(params) {
 
             }
             if (!params) {
-
+            		
             		var clickType = {
 	        			source: myStorage.getItem("user").sourceCode
 	        		}
 	            plus.statistic.eventTrig("apply", JSON.stringify(clickType) )
-
+            
                 mui.openWindow({
                     url: url,
                     id: url,
@@ -993,27 +970,27 @@ function updatePage(tabNum){
         			findList = [];
         			//发现页面
             		initFindPage(data);
-
+            		
             		if(data && (data.isPay != "Y")){
             			var item = myStorage.getItem("toFindAd");
-				  console.log("收到事件" + item.picUrl);
+				  console.log("收到事件" + item.picUrl); 
 				    if (item && item.picUrl) {
 						$('.selfModal').removeClass('hideClass');
+						$('.selfModal .modal-dialog').addClass('hideClass');
 						$('.selfModal .modal-dialog .modal-content .conten_bg')
 	                        .attr("src", item.picUrl);
 						Global.showLoading();
 	    					content_id.onload = function(){
-	    						setTimeout(function(){
-	    							Global.hideLoading();
-	    						}, 1000)
-
+	    						Global.hideLoading();
+	    						$('.selfModal .modal-dialog').removeClass('hideClass');
+	    						
 	    					}
 				    } else {
 				        $('.selfModal').addClass('hideClass');
 				    }
             		}
-
-
+            		
+    
             }else if(tabNum == -1){
             		//摇摆红包
             		if(data.isPay == "Y"){
@@ -1026,8 +1003,8 @@ function updatePage(tabNum){
 	                    url = "personInfo.html";
 	                } else if (data.isPay == "N") {
 	                    url = "credit.html";
-	                }
-
+	                } 
+	                
 	                mui.openWindow({
 	                    url: url,
 	                    id: url,
@@ -1035,11 +1012,11 @@ function updatePage(tabNum){
 	                        autoShow: false
 	                    }
 	                })
-
+	                
             		}
             		return;
             }
-
+            
 
         },
         function(err){
@@ -1056,19 +1033,19 @@ function initFindPage(data){
 	}else{
 		$(".find_bottom_wrap").css("bottom", "-220px");
 	}
-
+	
           //alert(height);
 			// N 显示old
     if(isShowFindPage && (isShowFindPage == "N")){
         $(".newFind").addClass("hideClass");
         $(".oldFind").removeClass("hideClass");
-
+        
         $("#tabbar-with-contact").css("height", height);
         //发现
         pulldownRefresh();
         $('#pullrefresh').scroll({ indicators: false });
         plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
-
+            
     }else{
         $(".newFind").removeClass("hideClass");
         $(".oldFind").addClass("hideClass");
@@ -1079,9 +1056,9 @@ function initFindPage(data){
         }else{
         		//已付费
         		$(".recommand_icon").addClass("hideClass");
-
+        		
         }
-
+        
     }
 }
 
@@ -1130,7 +1107,7 @@ function getMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
         html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + parseInt(randomNum(500, 20000)/100)*100 + ' 元</div>';
-    };
+    }; 
     html += '</div>';
     $(".top-swiper-container").append(html);
 
@@ -1143,19 +1120,19 @@ function getMoneySwiper() {
 }
 
 //生成从minNum到maxNum的随机数
-function randomNum(minNum,maxNum){
-    switch(arguments.length){
-        case 1:
-            return parseInt(Math.random()*minNum+1,10);
-        break;
-        case 2:
-            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
-        break;
-            default:
-                return 0;
-            break;
-    }
-}
+function randomNum(minNum,maxNum){ 
+    switch(arguments.length){ 
+        case 1: 
+            return parseInt(Math.random()*minNum+1,10); 
+        break; 
+        case 2: 
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+        break; 
+            default: 
+                return 0; 
+            break; 
+    } 
+} 
 
 
 //tab切换  赚钱无限上下滚动
@@ -1273,7 +1250,7 @@ $(".wx_wrap").click(function() {
 		channel: "wx"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
 
         msg.extra = { scene: 'WXSceneSession' };
@@ -1293,7 +1270,7 @@ $(".wx_friend_wrap").click(function() {
 		channel: "pyq"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
         msg.extra = { scene: 'WXSceneTimeline' };
         msg.href = shareData.pyq.linkUrl;
@@ -1311,7 +1288,7 @@ $(".money_wx_wrap").click(function() {
 		channel: "wx"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
 
         msg.extra = { scene: 'WXSceneSession' };
@@ -1331,7 +1308,7 @@ $(".money_wx_friend_wrap").click(function() {
 		channel: "pyq"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
         msg.extra = { scene: 'WXSceneTimeline' };
         msg.href = shareData.pyq.linkUrl;
@@ -1389,7 +1366,7 @@ $(".qq_wrap").click(function() {
 		channel: "qq"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+						    
     if (shareData) {
     		qqMsg.href = shareData.qq.linkUrl;
         qqMsg.title = shareData.qq.title;
@@ -1406,7 +1383,7 @@ $(".copy_wrap").click(function() {
 		channel: "link"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
         if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
@@ -1439,7 +1416,7 @@ $(".money_qq_wrap").click(function() {
 		channel: "qq"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+						    
     if (shareData) {
     		qqMsg.href = shareData.qq.linkUrl;
         qqMsg.title = shareData.qq.title;
@@ -1456,7 +1433,7 @@ $(".money_copy_wrap").click(function() {
 		channel: "link"
 	}
     plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-
+    
     if (shareData) {
         if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
@@ -1573,7 +1550,7 @@ function closeDialg() {
 function goToFindTab() {
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
     mui.trigger($('.mui-tab-item').eq(2)[0], 'tap');
-
+    
     updatePage(1);
     if (makeMoneySwiperObj) {
         makeMoneySwiperObj.destroy();
@@ -1584,7 +1561,7 @@ function goToFindTab() {
         loop: true,
         autoplay: true
     });
-
+            
 }
 
 //去赚钱tab
@@ -1602,17 +1579,17 @@ function invaliteFriend() {
             if (data && data.adUrl) {
                 $(".invalite_bg").attr("src", data.adUrl);
                 shareData = data;
-
+                
 				$(".invalite_bg").attr("src", data.adUrl);
-
+                
 				Global.showLoading();
 				invalite_id.onload = function(){
 					console.log("000000");
 					$('.inviteModal').removeClass('hideClass');
-					Global.hideLoading();
-
+					Global.hideLoading(); 
+				
 				}
-
+				
             }
         },
         function(err) {
@@ -1644,12 +1621,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-//	MobclickAgent.onEvent(mainActivity, "channelpage");
-//	plus.statistic.eventTrig("channelpage", "goToRecommand" )
-	//return;
+	return; 
     mui.openWindow({
-        url: 'recommand.html',
-        id: 'recommand.html',
+        url: 'custom.html',
+        id: 'custom.html',
         waiting: {
             autoShow: false
         }
@@ -1673,7 +1648,7 @@ function goToCredit() {
                     url = "credit_result.html";
                 }
             }
-
+            
             mui.openWindow({
                 url: url,
                 id: url,
@@ -1681,7 +1656,7 @@ function goToCredit() {
                     autoShow: false
                 }
             })
-
+            
         });
 }
 
@@ -1710,7 +1685,7 @@ function updateSerivces() {
         console.log('获取分享服务列表失败：' + e.message);
     });
 }
-//关闭所有页面
+//关闭所有页面   
 function closeOtherWindow() {
     var curr = plus.webview.currentWebview();
     //获取所有已经打开的webview窗口
@@ -1728,7 +1703,7 @@ function closeOtherWindow() {
 window.addEventListener('openKouzi', function(event) {
     console.log("收到事件");
     updateMyTab();
-
+    
                 
 }, false);
 
@@ -1755,5 +1730,11 @@ function fastQuit() {
 }
 
 $(".contact_service").click(function() {
-    qimoChatClick();
+    mui.openWindow({
+        url: 'custom.html',
+        id: 'custom.html',
+        waiting: {
+            autoShow: false
+        }
+    })
 })

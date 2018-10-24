@@ -277,7 +277,8 @@
 					"html/error500.html",
 					"html/credit_result.html",
 					"html/test.html",
-					"html/pay_style.html"
+					"html/pay_style.html",
+					"html/custom.html"
 				],
 				"priority": 0
 			},

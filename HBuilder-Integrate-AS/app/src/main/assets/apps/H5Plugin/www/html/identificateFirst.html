@@ -443,7 +443,7 @@
             if (!hasData) {
                 //身份证正面
                 flag = false;
-                if(plus.os.android){
+                if(mui.os.android){
                 		intent.putExtra("type", 1);
 	                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
 	                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -482,7 +482,7 @@
             if (!hasData) {
                 //身份证反面
                 flag = false;
-                if(plus.os.android){
+                if(mui.os.android){
                 		intent.putExtra("type", 2);
 	                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
 	                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

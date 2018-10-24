@@ -131,48 +131,28 @@ function checkUpdateApk(){
 				    if(versionfunegt(data.version, wgtinfo.version)){
 				    	console.log(wgtinfo.version+"-----"+data.version)
 						// data.version  新
-						if(data.isForce == "N"){
-							//强制升级
+						if(data.isForce == "Y"){
+							//强制升级 
 							if(data.osType == "android"){
-//								var mainAct = plus.android.runtimeMainActivity();
-//								var AlertDialog = plus.android.importClass("android.support.v7.app.AlertDialog");
-//								var DialogInterface = plus.android.importClass("android.content.DialogInterface");
-//								new AlertDialog.Builder(mainAct)
-//					                .setTitle("提示")
-//					                .setMessage("请升级到最新版本")
-//					                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//					                     
-//					                    public void onClick(DialogInterface dialog, int which) {
-//					                        dialog.dismiss();
-//					                        
-//					                    }
-//					                })
-//					                .setCancelable(false)
-//					                .show();
-//								return;
-								
-								
-								var mainAct = plus.android.runtimeMainActivity();
-								var updateCallBack = plus.android.implements("org.qldc.xianghq.Tools$UpdateCallBack", {
-									"success": function() {
-										//android 手机
-										if(data.urlType == "store"){
-											//商店地址
-											var mainAct = plus.android.runtimeMainActivity();
-											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-											
-										}else if(data.urlType == "apk"){
-											//下载文件
-											if(data.downloadUrl){
-												downloadAPP(data.downloadUrl)
-											}
-											
+								$(".updateApp").removeClass("hideClass");
+								mui.back = function(){};
+								$(".updateAction").click(function(){
+									//android 手机
+									if(data.urlType == "store"){
+										//商店地址
+										var mainAct = plus.android.runtimeMainActivity();
+										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+										
+									}else if(data.urlType == "apk"){
+										//下载文件
+										if(data.downloadUrl){
+											downloadAPP(data.downloadUrl);
+											$(".update_content_bg").addClass("hideClass");
 										}
+										
 									}
-								});
-			
-								plus.android.invoke("org.qldc.xianghq.Tools", "showDialog", mainAct, updateCallBack);
-							
+								})
+								
 								
 							}else{
 								//IOS 强制更新
@@ -441,17 +421,14 @@ function loginByToken() {
                     //有新口子
                     myStorage.setItem("toFindAd", data.toFindAd);
 					$('.selfModal').removeClass('hideClass');
+					$('.selfModal .modal-dialog').addClass('hideClass');
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
                         .attr("src", data.toFindAd.picUrl);
-                    console.log("000777777000");
+                    
 					Global.showLoading();
     					content_id.onload = function(){
-    						console.log("000000999999");
-    						setTimeout(function(){
-    							console.log("000000");
-    							Global.hideLoading(); 
-    						}, 1000)
-    						
+    						Global.hideLoading();
+    						$('.selfModal .modal-dialog').removeClass('hideClass');
     					}
     
                     
@@ -999,13 +976,13 @@ function updatePage(tabNum){
 				  console.log("收到事件" + item.picUrl); 
 				    if (item && item.picUrl) {
 						$('.selfModal').removeClass('hideClass');
+						$('.selfModal .modal-dialog').addClass('hideClass');
 						$('.selfModal .modal-dialog .modal-content .conten_bg')
 	                        .attr("src", item.picUrl);
 						Global.showLoading();
 	    					content_id.onload = function(){
-	    						setTimeout(function(){
-	    							Global.hideLoading(); 
-	    						}, 1000)
+	    						Global.hideLoading();
+	    						$('.selfModal .modal-dialog').removeClass('hideClass');
 	    						
 	    					}
 				    } else {
@@ -1644,12 +1621,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-//	MobclickAgent.onEvent(mainActivity, "channelpage");
-//	plus.statistic.eventTrig("channelpage", "goToRecommand" )
-	//return; 
+	return; 
     mui.openWindow({
-        url: 'recommand.html',
-        id: 'recommand.html',
+        url: 'custom.html',
+        id: 'custom.html',
         waiting: {
             autoShow: false
         }
@@ -1755,5 +1730,11 @@ function fastQuit() {
 }
 
 $(".contact_service").click(function() {
-    qimoChatClick();
+    mui.openWindow({
+        url: 'custom.html',
+        id: 'custom.html',
+        waiting: {
+            autoShow: false
+        }
+    })
 })

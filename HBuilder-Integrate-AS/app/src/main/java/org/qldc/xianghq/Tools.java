@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ObjectUtils;
@@ -80,39 +81,93 @@ public class Tools {
     }
 
     //跳转应用市场
-    public static void goToMarket(Activity activity){
-        PackageManager pm = activity.getPackageManager();
+    public static void goToMarket(Context context){
 
+
+        PackageManager pm = context.getApplicationContext().getPackageManager();
+//
         List<PackageInfo> infos=pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
 
+        String pck = "com.tencent.android.qqdownloader";
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse("market://details?id=" + "org.qldc.xianghq");//app包名
-        intent.setData(uri);
-        if(infos != null && (infos.size() > 0)){
-            intent.setPackage(infos.get(0).packageName);//应用市场包名
-            activity.startActivity(intent);
+        int size = infos.size();
+        for (int i = 0; i < size; i++) {
+            String packageName = infos.get(i).packageName;
+            //获取应用市场的包名
+            if(TextUtils.equals(packageName, "com.tencent.android.qqdownloader")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.dragon.android.pandaspace")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.hiapk.marketpho")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.yingyonghui.market")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.tencent.qqpimsecure")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.mappn.gfan")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.pp.assistant")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.oppo.market")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "cn.goapk.market")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "zte.com.market")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.yulong.android.coolmart")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.lenovo.leos.appstore")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.coolapk.market")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "om.qihoo.appstore")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.qihoo360.mobilesafe")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.qihoo.cleandroid_cn")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.baidu.appsearch")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.wandoujia.phoenix2")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.xiaomi.market")){
+
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.huawei.appmarket")){
+                pck = packageName;
+                break;
+            }else if(TextUtils.equals(packageName, "com.lenovo.leos.appstore")){
+                pck = packageName;
+                break;
+            }
+
         }
 
-    }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse("market://details?id=" + "com.xunao.diaodiao");//app包名
+        intent.setData(uri);
+        intent.setPackage(pck);//应用市场包名
+        context.startActivity(intent);
 
-    //显示强制更新Dialog
-    public static void showDialog(Activity activity, final UpdateCallBack callBack){
-        Toast.makeText(activity, "dialog", Toast.LENGTH_SHORT).show();
 
-        new AlertDialog.Builder(activity)
-                .setTitle("提示")
-                .setMessage("请升级到最新版本")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        if(callBack != null){
-                            callBack.success();
-                        }
-                    }
-                })
-                .setCancelable(false)
-                .show();
     }
 }
