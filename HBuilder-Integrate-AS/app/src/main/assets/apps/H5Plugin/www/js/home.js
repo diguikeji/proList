@@ -724,7 +724,7 @@ function payedGoodslist(refreshType) {
 function pulldownRefresh() {
     current = 1;
     findList = [];
-
+	mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
    	document.body.querySelector('.mui-table-view-condensed').innerHTML = "";
     $(".mui-table-view-condensed").html = "";
 
