@@ -45,6 +45,8 @@ mui.plusReady(function() {
 
 	    //分享
 	    updateSerivces();
+	    //是否显示发现页面
+	    isShowFindPage = self.isShowFindPage;
     }
 
     fastQuit();
@@ -115,7 +117,7 @@ function checkUpdateApk(){
 	if(mui.os.ios){
 	     //...操作
 	     return;
-	 }
+	}
 
 	Global.commonAjax(
 		{
@@ -123,45 +125,85 @@ function checkUpdateApk(){
 		},
 		function(data){
 			plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
-			    //console.log(wgtinfo.version);
+//			    console.log(wgtinfo.version);
 			    if(wgtinfo && wgtinfo.version && data && data.version){
+
 				    if(versionfunegt(data.version, wgtinfo.version)){
+				    	console.log(wgtinfo.version+"-----"+data.version)
 						// data.version  新
-						if(data.isForce){
+						if(data.isForce == "N"){
 							//强制升级
-							mui.back = function() {};
-							mui.alert("请升级到最新版本"+data.version, '提示', function() {
-								if(data.osType == "android"){
-									//android 手机
-									if(data.urlType == "store"){
-										//商店地址
-										var mainAct = plus.android.runtimeMainActivity();
-										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+							if(data.osType == "android"){
+								var mainAct = plus.android.runtimeMainActivity();
+								var AlertDialog = plus.android.importClass("android.support.v7.app.AlertDialog");
+								var DialogInterface = plus.android.importClass("android.content.DialogInterface");
+								new AlertDialog.Builder(mainAct)
+					                .setTitle("提示")
+					                .setMessage("请升级到最新版本")
+					                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					                    @Override
+					                    public void onClick(DialogInterface dialog, int which) {
+					                        dialog.dismiss();
 
-									}else if(data.urlType == "apk"){
-										//下载文件
-										downloadAPP(data.downloadUrl)
-									}else{
+					                    }
+					                })
+					                .setCancelable(false)
+					                .show();
+								return;
 
+
+								var mainAct = plus.android.runtimeMainActivity();
+								var updateCallBack = plus.android.implements("org.qldc.xianghq.Tools$UpdateCallBack", {
+									"success": function() {
+										//android 手机
+										if(data.urlType == "store"){
+											//商店地址
+											var mainAct = plus.android.runtimeMainActivity();
+											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+
+										}else if(data.urlType == "apk"){
+											//下载文件
+											if(data.downloadUrl){
+												downloadAPP(data.downloadUrl)
+											}
+
+										}
 									}
-								}
-							});
+								});
+
+								plus.android.invoke("org.qldc.xianghq.Tools", "showDialog", mainAct, updateCallBack);
+
+
+							}else{
+								//IOS 强制更新
+							}
+
 						}else{
-							mui.alert("请升级到最新版本"+data.version, '提示', function() {
-								if(data.osType == "android"){
-									//android 手机
-									if(data.urlType == "store"){
-										//商店地址
-										var mainAct = plus.android.runtimeMainActivity();
-										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+							//非强制更新
+							var btnArray = ['以后再说', '现在升级'];
+							mui.confirm("请升级到最新版本"+data.version, '提示',btnArray, function(e) {
+								if(e.index == 1){
+									//现在升级
+									if(data.osType == "android"){
+										//android 手机
+										if(data.urlType == "store"){
+											//商店地址
+											var mainAct = plus.android.runtimeMainActivity();
+											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
 
-									}else if(data.urlType == "apk"){
-										//下载文件
-										downloadAPP(data.downloadUrl)
-									}else{
+										}else if(data.urlType == "apk"){
+											//下载文件
+											downloadAPP(data.downloadUrl)
+										}else{
 
+										}
 									}
+
+								}else{
+									//否
+									console.log("不升级");
 								}
+
 							});
 						}
 					}
@@ -175,17 +217,44 @@ function checkUpdateApk(){
 
 //升级APP
 function downloadAPP(url){
-	plus.downloader.createDownload(url, {}, function(d, status){
+	console.log("下载："+url);
+	var w = plus.nativeUI.showWaiting("下载升级文件...");
+	var dtask = plus.downloader.createDownload(url, {filename:"_doc/update/"}, function(d, status){
 		if(status == 200){
+			plus.nativeUI.closeWaiting();
 			//下载完成
-			plus.runtime.install(d.filename, {}, function(){
+			mui.alert("下载完成是否安装最新版本？", '提示', function() {
+				plus.runtime.install(d.filename, {}, function(){
 
-			}, function(){
-				alert("安装失败")
+				}, function(){
+
+				});
 			});
+
+		}else{
+			alert("下载失败");
+			plus.nativeUI.closeWaiting();
 		}
 
-	}).start();
+	});
+	dtask.start();
+	dtask.addEventListener("statechanged", function(task,status){
+		switch(task.state) {
+            case 1: // 开始
+                w.setTitle("　　 开始下载...　　 ");
+            break;
+            case 2: // 已连接到服务器
+                w.setTitle("　　 开始下载...　　 ");
+            break;
+            case 3:
+                var a = task.downloadedSize/task.totalSize*100;
+                w.setTitle("　　 已下载"+parseInt(a)+"%　　 ");
+            break;
+            case 4: // 下载完成
+                w.close();
+            break;
+        }
+	})
 }
 
 //小数点 version 比较 ver1 大 true
@@ -220,13 +289,6 @@ function checkPermission(){
 			"success": function() {
 				//申请权限成功或已经获取到了权限都会执行到这里
 
-				var callBack1 = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
-                    "success": function() {},
-                    "failure": function() {}
-                });
-
-                plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.LOCATION"], callBack1);
-
 			},
 			"failure": function() {
 				plus.runtime.quit();
@@ -235,8 +297,7 @@ function checkPermission(){
 	//调用申请权限的静态方法
 	//照相
 	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
-		"android.permission-group.STORAGE", "android.permission-group.PHONE",
-		"android.permission.INTERNET"], callBack);
+		"android.permission-group.STORAGE"], callBack);
 
 }
 
@@ -379,10 +440,22 @@ function loginByToken() {
                 if (data && data.toFindAd) {
                     //有新口子
                     myStorage.setItem("toFindAd", data.toFindAd);
-
-                    $('.selfModal .modal-dialog .modal-content .conten_bg')
+					$('.selfModal').removeClass('hideClass');
+					$('.selfModal .modal-dialog .modal-content .conten_bg')
                         .attr("src", data.toFindAd.picUrl);
-                    Global.imgLoading(content_id, "");
+                    console.log("000777777000");
+					Global.showLoading();
+    					content_id.onload = function(){
+    						console.log("000000999999");
+    						setTimeout(function(){
+    							console.log("000000");
+    							Global.hideLoading();
+    						}, 1000)
+
+    					}
+
+
+                    //Global.imgLoading(content_id, "");
                 } else {
                     $('.selfModal').addClass('hideClass');
                 }
@@ -566,6 +639,11 @@ $('.timeType').click(function() {
     if (currentType == 'TIME') {
         //当前期限
         isDesc = !isDesc;
+    }
+    if(isDesc){
+    		$(".sortImg").attr('src', "../images/sort_front.png");
+    }else{
+    		$(".sortImg").attr('src', "../images/sort_back.png");
     }
 
     currentType = 'TIME';
@@ -890,7 +968,11 @@ function apply(params) {
 var updateData;
 //更新页面
 function updatePage(tabNum){
-	Global.commonAjax({ url: "user/input/status" },
+	var url = "user/input/status";
+	if(tabNum == -1){
+		url = "user/input/status?isShowPic=true"
+	}
+	Global.commonAjax({ url: url },
         function(data) {
         		updateData = data;
         		if(tabNum == 1){
@@ -914,17 +996,18 @@ function updatePage(tabNum){
 
             		if(data && (data.isPay != "Y")){
             			var item = myStorage.getItem("toFindAd");
-				//  console.log("收到事件" + item.picUrl);
+				  console.log("收到事件" + item.picUrl);
 				    if (item && item.picUrl) {
-				        $('.selfModal .modal-dialog .modal-content .conten_bg')
-				            .attr("src", item.picUrl);
+						$('.selfModal').removeClass('hideClass');
+						$('.selfModal .modal-dialog .modal-content .conten_bg')
+	                        .attr("src", item.picUrl);
+						Global.showLoading();
+	    					content_id.onload = function(){
+	    						setTimeout(function(){
+	    							Global.hideLoading();
+	    						}, 1000)
 
-				        Global.showLoading();
-				    		content_id.onload = function(){
-				    			$('.selfModal').removeClass('hideClass');
-							Global.hideLoading();
-
-						}
+	    					}
 				    } else {
 				        $('.selfModal').addClass('hideClass');
 				    }
@@ -1519,7 +1602,16 @@ function invaliteFriend() {
             if (data && data.adUrl) {
                 $(".invalite_bg").attr("src", data.adUrl);
                 shareData = data;
-                Global.imgLoading(invalite_id, "inviteModal");
+
+				$(".invalite_bg").attr("src", data.adUrl);
+
+				Global.showLoading();
+				invalite_id.onload = function(){
+					console.log("000000");
+					$('.inviteModal').removeClass('hideClass');
+					Global.hideLoading();
+
+				}
 
             }
         },
@@ -1552,12 +1644,12 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	MobclickAgent.onEvent(mainActivity, "channelpage");
-	plus.statistic.eventTrig("channelpage", "goToRecommand" )
-	return;
+//	MobclickAgent.onEvent(mainActivity, "channelpage");
+//	plus.statistic.eventTrig("channelpage", "goToRecommand" )
+	//return;
     mui.openWindow({
-        url: 'pay_style.html',
-        id: 'pay_style.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }

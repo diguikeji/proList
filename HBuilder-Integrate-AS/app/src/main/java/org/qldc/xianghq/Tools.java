@@ -3,10 +3,13 @@ package org.qldc.xianghq;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.PermissionUtils;
@@ -27,6 +30,13 @@ public class Tools {
     interface CallBack{
         void success();
         void failure();
+    }
+
+    /**
+     * 请求权限的回调
+     */
+    interface UpdateCallBack{
+        void success();
     }
 
     /**
@@ -69,6 +79,7 @@ public class Tools {
         }).request();
     }
 
+    //跳转应用市场
     public static void goToMarket(Activity activity){
         PackageManager pm = activity.getPackageManager();
 
@@ -83,5 +94,25 @@ public class Tools {
             activity.startActivity(intent);
         }
 
+    }
+
+    //显示强制更新Dialog
+    public static void showDialog(Activity activity, final UpdateCallBack callBack){
+        Toast.makeText(activity, "dialog", Toast.LENGTH_SHORT).show();
+
+        new AlertDialog.Builder(activity)
+                .setTitle("提示")
+                .setMessage("请升级到最新版本")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if(callBack != null){
+                            callBack.success();
+                        }
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 }

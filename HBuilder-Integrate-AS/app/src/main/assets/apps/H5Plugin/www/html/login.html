@@ -105,15 +105,6 @@ function checkPermission(){
 	plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
 	var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
 			"success": function() {
-				//申请权限成功或已经获取到了权限都会执行到这里
-
-				var callBack1 = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
-                    "success": function() {},
-                    "failure": function() {}
-                });
-
-                plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.LOCATION"], callBack1);
-
 			},
 			"failure": function() {
 				plus.runtime.quit();
@@ -122,8 +113,7 @@ function checkPermission(){
 	//调用申请权限的静态方法
 	//照相
 	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
-		"android.permission-group.STORAGE", "android.permission-group.PHONE",
-		"android.permission.INTERNET"], callBack);
+		"android.permission-group.STORAGE"], callBack);
 
 //	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.STORAGE"], callBack);
 //	//手机状态

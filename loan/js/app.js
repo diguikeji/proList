@@ -131,13 +131,15 @@ var Global = {};
                     if (token) {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     };
-                    console.log("----"+params.url+"---"+params.url.indexOf("goodslist"));
-//                  if((params.url.indexOf("pay") != -1) || 
-//                  		(params.url.indexOf("upload") != -1) || (params.url.indexOf("goodslist") != -1)){
-//              			console.log("--444444-"+params.url);
-//              			Global.showLoading();
-//              		}
-                    Global.showLoading();
+                    //console.log("----"+params.url+"---"+params.url.indexOf("goodslist"));
+                    
+                    if(params.url.indexOf("isShowPic=true") != -1){
+                    		console.log("显示图片"); 
+                    }else{
+                    		Global.showLoading();
+                    }
+                    
+                    
                 },
                 success: function(data) {
                     //console.log(JSON.stringify(data));
@@ -182,8 +184,7 @@ var Global = {};
                         data.code == "success" || data.code == "ok") {
                         callback(data.data ? data.data : "");
                     } else {
-                    		console.log("7484737383");
-                        errorback(data.msg);
+                        errorback && errorback(data.msg);
                     }
 
                 },
@@ -199,10 +200,10 @@ var Global = {};
 
                 },
                 complete: function(xhr, status) {
-//              		if((params.url.indexOf("pay") != -1) || 
-//                  		(params.url.indexOf("upload") != -1) || (params.url.indexOf("goodslist") != -1)){
-//              			Global.hideLoading();
-//              		}
+					if(params.url.indexOf("isShowPic=true") != -1){
+                    		console.log("显示图片");
+                    		return;
+                    }
                     Global.hideLoading();
                     if(params.url.indexOf("card") != -1){
                     		console.log("9999999");
@@ -235,7 +236,9 @@ var Global = {};
         		
         		idName.onload = function(){
         			$('.'+className).removeClass('hideClass');
-				Global.hideLoading();
+        			setTimeout(function(){
+        				Global.hideLoading(); 
+        			}, 500);
 				
 			}
         },

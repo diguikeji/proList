@@ -385,10 +385,14 @@
         var hasData = false;
         Global.showLoading();
         document.addEventListener('plusready', function() {
-
-            main = plus.android.runtimeMainActivity();
-            Intent = plus.android.importClass("android.content.Intent");
-            intent = new Intent(main.getIntent());
+			if(mui.os.android){
+	     		main = plus.android.runtimeMainActivity();
+	            Intent = plus.android.importClass("android.content.Intent");
+	            intent = new Intent(main.getIntent());
+	 		}else{
+	 			//ios
+	 		}
+            
             initData();
             //浮层中的状态
             initStatus();
@@ -439,30 +443,35 @@
             if (!hasData) {
                 //身份证正面
                 flag = false;
-                intent.putExtra("type", 1);
-                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                main.startActivity(intent);
-                main.startActivityForResult(intent, 19);
-                main.onActivityResult = function(request, code, data) {
-                    //停止录像
-                    if(!flag){
-                    		var imgUrl = data.getStringExtra("result");
-	                    $("#zhengmian").attr("src", imgUrl);
-						
-	                    Global.getCanvasBase64(imgUrl)
-	                        .then(function(base64) {
-	                            console.log(base64);
-	                            flag = true;
-	                            uploadFile("front", base64)
-	                        }, function(err) {
-	                        		flag = true;
-	                            console.log(err);
-	                        })
-						return;
-                    }
-                    
+                if(plus.os.android){
+                		intent.putExtra("type", 1);
+	                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+	                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                main.startActivity(intent);
+	                main.startActivityForResult(intent, 19);
+	                main.onActivityResult = function(request, code, data) {
+	                    //停止录像
+	                    if(!flag){
+	                    		var imgUrl = data.getStringExtra("result");
+		                    $("#zhengmian").attr("src", imgUrl);
+							
+		                    Global.getCanvasBase64(imgUrl)
+		                        .then(function(base64) {
+		                            console.log(base64);
+		                            flag = true;
+		                            uploadFile("front", base64)
+		                        }, function(err) {
+		                        		flag = true;
+		                            console.log(err);
+		                        })
+							return;
+	                    }
+	                    
+	                }
+                }else{
+                	//ios
                 }
+                
             } else {
                 mui.toast("不可修改");
             }
@@ -473,28 +482,33 @@
             if (!hasData) {
                 //身份证反面
                 flag = false;
-                intent.putExtra("type", 2);
-                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                main.startActivity(intent);
-                main.startActivityForResult(intent, 19);
-                main.onActivityResult = function(request, code, data) {
-                    //停止录像
-                    if(!flag){
-	                    var imgUrl = data.getStringExtra("result");
-	                    $("#fanmian").attr("src", imgUrl);
-	                    Global.getCanvasBase64(imgUrl)
-	                        .then(function(base64) {
-	                            console.log(base64);
-	                            flag = true;
-	                            uploadFile("back", base64);
-	                        }, function(err) {
-	                            console.log(err);
-	                            flag = true;
-	                        })
-	                    return; 
-                    }
+                if(plus.os.android){
+                		intent.putExtra("type", 2);
+	                intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+	                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                main.startActivity(intent);
+	                main.startActivityForResult(intent, 19);
+	                main.onActivityResult = function(request, code, data) {
+	                    //停止录像
+	                    if(!flag){
+		                    var imgUrl = data.getStringExtra("result");
+		                    $("#fanmian").attr("src", imgUrl);
+		                    Global.getCanvasBase64(imgUrl)
+		                        .then(function(base64) {
+		                            console.log(base64);
+		                            flag = true;
+		                            uploadFile("back", base64);
+		                        }, function(err) {
+		                            console.log(err);
+		                            flag = true;
+		                        })
+		                    return; 
+	                    }
+	                }
+                }else{
+                		//ios
                 }
+                
             } else {
                 mui.toast("不可修改");
             }
