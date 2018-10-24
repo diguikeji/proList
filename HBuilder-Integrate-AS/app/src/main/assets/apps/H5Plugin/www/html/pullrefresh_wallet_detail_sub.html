@@ -45,25 +45,25 @@
 </head>
 
 <body>
-<!--下拉刷新容器-->
-<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-    <div class="mui-scroll">
-        <!--数据列表-->
-        <ul class="mui-table-view" style="background: #ffffff;">
+    <!--下拉刷新容器-->
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view" style="background: #ffffff;">
 
-        </ul>
+            </ul>
+        </div>
+
     </div>
 
-</div>
+    <!-- <div class="list_bottom_warning_text">我是有底线的~</div> -->
 
-<!-- <div class="list_bottom_warning_text">我是有底线的~</div> -->
-
-<script src="../js/mui.min.js"></script>
-<script src="../js/jquery-2.1.1.min.js"></script>
-<script src="../js/myStorage.js"></script>
-<script src="../js/app.js"></script>
-<!--<script src="html5plus://ready"></script>-->
-<script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/myStorage.js"></script>
+    <script src="../js/app.js"></script>
+    <!--<script src="html5plus://ready"></script>-->
+    <script>
         mui.init({
             pullRefresh: {
                 container: '#pullrefresh',
@@ -79,9 +79,9 @@
         
         mui.plusReady(function() {
 			pulldownRefresh();
-
+			
 		});
-
+			
 		function setAction(){
 			mui.ajax(
 				"http://project.youzewang.com/api/app.json",
@@ -100,7 +100,7 @@
 				}
 			)
 		}
-
+			
 
         //pulldownRefresh();
         var user = myStorage.getItem("user");
@@ -113,7 +113,7 @@
 
         //获取流水数据
         function getFlowList(refreshType) {
-
+        		
 			var params = {
 				userId: userId,
 				page: {
@@ -152,6 +152,7 @@
          */
         function pulldownRefresh() {
         		current = 1;
+        		mui('#pullrefresh').pullRefresh().refresh(true);
             getFlowList(0);
         }
         /**

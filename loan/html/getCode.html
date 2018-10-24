@@ -293,7 +293,16 @@
          * 打开用户协议
          */
         function openAgree() {
-
+			
+			mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url=https://web.static.xhq520.com/xieyi/xhq-register-policy.html',
+                waiting: {
+                    autoShow: false
+                }
+            })
+			return;
+			
             var registerTxt = $.ajax({
                 url: "register.html",
                 async: false

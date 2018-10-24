@@ -894,8 +894,8 @@
 			
 			//左上角 关闭按钮
 			$('.header_close').click(function(){
-				$('.backModal').removeClass("hideClass");
-			
+				//$('.backModal').removeClass("hideClass");
+				initStatus("close");
 			})
 			
 			//弹窗中 关闭按钮
@@ -914,7 +914,7 @@
 	       });
 	       
 	       var step = 0;
-		function initStatus(){
+		function initStatus(close){
 			Global.commonAjax({ url: "user/input/status" },
 		           function(data) {
 		               
@@ -947,7 +947,9 @@
                             $(".third_step_icon").attr("src", "../images/agress_icon.png");
                         }
                     }
-		               
+		            if(close){
+						$('.modal-mask').removeClass("hideClass");
+					}   
 		               
 		          }
            );

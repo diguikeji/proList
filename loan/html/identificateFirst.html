@@ -574,7 +574,7 @@
 
         var step = 0;
 
-        function initStatus() {
+        function initStatus(close) {
         		
             Global.commonAjax({
                     url: "user/input/status"
@@ -610,7 +610,10 @@
                             $(".third_step_icon").attr("src", "../images/agress_icon.png");
                         }
                     }
-
+					
+					if(close){
+						$('.modal-mask').removeClass("hideClass");
+					}
 
                 }
             );
@@ -635,7 +638,8 @@
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
-            $('.modal-mask').removeClass("hideClass");
+            
+            initStatus("close");
 
         })
 

@@ -16,7 +16,7 @@ mui.init({
 var makeMoneySwiperObj;
 var tabIndex = 0;
 
-
+//Global.showLoading();
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
 	
@@ -417,13 +417,17 @@ function loginByToken() {
             },
             function(data) {
                 //广告
-                if (data && data.toFindAd) {
+                if (data && data.toFindAd && (isShowFindPage == "N")) {
                     //有新口子
-                    myStorage.setItem("toFindAd", data.toFindAd);
+                    //myStorage.setItem("toFindAd", data.toFindAd);
+                    var toFindPage = myStorage.getItem("toFindPage");
+                    if(!toFindPage){
+                    		return;
+                    }
 					$('.selfModal').removeClass('hideClass');
 					$('.selfModal .modal-dialog').addClass('hideClass');
 					$('.selfModal .modal-dialog .modal-content .conten_bg')
-                        .attr("src", data.toFindAd.picUrl);
+                        .attr("src", toFindPage);
                     
 					Global.showLoading();
     					content_id.onload = function(){
@@ -445,6 +449,10 @@ function loginByToken() {
                 myStorage.setItem("wallet", data.wallet);
                 //token
                 myStorage.setItem("userToken", data.userToken);
+                if(myStorage.getItem("userToken") != data.userToken){
+                		myStorage.removeItem("userToken"); 
+                		myStorage.setItem("userToken", data.userToken);
+                }
                 //系统参数接口
 			    initData();
 
@@ -489,11 +497,17 @@ function initData() {
             //录入身份证返现金额
             myStorage.setItem("inputIdInfoReturn", data.inputIdInfoReturn);
             //被邀请人返现金额
-            myStorage.setItem("inviteeFee", data.inviteeFee);
+            //myStorage.setItem("inviteeFee", data.inviteeFee);
             //邀请人返现金额
-            myStorage.setItem("inviterFee", data.inviterFee);
+            //myStorage.setItem("inviterFee", data.inviterFee);
             //完成支付的返现金额
             myStorage.setItem("payReturn", data.payReturn);
+            
+            if(data && data.toFindPage){
+            		myStorage.setItem("toFindPage", data.toFindPage);
+            }
+            
+            
         },
         function(err) {
             console.log(err)
@@ -724,7 +738,7 @@ function payedGoodslist(refreshType) {
 function pulldownRefresh() {
     current = 1;
     findList = [];
-	mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+	//mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
    	document.body.querySelector('.mui-table-view-condensed').innerHTML = "";
     $(".mui-table-view-condensed").html = "";
 
@@ -736,10 +750,6 @@ function pulldownRefresh() {
  */
 function pullupRefresh() {
     if (tabIndex == 2) {
-    		if(findList.length < 20){
-    			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
-    			return;
-    		}
         current++;
         payedGoodslist(1);
     }
@@ -755,13 +765,16 @@ function setRefreshData(refreshType, cells, isAll) {
     //当前点击的 数据下标
     var index = 0;
     var table = document.body.querySelector('.mui-table-view-condensed');
-    console.log(refreshType +"----"+isAll);
+    console.log(refreshType +"----"+isAll); 
     if (refreshType == 0) {
         //下拉刷新
         table.innerHTML = "";
-        $(".mui-table-view-condensed").html = "";
+        $(".mui-table-view-condensed").html = ""; 
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
     } else {
         //加载更多
+        console.log("加载更多");
         mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
         var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
         index = preList == null ? 0 : preList.length;
@@ -795,7 +808,8 @@ function setRefreshData(refreshType, cells, isAll) {
         //$(".mui-table-view-condensed").append(li);
         index += 1;
     }
-
+	
+	mui('#pullrefresh').pullRefresh().refresh(true);
     if (refreshType == 0) {
         //下拉刷新
         mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -803,10 +817,14 @@ function setRefreshData(refreshType, cells, isAll) {
         $('html, body').animate({
 	        scrollTop: -$(".mui-table-view-condensed").offset().top
 	    }, 20);
-
+		$(".oldFind").css("position", "static");
     } else {
         //上拉加载
-
+		if(findList.length < 10){
+      		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+    		}else{
+    			
+    		}
     }
 }
 
@@ -970,15 +988,15 @@ function updatePage(tabNum){
         			findList = [];
         			//发现页面
             		initFindPage(data);
-            		
-            		if(data && (data.isPay != "Y")){
-            			var item = myStorage.getItem("toFindAd");
-				  console.log("收到事件" + item.picUrl); 
-				    if (item && item.picUrl) {
+            		console.log("9999-----")
+            		if(data && (data.isPay != "Y") && (isShowFindPage == "N")){
+            			var item = myStorage.getItem("toFindPage");
+				  console.log("收到事件" + item); 
+				    if (item) {
 						$('.selfModal').removeClass('hideClass');
 						$('.selfModal .modal-dialog').addClass('hideClass');
 						$('.selfModal .modal-dialog .modal-content .conten_bg')
-	                        .attr("src", item.picUrl);
+	                        .attr("src", item);
 						Global.showLoading();
 	    					content_id.onload = function(){
 	    						Global.hideLoading();
@@ -1141,7 +1159,11 @@ makeMoneySwiper();
 function makeMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
-        html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + parseInt(randomNum(500, 20000)/100)*100 + ' 元</div>';
+    		var tempMoney = parseInt(randomNum(60, 1000)/100)*100+randomNum(0, 8);
+    		if(tempMoney > 1000){
+    			tempMoney = 1000;
+    		}
+        html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + tempMoney + ' 元</div>';
     };
     html += '</div>';
     $(".getMoney-swiper-container").append(html);
@@ -1548,6 +1570,9 @@ function closeDialg() {
 
 //去发现tab
 function goToFindTab() {
+	//关闭借款 弹层
+    $('.selfModal').addClass('hideClass');
+    
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
     mui.trigger($('.mui-tab-item').eq(2)[0], 'tap');
     
@@ -1623,8 +1648,8 @@ function jumpWeb() {
 function goToRecommand() {
 	return; 
     mui.openWindow({
-        url: 'custom.html',
-        id: 'custom.html',
+        url: 'pay_success.html',
+        id: 'pay_success.html',
         waiting: {
             autoShow: false
         }

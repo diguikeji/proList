@@ -287,7 +287,8 @@
 				"refer": [
 					"html/home.html",
 					"html/errornet.html",
-					"html/error404.html"
+					"html/error404.html",
+					"html/webview.html"
 				],
 				"priority": 0
 			},

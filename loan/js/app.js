@@ -5,7 +5,7 @@ var Global = {};
     Global = {
         showLoading: function() {
             if ($("#ShowLoading").length == 0) {
-                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: fixed;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='../images/loading.gif'/></div></div>");
+                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: fixed;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='../images/loading.gif' style='width: 98px; height: 44px;'/></div></div>");
             }
         },
         hideLoading: function() {
@@ -131,7 +131,7 @@ var Global = {};
                     if (token) {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     };
-                    //console.log("----"+params.url+"---"+params.url.indexOf("goodslist"));
+                      console.log("gggggggggggggggggggggg---"+token);
                     
                     if(params.url.indexOf("isShowPic=true") != -1){
                     		console.log("显示图片"); 
