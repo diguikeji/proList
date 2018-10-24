@@ -78,7 +78,7 @@ function fastQuit() {
     //双击退出登录
     mui.back = function() {
         //console.log(plus.webview.currentWebview().id);
-        if (plus.webview.currentWebview().id == "home.html") {
+        if (plus.webview.currentWebview().id == "login.html") {
 
             if (mui.os.ios) return;
             if (backcount > 0) {

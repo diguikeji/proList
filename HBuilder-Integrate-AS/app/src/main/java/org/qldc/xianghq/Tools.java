@@ -3,10 +3,16 @@ package org.qldc.xianghq;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.Utils;
+
+import java.util.List;
 
 
 /**
@@ -61,5 +67,21 @@ public class Tools {
 
             }
         }).request();
+    }
+
+    public static void goToMarket(Activity activity){
+        PackageManager pm = activity.getPackageManager();
+
+        List<PackageInfo> infos=pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
+
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse("market://details?id=" + "org.qldc.xianghq");//app包名
+        intent.setData(uri);
+        if(infos != null && (infos.size() > 0)){
+            intent.setPackage(infos.get(0).packageName);//应用市场包名
+            activity.startActivity(intent);
+        }
+
     }
 }

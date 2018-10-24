@@ -19,17 +19,20 @@ var tabIndex = 0;
 
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
+	
+//	mui('body').on('tap','a',function(){document.location.href=this.href;});
 	//友盟统计
 	mainActivity = plus.android.runtimeMainActivity();
     MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
 	MobclickAgent.onPageStart("MainScreen");
+	checkUpdateApk();
 	
 	var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if(!isfirst){
     		//用户信息接口
     		loginByToken();
-    		checkPermission();
+      	checkPermission();
     }else{
     		//系统参数接口
 	    initData();
@@ -42,12 +45,9 @@ mui.plusReady(function() {
 
 	    //分享
 	    updateSerivces();
-
-
-
     }
 
-    fastQuit();
+    //fastQuit(); 
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -109,6 +109,136 @@ mui.plusReady(function() {
     });
 
 });
+
+//检查APP更新
+function checkUpdateApk(){
+	if(mui.os.ios){
+	     //...操作
+	     return;
+	 }
+	
+	mui.back = function() {
+		mui.toast("00000")
+		return;
+	};
+							mui.alert("请升级到最新版本", '提示', function() {
+								return;
+								if(data.osType == "android"){
+									//android 手机
+									if(data.urlType == "store"){
+										//商店地址
+										var mainAct = plus.android.runtimeMainActivity();
+										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+										
+									}else if(data.urlType == "apk"){
+										//下载文件
+										downloadAPP(data.downloadUrl)
+									}else{
+										
+									}
+								}
+							});
+							return;
+	
+	Global.commonAjax(
+		{
+			url: "app/check/version"
+		},
+		function(data){
+			plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
+			    //console.log(wgtinfo.version); 
+			    if(wgtinfo && wgtinfo.version && data && data.version){
+				    if(versionfunegt(data.version, wgtinfo.version)){
+						// data.version  新
+						if(data.isForce){
+							//强制升级
+							mui.back = function() {};
+							mui.alert("请升级到最新版本"+data.version, '提示', function() {
+								if(data.osType == "android"){
+									//android 手机
+									if(data.urlType == "store"){
+										//商店地址
+										var mainAct = plus.android.runtimeMainActivity();
+										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+										
+									}else if(data.urlType == "apk"){
+										//下载文件
+										downloadAPP(data.downloadUrl)
+									}else{
+										
+									}
+								}
+							});
+						}else{
+							//非强制更新
+							var btnArray = ['以后再说', '现在升级'];
+							mui.confirm("请升级到最新版本"+data.version, '提示',btnArray, function(e) {
+								if(e.index == 1){
+									//现在升级
+									if(data.osType == "android"){
+										//android 手机
+										if(data.urlType == "store"){
+											//商店地址
+											var mainAct = plus.android.runtimeMainActivity();
+											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+											
+										}else if(data.urlType == "apk"){
+											//下载文件
+											downloadAPP(data.downloadUrl)
+										}else{
+											
+										}
+									}
+									
+								}else{
+									//否
+								}
+								
+							});
+						}
+					}
+			    }
+			});
+
+			
+		}
+	)
+}
+
+//升级APP
+function downloadAPP(url){
+	plus.downloader.createDownload(url, {}, function(d, status){
+		if(status == 200){
+			//下载完成
+			plus.runtime.install(d.filename, {}, function(){
+			
+			}, function(){
+				alert("安装失败")
+			});
+		}
+		
+	}).start();
+}
+
+//小数点 version 比较 ver1 大 true
+var versionfunegt = function (ver1,ver2) {
+    var version1pre = parseFloat(ver1);
+    var version2pre = parseFloat(ver2);
+    var version1next =  ver1.replace(version1pre + ".","");
+    var version2next =  ver2.replace(version2pre + ".","");
+    if(version1pre > version2pre){
+        return true;
+    }else if(version1pre < version2pre){
+        return false;
+    }else{
+        if(version1next >= version2next){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+
 
 //检查权限
 function checkPermission(){
@@ -203,13 +333,9 @@ function myTabInit() {
 //  		$(".credit_item").addClass("hideClass");
 //  		$(".wallet_item").css("margin-bottom", "20px");
 		$(".recommand_icon").addClass("hideClass");
-		$(".newFind").removeClass("hideClass");
-		$(".oldFind").removeClass("hideClass");
     }else{
     		$(".recommand_icon").removeClass("hideClass");
     		$(".newFindText").css("margin-right", "60px");
-    		$(".newFind").addClass("hideClass");
-    		$(".oldFind").addClass("hideClass");
     }
 }
 
@@ -266,6 +392,8 @@ $(".goMakeMoneyClass").click(function() {
         }
 
     })
+//显示发现页面
+var isShowFindPage;
     //通过token 登录
 function loginByToken() {
     if (myStorage && myStorage.getItem("userToken")) {
@@ -310,8 +438,9 @@ function loginByToken() {
 
 			    //分享
 			    updateSerivces();
-
-			    if(data && (data.isShowFindPage == "Y")){
+				// N 显示old
+				isShowFindPage = data.isShowFindPage;
+			    if(data && (data.isShowFindPage == "N")){
 					$(".newFind").addClass("hideClass");
 					$(".oldFind").removeClass("hideClass");
 			    }else{
@@ -468,7 +597,12 @@ $('.timeType').click(function() {
     $('.preType').css('color', '#333333');
     if (currentType == 'TIME') {
         //当前期限
-        isDesc = !isDesc;
+        isDesc = !isDesc; 
+    }
+    if(isDesc){
+    		$(".sortImg").attr('src', "../images/sort_front.png");
+    }else{
+    		$(".sortImg").attr('src', "../images/sort_back.png");
     }
 
     currentType = 'TIME';
@@ -814,6 +948,26 @@ function updatePage(tabNum){
         			findList = [];
         			//发现页面
             		initFindPage(data);
+            		
+            		if(data && (data.isPay != "Y")){
+            			var item = myStorage.getItem("toFindAd");
+				//  console.log("收到事件" + item.picUrl); 
+				    if (item && item.picUrl) {
+				        $('.selfModal .modal-dialog .modal-content .conten_bg')
+				            .attr("src", item.picUrl);
+				        
+				        Global.showLoading();
+				    		content_id.onload = function(){
+				    			$('.selfModal').removeClass('hideClass');
+							Global.hideLoading();
+							
+						} 
+				    } else {
+				        $('.selfModal').addClass('hideClass');
+				    }
+            		}
+            		
+    
             }else if(tabNum == -1){
             		//摇摆红包
             		if(data.isPay == "Y"){
@@ -849,13 +1003,20 @@ function updatePage(tabNum){
 }
 
 function initFindPage(data){
-	var isShowFindPage = myStorage.getItem("isShowFindPage");
-			
-    if(isShowFindPage && (isShowFindPage == "Y")){
+	var height = plus.display.resolutionHeight;
+	//622  -140px
+	if(height<= 622){
+		$(".find_bottom_wrap").css("bottom", "-140px");
+	}else{
+		$(".find_bottom_wrap").css("bottom", "-220px");
+	}
+	
+          //alert(height);
+			// N 显示old
+    if(isShowFindPage && (isShowFindPage == "N")){
         $(".newFind").addClass("hideClass");
         $(".oldFind").removeClass("hideClass");
-        var height = plus.display.resolutionHeight;
-        //alert(height);
+        
         $("#tabbar-with-contact").css("height", height);
         //发现
         pulldownRefresh();
@@ -1428,12 +1589,12 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	MobclickAgent.onEvent(mainActivity, "channelpage");
-	plus.statistic.eventTrig("channelpage", "goToRecommand" )
-	return; 
+//	MobclickAgent.onEvent(mainActivity, "channelpage");
+//	plus.statistic.eventTrig("channelpage", "goToRecommand" )
+	//return; 
     mui.openWindow({
-        url: 'pay_style.html',
-        id: 'pay_style.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }
@@ -1512,21 +1673,7 @@ function closeOtherWindow() {
 window.addEventListener('openKouzi', function(event) {
     console.log("收到事件");
     updateMyTab();
-    var item = myStorage.getItem("toFindAd");
-//  console.log("收到事件" + item.picUrl); 
-    if (item && item.picUrl) {
-        $('.selfModal .modal-dialog .modal-content .conten_bg')
-            .attr("src", item.picUrl);
-        
-        Global.showLoading();
-    		content_id.onload = function(){
-    			$('.selfModal').removeClass('hideClass');
-			Global.hideLoading();
-			
-		} 
-    } else {
-        $('.selfModal').addClass('hideClass');
-    }
+    
                 
 }, false);
 

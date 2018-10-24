@@ -160,7 +160,7 @@
 				<span class="highType active" >高成功率</span>
 				<div class="center_wrap row timeType" >
 					<span>期限</span>
-					<img src="../images/change_type_icon.png"/>
+					<img src="../images/change_type_icon.png" class="sortImg"/>
 				</div>
 				<span class="preType">上次浏览</span>
 			</div>
@@ -212,6 +212,11 @@
 				   }else{
 				   		isDesc = false;
 				   }
+				   if(isDesc){
+			        		$(".sortImg").attr('src', "../images/sort_front.png");
+			        }else{
+			        		$(".sortImg").attr('src', "../images/sort_back.png");
+			        }
 					currentType = "TIME";
 					sendClickType();
 				})
