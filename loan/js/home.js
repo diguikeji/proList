@@ -21,10 +21,15 @@ var MobclickAgent, mainActivity;
 mui.plusReady(function() {
 	
 //	mui('body').on('tap','a',function(){document.location.href=this.href;});
-	//友盟统计
-	mainActivity = plus.android.runtimeMainActivity();
-    MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
-	MobclickAgent.onPageStart("MainScreen");
+    //友盟统计
+    if(mui.os.android){
+        mainActivity = plus.android.runtimeMainActivity();
+        MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
+        MobclickAgent.onPageStart("MainScreen");
+    }else{
+        //IOS 友盟统计
+    }
+	
 	checkUpdateApk();
 	
 	var self = plus.webview.currentWebview();
@@ -659,7 +664,10 @@ $('.preType').click(function() {
 });
 
 //列表点击 埋点
-$('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
+// $("body >*").bind("touchstart", function(){});
+
+$('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', function(e) {
+    mui.toast("kaishi--- ");
     var index = $(this).data("index");
     $(this).addClass("clicked");
     var item = findList[index];
@@ -670,9 +678,10 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
 		source: myStorage.getItem("user").sourceCode,
 		goodsCode: item.goodsCode,
 		page: "find"
-	}
+    }
+    mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-            
+    mui.toast("end ");       
     var params = {
         goodsCode: item.goodsCode
     }
@@ -697,6 +706,9 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
 
         }
     )
+
+    e.preventdefault();
+    
 });
 
 var findList = [];
