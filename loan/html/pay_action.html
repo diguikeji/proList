@@ -822,6 +822,11 @@
 							token: token,
 							smsCode: $(".flex_item").val()
 						}
+
+						$(".time_style").text("获取验证码");
+						clearInterval(intervalObj);
+						time = 120;
+
 						Global.commonAjax(
 							{
 								url: "pay/changpay/submit",
@@ -846,9 +851,9 @@
 							},
 							function(err){
 								mui.alert(err, '警告', function() {});
-								$(".time_style").text("获取验证码");
-								clearInterval(intervalObj);
-								time = 0;
+								// $(".time_style").text("获取验证码");
+								// clearInterval(intervalObj);
+								// time = 120;
 							}
 						)
 						
