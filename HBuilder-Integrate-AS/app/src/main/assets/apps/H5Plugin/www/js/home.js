@@ -1659,8 +1659,8 @@ function jumpWeb() {
 function goToRecommand() {
 	return;
     mui.openWindow({
-        url: 'pay_action.html',
-        id: 'pay_action.html',
+        url: 'pay_style.html',
+        id: 'pay_style.html',
         waiting: {
             autoShow: false
         }

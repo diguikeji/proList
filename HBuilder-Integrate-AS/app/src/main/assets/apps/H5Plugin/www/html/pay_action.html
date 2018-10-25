@@ -333,7 +333,7 @@
 	         
 	         <div class="row item_name_wrap" style="position: relative; ">
 	         	<span class="item_name_text" >验证码</span>
-	         	<input type="tel"  class="phone_input"  placeholder="输入短信验证码"/>
+	         	<input type="tel"  class="phone_input flex_item_input"  placeholder="输入短信验证码"/>
 	         	
 	         	<span class="time_style" onclick="getCode();">获取验证码</span>
 	         </div>
@@ -486,7 +486,37 @@
             		//上页中的 传递的值
 	            var self = plus.webview.currentWebview();
 	            isStep = self.isStep;
+	            
+	            initNativeObjects();
+				showSoftInput();
 			});
+			
+			var nativeWebview, imm, InputMethodManager;
+			var initNativeObjects = function() {
+				if (mui.os.android) {
+					var main = plus.android.runtimeMainActivity();
+					var Context = plus.android.importClass("android.content.Context");
+					InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+					imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+				} else {
+					nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+				}
+			};
+			var showSoftInput = function() {
+				if (mui.os.android) {
+					imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+				} else {
+					nativeWebview.plusCallMethod({
+						"setKeyboardDisplayRequiresUserAction": false
+					});
+				}
+				setTimeout(function() {
+					var inputElem = document.querySelector('input');
+					inputElem.focus();
+					inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
+				}, 200);
+			};
+			
 			
 			var styleList;
 			var bankList = [];
@@ -543,6 +573,10 @@
 	                $(".bankName").val(SelectedItem[0].text);
 	            })
 	        }
+			
+			$('.phone_input').on('touchstart',function () {
+		           $(this).focus();
+		    })
 			
 			
 			$('body').on('click', '.bank_list_wrap .bank_item_name', function() {
@@ -665,7 +699,7 @@
 				
 				if(payChannel == "fuyou"){
 					var params = {
-						amount: amount,
+						amount: amount ? amount : 0.1,
 						payChannel: payChannel,
 						idCardNo: $(".idCardNo").val(),
 						realName: $(".realName").val(),
@@ -720,7 +754,7 @@
 					
 					
 					var params = {
-						amount: amount,
+						amount: amount ? amount : 0.1,
 						payChannel: payChannel,
 						idCardNo: $(".idCardNo").val(),
 						realName: $(".realName").val(),
@@ -735,7 +769,7 @@
 					
 					if($(".time_style").text() == "获取验证码"){
 						if(!codeText){
-							if(!$(".flex_item").val()){
+							if(!$(".flex_item_input").val()){
 								mui.toast("请输入验证码");
 								return;
 							}else{
@@ -773,8 +807,8 @@
 							}
 						}
 						
-						console.log($(".flex_item").val());
-						if(!$(".flex_item").val()){
+						console.log($(".flex_item_input").val());
+						if(!$(".flex_item_input").val()){
 							mui.toast("请输入验证码");
 							return;
 						}
@@ -786,7 +820,7 @@
 				
 						params = {
 							token: token,
-							smsCode: $(".flex_item").val()
+							smsCode: $(".flex_item_input").val()
 						}
 						Global.commonAjax(
 							{

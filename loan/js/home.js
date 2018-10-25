@@ -1657,7 +1657,7 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	//return;
+	return;
     mui.openWindow({
         url: 'pay_style.html',
         id: 'pay_style.html',
