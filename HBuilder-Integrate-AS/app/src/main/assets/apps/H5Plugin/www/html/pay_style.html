@@ -217,7 +217,7 @@
 		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">支付方式</h1>
-		    <img src="../images/custom_icon.png"  />
+		    <img src="../images/custom_icon.png" onclick="goToCustom();" />
 		</header>
 		
 		<div class="mui-content" style="background: #F2F2F2;">
@@ -438,7 +438,7 @@
 		                }
 		            });
 	        		}else{
-	        			$('.modal-mask').removeClass("hideClass");
+	        			initStatus("close");
 	        		}
 			}
 			

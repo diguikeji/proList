@@ -262,7 +262,7 @@
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <span class="header_close">关闭</span>
         <h1 class="mui-title">身份证认证</h1>
-        <img src="../images/custom_icon.png" />
+        <img src="../images/custom_icon.png" onclick="goToCustom();"/>
     </header>
 
     <div class="mui-content">
@@ -420,19 +420,9 @@
                 $('#name').val(userInfo.realName);
                 $('#card').val(userInfo.idCard);
 
-//              $('#name').attr("readonly", "readonly");
-//              $('#card').attr("readonly", "readonly");
-
-//              $('.change_name_icon').addClass("hideClass");
-//              $('.change_card_icon').addClass("hideClass");
-
                 $(".next").css("background", "#ff493D");
 
             } else {
-//              $('#name').removeAttr("readonly");
-//              $('#card').removeAttr("readonly");
-//              $('.change_name_icon').removeClass("hideClass");
-//              $('.change_card_icon').removeClass("hideClass");
 
                 $(".next").css("background", "#c3c3c3");
             }
@@ -529,20 +519,9 @@
                 },
                 function(data) {
                     if (idPicType == "front") {
-                        //mui.toast(data.userInfo.realName);
-                        //$(".front_img").attr('src') = data.idPicUrl;
                         $('#name').val(data.userInfo.realName);
                         $('#card').val(data.userInfo.idCard);
-
-//                      $('#name').removeAttr("readonly");
-//                      $('#card').removeAttr("readonly");
-
-//                      $('.change_name_icon').removeClass("hideClass");
-//                      $('.change_card_icon').removeClass("hideClass");
                     } else {
-                        //$(".back_img").attr('src') = data.idPicUrl;
-
-                        //mui.toast("------");
                     }
 
 
@@ -595,6 +574,7 @@
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".first_step_money").css("color", "#FF5445");
                             $(".second_step_money").css("color", "#C3C3C3");
                             $(".third_step_money").css("color", "#C3C3C3");
                         } else if (data.isPay == "N") {
@@ -602,12 +582,19 @@
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
+                            $(".third_step_money").css("color", "#FF5445");
                         }
                     }
 					
@@ -625,7 +612,7 @@
         var old_back = mui.back;
         mui.back = function() {
             if ($('.modal-mask').hasClass("hideClass")) {
-                $('.modal-mask').removeClass("hideClass")
+                initStatus("close");
             } else {
                 $('.modal-mask').addClass("hideClass");
             }
@@ -685,6 +672,8 @@
          */
         function goToPersonInfo() {
             if (step >= 1) {
+            		//下次回来 不可修改
+	            	hasData = true;
                 mui.openWindow({
                     url: 'personInfo.html',
                     id: 'personInfo.html',
@@ -735,16 +724,12 @@
                 },
                 function(data) {
                     mui.toast("保存信息成功");
-
-//                  $('#name').attr("readonly", "readonly");
-//                  $('#card').attr("readonly", "readonly");
-//                  $('.change_name_icon').addClass("hideClass");
-//                  $('.change_card_icon').addClass("hideClass");
 					var clickType = {
 		        			source: myStorage.getItem("user").sourceCode
 		        		}
-		            plus.statistic.eventTrig("applyidcard", JSON.stringify(clickType) )
-	            
+		            plus.statistic.eventTrig("applyidcard", JSON.stringify(clickType) );
+		            //下次回来 不可修改
+	            		hasData = true;
                     mui.openWindow({
                         url: 'personInfo.html',
                         id: 'personInfo.html',

@@ -135,6 +135,7 @@ function checkUpdateApk(){
 							//强制升级 
 							if(data.osType == "android"){
 								$(".updateApp").removeClass("hideClass");
+								$(".update_msg").html(data.versionExplain);
 								mui.back = function(){};
 								$(".updateAction").click(function(){
 									//android 手机
@@ -161,7 +162,7 @@ function checkUpdateApk(){
 						}else{
 							//非强制更新
 							var btnArray = ['以后再说', '现在升级'];
-							mui.confirm("请升级到最新版本"+data.version, '提示',btnArray, function(e) {
+							mui.confirm(data.versionExplain, '提示',btnArray, function(e) {
 								if(e.index == 1){
 									//现在升级
 									if(data.osType == "android"){
@@ -259,6 +260,7 @@ var versionfunegt = function (ver1,ver2) {
 
 //检查权限
 function checkPermission(){
+	return;
 	if(mui.os.ios || (mui.os.android&&parseFloat(mui.os.version)<6.0)){
 	     //...操作
 	     return;
@@ -619,6 +621,7 @@ $('.highType').click(function() {
     currentType = 'DEGREE';
     current = 1;
     isDesc = false;
+    $(".sortImg").attr('src', "../images/change_type_icon.png");
     pulldownRefresh();
 })
 
@@ -651,12 +654,14 @@ $('.preType').click(function() {
     currentType = 'HISTORY';
     current = 1;
     isDesc = false;
+    $(".sortImg").attr('src', "../images/change_type_icon.png");
     pulldownRefresh();
 });
 
 //列表点击 埋点
 $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
     var index = $(this).data("index");
+    $(this).addClass("clicked");
     var item = findList[index];
     if (!(item && item.goodsUrl)) {
         return;
@@ -1158,8 +1163,14 @@ makeMoneySwiper();
 
 function makeMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
+    var tempMoney
     for (var i = 0; i < 5; i++) {
-    		var tempMoney = parseInt(randomNum(60, 1000)/100)*100+randomNum(0, 8);
+    		if(i>=2 && (i%2 == 0)){
+    			tempMoney = parseInt(randomNum(60, 1000)/10)*10+8;
+    		}else{
+    			tempMoney = parseInt(randomNum(60, 1000)/10)*10;
+    		}
+    		
     		if(tempMoney > 1000){
     			tempMoney = 1000;
     		}
@@ -1646,10 +1657,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	return; 
+	return;
     mui.openWindow({
-        url: 'pay_success.html',
-        id: 'pay_success.html',
+        url: 'pay_action.html',
+        id: 'pay_action.html',
         waiting: {
             autoShow: false
         }

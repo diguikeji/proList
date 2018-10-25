@@ -278,7 +278,9 @@
 					"html/credit_result.html",
 					"html/test.html",
 					"html/pay_style.html",
-					"html/custom.html"
+					"html/custom.html",
+					"html/webviewDetail.html",
+					"html/pay_action.html"
 				],
 				"priority": 0
 			},
@@ -295,7 +297,9 @@
 			"html/identificateFirst.html": {
 				"resources": [],
 				"refer": [
-					"html/personInfo.html"
+					"html/personInfo.html",
+					"html/login.html",
+					"html/custom.html"
 				],
 				"priority": 0
 			},
@@ -384,7 +388,8 @@
 					"html/webviewDetail.html",
 					"html/errornet.html",
 					"html/recommand.html",
-					"html/login.html"
+					"html/login.html",
+					"html/custom.html"
 				],
 				"priority": 0
 			},

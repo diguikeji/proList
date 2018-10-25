@@ -61,7 +61,7 @@
 			    outline: none;
 			    border: 0px!important;
 			    color: #333333;
-			    font-size: 20px;
+			    font-size: 16px;
 			    border-radius: 0;
 			    box-sizing: border-box;
 			}
@@ -69,6 +69,9 @@
 			.time_style{
 				color: #F5A8A8;
 				font-size: 14px;
+				position: absolute;
+				top: 0px;
+				right: 20px;
 			}
 			
 			.time_icon{
@@ -279,30 +282,30 @@
 		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">支付方式</h1>
-		    <img src="../images/custom_icon.png"  />
+		    <img src="../images/custom_icon.png" onclick="goToCustom();" />
 		</header>
 		
 		<div class="mui-content" style="background: #F2F2F2; margin-top: 20px;">
 			
 			<div class="row item_name_wrap">
 	         	<span class="item_name_text">持卡人</span>
-	         	<input type="text"  class="phone_input realName"/>
+	         	<input type="text"  class="phone_input realName" placeholder="输入姓名"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text">身份证</span>
-	         	<input type="text"  class="phone_input idCardNo"/>
+	         	<input type="text"  class="phone_input idCardNo" placeholder="输入身份证号码"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap" style="margin-top: 10px;" onclick="changeCardType();">
 	         	<span class="item_name_text">卡类型</span>
-	         	<input type="text"  class="phone_input cardTypeInput" readonly="readonly"/>
+	         	<input type="text"  class="phone_input cardTypeInput" readonly="readonly" placeholder="请选择卡类型"/>
 	         	<span style="color: #DFDFDF">></span>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
 	         	<span class="item_name_text card_type_text">借记卡号</span>
-	         	<input type="tel"  class="phone_input cardNo"/>
+	         	<input type="tel"  class="phone_input cardNo" placeholder="输入银行卡号码"/>
 	         </div>
 	         
 	         <div class="row item_name_wrap">
@@ -324,12 +327,14 @@
 	         
 	         <div class="row item_name_wrap" style="margin-top: 10px;">
 	         	<span class="item_name_text">预留手机</span>
-	         	<input type="tel"  class="phone_input phone" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
+	         	<input type="tel"  class="phone_input phone" placeholder="输入11位手机号码"
+	         		maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
 	         </div>
 	         
-	         <div class="row item_name_wrap">
-	         	<span class="item_name_text">验证码</span>
-	         	<input type="tel"  class="phone_input flex_item" />
+	         <div class="row item_name_wrap" style="position: relative; ">
+	         	<span class="item_name_text" >验证码</span>
+	         	<input type="tel"  class="phone_input"  placeholder="输入短信验证码"/>
+	         	
 	         	<span class="time_style" onclick="getCode();">获取验证码</span>
 	         </div>
 	         
@@ -887,7 +892,8 @@
 		                }
 		            });
 	        		}else{
-	        			$('.backModal').removeClass("hideClass");
+//	        			$('.backModal').removeClass("hideClass");
+					initStatus("close");
 	        		}
         		
 			}
@@ -934,21 +940,27 @@
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".second_step_money").css("color", "#C3C3C3");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            $(".first_step_money").css("color", "#FF5445");
                         } else if (data.isPay == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
+                            $(".third_step_money").css("color", "#FF5445");
                         }
                     }
 		            if(close){
-						$('.modal-mask').removeClass("hideClass");
+						$('.backModal').removeClass("hideClass");
 					}   
 		               
 		          }

@@ -152,7 +152,6 @@
          */
         function pulldownRefresh() {
         		current = 1;
-        		mui('#pullrefresh').pullRefresh().refresh(true);
             getFlowList(0);
         }
         /**
@@ -196,6 +195,7 @@
 		
 		    if (refreshType == 0) {
 		        //下拉刷新
+		        mui('#pullrefresh').pullRefresh().refresh(true);
 		        table.innerHTML = "";
 		    } else {
 		        //加载更多
@@ -208,7 +208,8 @@
                     var li = document.createElement('li');
                     li.className = 'mui-table-view-cell list_wrap row';
                     li.innerHTML = '<div class="col" data-index="' + index + '">' +
-                        '<span class="left_top_text">'+cells[i].consumeType+'</span>' +
+                        '<span class="left_top_text">'+cells[i].consumeType+
+                        		(cells[i].flowStatus.length > 0 ? ("("+cells[i].flowStatus+")") : "") +'</span>' +
                         '<span class="leave_money">余额：' + cells[i].lastestBalance + '</span>' +
                         '</div>' +
                         '<div class="col ">' +

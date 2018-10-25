@@ -415,9 +415,9 @@ var Global = {};
     });
 
     //智能客服
-    $(".mui-bar-nav").on("click", "img", function() {
-        qimoChatClick();
-    })
+//  $(".mui-bar-nav").on("click", "img", function() {
+//      qimoChatClick();
+//  })
 
     //家里
 //    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.3.31:1337/vorlon.js'></script>");
@@ -432,3 +432,13 @@ var Global = {};
 
 
 }());
+
+function goToCustom(){
+	mui.openWindow({
+        url: 'custom.html',
+        id: 'custom.html',
+        waiting: {
+            autoShow: false
+        }
+    })
+}

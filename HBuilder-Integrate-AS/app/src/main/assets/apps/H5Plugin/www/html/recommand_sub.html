@@ -155,6 +155,10 @@
 				padding : 2px 5px 0px;
 			}
 			
+			.clicked{
+				opacity: 0.4;
+			}
+			
 			section{width:60px;height:60px;position: relative;}
 			.wrap,.circle,.percent{position: absolute; width: 60px; height: 60px; border-radius: 50%;}
 			.wrap{top:0; left:0; background-color:#ccc;}
@@ -276,6 +280,7 @@
         function pulldownRefresh() {
         		current = 1;
         		findList = []; 
+        		
         		getMsglist(0);
         }
 
@@ -336,7 +341,7 @@
         var findList = [];
         function getListData(refreshType, cells, isAll){
         		findList = findList.concat(cells);
-        		
+        		mui('#pullrefresh').pullRefresh().refresh(true);
         		//当前点击的 数据下标
 		    var index = 0;
 		    var table = document.body.querySelector('.mui-table-view-condensed');
@@ -359,7 +364,13 @@
 		    for (var i = 0, len = cells.length; i < len; i++) {
 		        var li = document.createElement('li');
 		        var item = cells[i];
-		        li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+		        if(item.clicked && (currentType != "HISTORY")){
+		        		li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col clicked';
+		        }else{
+		        		li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+		        }
+        
+		        //li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
 		        li.setAttribute("data-index", index);
 		        console.log(item.goodsSeq + "--"+item.recommendDegree+"-"+parseInt(item.recommendDegree*3.6));
 		        if(item.recommendDegree > 50){
@@ -450,7 +461,7 @@
 		        index += 1;
 		        
 		    }
-			mui('#pullrefresh').pullRefresh().refresh(true);
+			
 		    if (refreshType == 0) {
 		        //下拉刷新
 		        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -464,6 +475,7 @@
 	    
 	    $('body').on('click', '.mui-table-view-condensed li', function() {
 		    var index = $(this).data("index");
+		    $(this).addClass("clicked");
 		    var item = findList[index];
 		    if(!(item && item.goodsUrl)){
 		    		return;

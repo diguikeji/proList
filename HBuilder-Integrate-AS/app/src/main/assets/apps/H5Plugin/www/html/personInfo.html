@@ -246,7 +246,7 @@
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <span class="header_close">关闭</span>
         <h1 class="mui-title">个人信息认证</h1>
-        <img src="../images/custom_icon.png" />
+        <img src="../images/custom_icon.png" onclick="goToCustom();"/>
     </header>
 
     <div class="mui-content">
@@ -406,7 +406,7 @@
 	                }
 	            });
         		}else{
-        			$('.modal-mask').removeClass("hideClass");
+        			initStatus("close");
         		}
             
 
@@ -465,17 +465,24 @@
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".second_step_money").css("color", "#C3C3C3");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            $(".first_step_money").css("color", "#FF5445");
+                            
                         } else if (data.isPay == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/agress_icon.png");
+                            $(".first_step_money").css("color", "#FF5445");
+                            $(".second_step_money").css("color", "#FF5445");
+                            $(".third_step_money").css("color", "#FF5445");
                         }
                     }
 					
@@ -545,8 +552,8 @@
                         selectLoanValue = userInfo.loansStatus;
                         selectHouseValue = userInfo.houseStatus;
 
-                        mui('#study_value')[0].style.color = "#333333";
-                        mui('#study_value')[0].style.opacity = "1";
+//                      mui('#study_value')[0].style.color = "#333333";
+//                      mui('#study_value')[0].style.opacity = "1";
                         studyPickerList.map(function(item) {
                             if (item.value == selectStudyValue) {
                                 mui('#study_value')[0].innerHTML = item.text;
@@ -554,16 +561,16 @@
                         })
 
 
-                        mui('#marry_value')[0].style.color = "#333333";
-                        mui('#marry_value')[0].style.opacity = "1";
+//                      mui('#marry_value')[0].style.color = "#333333";
+//                      mui('#marry_value')[0].style.opacity = "1";
                         marryPickerList.map(function(item) {
                             if (item.value == selectMarryValue) {
                                 mui('#marry_value')[0].innerHTML = item.text;
                             }
                         })
 
-                        mui('#house_value')[0].style.color = "#333333";
-                        mui('#house_value')[0].style.opacity = "1";
+//                      mui('#house_value')[0].style.color = "#333333";
+//                      mui('#house_value')[0].style.opacity = "1";
                         //mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
                         housePickerList.map(function(item) {
                             if (item.value == selectHouseValue) {
@@ -571,8 +578,8 @@
                             }
                         })
 
-                        mui('#loan_value')[0].style.color = "#333333";
-                        mui('#loan_value')[0].style.opacity = "1";
+//                      mui('#loan_value')[0].style.color = "#333333";
+//                      mui('#loan_value')[0].style.opacity = "1";
                         //mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
                         loanPickerList.map(function(item) {
                             if (item.value == selectLoanValue) {
