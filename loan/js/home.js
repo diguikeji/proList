@@ -666,8 +666,8 @@ $('.preType').click(function() {
 //列表点击 埋点
 // $("body >*").bind("touchstart", function(){});
 
-$('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', function(e) {
-    mui.toast("kaishi--- ");
+$('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
+    //mui.toast("kaishi--- ");
     var index = $(this).data("index");
     $(this).addClass("clicked");
     var item = findList[index];
@@ -679,9 +679,9 @@ $('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', functio
 		goodsCode: item.goodsCode,
 		page: "find"
     }
-    mui.toast("kaishi ");
+    //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-    mui.toast("end ");       
+    //mui.toast("end ");       
     var params = {
         goodsCode: item.goodsCode
     }
@@ -707,7 +707,7 @@ $('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', functio
         }
     )
 
-    e.preventdefault();
+//  e.preventdefault();
     
 });
 
@@ -814,7 +814,7 @@ function setRefreshData(refreshType, cells, isAll) {
             '<div class="mui-clearfix">' + item.goodsName +
             '</div>' +
             '<div class="time_text_span">' +
-            '<span>期限:' + item.loanDay + '</span>' + '  ' +
+            '<span class="loan_day_class">期限:' + item.loanDay + '</span>' + '  ' +
             '<span>额度:' + item.loanAmount + '</span>' +
             '</div>' +
             '<span class="mui-icon mui-icon-arrowright"></span>' +
@@ -1669,7 +1669,7 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	//return;
+	return;
     mui.openWindow({
         url: 'pay_style.html',
         id: 'pay_style.html',

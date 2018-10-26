@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
 build
+app/build
+app/src/main/assets/apps
+certificateCamera/build
+mylibrary/build
 unpackage
 manifest.json
 yarn-debug.log*

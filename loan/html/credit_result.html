@@ -194,7 +194,7 @@
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <!--<span class="header_close">关闭</span>-->
         <h1 class="mui-title">评估结果</h1>
-        <img src="../images/custom_icon.png" onclick="goToCustom();"/>
+        <img src="../images/custom_icon.png" />
     </header>
 
     <div class="mui-content">
@@ -400,7 +400,13 @@
         //Android 物理返回
         var old_back = mui.back;
         mui.back = function() {
-            headLeftBack();
+        		var display = $(".qimo_chatpup").css("display");
+        		if(display == "block"){
+        			$(".qimo_chatpup").css("display", "none");
+        			return;
+        		}else{
+        			headLeftBack();
+        		}
         }
 
         //左上角 返回

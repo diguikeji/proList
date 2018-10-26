@@ -217,7 +217,7 @@
 		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">支付方式</h1>
-		    <img src="../images/custom_icon.png" onclick="goToCustom();" />
+		    <img src="../images/custom_icon.png" />
 		</header>
 		
 		<div class="mui-content" style="background: #F2F2F2;">
@@ -359,13 +359,6 @@
 				)
 			}
 			
-//			$('body').on('click', '.pay_style_list li .select_radio', function() {
-//				$(".select_radio").each(function(i){
-//					$(this).attr("src", "../images/unagress_icon.png");
-//				});
-//				$(this).attr("src", "../images/agress_icon.png");
-//				closeActionWindow();
-//			})
 			
 			$('body').on('click', '.pay_style_list li ', function() {
 				$(".select_radio").each(function(i){
@@ -420,6 +413,12 @@
 			//Android 物理返回
 			var old_back = mui.back;
 			mui.back = function(){
+				var display = $(".qimo_chatpup").css("display");
+	        		if(display == "block"){
+	        			$(".qimo_chatpup").css("display", "none");
+	        			return;
+	        		}
+        		
 				if ($('.modal-mask').hasClass("hideClass")) {
 	            		headLeftBack();
 	            } else {
