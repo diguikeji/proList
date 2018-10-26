@@ -370,7 +370,11 @@
                     console.log(JSON.stringify(data));
                     $("#price").html(data.price);
                     $(".content_img").attr("src", data.payFeeAd.picUrl);
-
+                    if (mui.os.android) {
+                        $(".content_img").css("height", "280px");
+                    } else {
+                        $(".content_img").css("height", "240px");
+                    }
                 },
                 function(err) {
 
