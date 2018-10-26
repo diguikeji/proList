@@ -95,7 +95,7 @@
     <div id="pullrefresh" class="mui-content mui-scroll-wrapper" >
         <div class="mui-scroll" >
             <!--数据列表-->
-            <ul class="mui-table-view" style="background: #f4f4f4;">
+            <ul class="mui-table-view-condensed mui-table-view" style="background: #f4f4f4;">
             </ul>
         </div>
 
@@ -147,7 +147,8 @@
 				}, false);
         
 
-        $('body').on('click', '.mui-table-view li .item_wrap', function() {
+        // $('body').on('click', '.mui-table-view li .item_wrap', function() {
+        mui(".mui-table-view-condensed").on('tap','li .mui-slider-cell',function(){    
             var index = $(this).data("index");
             
             goToDetail(findList[index]);
@@ -166,11 +167,14 @@
             var userId, current = 1;
             if (user && user.userId) {
                 userId = user.userId;
+            }else{
+                userId = "18513212904"
             }
 			var params = {
 				idMsg: item.idMsg,
                 userId: userId
-			}
+            }
+            
             Global.commonAjax({
                     url: "user/msg/open",
                     data: params,
@@ -193,6 +197,7 @@
 			            }
                 },
                 function(err) {
+                    
 					mui.toast(err);
                 }
            )
@@ -280,7 +285,7 @@
             for (var i = 0, len = cells.length; i < len; i++) {
                 var li = document.createElement('li');
                 li.className = 'mui-table-view-cell';
-                li.innerHTML = '<div class="item_wrap col" data-index="' + index + '">' +
+                li.innerHTML = '<div class="mui-slider-cell item_wrap col" data-index="' + index + '">' +
                     '<span class="item_time">' + cells[i].sendTime + '</span>' +
                     '<div class="row content_wrap">' + (cells[i].isRead=="Y" ? '' : '<span class="read_flag"></span>') +
                     '<div class="col title_wrap">' +

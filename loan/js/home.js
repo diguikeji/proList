@@ -119,10 +119,6 @@ mui.plusReady(function() {
 
 //检查APP更新
 function checkUpdateApk(){
-    if(mui.os.ios){
-         //...操作
-         return;
-    }
     
     Global.commonAjax(
         {
@@ -130,11 +126,13 @@ function checkUpdateApk(){
         },
         function(data){
             plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
-//              console.log(wgtinfo.version); 
+                // data = {version: '0.0.2', isForce: "Y", osType: "ios", urlType: "store1",
+                //     versionExplain: "9999", downloadUrl: "http://esales2.minshenglife.com:8001/index.html"}
                 if(wgtinfo && wgtinfo.version && data && data.version){
                         
                     if(versionfunegt(data.version, wgtinfo.version)){
-                        console.log(wgtinfo.version+"-----"+data.version)
+                    // if(versionfunegt(wgtinfo.version, data.version )){
+                        // alert(wgtinfo.version+"-----"+data.version)
                         // data.version  新
                         if(data.isForce == "Y"){
                             //强制升级 
@@ -162,6 +160,11 @@ function checkUpdateApk(){
                                 
                             }else{
                                 //IOS 强制更新
+                                mui.alert(data.versionExplain, '提示', function(){
+                                    plus.runtime.openURL( data.downloadUrl, function(){
+                                        mui.toast("打开失败");
+                                    });
+                                })
                             }
                             
                         }else{
@@ -170,19 +173,27 @@ function checkUpdateApk(){
                             mui.confirm(data.versionExplain, '提示',btnArray, function(e) {
                                 if(e.index == 1){
                                     //现在升级
-                                    if(data.osType == "android"){
-                                        //android 手机
-                                        if(data.urlType == "store"){
-                                            //商店地址
-                                            var mainAct = plus.android.runtimeMainActivity();
-                                            plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-                                            
-                                        }else if(data.urlType == "apk"){
-                                            //下载文件
-                                            downloadAPP(data.downloadUrl)
-                                        }else{
-                                            
+                                    if(mui.os.android){
+                                        if(data.osType == "android"){
+                                            //android 手机
+                                            if(data.urlType == "store"){
+                                                //商店地址
+                                                var mainAct = plus.android.runtimeMainActivity();
+                                                plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+                                                
+                                            }else if(data.urlType == "apk"){
+                                                //下载文件
+                                                downloadAPP(data.downloadUrl)
+                                            }else{
+                                                
+                                            }
                                         }
+                                    }else{
+                                        //ios
+                                        plus.runtime.openURL( data.downloadUrl, function(){
+                                            mui.toast("打开失败");
+                                        });
+                                        
                                     }
                                     
                                 }else{
@@ -664,12 +675,6 @@ $('.preType').click(function() {
 });
 
 //列表点击 埋点
-// $("body >*").bind("touchstart", function(){});
-
-
-
-
-
     mui(".mui-table-view-condensed").on('tap','li .mui-slider-cell',function(){
 
     //mui.toast("kaishi--- ");
@@ -1676,8 +1681,8 @@ function jumpWeb() {
 function goToRecommand() {
     return;
     mui.openWindow({
-        url: 'pay_style.html',
-        id: 'pay_style.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }

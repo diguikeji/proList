@@ -374,7 +374,7 @@
 		        li.setAttribute("data-index", index);
 		        console.log(item.goodsSeq + "--"+item.recommendDegree+"-"+parseInt(item.recommendDegree*3.6));
 		        if(item.recommendDegree > 50){
-		        		li.innerHTML = '<div class="row item_tile_wrap">'+
+		        		li.innerHTML = '<div class="mui-slider-cell row item_tile_wrap">'+
 		        			
 						'<div class="text_info_new" >'+
 							'<span>推荐产品</span>'+
@@ -415,7 +415,7 @@
 					
 					
 		        }else{
-		        		li.innerHTML = '<div class="row item_tile_wrap">'+
+		        		li.innerHTML = '<div class="mui-slider-cell row item_tile_wrap">'+
 						'<div class="text_info_new" >'+
 							'<span>推荐产品</span>'+
 							'<span class="item_title_num">'+item.goodsSeq+'号</span>'+
@@ -473,7 +473,9 @@
         
         
 	    
-	    $('body').on('click', '.mui-table-view-condensed li', function() {
+	    // $('body').on('click', '.mui-table-view-condensed li', function() {
+		mui(".mui-table-view-condensed").on('tap','li ',function(){ 
+			 	
 		    var index = $(this).data("index");
 		    $(this).addClass("clicked");
 		    var item = findList[index];
