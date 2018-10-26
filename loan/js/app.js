@@ -250,11 +250,15 @@ var Global = {};
 				console.log(wvs[i].getURL());
 				if(!wvs[i].getURL()){
 					continue;
-				}
-				if(wvs[i].getURL().indexOf("http") != -1){
-					plus.webview.close(wvs[i]);
+                }
+                if(wvs[i].getURL().indexOf("index.html") != -1){
 					continue;
-				}
+                }
+                
+				// if(wvs[i].getURL().indexOf("http") != -1){
+				// 	plus.webview.close(wvs[i]);
+				// 	continue;
+				// }
 				if(wvs[i].getURL().indexOf("personInfo.html") != -1){
 					plus.webview.close(wvs[i]);
 					continue;

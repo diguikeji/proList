@@ -24,6 +24,10 @@ header > a{
   display: inline-block;
   line-height: 44px;
   margin-left: 10px;
+  box-sizing: border-box;
+  z-index: 10;
+  height: 100%;
+  position: relative;
 }
 /**
  * 头部右侧图片
@@ -168,6 +172,29 @@ header img{
       font-size: 12px;
       color:#fff;
     }
+
+
+    .dialog_content_wrap {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      background: #ffffff;
+      z-index: 2;
+      width: 80%;
+      align-items: center;
+  }
+  
+
+    .dialog_bottom_btn {
+      position: absolute;
+      bottom: 0px;
+      width: 208px;
+      height: 65px;
+      left: 50%;
+      margin-left: -104px;
+  }
 
 
 
