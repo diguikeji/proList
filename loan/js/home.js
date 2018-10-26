@@ -666,7 +666,12 @@ $('.preType').click(function() {
 //列表点击 埋点
 // $("body >*").bind("touchstart", function(){});
 
-$('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
+
+
+
+
+    mui(".mui-table-view-condensed").on('tap','li .mui-slider-cell',function(){
+
     //mui.toast("kaishi--- ");
     var index = $(this).data("index");
     $(this).addClass("clicked");
@@ -681,7 +686,7 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
     }
     //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-    //mui.toast("end ");       
+    //mui.toast("end ");
     var params = {
         goodsCode: item.goodsCode
     }
@@ -708,7 +713,7 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
     )
 
 //  e.preventdefault();
-    
+
 });
 
 var findList = [];

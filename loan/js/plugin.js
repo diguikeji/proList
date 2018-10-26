@@ -18,6 +18,34 @@ document.addEventListener( "plusready",  function()
 
 			return B.exec(_BARCODE, "PluginTestFunction", [callbackID, Argus1, Argus2, Argus3, Argus4]);
 		},
+		PluginTakePhotoFunction : function (Argus1, Argus2, Argus3, Argus4, successCallback, errorCallback ) 
+		{
+			var success = typeof successCallback !== 'function' ? null : function(args) 
+			{
+				successCallback(args);
+			},
+			fail = typeof errorCallback !== 'function' ? null : function(code) 
+			{
+				errorCallback(code);
+			};
+			callbackID = B.callbackId(success, fail);
+
+			return B.exec(_BARCODE, "PluginTakePhotoFunction", [callbackID, Argus1, Argus2, Argus3, Argus4]);
+		},
+        PluginTakePhoto1Function : function (Argus1, Argus2, Argus3, Argus4, successCallback, errorCallback )
+        {
+            var success = typeof successCallback !== 'function' ? null : function(args)
+                {
+                    successCallback(args);
+                },
+                fail = typeof errorCallback !== 'function' ? null : function(code)
+                {
+                    errorCallback(code);
+                };
+            callbackID = B.callbackId(success, fail);
+
+            return B.exec(_BARCODE, "PluginTakePhoto1Function", [callbackID, Argus1, Argus2, Argus3, Argus4]);
+        },
 		PluginTestFunctionArrayArgu : function (Argus, successCallback, errorCallback ) 
 		{
 			var success = typeof successCallback !== 'function' ? null : function(args) 

@@ -11,13 +11,13 @@
         body {
             background: #ffffff
         }
-        
+
         .head {
             justify-content: space-around;
             align-items: center;
             margin-top: 60px;
         }
-        
+
         header img {
             width: 20px;
             height: 20px;
@@ -25,40 +25,40 @@
             right: 20px;
             top: 15px;
         }
-        
+
         .step_wrap {
             width: 80%;
             align-items: center;
             justify-content: space-between;
             padding: 0px 10px;
         }
-        
+
         .step_wrap_bottom {
             width: 80%;
             align-items: center;
             justify-content: space-between;
             font-size: 12px;
         }
-        
+
         .step_wrap .line_style {
             height: 2px;
             background: #DEDEDE;
         }
-        
+
         .head img {
             width: 24px;
             height: 24px;
         }
-        
+
         .head hr {
             height: 10px;
             color: #000000;
         }
-        
+
         .mui-content {
             background: #ffffff;
         }
-        
+
         .content {
             width: 90%;
             border-radius: 10px;
@@ -67,29 +67,29 @@
             margin: 38px 5%;
             text-align: center;
         }
-        
+
         .photo_wrap {
             justify-content: center;
             margin: 20px 0px;
         }
-        
+
         .photo_wrap img {
             width: 135px;
             height: 88px;
             margin: 0px 5px;
         }
-        
+
         .form_style {
             align-items: center;
             justify-content: space-around;
             border-bottom: 2px solid #DFDFDF;
         }
-        
+
         .form_style img {
             width: 15px;
             height: 15px;
         }
-        
+
         .form_style span {
             display: inline-block;
             width: 24%;
@@ -97,7 +97,7 @@
             color: #333333;
             font-size: 16px;
         }
-        
+
         .form_style input {
             width: 70%;
             margin-bottom: 0px;
@@ -106,13 +106,13 @@
             color: #333333;
             font-size: 16px;
         }
-        
+
         input::-webkit-input-placeholder {
             font-size: 14px;
             color: #999999;
             opacity: 0.5
         }
-        
+
         .bank_info {
             display: inline-block;
             width: 136px;
@@ -124,7 +124,7 @@
             background-position: left 5px;
             background-size: 9px 10px;
         }
-        
+
         .next {
             width: 100%;
             border-radius: 30px;
@@ -135,7 +135,7 @@
             background: #c3c3c3;
             color: #ffffff;
         }
-        
+
         .modal-mask {
             width: 100%;
             height: 100%;
@@ -149,7 +149,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .modal-dialog {
             width: 80%;
             max-height: 100%;
@@ -158,7 +158,7 @@
             position: relative;
             border-radius: 20px;
         }
-        
+
         .modal-dialog .close_style {
             position: absolute;
             top: 10px;
@@ -167,7 +167,7 @@
             height: 23px;
             z-index: 100000;
         }
-        
+
         .modal-content {
             font-size: 12px;
             position: relative;
@@ -177,7 +177,7 @@
             background: #ffffff;
             padding: 0px;
         }
-        
+
         .modal-content .conten_bg {
             width: 100%;
             /*position: absolute;
@@ -191,32 +191,32 @@
         .dialog_step_wrap {
             align-items: center;
         }
-        
+
         .dialog_step_wrap img {
             width: 13px;
             height: 13px;
             margin-right: 20px;
         }
-        
+
         .dialog_step_text {
             color: #000000;
             font-weight: bold;
             font-size: 14px;
         }
-        
+
         .dialog_step_bottom_text {
             color: #dddddd;
             font-size: 12px;
         }
-        
+
         .dialog_content_wrap .col {
             padding: 10px 0px;
         }
-        
+
         .dialog_content_item_wrap {
             position: relative;
         }
-        
+
         .addMoney {
             position: absolute;
             top: -5px;
@@ -224,7 +224,7 @@
             width: 66px;
             height: 45px;
         }
-        
+
         .first_step_money,
         .second_step_money,
         .third_step_money {
@@ -235,8 +235,20 @@
             color: #FF5445;
             font-weight: bold;
         }
+<<<<<<< HEAD
         
         
+=======
+
+        .dialog_bottom_btn {
+            position: absolute;
+            bottom: 10px;
+            width: 208px;
+            height: 70px;
+            left: 50%;
+            margin-left: -104px;
+        }
+>>>>>>> ca79b7f3edafc59ed99b19371b37ef516be8d6c7
     </style>
 </head>
 
@@ -354,6 +366,7 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
+    <script src="../js/plugin.js"></script>
     <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
     </script>
     <script type='text/javascript'>
@@ -375,7 +388,7 @@
 	 		}else{
 	 			//ios
 	 		}
-            
+
             initData();
             //浮层中的状态
             initStatus();
@@ -427,7 +440,7 @@
 	                    if(!flag){
 	                    		var imgUrl = data.getStringExtra("result");
 		                    $("#zhengmian").attr("src", imgUrl);
-							
+
 		                    Global.getCanvasBase64(imgUrl)
 		                        .then(function(base64) {
 		                            console.log(base64);
@@ -439,12 +452,40 @@
 		                        })
 							return;
 	                    }
-	                    
+
 	                }
                 }else{
+
+
+
                 	//ios
+
+
+                   plus.plugintest.PluginTakePhotoFunction("Html5","Plus","AsyncFunction","MultiArgument!", function( result ) {
+                       //alert( result[0].toString());
+
+
+                       $("#zhengmian").attr("src", result[0].toString());
+                       Global.getCanvasBase64(result[0].toString())
+                           .then(function(base64) {
+                               console.log(base64);
+                               flag = true;
+                               uploadFile("front", base64)
+                           }, function(err) {
+                               flag = true;
+                               console.log(err);
+                           })
+
+
+                    },function(result){
+                        //alert(result)
+                    });
+
+
+
+
                 }
-                
+
             } else {
                 mui.toast("不可修改");
             }
@@ -475,13 +516,35 @@
 		                            console.log(err);
 		                            flag = true;
 		                        })
-		                    return; 
+		                    return;
 	                    }
 	                }
                 }else{
                 		//ios
+
+                    plus.plugintest.PluginTakePhoto1Function("Html5","Plus","AsyncFunction","MultiArgument!", function( result ) {
+                        //alert( result[0].toString());
+
+
+                        $("#fanmian").attr("src", result[0].toString());
+                        Global.getCanvasBase64(result[0].toString())
+                            .then(function(base64) {
+                                console.log(base64);
+                                flag = true;
+                                uploadFile("back", base64);
+                            }, function(err) {
+                                alert(1);
+                                console.log(err);
+                                flag = true;
+                            })
+
+
+                    },function(result){
+                        //alert(result)
+                    });
+
                 }
-                
+
             } else {
                 mui.toast("不可修改");
             }
@@ -537,12 +600,12 @@
         var step = 0;
 
         function initStatus(close) {
-        		
+
             Global.commonAjax({
                     url: "user/input/status"
                 },
                 function(data) {
-					
+
                     if ((data != "") && (data != null)) {
                         if (data.isInputIdcard == "N") {
                             step = 0;
@@ -565,11 +628,11 @@
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
-                            
+
                             $(".first_step_money").css("color", "#FF5445");
                             $(".second_step_money").css("color", "#FF5445");
                             $(".third_step_money").css("color", "#C3C3C3");
-                            
+
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
@@ -580,7 +643,7 @@
                             $(".third_step_money").css("color", "#FF5445");
                         }
                     }
-					
+
 					if(close){
 						$('.modal-mask').removeClass("hideClass");
 					}
@@ -599,7 +662,7 @@
         			$(".qimo_chatpup").css("display", "none");
         			return;
         		}
-        		
+
             if ($('.modal-mask').hasClass("hideClass")) {
                 initStatus("close");
             } else {
@@ -614,7 +677,7 @@
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
-            
+
             initStatus("close");
 
         })
@@ -626,7 +689,7 @@
         			page: 'idcard'
         		}
             plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
-            
+
             Global.openKouzi();
             Global.closeStepWindow();
         };
