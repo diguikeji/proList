@@ -698,3 +698,8 @@ oa-contact-position {
 	display: inline-block;
 	margin-right: 16px; 
 }
+
+.mui-input-range input[type=range]::-webkit-slider-thumb{
+    border-color: transparent;
+    background-color: transparent;
+}

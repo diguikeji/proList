@@ -21,11 +21,9 @@ header > a{
  * 头部的关闭
  */
 .header_close{
-	display: inline-block;
-	padding-top: 14px;
-	padding-left: 20px;
-	position: relative;
-	z-index: 10;
+  display: inline-block;
+  line-height: 44px;
+  margin-left: 10px;
 }
 /**
  * 头部右侧图片
