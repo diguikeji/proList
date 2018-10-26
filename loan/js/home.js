@@ -666,8 +666,8 @@ $('.preType').click(function() {
 //列表点击 埋点
 // $("body >*").bind("touchstart", function(){});
 
-$('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', function(e) {
-    mui.toast("kaishi--- ");
+$('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
+    //mui.toast("kaishi--- ");
     var index = $(this).data("index");
     $(this).addClass("clicked");
     var item = findList[index];
@@ -707,7 +707,7 @@ $('body').bind('click', '.mui-table-view-condensed li .mui-slider-cell', functio
         }
     )
 
-    e.preventdefault();
+//  e.preventdefault();
     
 });
 

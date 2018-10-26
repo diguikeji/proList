@@ -282,7 +282,7 @@
 		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
 		    <span class="header_close">关闭</span>
 		    <h1 class="mui-title">支付方式</h1>
-		    <img src="../images/custom_icon.png" onclick="goToCustom();" />
+		    <img src="../images/custom_icon.png" />
 		</header>
 		
 		<div class="mui-content" style="background: #F2F2F2; margin-top: 20px;">
@@ -542,15 +542,6 @@
 	                        bankList.push(item);
 	                    });
 	                    bankPicker.setData(bankList);
-						
-						
-//						var html = "";
-//						data.bankList.forEach(function(item, index){
-//							html += '<div class="row bank_item_name">'+
-//		        				'<span>'+item.codeName+'</span>'+
-//		        			'</div>'
-//						})
-//						$(".bank_list_wrap").append(html);
 						
 						if(data && data.idCardNo){
 			        			$(".idCardNo").val(data.idCardNo); 
@@ -891,6 +882,7 @@
 			var time = 120;
 			var intervalObj;
 			function countDown() {
+				time = 120;
 	            intervalObj = setInterval(function() {
 	                time--;
 	                if (time <= 0) {
@@ -907,6 +899,12 @@
 			//Android 物理返回
 			var old_back = mui.back;
 			mui.back = function(){
+				var display = $(".qimo_chatpup").css("display");
+	        		if(display == "block"){
+	        			$(".qimo_chatpup").css("display", "none");
+	        			return;
+	        		}
+        		
 				if ($('.modal-mask').hasClass("hideClass")) {
 	            		headLeftBack();
 	            } else {
