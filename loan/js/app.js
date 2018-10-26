@@ -89,7 +89,7 @@ var Global = {};
         //网络请求
         commonAjax: function(params, callback, errorback) {
             var baseUrl = "http://app.dev.xianghq.cn/api/";
-//                      var baseUrl = "http://banxh.mynetgear.com:18081/api/";
+//          var baseUrl = "https://app.xhq520.com/api/";
             //应用版本号
                         var appVersion = plus.runtime.version;
             //          //设备唯一标识

@@ -576,6 +576,7 @@ oa-contact-position {
 .time_text_span{
 	font-size: 12px;
 	color: #333333;
+	margin-top: 10px;
 }
 
 .clicked{
@@ -686,4 +687,14 @@ oa-contact-position {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+}
+
+.mui-clearfix{
+	color: #333333;
+	font-size: 16px;
+}
+
+.loan_day_class{
+	display: inline-block;
+	margin-right: 16px; 
 }

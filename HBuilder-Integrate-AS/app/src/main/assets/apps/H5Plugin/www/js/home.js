@@ -679,9 +679,9 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
 		goodsCode: item.goodsCode,
 		page: "find"
     }
-    mui.toast("kaishi ");
+    //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-    mui.toast("end ");       
+    //mui.toast("end ");       
     var params = {
         goodsCode: item.goodsCode
     }
@@ -814,7 +814,7 @@ function setRefreshData(refreshType, cells, isAll) {
             '<div class="mui-clearfix">' + item.goodsName +
             '</div>' +
             '<div class="time_text_span">' +
-            '<span>期限:' + item.loanDay + '</span>' + '  ' +
+            '<span class="loan_day_class">期限:' + item.loanDay + '</span>' + '  ' +
             '<span>额度:' + item.loanAmount + '</span>' +
             '</div>' +
             '<span class="mui-icon mui-icon-arrowright"></span>' +
