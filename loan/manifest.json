@@ -389,7 +389,8 @@
 					"html/errornet.html",
 					"html/recommand.html",
 					"html/login.html",
-					"html/custom.html"
+					"html/custom.html",
+					"html/credit_result.html"
 				],
 				"priority": 0
 			},
@@ -425,6 +426,13 @@
 				"resources": [],
 				"refer": [
 					"html/webview.html"
+				],
+				"priority": 0
+			},
+			"html/credit_result.html": {
+				"resources": [],
+				"refer": [
+					"html/custom.html"
 				],
 				"priority": 0
 			}
