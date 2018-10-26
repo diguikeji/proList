@@ -1749,6 +1749,7 @@ function closeOtherWindow() {
 
 //打开口子浮层
 window.addEventListener('openKouzi', function(event) {
+    
     console.log("收到事件");
     updateMyTab();
     
