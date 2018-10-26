@@ -1302,7 +1302,7 @@ $(".wx_wrap").click(function() {
         msg.href = shareData.wx.linkUrl;
         msg.title = shareData.wx.title;
         msg.content = shareData.wx.description;
-        msg.thumbs = shareData.wx.iconUrl;
+        msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
         //mui.toast(JSON.stringify(shareData.wx));
 
@@ -1321,7 +1321,7 @@ $(".wx_friend_wrap").click(function() {
         msg.href = shareData.pyq.linkUrl;
         msg.title = shareData.pyq.title;
         msg.content = shareData.pyq.description;
-        msg.thumbs = shareData.pyq.iconUrl;
+        msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
     }
 })
@@ -1340,7 +1340,7 @@ $(".money_wx_wrap").click(function() {
         msg.href = shareData.wx.linkUrl;
         msg.title = shareData.wx.title;
         msg.content = shareData.wx.description;
-        msg.thumbs = shareData.wx.iconUrl;
+        msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
         //mui.toast(JSON.stringify(shareData.wx));
 
@@ -1359,7 +1359,7 @@ $(".money_wx_friend_wrap").click(function() {
         msg.href = shareData.pyq.linkUrl;
         msg.title = shareData.pyq.title;
         msg.content = shareData.pyq.description;
-        msg.thumbs = shareData.pyq.iconUrl;
+        msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
     }
 })
