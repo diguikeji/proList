@@ -460,6 +460,17 @@
 	                }
                 }else{
                 	//ios
+                    //注册推送
+                    plus.plugintest.PluginTakePhotoFunction(phone,"Plus","AsyncFunction","MultiArgument!", function( result ) {
+                        console.log( result[0]  + "_" + result[1]  + "_" + result[2]  + "_" + result[3] );
+                        document.getElementById("zhengmian").src=result[0];
+
+                    },function(result)
+                    {
+                        console.log(result)
+                    });
+
+
                 }
                 
             } else {
