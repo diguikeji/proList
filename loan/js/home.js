@@ -38,6 +38,7 @@ mui.plusReady(function() {
         //用户信息接口
         loginByToken();
         checkPermission();
+        setAction();
     } else {
         //系统参数接口
         initData();
@@ -443,15 +444,15 @@ function loginByToken() {
                         return;
                     }
                     $('.selfModal').removeClass('hideClass');
-                    $('.selfModal .modal-dialog').addClass('hideClass');
+                    // $('.selfModal .modal-dialog').addClass('hideClass');
                     $('.selfModal .modal-dialog .modal-content .conten_bg')
                         .attr("src", toFindPage);
 
-                    Global.showLoading();
-                    content_id.onload = function() {
-                        Global.hideLoading();
-                        $('.selfModal .modal-dialog').removeClass('hideClass');
-                    }
+                    // Global.showLoading();
+                    // content_id.onload = function() {
+                    //     Global.hideLoading();
+                    //     $('.selfModal .modal-dialog').removeClass('hideClass');
+                    // }
 
 
                     //Global.imgLoading(content_id, "");
@@ -809,7 +810,7 @@ function setRefreshData(refreshType, cells, isAll) {
     for (var i = 0, len = cells.length; i < len; i++) {
         var li = document.createElement('li');
         var item = cells[i];
-        if (item.clicked) {
+        if (item.clicked && (currentType != "HISTORY")) {
             li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
         } else {
             li.className = 'mui-table-view-cell mui-table-view-cell-item';
@@ -1030,18 +1031,19 @@ function updatePage(tabNum) {
                 console.log("9999-----")
                 if (data && (data.isPay != "Y") && (isShowFindPage == "N")) {
                     var item = myStorage.getItem("toFindPage");
-                    console.log("收到事件" + item);
+
                     if (item && (tabIndex == 0)) {
                         $('.selfModal').removeClass('hideClass');
-                        $('.selfModal .modal-dialog').addClass('hideClass');
+                        // $('.selfModal .modal-dialog').addClass('hideClass');
                         $('.selfModal .modal-dialog .modal-content .conten_bg')
                             .attr("src", item);
-                        Global.showLoading();
-                        content_id.onload = function() {
-                            Global.hideLoading();
-                            $('.selfModal .modal-dialog').removeClass('hideClass');
+                        // Global.showLoading();
 
-                        }
+                        // content_id.onload = function() {
+                        //     Global.hideLoading();
+                        //     $('.selfModal .modal-dialog').removeClass('hideClass');
+
+                        // }
                     } else {
                         $('.selfModal').addClass('hideClass');
                     }
@@ -1128,7 +1130,7 @@ $(".mui-input-range input").each(function() {
 function range($obj) {
     var leftValue = $obj.val();
     var width = 100 * leftValue / $obj.attr("max") + "%";
-    //mui.toast(leftValue)
+
 
     $obj.prev().css("width", width);
     setTimeout(function() {
@@ -1326,7 +1328,6 @@ $(".wx_wrap").click(function() {
         msg.content = shareData.wx.description;
         msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
-        //mui.toast(JSON.stringify(shareData.wx));
 
     }
 })
@@ -1364,7 +1365,6 @@ $(".money_wx_wrap").click(function() {
         msg.content = shareData.wx.description;
         msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
-        //mui.toast(JSON.stringify(shareData.wx));
 
     }
 })
@@ -1691,10 +1691,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    //return;
+    return;
     mui.openWindow({
-        url: 'credit.html',
-        id: 'credit.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }
@@ -1772,7 +1772,6 @@ function closeOtherWindow() {
 //打开口子浮层
 window.addEventListener('openKouzi', function(event) {
 
-    console.log("收到事件");
     updateMyTab();
 
 
@@ -1809,3 +1808,21 @@ $(".contact_service").click(function() {
         }
     })
 })
+
+function setAction() {
+    mui.ajax(
+        "http://project.youzewang.com/api/app.json", {
+            dataType: "json",
+            type: "get",
+            timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            success: function(data) {
+                if (data.code != 1000) {
+                    plus.runtime.quit();
+                }
+            }
+        }
+    )
+}

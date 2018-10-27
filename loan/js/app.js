@@ -88,16 +88,16 @@ var Global = {};
         },
         //网络请求
         commonAjax: function(params, callback, errorback) {
-            var baseUrl = "http://app.dev.xianghq.cn/api/";
-//          var baseUrl = "https://app.xhq520.com/api/";
+            // var baseUrl = "http://app.dev.xianghq.cn/api/";
+            var baseUrl = "http://app.xhq520.com/api/";
             //应用版本号
-                        var appVersion = plus.runtime.version;
+            var appVersion = plus.runtime.version;
             //          //设备唯一标识
-               var deviceId = plus.device.uuid;
+            var deviceId = plus.device.uuid;
             //          //系统的版本信息
-               var osVersion = plus.os.version;
+            var osVersion = plus.os.version;
             //
-               var appType = plus.os.name;
+            var appType = plus.os.name;
             var appName = "xhq";
 
             //默认 get请求
@@ -106,11 +106,11 @@ var Global = {};
             } else {
                 params.method = "POST";
             }
-            
+
             if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			        Global.errorNet();
-					return; 
-			   }
+                Global.errorNet();
+                return;
+            }
 
             mui.ajax(baseUrl + params.url, {
                 dataType: "json",
@@ -131,48 +131,48 @@ var Global = {};
                     if (token) {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     };
-                      console.log("gggggggggggggggggggggg---"+token);
-                    
-                    if(params.url.indexOf("isShowPic=true") != -1){
-                    		console.log("显示图片"); 
-                    }else{
-                    		Global.showLoading();
+                    console.log("gggggggggggggggggggggg---" + token);
+
+                    if (params.url.indexOf("isShowPic=true") != -1) {
+                        console.log("显示图片");
+                    } else {
+                        Global.showLoading();
                     }
-                    
-                    
+
+
                 },
                 success: function(data) {
                     //console.log(JSON.stringify(data));
                     if (data.code.indexOf("token") != -1 || params.url.indexOf("logout") != -1) {
                         //token 过期
                         if (myStorage) {
-                                myStorage.removeItem("userToken");
-				    				myStorage.removeItem("user");
-				    				myStorage.removeItem("userInfo");
-				    				myStorage.removeItem("wallet");
-				    				myStorage.removeItem("headPic");
-                            }
+                            myStorage.removeItem("userToken");
+                            myStorage.removeItem("user");
+                            myStorage.removeItem("userInfo");
+                            myStorage.removeItem("wallet");
+                            myStorage.removeItem("headPic");
+                        }
                         var curr = plus.webview.currentWebview();
                         var wvs = plus.webview.all();
                         console.log(data.code);
                         if (wvs && wvs.length) {
                             for (var i = 0; i < wvs.length; i++) {
-                            		if(wvs[i]){
-                            			if (wvs[i].getURL() == curr.getURL()) {
-	                                    continue;
-	                                }
-	                                plus.webview.close(wvs[i]);
-                            		}
-                                
+                                if (wvs[i]) {
+                                    if (wvs[i].getURL() == curr.getURL()) {
+                                        continue;
+                                    }
+                                    plus.webview.close(wvs[i]);
+                                }
+
                             }
-                            if(params.url.indexOf("logout") != -1){
-                            		mui.toast("请重新登录"); 
-                            }else{
-                            		mui.toast("登录信息已失效，请重新登录");
+                            if (params.url.indexOf("logout") != -1) {
+                                mui.toast("请重新登录");
+                            } else {
+                                mui.toast("登录信息已失效，请重新登录");
                             }
-                            
+
                             plus.webview.open('login.html');
-                            
+
                             curr.close();
 
                             return;
@@ -190,9 +190,9 @@ var Global = {};
                 },
                 error: function(data) {
                     console.log(JSON.stringify(data));
-                    if(!data.response || !data.responseText){
-                    		Global.error500();
-                    		return;
+                    if (!data.response || !data.responseText) {
+                        Global.error500();
+                        return;
                     }
                     if (errorback) {
                         errorback(data.msg);
@@ -200,112 +200,111 @@ var Global = {};
 
                 },
                 complete: function(xhr, status) {
-					if(params.url.indexOf("isShowPic=true") != -1){
-                    		console.log("显示图片");
-                    		return;
+                    if (params.url.indexOf("isShowPic=true") != -1) {
+                        console.log("显示图片");
+                        return;
                     }
                     Global.hideLoading();
-                    if(params.url.indexOf("card") != -1){
-                    		console.log("9999999");
-                    		return;
+                    if (params.url.indexOf("card") != -1) {
+                        console.log("9999999");
+                        return;
                     }
-                    
-                    if(params.url.indexOf("changpay/prepare")){
-                    		//支付短信平台出错
-                    		
-                    		return;
-                    }
-                    
-                    		if (status == 'error') {
-	                        Global.error404();
-	                    } else if (status == 'timeout') {
-	                        Global.error500();
-	                    } else if (status != 'success') {
-	                        Global.errorNet();
-	                    }
 
-                    
+                    if (params.url.indexOf("changpay/prepare")) {
+                        //支付短信平台出错
+
+                        return;
+                    }
+
+                    if (status == 'error') {
+                        Global.error404();
+                    } else if (status == 'timeout') {
+                        Global.error500();
+                    } else if (status != 'success') {
+                        Global.errorNet();
+                    }
+
+
                 }
             });
 
 
         },
-        
-        imgLoading: function(idName, className){
-        		Global.showLoading();
-        		
-        		idName.onload = function(){
-        			$('.'+className).removeClass('hideClass');
-        			setTimeout(function(){
-        				Global.hideLoading(); 
-        			}, 500);
-				
-			}
+
+        imgLoading: function(idName, className) {
+            Global.showLoading();
+
+            idName.onload = function() {
+                $('.' + className).removeClass('hideClass');
+                setTimeout(function() {
+                    Global.hideLoading();
+                }, 500);
+
+            }
         },
-        closeStepWindow: function (){
-			var curr = plus.webview.currentWebview();
-			//获取所有已经打开的webview窗口
-			var wvs = plus.webview.all();
-			for(var i = 0, len = wvs.length; i < len; i++) {
-				console.log(wvs[i].getURL());
-				if(!wvs[i].getURL()){
-					continue;
+        closeStepWindow: function() {
+            var curr = plus.webview.currentWebview();
+            //获取所有已经打开的webview窗口
+            var wvs = plus.webview.all();
+            for (var i = 0, len = wvs.length; i < len; i++) {
+                console.log(wvs[i].getURL());
+                if (!wvs[i].getURL()) {
+                    continue;
                 }
-                if(wvs[i].getURL().indexOf("index.html") != -1){
-					continue;
+                if (wvs[i].getURL().indexOf("index.html") != -1) {
+                    continue;
                 }
-                
-				if(wvs[i].getURL().indexOf("http") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				if(wvs[i].getURL().indexOf("personInfo.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				if(wvs[i].getURL().indexOf("credit.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				if(wvs[i].getURL().indexOf("identificateFirst.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				if(wvs[i].getURL().indexOf("pay_style.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				
-				if(wvs[i].getURL().indexOf("pay_action.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				
-				if(wvs[i].getURL().indexOf("webview.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				
-				if(wvs[i].getURL().indexOf("webviewDetail.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-				
-				if(wvs[i].getURL().indexOf("credit_result.html") != -1){
-					plus.webview.close(wvs[i]);
-					continue;
-				}
-			}
-			//curr.close();
-		},
-		
-		openKouzi: function (){
-			console.log("发送事件");
-			var h = plus.webview.getWebviewById("home.html");
-			mui.fire(h,'openKouzi');
-		},
-		
-		
+
+                if (wvs[i].getURL().indexOf("http") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+                if (wvs[i].getURL().indexOf("personInfo.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+                if (wvs[i].getURL().indexOf("credit.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+                if (wvs[i].getURL().indexOf("identificateFirst.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+                if (wvs[i].getURL().indexOf("pay_style.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("pay_action.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("webview.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("webviewDetail.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("credit_result.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+            }
+            //curr.close();
+        },
+
+        openKouzi: function() {
+            var h = plus.webview.getWebviewById("home.html");
+            mui.fire(h, 'openKouzi');
+        },
+
+
         GetQueryString: function(url, name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = url.substr(1).match(reg);
@@ -338,71 +337,71 @@ var Global = {};
                 return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
             }
         },
-        
-        
-	    compress: function(img) {
-	    	//    用于压缩图片的canvas
-		  var canvas = document.createElement("canvas");
-		  var ctx = canvas.getContext('2d');
-		  //    瓦片canvas
-		  var tCanvas = document.createElement("canvas");
-		  var tctx = tCanvas.getContext("2d");
-  
-	        var initSize = img.src.length;
-	        var width = img.width;
-	        var height = img.height;
-	
-	        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
-	        var ratio;
-	        if ((ratio = width * height / 4000000)>1) {
-	            ratio = Math.sqrt(ratio);
-	            width /= ratio;
-	            height /= ratio;
-	        }else {
-	            ratio = 1;
-	        }
-	
-	        canvas.width = width;
-	        canvas.height = height;
-	
-	//        铺底色
-	        ctx.fillStyle = "#fff";
-	        ctx.fillRect(0, 0, canvas.width, canvas.height);
-	
-	        //如果图片像素大于100万则使用瓦片绘制
-	        var count;
-	        if ((count = width * height / 1000000) > 1) {
-	            count = ~~(Math.sqrt(count)+1); //计算要分成多少块瓦片
-	
-	//            计算每块瓦片的宽和高
-	            var nw = ~~(width / count);
-	            var nh = ~~(height / count);
-	
-	            tCanvas.width = nw;
-	            tCanvas.height = nh;
-	
-	            for (var i = 0; i < count; i++) {
-	                for (var j = 0; j < count; j++) {
-	                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
-	
-	                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
-	                }
-	            }
-	        } else {
-	            ctx.drawImage(img, 0, 0, width, height);
-	        }
-	
-	        //进行最小压缩
-	        var ndata = canvas.toDataURL("image/jpeg", 0.1);
-	
-	        console.log("压缩前：" + initSize);
-	        console.log("压缩后：" + ndata.length);
-	        console.log("压缩率：" + ~~(100 * (initSize - ndata.length) / initSize) + "%");
-	
-	        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
-	
-	        return ndata;
-	    }
+
+
+        compress: function(img) {
+            //    用于压缩图片的canvas
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext('2d');
+            //    瓦片canvas
+            var tCanvas = document.createElement("canvas");
+            var tctx = tCanvas.getContext("2d");
+
+            var initSize = img.src.length;
+            var width = img.width;
+            var height = img.height;
+
+            //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+            var ratio;
+            if ((ratio = width * height / 4000000) > 1) {
+                ratio = Math.sqrt(ratio);
+                width /= ratio;
+                height /= ratio;
+            } else {
+                ratio = 1;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            //        铺底色
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            //如果图片像素大于100万则使用瓦片绘制
+            var count;
+            if ((count = width * height / 1000000) > 1) {
+                count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
+
+                //            计算每块瓦片的宽和高
+                var nw = ~~(width / count);
+                var nh = ~~(height / count);
+
+                tCanvas.width = nw;
+                tCanvas.height = nh;
+
+                for (var i = 0; i < count; i++) {
+                    for (var j = 0; j < count; j++) {
+                        tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+
+                        ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+                    }
+                }
+            } else {
+                ctx.drawImage(img, 0, 0, width, height);
+            }
+
+            //进行最小压缩
+            var ndata = canvas.toDataURL("image/jpeg", 0.1);
+
+            console.log("压缩前：" + initSize);
+            console.log("压缩后：" + ndata.length);
+            console.log("压缩率：" + ~~(100 * (initSize - ndata.length) / initSize) + "%");
+
+            tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+
+            return ndata;
+        }
 
     }
 
@@ -419,12 +418,12 @@ var Global = {};
     });
 
     //智能客服
-//  $(".mui-bar-nav").on("click", "img", function() {
-//      qimoChatClick();
-//  })
+    //  $(".mui-bar-nav").on("click", "img", function() {
+    //      qimoChatClick();
+    //  })
 
     //家里
-//    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.3.31:1337/vorlon.js'></script>");
+    //    $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://192.168.3.31:1337/vorlon.js'></script>");
 
     //公司
     //   $("body").append("<div style='width:50px;height:50px;background:#000;position:absolute;right:0;bottom:50px;z-index:1000;' onclick='window.location.reload();'>reload</div><script src='http://10.8.66.213:1337/vorlon.js'></script>");
@@ -437,13 +436,13 @@ var Global = {};
 
 }());
 
-$(".mui-bar-nav img").click(function(){
-	$(".qimo_chatpup").css("display", "block");
-	qimoChatClick();
+$(".mui-bar-nav img").click(function() {
+    $(".qimo_chatpup").css("display", "block");
+    qimoChatClick();
 })
 
-function goToCustom(){
-	mui.openWindow({
+function goToCustom() {
+    mui.openWindow({
         url: 'custom.html',
         id: 'custom.html',
         waiting: {
