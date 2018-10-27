@@ -67,9 +67,9 @@
     <!--<script src="../js/jquery-splendid-textchange.js"></script>-->
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
-	<!-- 原生插件 -->
-	<script src="../js/plugin.js"></script>
-	
+    <!-- 原生插件 -->
+    <script src="../js/plugin.js"></script>
+
     <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
@@ -86,8 +86,8 @@
 
             sendsms(self.phone);
             //自动弹出键盘
-           initNativeObjects();
-           showSoftInput();
+            initNativeObjects();
+            showSoftInput();
         });
 
         //得到验证码
@@ -96,7 +96,7 @@
                     url: "app/sendsms/" + phone
                 },
                 function(data) {
-					mui.toast("验证码发送成功");
+                    mui.toast("验证码发送成功");
                 },
                 function(err) {
                     mui.toast(err);
@@ -105,11 +105,12 @@
 
         //网络请求
         function loginAjax(phone, code) {
-        		console.log(phone+"------"+code);
-        		var params = {
-        			mobileNo: phone,
-                smsCode: code
-        		}
+            console.log(phone + "------" + code);
+            var params = {
+                mobileNo: phone,
+                smsCode: code,
+                source: "applestore"
+            }
             Global.commonAjax({
                     url: 'app/registerlogin',
                     method: "POST",
@@ -117,10 +118,10 @@
                 },
                 function(data) {
                     //广告
-                    if(data.toFindAd){
-                    		myStorage.setItem("toFindAd", data.toFindAd);
+                    if (data.toFindAd) {
+                        myStorage.setItem("toFindAd", data.toFindAd);
                     }
-                    
+
                     //用户个人信息
                     myStorage.setItem("user", data.user);
                     //用户属性信息
@@ -130,14 +131,14 @@
                     //token
                     myStorage.setItem("userToken", data.userToken);
 
-					clearInterval(intervalObj);
-					
-					var clickType = {
-						source: data.user.sourceCode,
-						mobile: data.user.mobile
-					}
-					plus.statistic.eventTrig("channelregister", JSON.stringify(clickType) );
-					
+                    clearInterval(intervalObj);
+
+                    var clickType = {
+                        source: data.user.sourceCode,
+                        mobile: data.user.mobile
+                    }
+                    plus.statistic.eventTrig("channelregister", JSON.stringify(clickType));
+
                     mui.openWindow({
                         url: 'home.html',
                         id: 'home.html',
@@ -145,8 +146,8 @@
                             autoShow: false
                         },
                         extras: {
-                        		isfirst: true,
-                        		isShowFindPage: data.isShowFindPage
+                            isfirst: true,
+                            isShowFindPage: data.isShowFindPage
                         }
                     })
                 },
@@ -170,24 +171,24 @@
 
             }, 1000);
         }
-		
-		var isclick = true;
+
+        var isclick = true;
         $('.sixty').click(function() {
-        		if(isclick){
-        			isclick = false;
-        			
-        			if ($(this).text() == "重新获取") {
-	                countDown();
-	                sendsms(phone);
-	            }
-        			
-        			//定时器
-		        setTimeout(function(){ 
-		            isclick = true;
-		        }, 2000);
-        			
-        		}
-        
+            if (isclick) {
+                isclick = false;
+
+                if ($(this).text() == "重新获取") {
+                    countDown();
+                    sendsms(phone);
+                }
+
+                //定时器
+                setTimeout(function() {
+                    isclick = true;
+                }, 2000);
+
+            }
+
         })
 
         var nativeWebview, imm, InputMethodManager;
@@ -216,8 +217,8 @@
             }, 1);
         };
 
-          $(".realInput").bind("input propertychange", function() {
-//      	$(".realInput").on("textchange", function() {
+        $(".realInput").bind("input propertychange", function() {
+            //      	$(".realInput").on("textchange", function() {
             var value = $(".realInput").val();
             var length = value.length;
 
@@ -230,9 +231,9 @@
             });
 
             $(".cursor").each(function(index) {
-            		if(length >= 6){
-            			return;
-            		}
+                if (length >= 6) {
+                    return;
+                }
                 if (length != index) {
                     $(this).addClass("hideClass");
                 }
@@ -271,20 +272,19 @@
                 var length = value.length;
                 if (length == 0) {
                     mui.toast("请输入验证码");
-                }else if (length < 6) {
+                } else if (length < 6) {
                     mui.toast("请输入正确的验证码");
                 } else {
                     loginAjax(phone, value.substring(0, 6));
-					
-					//注册推送
-					 plus.plugintest.PluginTestFunction(phone,"Plus","AsyncFunction","MultiArgument!", function( result ) {
-					 console.log( result[0]  + "_" + result[1]  + "_" + result[2]  + "_" + result[3] );
-					 },function(result)
-					 {
-					 console.log(result)
-					 });
 
-					
+                    //注册推送
+                    plus.plugintest.PluginTestFunction(phone, "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                        console.log(result[0] + "_" + result[1] + "_" + result[2] + "_" + result[3]);
+                    }, function(result) {
+                        console.log(result)
+                    });
+
+
                 }
             }
         }
@@ -293,16 +293,16 @@
          * 打开用户协议
          */
         function openAgree() {
-			
-			mui.openWindow({
+
+            mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=https://web.static.xhq520.com/xieyi/xhq-register-policy.html',
                 waiting: {
                     autoShow: false
                 }
             })
-			return;
-			
+            return;
+
             var registerTxt = $.ajax({
                 url: "register.html",
                 async: false
