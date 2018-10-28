@@ -1105,7 +1105,11 @@ function initFindPage(data) {
             $(".find_bottom_wrap").css("bottom", "-220px");
         }
     } else {
-        $(".find_bottom_wrap").css("bottom", "-140px");
+        if (height <= 622) {
+            $(".bottom_wrap").css("height", "140px");
+        } else {
+            $(".bottom_wrap").css("height", "180px");
+        }
     }
 
 
