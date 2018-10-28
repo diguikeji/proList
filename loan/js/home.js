@@ -913,14 +913,10 @@ function setGetMoneyBanner(listData) {
             //赚钱tab
             goToMakeMoneyTab();
 
-        } else if (that.data("url") == "creditResult") {
-            //评估结果页
-            apply();
         } else if (that.data("url") == "applyMoney") {
             //评估结果页
             apply();
-        } else {
-            return;
+        } else if (that.data("url").indexOf("http") != -1) {
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + that.data("url"),
@@ -928,6 +924,8 @@ function setGetMoneyBanner(listData) {
                     autoShow: false
                 }
             })
+        } else {
+            return;
         }
 
 
@@ -1266,7 +1264,24 @@ function newbieTaskBanner(listData) {
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
             //mui.toast(that.data("url"));
-            if (that.data("url") != "undefined") {
+            if (that.data("url") == "undefined") {
+                console.log(that.data("url") + '-----===');
+                return;
+            } else if (that.data("url") == "findTab") {
+                var clickType = {
+                    source: myStorage.getItem("user").sourceCode
+                }
+                plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
+
+                goToFindTab();
+            } else if (that.data("url") == "makeMoneyTab") {
+                //赚钱tab
+                goToMakeMoneyTab();
+
+            } else if (that.data("url") == "applyMoney") {
+                //评估结果页
+                apply();
+            } else if (that.data("url").indexOf("http") != -1) {
                 mui.openWindow({
                     url: 'webview.html',
                     id: 'webview.html?url=' + that.data("url"),
@@ -1274,6 +1289,8 @@ function newbieTaskBanner(listData) {
                         autoShow: false
                     }
                 })
+            } else {
+                return;
             }
 
         })
