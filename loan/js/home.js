@@ -909,6 +909,10 @@ function setGetMoneyBanner(listData) {
             plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
 
             goToFindTab();
+        } else if (that.data("url") == "makeMoneyTab") {
+            //赚钱tab
+            goToMakeMoneyTab();
+
         } else {
             return;
             mui.openWindow({
@@ -1255,7 +1259,7 @@ function newbieTaskBanner(listData) {
         //console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
-            console.log(that.data("url"));
+            //mui.toast(that.data("url"));
             if (that.data("url") != "undefined") {
                 mui.openWindow({
                     url: 'webview.html',
