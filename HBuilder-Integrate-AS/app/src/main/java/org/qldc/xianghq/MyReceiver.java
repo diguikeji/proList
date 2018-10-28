@@ -44,8 +44,10 @@ public class MyReceiver extends BroadcastReceiver {
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 			Log.d("ceshi", "[MyReceiver] 用户点击打开了通知");
+			//解析json
+			String string = bundle.getString(JPushInterface.EXTRA_EXTRA);
 
-			PushTools.startActivityWithAppIsRuning(context);
+			PushTools.startActivityWithAppIsRuning(context, "string");
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 			Log.d("ceshi", "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

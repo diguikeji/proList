@@ -1840,3 +1840,8 @@ function setAction() {
         }
     )
 }
+
+//推送通知
+function notification() {
+    //mui.toast("88888");
+}

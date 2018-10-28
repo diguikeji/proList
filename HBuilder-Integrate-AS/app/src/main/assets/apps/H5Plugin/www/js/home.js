@@ -1835,3 +1835,8 @@ function setAction() {
         }
     )
 }
+
+//推送通知
+function notification(str){
+	mui.toast("88888"+str);
+}

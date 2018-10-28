@@ -51,10 +51,17 @@ public class PushTools {
      *
      * @param context
      */
-    public static void startActivityWithAppIsRuning(Context context) {
+    public static void startActivityWithAppIsRuning(Context context, String string) {
+        ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
+        for(int i=0;i<weblist.size();i++){
+            if(weblist.get(i).getOriginalUrl().contains("home.html") ){
+
+                weblist.get(i).evalJS("javascript:notification("+string+")");
+            }
+        }
+
         int isAppRuning = isAppAlive(context, context.getPackageName());
         if (isAppRuning != 0) {
-            //ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
 
 
             Intent newIntent = new Intent(context, io.dcloud.PandoraEntry.class);
