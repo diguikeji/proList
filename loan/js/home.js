@@ -1109,6 +1109,7 @@ function initFindPage(data) {
             $(".bottom_wrap").css("height", "140px");
         } else {
             $(".bottom_wrap").css("height", "180px");
+            $(".find_bottom_wrap").css("bottom", "-220px");
         }
     }
 
