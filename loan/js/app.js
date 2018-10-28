@@ -204,7 +204,12 @@ var Global = {};
                         console.log("显示图片");
                         return;
                     }
-                    Global.hideLoading();
+
+                    setTimeout(function()
+                    {
+                        Global.hideLoading();
+                    },1000);
+
                     if (params.url.indexOf("card") != -1) {
                         console.log("9999999");
                         return;
