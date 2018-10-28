@@ -52,13 +52,7 @@ public class PushTools {
      * @param context
      */
     public static void startActivityWithAppIsRuning(Context context, String string) {
-        ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
-        for(int i=0;i<weblist.size();i++){
-            if(weblist.get(i).getOriginalUrl().contains("home.html") ){
 
-                weblist.get(i).evalJS("javascript:notification("+string+")");
-            }
-        }
 
         int isAppRuning = isAppAlive(context, context.getPackageName());
         if (isAppRuning != 0) {
@@ -68,6 +62,15 @@ public class PushTools {
 
             newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(newIntent);
+
+            ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
+            for(int i=0;i<weblist.size();i++){
+                if(weblist.get(i).getOriginalUrl().contains("home.html") ){
+
+                    weblist.get(i).evalJS("javascript:notification('"+string+"')");
+                }
+            }
+
             return;
         }
         // 如果app进程已经被杀死，先重新启动app，将DetailActivity的启动参数传入Intent中，参数经过
@@ -78,6 +81,15 @@ public class PushTools {
         launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         context.startActivity(launchIntent);
+
+        ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
+        for(int i=0;i<weblist.size();i++){
+            if(weblist.get(i).getOriginalUrl().contains("home.html") ){
+
+                weblist.get(i).evalJS("javascript:notification("+string+")");
+            }
+        }
+
     }
 
 
