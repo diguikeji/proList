@@ -1097,12 +1097,17 @@ function updatePage(tabNum) {
 
 function initFindPage(data) {
     var height = plus.display.resolutionHeight;
-    //622  -140px
-    if (height <= 622) {
-        $(".find_bottom_wrap").css("bottom", "-140px");
+    if (mui.os.android) {
+        //622  -140px
+        if (height <= 622) {
+            $(".find_bottom_wrap").css("bottom", "-140px");
+        } else {
+            $(".find_bottom_wrap").css("bottom", "-220px");
+        }
     } else {
-        $(".find_bottom_wrap").css("bottom", "-220px");
+        $(".find_bottom_wrap").css("bottom", "-140px");
     }
+
 
     //alert(height);
     // N 显示old

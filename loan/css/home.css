@@ -713,8 +713,11 @@ oa-contact-position {
 }
 
 .bottom_wrap {
-    height: 200px;
+    height: 140px;
+    width: 100%;
     position: absolute;
     bottom: 0px;
-    background: #202433;
+    left: 0px;
+    background: #2B3041;
+    z-index: -1;
 }
