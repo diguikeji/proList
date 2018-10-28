@@ -898,6 +898,7 @@ function setGetMoneyBanner(listData) {
 
     $(".getMoneyLoop").on("click", ".bottom_slider", function() {
         var that = $(this);
+        //mui.toast(that.data("url"))
         if (that.data("url") == "undefined") {
             console.log(that.data("url") + '-----===');
             return;
@@ -905,9 +906,11 @@ function setGetMoneyBanner(listData) {
             var clickType = {
                 source: myStorage.getItem("user").sourceCode
             }
-            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType))
+            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
+
             goToFindTab();
         } else {
+            return;
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + that.data("url"),
@@ -1616,6 +1619,7 @@ function closeDialg() {
 //去发现tab
 function goToFindTab() {
     //关闭借款 弹层
+
     $('.selfModal').addClass('hideClass');
 
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
@@ -1780,8 +1784,15 @@ window.addEventListener('openKouzi', function(event) {
 var backcount = 0;
 
 function fastQuit() {
+
     //双击退出登录
     mui.back = function() {
+        var display = $(".qimo_chatpup").css("display");
+        if (display == "block") {
+            $(".qimo_chatpup").css("display", "none");
+            return;
+        }
+
         //console.log(plus.webview.currentWebview().id);
         if (plus.webview.currentWebview().id == "home.html") {
 
@@ -1800,6 +1811,9 @@ function fastQuit() {
 }
 
 $(".contact_service").click(function() {
+    $(".qimo_chatpup").css("display", "block");
+    qimoChatClick();
+    return;
     mui.openWindow({
         url: 'custom.html',
         id: 'custom.html',

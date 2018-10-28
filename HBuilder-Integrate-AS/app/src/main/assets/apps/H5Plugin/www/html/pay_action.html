@@ -1,415 +1,415 @@
 <!doctype html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
- 		<link rel="stylesheet" type="text/css" href="../css/mui.dtpicker.css" />
-		<link href="../css/app.css" rel="stylesheet" />
-		
-		<style type="text/css">
-			html,body{
-				background: #f2f2f2;
-				height: 100%;
-			}
-			.item_name_wrap{
-				border-bottom: 1px solid #DFDFDF;
-				height: 60px;
-				line-height: 60px;
-				background: #ffffff;
-				padding: 0px 20px;
-				align-items: center;
-			}
-			
-			.mui-table-view-cell>a:not(.mui-btn){
-				margin: -20px 0px;
-			}
-			
-			.mui-table-view-cell{
-				padding: 11px 15px 11px 10px;
-			}
-			
-			.item_name_text{
-				display: inline-block;
-				width: 113px;
-				text-align: left;
-				font-size: 16px;
-				color: #333333;
-			}
-			
-			input::-webkit-input-placeholder {
-				color: #999999;
-			    font-size: 14px;
-			    opacity: 0.5;
-			}
-			
-			input{
-				caret-color:red;
-			}
-			
-			.phone_input {
-			    width: 70%;
-			    margin: 0px!important;
-			    padding: 0px!important;
-			    display: inline-block;
-			    background: none;
-			    outline: none;
-			    border: 0px!important;
-			    color: #333333;
-			    font-size: 16px;
-			    border-radius: 0;
-			    box-sizing: border-box;
-			}
-			
-			.time_style{
-				color: #F5A8A8;
-				font-size: 14px;
-				position: absolute;
-				top: 0px;
-				right: 20px;
-			}
-			
-			.time_icon{
-				width: 19px;
-				height: 14px;
-			}
-			
-			.look_bank{
-				text-align: right;
-				margin-right: 20px;
-				margin-top: 20px;
-				align-items: center;
-			}
-			
-			.look_bank img{
-				width: 12px;
-				height: 12px;
-				margin-right: 5px;
-			}
-			
-			.next {
-			    width: 80%;
-			    height: 40px;
-			    text-align: center;
-			    font-size: 20px;
-			    margin: 50px 10%;
-			    border-radius: 30px;
-			    border: 1px solid #ff0000;
-			    background: #ff5445;
-			    color: #ffffff;
-			    box-shadow: 0px 2px 5px #888888;
-			}
-			
-			.modal_sure {
-			    width: 80%;
-			    height: 40px;
-			    text-align: center;
-			    font-size: 20px;
-			    margin: 30px 10%;
-			    border-radius: 30px;
-			    border: 1px solid #ff0000;
-			    background: #ff5445;
-			    color: #ffffff;
-			    box-shadow: 0px 2px 5px #888888;
-			}
-			
-			.modal-mask {
-			  width: 100%;
-			  height: 100%;
-			  position: fixed;
-			  top: 0;
-			  left: 0;
-			  background: rgba(0, 0, 0, 0.4);
-			  overflow: hidden;
-			  z-index: 10;
-			  color: #fff;
-			  justify-content: center;
-			  align-items: center;
-			}
-			
-			.selfModal .modal-dialog {
-			  width: 80%;
-			  max-height: 100%;
-			  overflow: auto;
-			  border-radius: 18px;
-			  position: relative;
-			  border-radius: 20px;
-			  
-			}
-			.selfModal .modal-dialog .close_style{
-				position: absolute;
-				top: 10px;
-				right: 10px;
-				width: 23px;
-				height: 23px;
-				z-index: 100000;
-			}
-			
-			.selfModal .modal-content {
-			  position: relative;
-			  z-index: 10000;
-			  font-size: 12px;
-			  color: #333333;
-			  background: #ffffff;
-			  padding: 0px;
-			}
-			
-			.selfModal .modal-content .conten_bg{
-				width: 100%;
-				/*position: absolute;
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.dtpicker.css" />
+    <link href="../css/app.css" rel="stylesheet" />
+
+    <style type="text/css">
+        html,
+        body {
+            background: #f2f2f2;
+            height: 100%;
+        }
+        
+        .item_name_wrap {
+            border-bottom: 1px solid #DFDFDF;
+            height: 60px;
+            line-height: 60px;
+            background: #ffffff;
+            padding: 0px 20px;
+            align-items: center;
+        }
+        
+        .mui-table-view-cell>a:not(.mui-btn) {
+            margin: -20px 0px;
+        }
+        
+        .mui-table-view-cell {
+            padding: 11px 15px 11px 10px;
+        }
+        
+        .item_name_text {
+            display: inline-block;
+            width: 113px;
+            text-align: left;
+            font-size: 16px;
+            color: #333333;
+        }
+        
+        input::-webkit-input-placeholder {
+            color: #999999;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        input {
+            caret-color: red;
+        }
+        
+        .phone_input {
+            width: 70%;
+            margin: 0px!important;
+            padding: 0px!important;
+            display: inline-block;
+            background: none;
+            outline: none;
+            border: 0px!important;
+            color: #333333;
+            font-size: 16px;
+            border-radius: 0;
+            box-sizing: border-box;
+        }
+        
+        .time_style {
+            color: #F5A8A8;
+            font-size: 14px;
+            position: absolute;
+            top: 0px;
+            right: 20px;
+        }
+        
+        .time_icon {
+            width: 19px;
+            height: 14px;
+        }
+        
+        .look_bank {
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        
+        .look_bank img {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+        }
+        
+        .next {
+            width: 80%;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            margin: 50px 10%;
+            border-radius: 30px;
+            border: 1px solid #ff0000;
+            background: #ff5445;
+            color: #ffffff;
+            box-shadow: 0px 2px 5px #888888;
+        }
+        
+        .modal_sure {
+            width: 80%;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+            margin: 30px 10%;
+            border-radius: 30px;
+            border: 1px solid #ff0000;
+            background: #ff5445;
+            color: #ffffff;
+            box-shadow: 0px 2px 5px #888888;
+        }
+        
+        .modal-mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            z-index: 10;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .selfModal .modal-dialog {
+            width: 80%;
+            max-height: 100%;
+            overflow: auto;
+            border-radius: 18px;
+            position: relative;
+            border-radius: 20px;
+        }
+        
+        .selfModal .modal-dialog .close_style {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 23px;
+            height: 23px;
+            z-index: 100000;
+        }
+        
+        .selfModal .modal-content {
+            position: relative;
+            z-index: 10000;
+            font-size: 12px;
+            color: #333333;
+            background: #ffffff;
+            padding: 0px;
+        }
+        
+        .selfModal .modal-content .conten_bg {
+            width: 100%;
+            /*position: absolute;
 				top: 0px;
 				left: 0px;
 				height: 100%;*/
-			}
-			
-			
-			
-			.selfModal .dialog_step_wrap{
-				align-items: center;
-			}
-			
-			.selfModal .dialog_step_wrap img{
-				width: 13px;
-				height: 13px;
-				margin-right: 20px;
-			}
-			
-			.selfModal .dialog_step_text{
-				color: #000000; 
-				font-weight: bold;
-				font-size: 14px;
-			}
-			
-			.selfModal .dialog_step_bottom_text{
-				color: #dddddd; 
-				font-size: 12px;
-			}
-			
-			.selfModal .dialog_content_wrap .col{
-				padding: 10px 0px;
-			}
-			
-			.selfModal .dialog_content_item_wrap{
-				position: relative;
-			}
-			
-			.selfModal .addMoney{
-				position: absolute;
-				top: -5px;
-				right: -30px;
-				width: 66px;
-				height: 45px;
-			}
-			
-			.first_step_money,
-	        .second_step_money,
-	        .third_step_money{
-	        		position: absolute;
-	            top: 5px;
-	            right: -10px;
-	            font-size: 24px;
-	            color: #FF5445;
-	            font-weight: bold;
-	        }
-			
-			
-			
-			.support_title{
-				color: #424242; font-size: 18px; text-align: center; font-weight: bold; padding: 25px 0px;
-			}
-			
-			.bank_item_name{
-				justify-content: center;
-				font-size: 18px;
-				padding: 10px;
-				border-bottom: 1px solid #DFDFDF;
-			}
-			
-			.bank_list_wrap{
-				padding-bottom: 20px;
-				overflow: auto;
-			}
-			
-			[data-type="date"] [data-id="picker-d"]{
-				display: none;
-			}
-			
-			[data-type="date"] .mui-picker{
-				width: 50%;
-			}
-			
-			[data-type="date"] .mui-dtpicker-title h5{
-				width: 50%;
-			}
-			
-			[data-type="date"] [data-id="title-d"]{
-				display: none!important;
-			}
-			
-			.bank_front{
-				width: 80%;
-				margin-left: 10%;
-				height: 158px;
-			}
-		</style>
-	</head>
+        }
+        
+        .selfModal .dialog_step_wrap {
+            align-items: center;
+        }
+        
+        .selfModal .dialog_step_wrap img {
+            width: 13px;
+            height: 13px;
+            margin-right: 20px;
+        }
+        
+        .selfModal .dialog_step_text {
+            color: #000000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .selfModal .dialog_step_bottom_text {
+            color: #dddddd;
+            font-size: 12px;
+        }
+        
+        .selfModal .dialog_content_wrap .col {
+            padding: 10px 0px;
+        }
+        
+        .selfModal .dialog_content_item_wrap {
+            position: relative;
+        }
+        
+        .selfModal .addMoney {
+            position: absolute;
+            top: -5px;
+            right: -30px;
+            width: 66px;
+            height: 45px;
+        }
+        
+        .first_step_money,
+        .second_step_money,
+        .third_step_money {
+            position: absolute;
+            top: 5px;
+            right: -10px;
+            font-size: 24px;
+            color: #FF5445;
+            font-weight: bold;
+        }
+        
+        .support_title {
+            color: #424242;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            padding: 25px 0px;
+        }
+        
+        .bank_item_name {
+            justify-content: center;
+            font-size: 18px;
+            padding: 10px;
+            border-bottom: 1px solid #DFDFDF;
+        }
+        
+        .bank_list_wrap {
+            padding-bottom: 20px;
+            overflow: auto;
+        }
+        
+        [data-type="date"] [data-id="picker-d"] {
+            display: none;
+        }
+        
+        [data-type="date"] .mui-picker {
+            width: 50%;
+        }
+        
+        [data-type="date"] .mui-dtpicker-title h5 {
+            width: 50%;
+        }
+        
+        [data-type="date"] [data-id="title-d"] {
+            display: none!important;
+        }
+        
+        .bank_front {
+            width: 80%;
+            margin-left: 10%;
+            height: 158px;
+        }
+    </style>
+</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav" >
-		    <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
-		    <span class="header_close">关闭</span>
-		    <h1 class="mui-title">支付方式</h1>
-		    <img src="../images/custom_icon.png" />
-		</header>
-		
-		<div class="mui-content" style="background: #F2F2F2; margin-top: 20px;">
-			
-			<div class="row item_name_wrap">
-	         	<span class="item_name_text">持卡人</span>
-	         	<input type="text"  class="phone_input realName" placeholder="输入姓名"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap">
-	         	<span class="item_name_text">身份证</span>
-	         	<input type="text"  class="phone_input idCardNo" placeholder="输入身份证号码"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap" style="margin-top: 10px;" onclick="changeCardType();">
-	         	<span class="item_name_text">卡类型</span>
-	         	<input type="text"  class="phone_input cardTypeInput" readonly="readonly" placeholder="请选择卡类型"/>
-	         	<span style="color: #DFDFDF">></span>
-	         </div>
-	         
-	         <div class="row item_name_wrap">
-	         	<span class="item_name_text card_type_text">借记卡号</span>
-	         	<input type="tel"  class="phone_input cardNo" placeholder="输入银行卡号码"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap">
-	         	<span class="item_name_text">所属银行</span>
-	         	<input type="text"  class="phone_input bankName" placeholder="输入卡号后点击获取" readonly="readonly" onclick="showBankPicker();"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap hideClass" >
-	         	<span class="item_name_text">有效期</span>
-	         	<input type="text"  class="phone_input item_time" placeholder="月份/年份" readonly="readonly" onclick="lookTime();"/>
-	         	<img src="../images/warning_icon.png" class="time_icon" onclick="lookTimeInfo();"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap hideClass" >
-	         	<span class="item_name_text">CVV2</span>
-	         	<input type="tel" maxlength="3" class="phone_input cvvInput" placeholder="输入3位数字"/>
-	         	<img src="../images/warning_icon.png" class="time_icon" onclick="cvvInfo();"/>
-	         </div>
-	         
-	         <div class="row item_name_wrap" style="margin-top: 10px;">
-	         	<span class="item_name_text">预留手机</span>
-	         	<input type="tel"  class="phone_input phone" placeholder="输入11位手机号码"
-	         		maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
-	         </div>
-	         
-	         <div class="row item_name_wrap" style="position: relative; ">
-	         	<span class="item_name_text" >验证码</span>
-	         	<input type="tel"  class="phone_input flex_item_input"  placeholder="输入短信验证码"/>
-	         	
-	         	<span class="time_style" onclick="getCode();">获取验证码</span>
-	         </div>
-	         
-	         
-	         
-	         <div class="row look_bank" onclick="showBankPicker();">
-	         	<span style="flex: 1;"></span>
-	         	<img src="../images/bank_warning_icon.png"/>
-	         	<span style="color: #FFA39B; font-size: 14px;">查看支持的银行</span>
-	         </div>
-	         <button type="button" class="mui-btn mui-btn-link next" onclick="pay();">下一步</div>
-            
-		</div>
-		
-		<!--弹窗-->
-        <div class="modal-mask row hideClass selfModal backModal" >
-        		<div class="modal-dialog" >
-        			<img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
-		        <div class="modal-content">
-		            <img src="../images/close_dialog_bg.png" class="conten_bg"/>
-		            <div class="col dialog_content_wrap">
-		            		<div class="col dialog_content_item_wrap">
-		            			<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" class="first_step_icon"/>
-			            			<span class="dialog_step_text">真实身份认证</span>
-			            		</div>
-			            		<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
-			            			<span class="dialog_step_bottom_text">完成即可获得0元现金</span>
-			            		</div>
-			            		
-			            		<img src="../images/add_money_icon.png" class="addMoney"/>
-			            		<span class="first_step_money">0</span>
-		            		</div>
-		            		
-		            		<div class="col dialog_content_item_wrap">
-		            			<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" class="second_step_icon"/>
-			            			<span class="dialog_step_text">填写个人信息</span>
-			            		</div>
-			            		<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
-			            			<span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
-			            		</div>
-			            		
-			            		<img src="../images/add_money_icon.png" class="addMoney"/>
-			            		<span class="second_step_money">0</span>
-		            		</div>
-		            		
-		            		<div class="col dialog_content_item_wrap">
-		            			<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" class="third_step_icon"/>
-			            			<span class="dialog_step_text">完成信用评估</span>
-			            		</div>
-			            		<div class="row dialog_step_wrap">
-			            			<img src="../images/agress_icon.png" style="visibility: hidden;"/>
-			            			<span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
-			            		</div>
-			            		
-			            		<img src="../images/add_money_icon.png" class="addMoney"/>
-			            		<span class="third_step_money">0</span>
-		            		</div>
-		            		
-		            </div>
-		            <img src="../images/again_get_money.png" class="dialog_bottom_btn"/>
-		        </div>
-	        </div>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
+        <span class="header_close">关闭</span>
+        <h1 class="mui-title">支付方式</h1>
+        <img src="../images/custom_icon.png" />
+    </header>
+
+    <div class="mui-content" style="background: #F2F2F2; margin-top: 20px;">
+
+        <div class="row item_name_wrap">
+            <span class="item_name_text">持卡人</span>
+            <input type="text" class="phone_input realName" placeholder="输入姓名" />
         </div>
-        <!--支持的银行-->
-		<div class="modal-mask row hideClass selfModal lookBankModal" >
-        		<div class="modal-dialog" style="max-height: 397px;">
-        			<img src="../images/close_icon.png" class="close_style" onclick="closeBankListDialg();" />
-		        <div class="modal-content">
-		        		<div class="support_title">支持的银行</div>
-		        		<div class="bank_list_wrap">
-		        			
-	         		</div>
-		        	</div>
-        		</div>
+
+        <div class="row item_name_wrap">
+            <span class="item_name_text">身份证</span>
+            <input type="text" class="phone_input idCardNo" placeholder="输入身份证号码" />
         </div>
-        <!--有效期说明-->
-		<div class="modal-mask row hideClass selfModal timeInfoModal" >
-        		<div class="modal-dialog" style="max-height: 397px;">
-        			<div class="modal-content">
-		        		<div class="support_title">有效期说明</div>
-		        		<img src="../images/bank_front.png" class="bank_front" />
-		        		<div style="text-align: left; padding-left: 10%;">
-		        			有效期是打印在信用卡正面卡号下方。 
-		        		</div>
-		        		<div style="text-align: left; padding-left: 10%;">
-		        			标准格式为月份在前，年份在后的一串数字。
-		        		</div>
-		        		
-		        		<button type="button" class="mui-btn mui-btn-link modal_sure" 
-		        			onclick="modalSure();">知道了</div>
+
+        <div class="row item_name_wrap" style="margin-top: 10px;" onclick="changeCardType();">
+            <span class="item_name_text">卡类型</span>
+            <input type="text" class="phone_input cardTypeInput" readonly="readonly" placeholder="请选择卡类型" />
+            <span style="color: #DFDFDF">></span>
+        </div>
+
+        <div class="row item_name_wrap">
+            <span class="item_name_text card_type_text">借记卡号</span>
+            <input type="number" class="phone_input cardNo" placeholder="输入银行卡号码" />
+        </div>
+
+        <div class="row item_name_wrap">
+            <span class="item_name_text">所属银行</span>
+            <input type="text" class="phone_input bankName" placeholder="输入卡号后点击获取" readonly="readonly" onclick="showBankPicker();" />
+        </div>
+
+        <div class="row item_name_wrap hideClass">
+            <span class="item_name_text">有效期</span>
+            <input type="text" class="phone_input item_time" placeholder="月份/年份" readonly="readonly" onclick="lookTime();" />
+            <img src="../images/warning_icon.png" class="time_icon" onclick="lookTimeInfo();" />
+        </div>
+
+        <div class="row item_name_wrap hideClass">
+            <span class="item_name_text">CVV2</span>
+            <input type="number" maxlength="3" class="phone_input cvvInput" placeholder="输入3位数字" />
+            <img src="../images/warning_icon.png" class="time_icon" onclick="cvvInfo();" />
+        </div>
+
+        <div class="row item_name_wrap" style="margin-top: 10px;">
+            <span class="item_name_text">预留手机</span>
+            <input type="number" class="phone_input phone" placeholder="输入11位手机号码" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="value=value.replace(/[^\d]/g,'')" />
+        </div>
+
+        <div class="row item_name_wrap" style="position: relative; ">
+            <span class="item_name_text">验证码</span>
+            <input type="number" class="phone_input flex_item_input" placeholder="输入短信验证码" />
+
+            <span class="time_style" onclick="getCode();">获取验证码</span>
+        </div>
+
+
+
+        <div class="row look_bank" onclick="showBankPicker();">
+            <span style="flex: 1;"></span>
+            <img src="../images/bank_warning_icon.png" />
+            <span style="color: #FFA39B; font-size: 14px;">查看支持的银行</span>
+        </div>
+        <button type="button" class="mui-btn mui-btn-link next" onclick="pay();">下一步</button>
+
+    </div>
+
+    <!--弹窗-->
+    <div class="modal-mask row hideClass selfModal backModal">
+        <div class="modal-dialog">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
+            <div class="modal-content">
+                <img src="../images/close_dialog_bg.png" class="conten_bg" />
+                <div class="col dialog_content_wrap">
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" class="first_step_icon" />
+                            <span class="dialog_step_text">真实身份认证</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="first_step_money">0</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" class="second_step_icon" />
+                            <span class="dialog_step_text">填写个人信息</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="second_step_money">0</span>
+                    </div>
+
+                    <div class="col dialog_content_item_wrap">
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" class="third_step_icon" />
+                            <span class="dialog_step_text">完成信用评估</span>
+                        </div>
+                        <div class="row dialog_step_wrap">
+                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
+                            <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
+                        </div>
+
+                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <span class="third_step_money">0</span>
+                    </div>
+
+                </div>
+                <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
+            </div>
+        </div>
+    </div>
+    <!--支持的银行-->
+    <div class="modal-mask row hideClass selfModal lookBankModal">
+        <div class="modal-dialog" style="max-height: 397px;">
+            <img src="../images/close_icon.png" class="close_style" onclick="closeBankListDialg();" />
+            <div class="modal-content">
+                <div class="support_title">支持的银行</div>
+                <div class="bank_list_wrap">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--有效期说明-->
+    <div class="modal-mask row hideClass selfModal timeInfoModal">
+        <div class="modal-dialog" style="max-height: 397px;">
+            <div class="modal-content">
+                <div class="support_title">有效期说明</div>
+                <img src="../images/bank_front.png" class="bank_front" />
+                <div style="text-align: left; padding-left: 10%;">
+                    有效期是打印在信用卡正面卡号下方。
+                </div>
+                <div style="text-align: left; padding-left: 10%;">
+                    标准格式为月份在前，年份在后的一串数字。
+                </div>
+
+                <button type="button" class="mui-btn mui-btn-link modal_sure" onclick="modalSure();">知道了</div>
 		        	</div>
         		</div>
         </div>
@@ -545,9 +545,9 @@
 	            })
 	        }
 			
-			$('.phone_input').on('touchstart',function () {
-		           $(this).focus();
-		    })
+			// $('.phone_input').on('touchstart',function () {
+		    //        $(this).focus();
+		    // })
 			
 			
 			$('body').on('click', '.bank_list_wrap .bank_item_name', function() {

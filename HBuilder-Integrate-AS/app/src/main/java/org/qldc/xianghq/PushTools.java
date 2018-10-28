@@ -4,7 +4,11 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.dcloud.common.DHInterface.IWebview;
+import io.dcloud.feature.internal.sdk.SDK;
 
 /**
  * Description:
@@ -50,6 +54,9 @@ public class PushTools {
     public static void startActivityWithAppIsRuning(Context context) {
         int isAppRuning = isAppAlive(context, context.getPackageName());
         if (isAppRuning != 0) {
+            //ArrayList<IWebview> weblist = SDK.obtainAllIWebview();
+
+
             Intent newIntent = new Intent(context, io.dcloud.PandoraEntry.class);
 
             newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

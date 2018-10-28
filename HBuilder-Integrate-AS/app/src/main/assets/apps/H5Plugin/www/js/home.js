@@ -1780,8 +1780,15 @@ window.addEventListener('openKouzi', function(event) {
 var backcount = 0;
 
 function fastQuit() {
+
     //双击退出登录
     mui.back = function() {
+        var display = $(".qimo_chatpup").css("display");
+        if (display == "block") {
+            $(".qimo_chatpup").css("display", "none");
+            return;
+        }
+
         //console.log(plus.webview.currentWebview().id);
         if (plus.webview.currentWebview().id == "home.html") {
 
@@ -1800,6 +1807,8 @@ function fastQuit() {
 }
 
 $(".contact_service").click(function() {
+    qimoChatClick();
+    return;
     mui.openWindow({
         url: 'custom.html',
         id: 'custom.html',
