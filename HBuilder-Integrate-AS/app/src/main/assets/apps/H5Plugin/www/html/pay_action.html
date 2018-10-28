@@ -52,8 +52,6 @@
 			
 			.phone_input {
 			    width: 70%;
-			    height: 58px!important;
-			    line-height:58px!important;
 			    margin: 0px!important;
 			    padding: 0px!important;
 			    display: inline-block;
@@ -167,18 +165,7 @@
 				height: 100%;*/
 			}
 			
-			.selfModal .dialog_content_wrap{
-				position: absolute;
-				top: 55%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				-webkit-transform: translate(-50%, -50%);
-				background: #ffffff;
-				z-index: 2;
-				width: 80%;
-				align-items: center;
-				
-			}
+			
 			
 			.selfModal .dialog_step_wrap{
 				align-items: center;
@@ -228,14 +215,7 @@
 	            font-weight: bold;
 	        }
 			
-			.selfModal .dialog_bottom_btn{
-				position: absolute;
-				bottom: 10px;
-				width: 208px;
-				height: 70px;
-				left: 50%;
-				margin-left: -104px;
-			}
+			
 			
 			.support_title{
 				color: #424242; font-size: 18px; text-align: center; font-weight: bold; padding: 25px 0px;
@@ -813,6 +793,11 @@
 							token: token,
 							smsCode: $(".flex_item_input").val()
 						}
+
+						$(".time_style").text("获取验证码");
+						clearInterval(intervalObj);
+						time = 120;
+
 						Global.commonAjax(
 							{
 								url: "pay/changpay/submit",
@@ -837,9 +822,9 @@
 							},
 							function(err){
 								mui.alert(err, '警告', function() {});
-								$(".time_style").text("获取验证码");
-								clearInterval(intervalObj);
-								time = 0;
+								// $(".time_style").text("获取验证码");
+								// clearInterval(intervalObj);
+								// time = 120;
 							}
 						)
 						

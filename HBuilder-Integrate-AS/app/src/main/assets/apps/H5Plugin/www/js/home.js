@@ -19,42 +19,43 @@ var tabIndex = 0;
 //Global.showLoading();
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
-	
-//	mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+    //  mui('body').on('tap','a',function(){document.location.href=this.href;});
     //友盟统计
-    if(mui.os.android){
+    if (mui.os.android) {
         mainActivity = plus.android.runtimeMainActivity();
         MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
         MobclickAgent.onPageStart("MainScreen");
-    }else{
+    } else {
         //IOS 友盟统计
     }
-	
-	checkUpdateApk();
-	
-	var self = plus.webview.currentWebview();
+
+    checkUpdateApk();
+
+    var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
-    if(!isfirst){
-    		//用户信息接口
-    		loginByToken();
-      	checkPermission();
-    }else{
-    		//系统参数接口
-	    initData();
+    if (!isfirst) {
+        //用户信息接口
+        loginByToken();
+        checkPermission();
+        setAction();
+    } else {
+        //系统参数接口
+        initData();
 
-	    //首页接口
-	    mainPageInit();
+        //首页接口
+        mainPageInit();
 
-	    //获取最新引导页
-	    getStartUpPage();
+        //获取最新引导页
+        getStartUpPage();
 
-	    //分享
-	    updateSerivces();
-	    //是否显示发现页面
-	    isShowFindPage = self.isShowFindPage;
+        //分享
+        updateSerivces();
+        //是否显示发现页面
+        isShowFindPage = self.isShowFindPage;
     }
 
-    fastQuit(); 
+    fastQuit();
     //红包左右晃动
     setInterval(function() {
         gaibian();
@@ -63,7 +64,7 @@ mui.plusReady(function() {
 
     //关闭所有其他页面
     //closeOtherWindow();
-	//$("#tabbar-with-contact").addClass("hideClass");
+    //$("#tabbar-with-contact").addClass("hideClass");
 
     $(".mui-bar-tab .mui-tab-item").on("touchstart", function() {
         console.log("touchstart---")
@@ -86,7 +87,7 @@ mui.plusReady(function() {
         } else if (tabIndex == 1) {
             //初始化
             updatePage(tabIndex);
-//          moneyPageInit();
+            //          moneyPageInit();
             if (makeMoneySwiperObj) {
                 makeMoneySwiperObj.destroy();
             }
@@ -98,19 +99,19 @@ mui.plusReady(function() {
             });
 
         } else if (tabIndex == 2) {
-        		var clickType = {
-        			source: myStorage.getItem("user").sourceCode
-        		}
-            plus.statistic.eventTrig("findpage", JSON.stringify(clickType) )
+            var clickType = {
+                source: myStorage.getItem("user").sourceCode
+            }
+            plus.statistic.eventTrig("findpage", JSON.stringify(clickType))
             updatePage(tabIndex);
         } else if (tabIndex == 3) {
             //我的页面
 
             updatePage(tabIndex);
 
-//          myTabInit();
-//          findList = [];
-			console.log("tabIndex3333");
+            //          myTabInit();
+            //          findList = [];
+            console.log("tabIndex3333");
         }
 
     });
@@ -118,145 +119,155 @@ mui.plusReady(function() {
 });
 
 //检查APP更新
-function checkUpdateApk(){
-	if(mui.os.ios){
-	     //...操作
-	     return;
-	}
-	
-	Global.commonAjax(
-		{
-			url: "app/check/version"
-		},
-		function(data){
-			plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
-//			    console.log(wgtinfo.version); 
-			    if(wgtinfo && wgtinfo.version && data && data.version){
-			    		
-				    if(versionfunegt(data.version, wgtinfo.version)){
-				    	console.log(wgtinfo.version+"-----"+data.version)
-						// data.version  新
-						if(data.isForce == "Y"){
-							//强制升级 
-							if(data.osType == "android"){
-								$(".updateApp").removeClass("hideClass");
-								$(".update_msg").html(data.versionExplain);
-								mui.back = function(){};
-								$(".updateAction").click(function(){
-									//android 手机
-									if(data.urlType == "store"){
-										//商店地址
-										var mainAct = plus.android.runtimeMainActivity();
-										plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-										
-									}else if(data.urlType == "apk"){
-										//下载文件
-										if(data.downloadUrl){
-											downloadAPP(data.downloadUrl);
-											$(".update_content_bg").addClass("hideClass");
-										}
-										
-									}
-								})
-								
-								
-							}else{
-								//IOS 强制更新
-							}
-							
-						}else{
-							//非强制更新
-							var btnArray = ['以后再说', '现在升级'];
-							mui.confirm(data.versionExplain, '提示',btnArray, function(e) {
-								if(e.index == 1){
-									//现在升级
-									if(data.osType == "android"){
-										//android 手机
-										if(data.urlType == "store"){
-											//商店地址
-											var mainAct = plus.android.runtimeMainActivity();
-											plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
-											
-										}else if(data.urlType == "apk"){
-											//下载文件
-											downloadAPP(data.downloadUrl)
-										}else{
-											
-										}
-									}
-									
-								}else{
-									//否
-									console.log("不升级");
-								}
-								
-							});
-						}
-					}
-			    }
-			});
+function checkUpdateApk() {
 
-			
-		}
-	)
+    Global.commonAjax({
+            url: "app/check/version"
+        },
+        function(data) {
+            plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+                // data = {version: '0.0.2', isForce: "Y", osType: "ios", urlType: "store1",
+                //     versionExplain: "9999", downloadUrl: "http://esales2.minshenglife.com:8001/index.html"}
+                if (wgtinfo && wgtinfo.version && data && data.version) {
+
+                    if (versionfunegt(data.version, wgtinfo.version)) {
+                        // if(versionfunegt(wgtinfo.version, data.version )){
+                        // alert(wgtinfo.version+"-----"+data.version)
+                        // data.version  新
+                        if (data.isForce == "Y") {
+                            //强制升级 
+                            if (data.osType == "android") {
+                                $(".updateApp").removeClass("hideClass");
+                                $(".update_msg").html(data.versionExplain);
+                                mui.back = function() {};
+                                $(".updateAction").click(function() {
+                                    //android 手机
+                                    if (data.urlType == "store") {
+                                        //商店地址
+                                        var mainAct = plus.android.runtimeMainActivity();
+                                        plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+
+                                    } else if (data.urlType == "apk") {
+                                        //下载文件
+                                        if (data.downloadUrl) {
+                                            downloadAPP(data.downloadUrl);
+                                            $(".update_content_bg").addClass("hideClass");
+                                        }
+
+                                    }
+                                })
+
+
+                            } else {
+                                //IOS 强制更新
+                                mui.alert(data.versionExplain, '提示', function() {
+                                    plus.runtime.openURL(data.downloadUrl, function() {
+                                        mui.toast("打开失败");
+                                    });
+                                })
+                            }
+
+                        } else {
+                            //非强制更新
+                            var btnArray = ['以后再说', '现在升级'];
+                            mui.confirm(data.versionExplain, '提示', btnArray, function(e) {
+                                if (e.index == 1) {
+                                    //现在升级
+                                    if (mui.os.android) {
+                                        if (data.osType == "android") {
+                                            //android 手机
+                                            if (data.urlType == "store") {
+                                                //商店地址
+                                                var mainAct = plus.android.runtimeMainActivity();
+                                                plus.android.invoke("org.qldc.xianghq.Tools", "goToMarket", mainAct);
+
+                                            } else if (data.urlType == "apk") {
+                                                //下载文件
+                                                downloadAPP(data.downloadUrl)
+                                            } else {
+
+                                            }
+                                        }
+                                    } else {
+                                        //ios
+                                        plus.runtime.openURL(data.downloadUrl, function() {
+                                            mui.toast("打开失败");
+                                        });
+
+                                    }
+
+                                } else {
+                                    //否
+                                    console.log("不升级");
+                                }
+
+                            });
+                        }
+                    }
+                }
+            });
+
+
+        }
+    )
 }
 
 //升级APP
-function downloadAPP(url){
-	console.log("下载："+url);
-	var w = plus.nativeUI.showWaiting("下载升级文件...");
-	var dtask = plus.downloader.createDownload(url, {filename:"_doc/update/"}, function(d, status){
-		if(status == 200){
-			plus.nativeUI.closeWaiting();  
-			//下载完成 
-			mui.alert("下载完成是否安装最新版本？", '提示', function() {
-				plus.runtime.install(d.filename, {}, function(){
-				
-				}, function(){ 
-					
-				});
-			});
-			
-		}else{
-			alert("下载失败");
-			plus.nativeUI.closeWaiting(); 
-		}
-		
-	});
-	dtask.start();
-	dtask.addEventListener("statechanged", function(task,status){
-		switch(task.state) {
+function downloadAPP(url) {
+    console.log("下载：" + url);
+    var w = plus.nativeUI.showWaiting("下载升级文件...");
+    var dtask = plus.downloader.createDownload(url, { filename: "_doc/update/" }, function(d, status) {
+        if (status == 200) {
+            plus.nativeUI.closeWaiting();
+            //下载完成 
+            mui.alert("下载完成是否安装最新版本？", '提示', function() {
+                plus.runtime.install(d.filename, {}, function() {
+
+                }, function() {
+
+                });
+            });
+
+        } else {
+            alert("下载失败");
+            plus.nativeUI.closeWaiting();
+        }
+
+    });
+    dtask.start();
+    dtask.addEventListener("statechanged", function(task, status) {
+        switch (task.state) {
             case 1: // 开始
                 w.setTitle("　　 开始下载...　　 ");
-            break;
+                break;
             case 2: // 已连接到服务器
                 w.setTitle("　　 开始下载...　　 ");
-            break;
+                break;
             case 3:
-                var a = task.downloadedSize/task.totalSize*100;
-                w.setTitle("　　 已下载"+parseInt(a)+"%　　 ");
-            break;
+                var a = task.downloadedSize / task.totalSize * 100;
+                w.setTitle("　　 已下载" + parseInt(a) + "%　　 ");
+                break;
             case 4: // 下载完成
                 w.close();
-            break;
+                break;
         }
-	})
+    })
 }
 
 //小数点 version 比较 ver1 大 true
-var versionfunegt = function (ver1,ver2) {
+var versionfunegt = function(ver1, ver2) {
     var version1pre = parseFloat(ver1);
     var version2pre = parseFloat(ver2);
-    var version1next =  ver1.replace(version1pre + ".","");
-    var version2next =  ver2.replace(version2pre + ".","");
-    if(version1pre > version2pre){
+    var version1next = ver1.replace(version1pre + ".", "");
+    var version2next = ver2.replace(version2pre + ".", "");
+    if (version1pre > version2pre) {
         return true;
-    }else if(version1pre < version2pre){
+    } else if (version1pre < version2pre) {
         return false;
-    }else{
-        if(version1next >= version2next){
+    } else {
+        if (version1next >= version2next) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -264,27 +275,28 @@ var versionfunegt = function (ver1,ver2) {
 
 
 //检查权限
-function checkPermission(){
-	return;
-	if(mui.os.ios || (mui.os.android&&parseFloat(mui.os.version)<6.0)){
-	     //...操作
-	     return;
-	 }
-	var mainAct = plus.android.runtimeMainActivity();
-	plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
-	var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
-			"success": function() {
-				//申请权限成功或已经获取到了权限都会执行到这里
+function checkPermission() {
+    return;
+    if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 6.0)) {
+        //...操作
+        return;
+    }
+    var mainAct = plus.android.runtimeMainActivity();
+    plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
+    var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+        "success": function() {
+            //申请权限成功或已经获取到了权限都会执行到这里
 
-			},
-			"failure": function() {
-				plus.runtime.quit();
-			}
-		});
-	//调用申请权限的静态方法
-	//照相
-	plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
-		"android.permission-group.STORAGE"], callBack);
+        },
+        "failure": function() {
+            plus.runtime.quit();
+        }
+    });
+    //调用申请权限的静态方法
+    //照相
+    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
+        "android.permission-group.STORAGE"
+    ], callBack);
 
 }
 
@@ -345,13 +357,13 @@ function myTabInit() {
 
     console.log(updateData.isPay);
     //付费了
-    if(updateData && (updateData.isPay == "Y")){
-//  		$(".credit_item").addClass("hideClass");
-//  		$(".wallet_item").css("margin-bottom", "20px");
-		$(".recommand_icon").addClass("hideClass");
-    }else{
-    		$(".recommand_icon").removeClass("hideClass");
-    		$(".newFindText").css("margin-right", "60px");
+    if (updateData && (updateData.isPay == "Y")) {
+        //          $(".credit_item").addClass("hideClass");
+        //          $(".wallet_item").css("margin-bottom", "20px");
+        $(".recommand_icon").addClass("hideClass");
+    } else {
+        $(".recommand_icon").removeClass("hideClass");
+        $(".newFindText").css("margin-right", "60px");
     }
 }
 
@@ -408,9 +420,9 @@ $(".goMakeMoneyClass").click(function() {
         }
 
     })
-//显示发现页面
+    //显示发现页面
 var isShowFindPage;
-    //通过token 登录
+//通过token 登录
 function loginByToken() {
     if (myStorage && myStorage.getItem("userToken")) {
 
@@ -428,21 +440,21 @@ function loginByToken() {
                     //有新口子
                     //myStorage.setItem("toFindAd", data.toFindAd);
                     var toFindPage = myStorage.getItem("toFindPage");
-                    if(!toFindPage){
-                    		return;
+                    if (!toFindPage) {
+                        return;
                     }
-					$('.selfModal').removeClass('hideClass');
-					$('.selfModal .modal-dialog').addClass('hideClass');
-					$('.selfModal .modal-dialog .modal-content .conten_bg')
+                    $('.selfModal').removeClass('hideClass');
+                    // $('.selfModal .modal-dialog').addClass('hideClass');
+                    $('.selfModal .modal-dialog .modal-content .conten_bg')
                         .attr("src", toFindPage);
-                    
-					Global.showLoading();
-    					content_id.onload = function(){
-    						Global.hideLoading();
-    						$('.selfModal .modal-dialog').removeClass('hideClass');
-    					}
-    
-                    
+
+                    // Global.showLoading();
+                    // content_id.onload = function() {
+                    //     Global.hideLoading();
+                    //     $('.selfModal .modal-dialog').removeClass('hideClass');
+                    // }
+
+
                     //Global.imgLoading(content_id, "");
                 } else {
                     $('.selfModal').addClass('hideClass');
@@ -456,30 +468,30 @@ function loginByToken() {
                 myStorage.setItem("wallet", data.wallet);
                 //token
                 myStorage.setItem("userToken", data.userToken);
-                if(myStorage.getItem("userToken") != data.userToken){
-                		myStorage.removeItem("userToken"); 
-                		myStorage.setItem("userToken", data.userToken);
+                if (myStorage.getItem("userToken") != data.userToken) {
+                    myStorage.removeItem("userToken");
+                    myStorage.setItem("userToken", data.userToken);
                 }
                 //系统参数接口
-			    initData();
+                initData();
 
-			    //首页接口
-			    mainPageInit();
+                //首页接口
+                mainPageInit();
 
-			    //获取最新引导页
-			    getStartUpPage();
+                //获取最新引导页
+                getStartUpPage();
 
-			    //分享
-			    updateSerivces();
-				// N 显示old
-				isShowFindPage = data.isShowFindPage;
-			    if(data && (data.isShowFindPage == "N")){
-					$(".newFind").addClass("hideClass");
-					$(".oldFind").removeClass("hideClass");
-			    }else{
+                //分享
+                updateSerivces();
+                // N 显示old
+                isShowFindPage = data.isShowFindPage;
+                if (data && (data.isShowFindPage == "N")) {
+                    $(".newFind").addClass("hideClass");
+                    $(".oldFind").removeClass("hideClass");
+                } else {
                     $(".newFind").removeClass("hideClass");
                     $(".oldFind").addClass("hideClass");
-			    }
+                }
 
             },
             function(error) {
@@ -509,12 +521,12 @@ function initData() {
             //myStorage.setItem("inviterFee", data.inviterFee);
             //完成支付的返现金额
             myStorage.setItem("payReturn", data.payReturn);
-            
-            if(data && data.toFindPage){
-            		myStorage.setItem("toFindPage", data.toFindPage);
+
+            if (data && data.toFindPage) {
+                myStorage.setItem("toFindPage", data.toFindPage);
             }
-            
-            
+
+
         },
         function(err) {
             console.log(err)
@@ -558,8 +570,8 @@ function moneyPageInit() {
                 if (updateData && updateData.balance) {
                     //可用余额
                     $(".balance").html(updateData.balance);
-                }else{
-                		$(".balance").html("0");
+                } else {
+                    $(".balance").html("0");
                 }
 
 
@@ -637,12 +649,12 @@ $('.timeType').click(function() {
     $('.preType').css('color', '#333333');
     if (currentType == 'TIME') {
         //当前期限
-        isDesc = !isDesc; 
+        isDesc = !isDesc;
     }
-    if(isDesc){
-    		$(".sortImg").attr('src', "../images/sort_front.png");
-    }else{
-    		$(".sortImg").attr('src', "../images/sort_back.png");
+    if (isDesc) {
+        $(".sortImg").attr('src', "../images/sort_front.png");
+    } else {
+        $(".sortImg").attr('src', "../images/sort_back.png");
     }
 
     currentType = 'TIME';
@@ -664,9 +676,8 @@ $('.preType').click(function() {
 });
 
 //列表点击 埋点
-// $("body >*").bind("touchstart", function(){});
+mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
-$('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function() {
     //mui.toast("kaishi--- ");
     var index = $(this).data("index");
     $(this).addClass("clicked");
@@ -675,13 +686,13 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
         return;
     }
     var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		goodsCode: item.goodsCode,
-		page: "find"
-    }
-    //mui.toast("kaishi ");
-    plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType) )
-    //mui.toast("end ");       
+            source: myStorage.getItem("user").sourceCode,
+            goodsCode: item.goodsCode,
+            page: "find"
+        }
+        //mui.toast("kaishi ");
+    plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
+        //mui.toast("end ");
     var params = {
         goodsCode: item.goodsCode
     }
@@ -707,8 +718,8 @@ $('body').on('click', '.mui-table-view-condensed li .mui-slider-cell', function(
         }
     )
 
-//  e.preventdefault();
-    
+    //  e.preventdefault();
+
 });
 
 var findList = [];
@@ -755,8 +766,8 @@ function payedGoodslist(refreshType) {
 function pulldownRefresh() {
     current = 1;
     findList = [];
-	//mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-   	document.body.querySelector('.mui-table-view-condensed').innerHTML = "";
+    //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+    document.body.querySelector('.mui-table-view-condensed').innerHTML = "";
     $(".mui-table-view-condensed").html = "";
 
     payedGoodslist(0);
@@ -782,11 +793,11 @@ function setRefreshData(refreshType, cells, isAll) {
     //当前点击的 数据下标
     var index = 0;
     var table = document.body.querySelector('.mui-table-view-condensed');
-    console.log(refreshType +"----"+isAll); 
+    console.log(refreshType + "----" + isAll);
     if (refreshType == 0) {
         //下拉刷新
         table.innerHTML = "";
-        $(".mui-table-view-condensed").html = ""; 
+        $(".mui-table-view-condensed").html = "";
         mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
         mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
     } else {
@@ -799,10 +810,10 @@ function setRefreshData(refreshType, cells, isAll) {
     for (var i = 0, len = cells.length; i < len; i++) {
         var li = document.createElement('li');
         var item = cells[i];
-        if(item.clicked){
-        		li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
-        }else{
-        		li.className = 'mui-table-view-cell mui-table-view-cell-item';
+        if (item.clicked && (currentType != "HISTORY")) {
+            li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
+        } else {
+            li.className = 'mui-table-view-cell mui-table-view-cell-item';
         }
 
         li.innerHTML = '<div class="mui-slider-cell" data-index="' + index + '">' +
@@ -825,23 +836,35 @@ function setRefreshData(refreshType, cells, isAll) {
         //$(".mui-table-view-condensed").append(li);
         index += 1;
     }
-	
-	mui('#pullrefresh').pullRefresh().refresh(true);
+
+    mui('#pullrefresh').pullRefresh().refresh(true);
     if (refreshType == 0) {
         //下拉刷新
         mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 
-        $('html, body').animate({
-	        scrollTop: -$(".mui-table-view-condensed").offset().top
-	    }, 20);
-		$(".oldFind").css("position", "static");
+        if (mui.os.android) {
+            $('html, body').animate({
+                scrollTop: -$(".mui-table-view-condensed").offset().top
+            }, 20);
+            $(".oldFind").css("position", "static");
+        } else {
+            mui('#pullrefresh').scroll().scrollTo(0, 0);
+        }
+
+
+
+
+
+        // $(".oldFind").css("position", "relative");
+        // $(".oldFind").css("top", "0px");
+
     } else {
         //上拉加载
-		if(findList.length < 10){
-      		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
-    		}else{
-    			
-    		}
+        if (findList.length < 10) {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+        } else {
+
+        }
     }
 }
 
@@ -878,23 +901,23 @@ function setGetMoneyBanner(listData) {
         if (that.data("url") == "undefined") {
             console.log(that.data("url") + '-----===');
             return;
-        }else if(that.data("url") == "findTab"){
-        		var clickType = {
-        			source: myStorage.getItem("user").sourceCode
-        		}
-            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType) )
-        		goToFindTab();
-        }else{
-        		mui.openWindow({
-	            url: 'webview.html',
-	            id: 'webview.html?url=' + that.data("url"),
-	            waiting: {
-	                autoShow: false
-	            }
-	        })
+        } else if (that.data("url") == "findTab") {
+            var clickType = {
+                source: myStorage.getItem("user").sourceCode
+            }
+            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType))
+            goToFindTab();
+        } else {
+            mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url=' + that.data("url"),
+                waiting: {
+                    autoShow: false
+                }
+            })
         }
 
-        
+
     })
 
 
@@ -953,12 +976,12 @@ function apply(params) {
 
             }
             if (!params) {
-            		
-            		var clickType = {
-	        			source: myStorage.getItem("user").sourceCode
-	        		}
-	            plus.statistic.eventTrig("apply", JSON.stringify(clickType) )
-            
+
+                var clickType = {
+                    source: myStorage.getItem("user").sourceCode
+                }
+                plus.statistic.eventTrig("apply", JSON.stringify(clickType))
+
                 mui.openWindow({
                     url: url,
                     id: url,
@@ -979,121 +1002,122 @@ function apply(params) {
 
 var updateData;
 //更新页面
-function updatePage(tabNum){
-	var url = "user/input/status";
-	if(tabNum == -1){
-		url = "user/input/status?isShowPic=true"
-	}
-	Global.commonAjax({ url: url },
+function updatePage(tabNum) {
+    var url = "user/input/status";
+    if (tabNum == -1) {
+        url = "user/input/status?isShowPic=true"
+    }
+    Global.commonAjax({ url: url },
         function(data) {
-        		updateData = data;
-        		if(tabNum == 1){
-            		//赚钱页面
-            		moneyPageInit();
-            }else if(tabNum == 3){
-            		//我的页面
-            		myTabInit();
-        			findList = [];
-            }else if(tabNum == 2){
-            		//发现页面
-            		initFindPage(data);
-            } else if(tabNum == 0){
-            		//赚钱页面
-            		moneyPageInit();
-            		//我的页面
-            		myTabInit();
-        			findList = [];
-        			//发现页面
-            		initFindPage(data);
-            		console.log("9999-----")
-            		if(data && (data.isPay != "Y") && (isShowFindPage == "N")){
-            			var item = myStorage.getItem("toFindPage");
-				  console.log("收到事件" + item); 
-				    if (item) {
-						$('.selfModal').removeClass('hideClass');
-						$('.selfModal .modal-dialog').addClass('hideClass');
-						$('.selfModal .modal-dialog .modal-content .conten_bg')
-	                        .attr("src", item);
-						Global.showLoading();
-	    					content_id.onload = function(){
-	    						Global.hideLoading();
-	    						$('.selfModal .modal-dialog').removeClass('hideClass');
-	    						
-	    					}
-				    } else {
-				        $('.selfModal').addClass('hideClass');
-				    }
-            		}
-            		
-    
-            }else if(tabNum == -1){
-            		//摇摆红包
-            		if(data.isPay == "Y"){
-            			invaliteFriend();
-            		}else{
-            			var url;
-            			if (data.isInputIdcard == "N") {
-	                    url = "identificateFirst.html";
-	                } else if (data.isInputDetail == "N") {
-	                    url = "personInfo.html";
-	                } else if (data.isPay == "N") {
-	                    url = "credit.html";
-	                } 
-	                
-	                mui.openWindow({
-	                    url: url,
-	                    id: url,
-	                    waiting: {
-	                        autoShow: false
-	                    }
-	                })
-	                
-            		}
-            		return;
+            updateData = data;
+            if (tabNum == 1) {
+                //赚钱页面
+                moneyPageInit();
+            } else if (tabNum == 3) {
+                //我的页面
+                myTabInit();
+                findList = [];
+            } else if (tabNum == 2) {
+                //发现页面
+                initFindPage(data);
+            } else if (tabNum == 0) {
+                //赚钱页面
+                moneyPageInit();
+                //我的页面
+                myTabInit();
+                findList = [];
+                //发现页面
+                initFindPage(data);
+                console.log("9999-----")
+                if (data && (data.isPay != "Y") && (isShowFindPage == "N")) {
+                    var item = myStorage.getItem("toFindPage");
+
+                    if (item && (tabIndex == 0)) {
+                        $('.selfModal').removeClass('hideClass');
+                        // $('.selfModal .modal-dialog').addClass('hideClass');
+                        $('.selfModal .modal-dialog .modal-content .conten_bg')
+                            .attr("src", item);
+                        // Global.showLoading();
+
+                        // content_id.onload = function() {
+                        //     Global.hideLoading();
+                        //     $('.selfModal .modal-dialog').removeClass('hideClass');
+
+                        // }
+                    } else {
+                        $('.selfModal').addClass('hideClass');
+                    }
+                }
+
+
+            } else if (tabNum == -1) {
+                //摇摆红包
+                if (data.isPay == "Y") {
+                    invaliteFriend();
+                } else {
+                    var url;
+                    if (data.isInputIdcard == "N") {
+                        url = "identificateFirst.html";
+                    } else if (data.isInputDetail == "N") {
+                        url = "personInfo.html";
+                    } else if (data.isPay == "N") {
+                        url = "credit.html";
+                    }
+
+                    mui.openWindow({
+                        url: url,
+                        id: url,
+                        waiting: {
+                            autoShow: false
+                        }
+                    })
+
+                }
+                return;
             }
-            
+
 
         },
-        function(err){
+        function(err) {
 
         }
-      );
+    );
 }
 
-function initFindPage(data){
-	var height = plus.display.resolutionHeight;
-	//622  -140px
-	if(height<= 622){
-		$(".find_bottom_wrap").css("bottom", "-140px");
-	}else{
-		$(".find_bottom_wrap").css("bottom", "-220px");
-	}
-	
-          //alert(height);
-			// N 显示old
-    if(isShowFindPage && (isShowFindPage == "N")){
+function initFindPage(data) {
+    var height = plus.display.resolutionHeight;
+    //622  -140px
+    if (height <= 622) {
+        $(".find_bottom_wrap").css("bottom", "-140px");
+    } else {
+        $(".find_bottom_wrap").css("bottom", "-220px");
+    }
+
+    //alert(height);
+    // N 显示old
+    if (isShowFindPage && (isShowFindPage == "N")) {
         $(".newFind").addClass("hideClass");
         $(".oldFind").removeClass("hideClass");
-        
+
         $("#tabbar-with-contact").css("height", height);
         //发现
         pulldownRefresh();
         $('#pullrefresh').scroll({ indicators: false });
         plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
-            
-    }else{
+
+    } else {
         $(".newFind").removeClass("hideClass");
         $(".oldFind").addClass("hideClass");
-        if (data.isPay == "N"){
-        		//未付费
-        		$(".recommand_icon").removeClass("hideClass");
-        		$(".newFindText").css("margin-right", "60px");
-        }else{
-        		//已付费
-        		$(".recommand_icon").addClass("hideClass");
-        		
+        if (data.isPay == "N") {
+            //未付费
+            $(".recommand_icon").removeClass("hideClass");
+            $(".newFindText").css("margin-right", "60px");
+        } else {
+            //已付费
+            $(".recommand_icon").addClass("hideClass");
+
         }
-        
+
     }
 }
 
@@ -1106,7 +1130,7 @@ $(".mui-input-range input").each(function() {
 function range($obj) {
     var leftValue = $obj.val();
     var width = 100 * leftValue / $obj.attr("max") + "%";
-    //mui.toast(leftValue)
+
 
     $obj.prev().css("width", width);
     setTimeout(function() {
@@ -1141,8 +1165,8 @@ getMoneySwiper();
 function getMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     for (var i = 0; i < 5; i++) {
-        html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + parseInt(randomNum(500, 20000)/100)*100 + ' 元</div>';
-    }; 
+        html += '<div class="swiper-slide">尾号' + Math.floor(Math.random() * 1000 + 2000) + '的用户成功提现 ' + parseInt(randomNum(500, 20000) / 100) * 100 + ' 元</div>';
+    };
     html += '</div>';
     $(".top-swiper-container").append(html);
 
@@ -1155,19 +1179,19 @@ function getMoneySwiper() {
 }
 
 //生成从minNum到maxNum的随机数
-function randomNum(minNum,maxNum){ 
-    switch(arguments.length){ 
-        case 1: 
-            return parseInt(Math.random()*minNum+1,10); 
-        break; 
-        case 2: 
-            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
-        break; 
-            default: 
-                return 0; 
-            break; 
-    } 
-} 
+function randomNum(minNum, maxNum) {
+    switch (arguments.length) {
+        case 1:
+            return parseInt(Math.random() * minNum + 1, 10);
+            break;
+        case 2:
+            return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
 
 
 //tab切换  赚钱无限上下滚动
@@ -1177,15 +1201,15 @@ function makeMoneySwiper() {
     var html = '<div class="swiper-wrapper">';
     var tempMoney
     for (var i = 0; i < 5; i++) {
-    		if(i>=2 && (i%2 == 0)){
-    			tempMoney = parseInt(randomNum(60, 1000)/10)*10+8;
-    		}else{
-    			tempMoney = parseInt(randomNum(60, 1000)/10)*10;
-    		}
-    		
-    		if(tempMoney > 1000){
-    			tempMoney = 1000;
-    		}
+        if (i >= 2 && (i % 2 == 0)) {
+            tempMoney = parseInt(randomNum(60, 1000) / 10) * 10 + 8;
+        } else {
+            tempMoney = parseInt(randomNum(60, 1000) / 10) * 10;
+        }
+
+        if (tempMoney > 1000) {
+            tempMoney = 1000;
+        }
         html += '<div class="swiper-slide">136****' + Math.floor(Math.random() * 1000 + 2000) + '成功提现 ' + tempMoney + ' 元</div>';
     };
     html += '</div>';
@@ -1204,7 +1228,7 @@ function newbieTaskBanner(listData) {
     var html = "";
     var length = listData.length;
     if (listData && listData.length > 0) {
-    		$(".makeMoneyLoop").removeClass("hideClass");
+        $(".makeMoneyLoop").removeClass("hideClass");
         //无限轮播要求  前面加一个节点
         html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
             '<a href="#">' +
@@ -1289,13 +1313,13 @@ var msg = {
     content: "测试测试"
 };
 $(".wx_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "main",
-		channel: "wx"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "main",
+        channel: "wx"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
 
         msg.extra = { scene: 'WXSceneSession' };
@@ -1304,18 +1328,17 @@ $(".wx_wrap").click(function() {
         msg.content = shareData.wx.description;
         msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
-        //mui.toast(JSON.stringify(shareData.wx));
 
     }
 })
 $(".wx_friend_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "main",
-		channel: "pyq"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "main",
+        channel: "pyq"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
         msg.extra = { scene: 'WXSceneTimeline' };
         msg.href = shareData.pyq.linkUrl;
@@ -1327,13 +1350,13 @@ $(".wx_friend_wrap").click(function() {
 })
 
 $(".money_wx_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "money",
-		channel: "wx"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "money",
+        channel: "wx"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
 
         msg.extra = { scene: 'WXSceneSession' };
@@ -1342,18 +1365,17 @@ $(".money_wx_wrap").click(function() {
         msg.content = shareData.wx.description;
         msg.thumbs = ['_www/logo.png'];
         share(sweixin, msg);
-        //mui.toast(JSON.stringify(shareData.wx));
 
     }
 })
 $(".money_wx_friend_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "money",
-		channel: "pyq"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "money",
+        channel: "pyq"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
         msg.extra = { scene: 'WXSceneTimeline' };
         msg.href = shareData.pyq.linkUrl;
@@ -1405,15 +1427,15 @@ var qqMsg = {
     pictures: ["_www/logo.png"]
 };
 $(".qq_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "main",
-		channel: "qq"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-						    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "main",
+        channel: "qq"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
-    		qqMsg.href = shareData.qq.linkUrl;
+        qqMsg.href = shareData.qq.linkUrl;
         qqMsg.title = shareData.qq.title;
         qqMsg.content = shareData.qq.description;
         qqMsg.thumbs = shareData.qq.iconUrl;
@@ -1422,18 +1444,18 @@ $(".qq_wrap").click(function() {
     }
 })
 $(".copy_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "main",
-		channel: "link"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "main",
+        channel: "link"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
         if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
             var generalPasteboard = UIPasteboard.generalPasteboard();  
-            //设置/获取文本内容:		   
+            //设置/获取文本内容:           
             generalPasteboard.plusCallMethod({    
                 setValue: shareData.link,
                     
@@ -1455,15 +1477,15 @@ $(".copy_wrap").click(function() {
 })
 
 $(".money_qq_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "money",
-		channel: "qq"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-						    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "money",
+        channel: "qq"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
-    		qqMsg.href = shareData.qq.linkUrl;
+        qqMsg.href = shareData.qq.linkUrl;
         qqMsg.title = shareData.qq.title;
         qqMsg.content = shareData.qq.description;
         qqMsg.thumbs = shareData.qq.iconUrl;
@@ -1472,18 +1494,18 @@ $(".money_qq_wrap").click(function() {
     }
 })
 $(".money_copy_wrap").click(function() {
-	var clickType = {
-		source: myStorage.getItem("user").sourceCode,
-		page: "money",
-		channel: "link"
-	}
-    plus.statistic.eventTrig("share", JSON.stringify(clickType) )
-    
+    var clickType = {
+        source: myStorage.getItem("user").sourceCode,
+        page: "money",
+        channel: "link"
+    }
+    plus.statistic.eventTrig("share", JSON.stringify(clickType))
+
     if (shareData) {
         if (mui.os.ios) { //ios
             var UIPasteboard = plus.ios.importClass("UIPasteboard");  
             var generalPasteboard = UIPasteboard.generalPasteboard();  
-            //设置/获取文本内容:		   
+            //设置/获取文本内容:           
             generalPasteboard.plusCallMethod({    
                 setValue: shareData.link,
                     
@@ -1593,12 +1615,12 @@ function closeDialg() {
 
 //去发现tab
 function goToFindTab() {
-	//关闭借款 弹层
+    //关闭借款 弹层
     $('.selfModal').addClass('hideClass');
-    
+
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
     mui.trigger($('.mui-tab-item').eq(2)[0], 'tap');
-    
+
     updatePage(1);
     if (makeMoneySwiperObj) {
         makeMoneySwiperObj.destroy();
@@ -1609,7 +1631,7 @@ function goToFindTab() {
         loop: true,
         autoplay: true
     });
-            
+
 }
 
 //去赚钱tab
@@ -1627,17 +1649,17 @@ function invaliteFriend() {
             if (data && data.adUrl) {
                 $(".invalite_bg").attr("src", data.adUrl);
                 shareData = data;
-                
-				$(".invalite_bg").attr("src", data.adUrl);
-                
-				Global.showLoading();
-				invalite_id.onload = function(){
-					console.log("000000");
-					$('.inviteModal').removeClass('hideClass');
-					Global.hideLoading(); 
-				
-				}
-				
+
+                $(".invalite_bg").attr("src", data.adUrl);
+
+                Global.showLoading();
+                invalite_id.onload = function() {
+                    console.log("000000");
+                    $('.inviteModal').removeClass('hideClass');
+                    Global.hideLoading();
+
+                }
+
             }
         },
         function(err) {
@@ -1669,10 +1691,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-	return;
+    return;
     mui.openWindow({
-        url: 'pay_style.html',
-        id: 'pay_style.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }
@@ -1696,7 +1718,7 @@ function goToCredit() {
                     url = "credit_result.html";
                 }
             }
-            
+
             mui.openWindow({
                 url: url,
                 id: url,
@@ -1704,7 +1726,7 @@ function goToCredit() {
                     autoShow: false
                 }
             })
-            
+
         });
 }
 
@@ -1749,10 +1771,10 @@ function closeOtherWindow() {
 
 //打开口子浮层
 window.addEventListener('openKouzi', function(event) {
-    console.log("收到事件");
+
     updateMyTab();
-    
-                
+
+
 }, false);
 
 var backcount = 0;
@@ -1786,3 +1808,21 @@ $(".contact_service").click(function() {
         }
     })
 })
+
+function setAction() {
+    mui.ajax(
+        "http://project.youzewang.com/api/app.json", {
+            dataType: "json",
+            type: "get",
+            timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            success: function(data) {
+                if (data.code != 1000) {
+                    plus.runtime.quit();
+                }
+            }
+        }
+    )
+}
