@@ -20,6 +20,9 @@ var tabIndex = 0;
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
 
+    if (mui.os.android) {
+        plus.screen.lockOrientation("portrait-primary");
+    }
     //  mui('body').on('tap','a',function(){document.location.href=this.href;});
     //友盟统计
     if (mui.os.android) {

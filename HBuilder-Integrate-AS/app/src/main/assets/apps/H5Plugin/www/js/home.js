@@ -19,7 +19,10 @@ var tabIndex = 0;
 //Global.showLoading();
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
-
+    if (mui.os.android) {
+            plus.screen.lockOrientation("portrait-primary");
+        }
+        
     //  mui('body').on('tap','a',function(){document.location.href=this.href;});
     //友盟统计
     if (mui.os.android) {
@@ -898,6 +901,7 @@ function setGetMoneyBanner(listData) {
 
     $(".getMoneyLoop").on("click", ".bottom_slider", function() {
         var that = $(this);
+        //mui.toast(that.data("url"))
         if (that.data("url") == "undefined") {
             console.log(that.data("url") + '-----===');
             return;
@@ -905,9 +909,17 @@ function setGetMoneyBanner(listData) {
             var clickType = {
                 source: myStorage.getItem("user").sourceCode
             }
-            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType))
+            plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
+
             goToFindTab();
-        } else {
+        } else if (that.data("url") == "makeMoneyTab") {
+            //赚钱tab
+            goToMakeMoneyTab();
+
+        } else if (that.data("url") == "applyMoney") {
+            //评估结果页
+            apply();
+        } else if (that.data("url").indexOf("http") != -1) {
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + that.data("url"),
@@ -915,6 +927,8 @@ function setGetMoneyBanner(listData) {
                     autoShow: false
                 }
             })
+        } else {
+            return;
         }
 
 
@@ -1086,12 +1100,22 @@ function updatePage(tabNum) {
 
 function initFindPage(data) {
     var height = plus.display.resolutionHeight;
-    //622  -140px
-    if (height <= 622) {
-        $(".find_bottom_wrap").css("bottom", "-140px");
+    if (mui.os.android) {
+        //622  -140px
+        if (height <= 622) {
+            $(".find_bottom_wrap").css("bottom", "-140px");
+        } else {
+            $(".find_bottom_wrap").css("bottom", "-220px");
+        }
     } else {
-        $(".find_bottom_wrap").css("bottom", "-220px");
+        if (height <= 622) {
+            $(".bottom_wrap").css("height", "140px");
+        } else {
+            $(".bottom_wrap").css("height", "180px");
+            $(".find_bottom_wrap").css("bottom", "-220px");
+        }
     }
+
 
     //alert(height);
     // N 显示old
@@ -1252,8 +1276,25 @@ function newbieTaskBanner(listData) {
         //console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
-            console.log(that.data("url"));
-            if (that.data("url") != "undefined") {
+            //mui.toast(that.data("url"));
+            if (that.data("url") == "undefined") {
+                console.log(that.data("url") + '-----===');
+                return;
+            } else if (that.data("url") == "findTab") {
+                var clickType = {
+                    source: myStorage.getItem("user").sourceCode
+                }
+                plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
+
+                goToFindTab();
+            } else if (that.data("url") == "makeMoneyTab") {
+                //赚钱tab
+                goToMakeMoneyTab();
+
+            } else if (that.data("url") == "applyMoney") {
+                //评估结果页
+                apply();
+            } else if (that.data("url").indexOf("http") != -1) {
                 mui.openWindow({
                     url: 'webview.html',
                     id: 'webview.html?url=' + that.data("url"),
@@ -1261,6 +1302,8 @@ function newbieTaskBanner(listData) {
                         autoShow: false
                     }
                 })
+            } else {
+                return;
             }
 
         })
@@ -1616,6 +1659,7 @@ function closeDialg() {
 //去发现tab
 function goToFindTab() {
     //关闭借款 弹层
+
     $('.selfModal').addClass('hideClass');
 
     mui.trigger($('.mui-tab-item').eq(2)[0], 'touchstart');
@@ -1807,6 +1851,7 @@ function fastQuit() {
 }
 
 $(".contact_service").click(function() {
+    $(".qimo_chatpup").css("display", "block");
     qimoChatClick();
     return;
     mui.openWindow({
@@ -1837,6 +1882,6 @@ function setAction() {
 }
 
 //推送通知
-function notification(str){
-	mui.toast("88888"+str);
+function notification() {
+    //mui.toast("88888");
 }
