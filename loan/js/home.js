@@ -913,6 +913,12 @@ function setGetMoneyBanner(listData) {
             //赚钱tab
             goToMakeMoneyTab();
 
+        } else if (that.data("url") == "creditResult") {
+            //评估结果页
+            apply();
+        } else if (that.data("url") == "applyMoney") {
+            //评估结果页
+            apply();
         } else {
             return;
             mui.openWindow({

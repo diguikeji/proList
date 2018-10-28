@@ -1,5 +1,10 @@
-body{
-    cursor:pointer
+body {
+    cursor: pointer
+}
+
+body,
+html {
+    height: 100%;
 }
 
 .title {
@@ -247,7 +252,7 @@ oa-contact-position {
 .money {
     color: #000000;
     font-size: 55px;
-    height:55px;
+    height: 55px;
     line-height: 55px;
 }
 
@@ -364,7 +369,7 @@ oa-contact-position {
 .money_wrap {
     height: 114px;
     color: #ffffff;
-    font-size: 26px; 
+    font-size: 26px;
     font-weight: bold;
     padding-right: 10px;
 }
@@ -575,133 +580,141 @@ oa-contact-position {
     border-radius: 23px;
 }
 
-.time_text_span{
-	font-size: 12px;
-	color: #333333;
-	margin-top: 10px;
+.time_text_span {
+    font-size: 12px;
+    color: #333333;
+    margin-top: 10px;
 }
 
-.clicked{
-	opacity: 0.4;
+.clicked {
+    opacity: 0.4;
 }
 
-.find_wrap{
-	flex-wrap: wrap;
-	padding: 10px 20px;
-	wdith: 100%;
+.find_wrap {
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    width: 100%;
 }
 
-.find_wrap_item{
-	justify-content: space-between;
-	align-items: center;
-	color: #222222;
-	font-size: 12px;
-	width: 25%;
-	box-sizing: border-box;
+.find_wrap_item {
+    justify-content: space-between;
+    align-items: center;
+    color: #222222;
+    font-size: 12px;
+    width: 25%;
+    box-sizing: border-box;
 }
 
-.find_wrap_item img{
-	width: 65px;
-	height: 65px;
+.find_wrap_item img {
+    width: 65px;
+    height: 65px;
 }
 
-.find_bottom_wrap{
-	width: 100%;
-	position: relative;
-	bottom: -140px;
-	/*bottom: -220px;*/
+.find_bottom_wrap {
+    width: 100%;
+    position: relative;
+    bottom: -140px;
+    /*bottom: -220px;*/
 }
 
-.bottom_center{
-	width: 90%;
-	margin-left: 5%;
-	height: 50px;
-	line-height: 50px;
-	background: #39405B;
-	position: absolute;
-	left: 50%;
-	margin-left: -45%;
-	margin-top: -100px;
-	text-align: center;
-	font-size: 12px;
+.bottom_center {
+    width: 90%;
+    margin-left: 5%;
+    height: 50px;
+    line-height: 50px;
+    background: #39405B;
+    position: absolute;
+    left: 50%;
+    margin-left: -45%;
+    margin-top: -100px;
+    text-align: center;
+    font-size: 12px;
 }
 
-.bottom_center_icon{
-	position: absolute;
-	left: 6%;
-	top: -95px;
-	width: 39px;
-	height: 17px;
+.bottom_center_icon {
+    position: absolute;
+    left: 6%;
+    top: -95px;
+    width: 39px;
+    height: 17px;
 }
 
-.self_icon{
-	position: absolute;
-	right: 8%;
-	top: 34px;
-	width: 23px;
-	height: 23px;
+.self_icon {
+    position: absolute;
+    right: 8%;
+    top: 34px;
+    width: 23px;
+    height: 23px;
 }
 
-.recommand_icon{
-	width: 86px;
-	height: 50px;
-	position: absolute;
-	right: 5%;
-	top: -100px;
+.recommand_icon {
+    width: 86px;
+    height: 50px;
+    position: absolute;
+    right: 5%;
+    top: -100px;
 }
 
-.msgIcon{
-	width: 57px;
-	height: 54px;
-	padding: 20px;
-	position: absolute;
+.msgIcon {
+    width: 57px;
+    height: 54px;
+    padding: 20px;
+    position: absolute;
 }
 
-.find_bottom_img{
-	width: 100%; 
-	position: absolute; 
-	bottom: 0px;
-	z-index: -1;;
+.find_bottom_img {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    z-index: -1;
+    ;
 }
 
-.update_content_bg{
-	background: #ffffff;
-	border-radius: 20px;
-	width: 80%;
-	margin-left: 10%;
-	box-sizing: border-box;
-	justify-content: space-around;
-	align-items: center;
-	text-align: center;
-	height:200px;
-	color: #000000; 
-	font-size: 20px; 
+.update_content_bg {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 80%;
+    margin-left: 10%;
+    box-sizing: border-box;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 200px;
+    color: #000000;
+    font-size: 20px;
 }
 
-.update_msg{
-	border-bottom: 1px solid #dddddd;
-	border-top: 1px solid #dddddd;
-	padding: 20px;
+.update_msg {
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+    padding: 20px;
 }
 
-.update_content_bg div{
-	box-sizing: border-box;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
+.update_content_bg div {
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
-.mui-clearfix{
-	color: #333333;
-	font-size: 16px;
+.mui-clearfix {
+    color: #333333;
+    font-size: 16px;
 }
 
-.loan_day_class{
-	display: inline-block;
-	margin-right: 16px; 
+.loan_day_class {
+    display: inline-block;
+    margin-right: 16px;
 }
 
-.mui-input-range input[type=range]::-webkit-slider-thumb{
+.mui-input-range input[type=range]::-webkit-slider-thumb {
     border-color: transparent;
     background-color: transparent;
+}
+
+.bottom_wrap {
+    height: 200px;
+    position: absolute;
+    bottom: 0px;
+    background: #202433;
 }
