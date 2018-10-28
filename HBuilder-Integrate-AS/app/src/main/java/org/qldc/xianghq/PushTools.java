@@ -51,7 +51,7 @@ public class PushTools {
      *
      * @param context
      */
-    public static void startActivityWithAppIsRuning(Context context, String string) {
+    public static void startActivityWithAppIsRuning(Context context) {
 
 
         int isAppRuning = isAppAlive(context, context.getPackageName());
@@ -67,7 +67,7 @@ public class PushTools {
             for(int i=0;i<weblist.size();i++){
                 if(weblist.get(i).getOriginalUrl().contains("home.html") ){
 
-                    weblist.get(i).evalJS("javascript:notification('"+string+"')");
+                    weblist.get(i).evalJS("javascript:notification()");
                 }
             }
 
@@ -86,7 +86,7 @@ public class PushTools {
         for(int i=0;i<weblist.size();i++){
             if(weblist.get(i).getOriginalUrl().contains("home.html") ){
 
-                weblist.get(i).evalJS("javascript:notification("+string+")");
+                weblist.get(i).evalJS("javascript:notification()");
             }
         }
 

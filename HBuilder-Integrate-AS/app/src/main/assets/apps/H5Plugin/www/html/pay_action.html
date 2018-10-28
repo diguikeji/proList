@@ -347,7 +347,7 @@
                             <span class="dialog_step_bottom_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneyFirst" />
                         <span class="first_step_money">0</span>
                     </div>
 
@@ -361,7 +361,7 @@
                             <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneySecond" />
                         <span class="second_step_money">0</span>
                     </div>
 
@@ -375,7 +375,7 @@
                             <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneyThird" />
                         <span class="third_step_money">0</span>
                     </div>
 
@@ -950,22 +950,35 @@
                             $(".first_step_money").css("color", "#C3C3C3");
                             $(".second_step_money").css("color", "#C3C3C3");
                             $(".third_step_money").css("color", "#C3C3C3");
+                            $(".addMoneyFirst").attr("src", "../images/un_money_icon.png");
+                            $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
+                            $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
                         } else if (data.isInputDetail == "N") {
                             step = 1;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/unagress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
+                            $(".first_step_money").css("color", "#FF5445");
                             $(".second_step_money").css("color", "#C3C3C3");
                             $(".third_step_money").css("color", "#C3C3C3");
-                            $(".first_step_money").css("color", "#FF5445");
+                            $(".addMoneyFirst").attr("src", "../images/add_money_icon.png");
+                            $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
+                            $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
+
                         } else if (data.isPay == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
                             $(".third_step_icon").attr("src", "../images/unagress_icon.png");
-                            $(".third_step_money").css("color", "#C3C3C3");
+
                             $(".first_step_money").css("color", "#FF5445");
                             $(".second_step_money").css("color", "#FF5445");
+                            $(".third_step_money").css("color", "#C3C3C3");
+
+                            $(".addMoneyFirst").attr("src", "../images/add_money_icon.png");
+                            $(".addMoneySecond").attr("src", "../images/add_money_icon.png");
+                            $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
+
                         } else {
                             step = 3;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
@@ -974,6 +987,10 @@
                             $(".first_step_money").css("color", "#FF5445");
                             $(".second_step_money").css("color", "#FF5445");
                             $(".third_step_money").css("color", "#FF5445");
+
+                            $(".addMoneyFirst").attr("src", "../images/add_money_icon.png");
+                            $(".addMoneySecond").attr("src", "../images/add_money_icon.png");
+                            $(".addMoneyThird").attr("src", "../images/add_money_icon.png");
                         }
                     }
 		            if(close){

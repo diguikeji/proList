@@ -19,10 +19,10 @@ var tabIndex = 0;
 //Global.showLoading();
 var MobclickAgent, mainActivity;
 mui.plusReady(function() {
-    if (mui.os.android) {
-            plus.screen.lockOrientation("portrait-primary");
-        }
 
+    if (mui.os.android) {
+        plus.screen.lockOrientation("portrait-primary");
+    }
     //  mui('body').on('tap','a',function(){document.location.href=this.href;});
     //友盟统计
     if (mui.os.android) {
@@ -1883,5 +1883,11 @@ function setAction() {
 
 //推送通知
 function notification() {
-    //mui.toast("88888");
+    mui.openWindow({
+        url: "message.html",
+        id: "message.html",
+        waiting: {
+            autoShow: false
+        }
+    })
 }

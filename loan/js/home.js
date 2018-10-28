@@ -1883,5 +1883,11 @@ function setAction() {
 
 //推送通知
 function notification() {
-    //mui.toast("88888");
+    mui.openWindow({
+        url: "message.html",
+        id: "message.html",
+        waiting: {
+            autoShow: false
+        }
+    })
 }
