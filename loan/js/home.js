@@ -37,6 +37,14 @@ mui.plusReady(function() {
             plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
                 //alert( result[0].toString());
 
+                if(result[0]=="1")
+                {
+
+                    mui.alert("由于没有存储权限，部分功能将无法使用");
+
+                }
+
+
             }, function(result) {
                 //alert(result)
             });
@@ -758,7 +766,20 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         });
     } else {
 
+        plus.plugintest.PluginXjqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+            if(result[0]=="1")
+            {
+                clickFindItem(item);
+            }
+            else
+            {
+                mui.alert("请在设备的\\\"设置-隐私-相机\\\"中允许访问相机。");
+            }
 
+
+        }, function(result) {
+            //alert(result)
+        });
 
 
     }
