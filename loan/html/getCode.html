@@ -69,10 +69,14 @@
     <script src="../js/myStorage.js"></script>
     <!-- 原生插件 -->
     <script src="../js/plugin.js"></script>
-
+    <script src="../js/jpush.js"></script>
     <!--<script src="html5plus://ready"></script>-->
     <script type="text/javascript">
         mui.init();
+        
+
+
+
 
         var intervalObj, time = 60,
             phone;
@@ -277,12 +281,26 @@
                 } else {
                     loginAjax(phone, value.substring(0, 6));
 
-                    //注册推送
-                    plus.plugintest.PluginTestFunction(phone, "Plus", "AsyncFunction", "MultiArgument!", function(result) {
-                        console.log(result[0] + "_" + result[1] + "_" + result[2] + "_" + result[3]);
-                    }, function(result) {
-                        console.log(result)
-                    });
+                  if(mui.os.android)
+                  {
+                      //注册推送
+                      plus.plugintest.PluginTestFunction(phone, "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                                                         console.log(result[0] + "_" + result[1] + "_" + result[2] + "_" + result[3]);
+                                                         }, function(result) {
+                                                         console.log(result)
+                                                         });
+                  }
+                  else{
+
+                      plus.Push.setTagsWithAlias([], phone);
+
+
+                  }
+                  
+                    
+                    
+                    
+                    
 
 
                 }

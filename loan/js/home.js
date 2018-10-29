@@ -31,7 +31,19 @@ mui.plusReady(function() {
         MobclickAgent.onPageStart("MainScreen");
         checkPermission();
     } else {
-        //IOS 友盟统计
+
+        setTimeout(function()
+        {
+
+            plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                //alert( result[0].toString());
+
+            }, function(result) {
+                //alert(result)
+            });
+
+        },2000);
+
     }
 
     checkUpdateApk();
@@ -733,13 +745,26 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
         //mui.toast("end ");
 
-    checkPermissionPhoto(function() {
-        clickFindItem(item);
-    }, function() {
-        mui.alert("请在设置里面允许权限", '提示', function() {
 
-        })
-    });
+    if(mui.os.android)
+    {
+        checkPermissionPhoto(function() {
+            clickFindItem(item);
+        }, function() {
+            mui.alert("请在设置里面允许权限", '提示', function() {
+
+            })
+        });
+    }
+    else
+    {
+
+
+
+
+    }
+
+
 
 });
 
