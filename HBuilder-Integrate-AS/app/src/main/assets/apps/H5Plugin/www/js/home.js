@@ -31,7 +31,18 @@ mui.plusReady(function() {
         MobclickAgent.onPageStart("MainScreen");
         checkPermission();
     } else {
-        //IOS 友盟统计
+
+        setTimeout(function() {
+
+            plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                //alert( result[0].toString());
+
+            }, function(result) {
+                //alert(result)
+            });
+
+        }, 2000);
+
     }
 
     checkUpdateApk();
@@ -293,7 +304,10 @@ function checkPermission() {
 
         },
         "failure": function() {
-            plus.runtime.quit();
+            //plus.runtime.quit();
+            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+
+            })
         }
     });
     //调用申请权限的静态方法
@@ -332,9 +346,9 @@ function checkPermissionPhoto(callback, fail) {
     });
     //调用申请权限的静态方法
     //照相
-    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
 
-    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA","android.permission-group.STORAGE"], callBack);
+    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA", "android.permission-group.STORAGE"], callBack);
 
 }
 
@@ -733,13 +747,23 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
         //mui.toast("end ");
 
-    checkPermissionPhoto(function() {
-        clickFindItem(item);
-    }, function() {
-        mui.alert("请在设置里面允许权限", '提示', function() {
 
-        })
-    });
+    if (mui.os.android) {
+        checkPermissionPhoto(function() {
+            clickFindItem(item);
+        }, function() {
+            mui.alert("请在设置里面允许权限", '提示', function() {
+
+            })
+        });
+    } else {
+
+
+
+
+    }
+
+
 
 });
 

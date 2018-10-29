@@ -32,8 +32,7 @@ mui.plusReady(function() {
         checkPermission();
     } else {
 
-        setTimeout(function()
-        {
+        setTimeout(function() {
 
             plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
                 //alert( result[0].toString());
@@ -42,7 +41,7 @@ mui.plusReady(function() {
                 //alert(result)
             });
 
-        },2000);
+        }, 2000);
 
     }
 
@@ -305,7 +304,10 @@ function checkPermission() {
 
         },
         "failure": function() {
-            plus.runtime.quit();
+            //plus.runtime.quit();
+            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+
+            })
         }
     });
     //调用申请权限的静态方法
@@ -344,9 +346,9 @@ function checkPermissionPhoto(callback, fail) {
     });
     //调用申请权限的静态方法
     //照相
-    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
 
-    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA","android.permission-group.STORAGE"], callBack);
+    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA", "android.permission-group.STORAGE"], callBack);
 
 }
 
@@ -746,8 +748,7 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         //mui.toast("end ");
 
 
-    if(mui.os.android)
-    {
+    if (mui.os.android) {
         checkPermissionPhoto(function() {
             clickFindItem(item);
         }, function() {
@@ -755,9 +756,7 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
             })
         });
-    }
-    else
-    {
+    } else {
 
 
 

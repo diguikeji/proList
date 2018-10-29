@@ -205,10 +205,10 @@ var Global = {};
                         return;
                     }
 
-                    setTimeout(function()
-                    {
-                        Global.hideLoading();
-                    },1000);
+                    // setTimeout(function() {
+                    //     Global.hideLoading();
+                    // }, 500);
+                    Global.hideLoading();
 
                     if (params.url.indexOf("card") != -1) {
                         console.log("9999999");
