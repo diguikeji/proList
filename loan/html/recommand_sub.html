@@ -552,7 +552,9 @@
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
             } else {
                 //上拉加载
-
+                if (cells.length < 20) {
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+                }
             }
         }
 

@@ -29,18 +29,19 @@ mui.plusReady(function() {
         mainActivity = plus.android.runtimeMainActivity();
         MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
         MobclickAgent.onPageStart("MainScreen");
+        checkPermission();
     } else {
         //IOS 友盟统计
     }
 
     checkUpdateApk();
 
+
     var self = plus.webview.currentWebview();
     var isfirst = self.isfirst;
     if (!isfirst) {
         //用户信息接口
         loginByToken();
-        checkPermission();
         setAction();
     } else {
         //系统参数接口
@@ -279,7 +280,7 @@ var versionfunegt = function(ver1, ver2) {
 
 //检查权限
 function checkPermission() {
-    return;
+    //return;
     if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 6.0)) {
         //...操作
         return;
@@ -297,11 +298,46 @@ function checkPermission() {
     });
     //调用申请权限的静态方法
     //照相
-    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA",
-        "android.permission-group.STORAGE"
-    ], callBack);
+    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.STORAGE"], callBack);
+
+    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA","android.permission-group.STORAGE"], callBack);
 
 }
+
+//发现页 点击检查权限
+function checkPermissionPhoto(callback, fail) {
+    //return;
+    if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 6.0)) {
+        //...操作
+        if (callback) {
+            callback();
+        }
+
+        return;
+    }
+    var mainAct = plus.android.runtimeMainActivity();
+    plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
+    var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+        "success": function() {
+            //申请权限成功或已经获取到了权限都会执行到这里
+            if (callback) {
+                callback();
+            }
+        },
+        "failure": function() {
+            if (fail) {
+                fail();
+            }
+        }
+    });
+    //调用申请权限的静态方法
+    //照相
+    plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA"], callBack);
+
+    // plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA","android.permission-group.STORAGE"], callBack);
+
+}
+
 
 //获取最新引导页
 function getStartUpPage() {
@@ -696,9 +732,23 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
         //mui.toast("end ");
+
+    checkPermissionPhoto(function() {
+        clickFindItem(item);
+    }, function() {
+        mui.alert("请在设置里面允许权限", '提示', function() {
+
+        })
+    });
+
+});
+
+//点击列表
+function clickFindItem(item) {
     var params = {
         goodsCode: item.goodsCode
     }
+
     Global.commonAjax({
             url: "goods/click",
             data: params,
@@ -720,10 +770,7 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
         }
     )
-
-    //  e.preventdefault();
-
-});
+}
 
 var findList = [];
 //发现列表
@@ -863,7 +910,7 @@ function setRefreshData(refreshType, cells, isAll) {
 
     } else {
         //上拉加载
-        if (findList.length < 10) {
+        if (cells.length < 20) {
             mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
         } else {
 
