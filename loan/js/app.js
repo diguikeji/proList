@@ -397,7 +397,7 @@ var Global = {};
             }
 
             //进行最小压缩
-            var ndata = canvas.toDataURL("image/jpeg", 0.1);
+            var ndata = canvas.toDataURL("image/jpeg", 0.5);
 
             console.log("压缩前：" + initSize);
             console.log("压缩后：" + ndata.length);
