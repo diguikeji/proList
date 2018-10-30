@@ -37,6 +37,14 @@ mui.plusReady(function() {
             plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
                 //alert( result[0].toString());
 
+                if(result[0]=="1")
+                {
+
+                    mui.alert("由于没有存储权限，部分功能将无法使用");
+
+                }
+
+
             }, function(result) {
                 //alert(result)
             });
@@ -758,7 +766,20 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         });
     } else {
 
+        plus.plugintest.PluginXjqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+            if(result[0]=="1")
+            {
+                clickFindItem(item);
+            }
+            else
+            {
+                mui.alert("请在设备的\\\"设置-隐私-相机\\\"中允许访问相机。");
+            }
 
+
+        }, function(result) {
+            //alert(result)
+        });
 
 
     }
@@ -1345,7 +1366,14 @@ function newbieTaskBanner(listData) {
 
         $(".makeMoneyLoop").append(html);
         //console.log(html);
-        $(".make_money_bottom_slider").click(function() {
+        
+    } else {
+        $(".makeMoneyLoop").html("");
+        $(".makeMoneyLoop").addClass("hideClass");
+    }
+}
+
+$(".makeMoneyLoop").on("click", ".make_money_bottom_slider", function() {	
             var that = $(this);
             //mui.toast(that.data("url"));
             if (that.data("url") == "undefined") {
@@ -1365,7 +1393,7 @@ function newbieTaskBanner(listData) {
             } else if (that.data("url") == "applyMoney") {
                 //评估结果页
                 apply();
-            } else if (that.data("url").indexOf("http") != -1) {
+            } else if (that.data("url") && (that.data("url").indexOf("http") != -1)) {
                 mui.openWindow({
                     url: 'webview.html',
                     id: 'webview.html?url=' + that.data("url"),
@@ -1378,11 +1406,7 @@ function newbieTaskBanner(listData) {
             }
 
         })
-    } else {
-        $(".makeMoneyLoop").html("");
-        $(".makeMoneyLoop").addClass("hideClass");
-    }
-}
+
 
 //分享底部弹窗
 /**

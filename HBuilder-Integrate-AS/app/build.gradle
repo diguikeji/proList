@@ -7,8 +7,8 @@ android {
         applicationId "org.qldc.xianghq"
         minSdkVersion 14
         targetSdkVersion 23 //建议此属性值设为21 io.dcloud.PandoraEntry 作为apk入口时   必须设置 targetSDKVersion>=21 沉浸式才生效
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 2
+        versionName "1.0.2"
         multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。
