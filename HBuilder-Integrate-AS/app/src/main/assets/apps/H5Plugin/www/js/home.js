@@ -29,7 +29,8 @@ mui.plusReady(function() {
         mainActivity = plus.android.runtimeMainActivity();
         MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
         MobclickAgent.onPageStart("MainScreen");
-        checkPermission();
+        //不要权限
+        //checkPermission();
     } else {
 
         setTimeout(function() {
@@ -313,9 +314,9 @@ function checkPermission() {
         },
         "failure": function() {
             //plus.runtime.quit();
-//            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+//          mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
 //
-//            })
+//          })
             checkPermission();
         }
     });
@@ -758,6 +759,8 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
 
     if (mui.os.android) {
+    		clickFindItem(item);
+    		return;
         checkPermissionPhoto(function() {
             clickFindItem(item);
         }, function() {
@@ -801,6 +804,11 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
+        		if(mui.os.android && (data.jumpType == "out")){
+        			plus.runtime.openURL(item.goodsUrl);
+        			return;
+        		}
+        		
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + item.goodsUrl,
@@ -1346,7 +1354,7 @@ function newbieTaskBanner(listData) {
     var length = listData.length;
     if (listData && listData.length > 0) {
         $(".makeMoneyLoop").removeClass("hideClass");
-
+        
         //无限轮播要求  前面加一个节点
         if(listData.length != 1){
 	        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
@@ -1355,7 +1363,7 @@ function newbieTaskBanner(listData) {
 	            '</a>' +
 	            '</div>';
            }
-
+         
         for (var i = 0; i < length; i++) {
             html += '<div class="mui-slider-item">' +
                 '<a href="#">' +
@@ -1370,18 +1378,18 @@ function newbieTaskBanner(listData) {
 	            '</a>' +
 	            '</div>';
         }
-
-
+        
+        
         $(".makeMoneyLoop").append(html);
         //console.log(html);
-
+        
     } else {
         $(".makeMoneyLoop").html("");
         $(".makeMoneyLoop").addClass("hideClass");
     }
 }
 
-$(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {
+$(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {	
             var that = $(this);
               //mui.toast(that.data("url"));
             if (that.data("url") == "undefined") {
