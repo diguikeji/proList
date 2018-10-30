@@ -1347,7 +1347,7 @@ function newbieTaskBanner(listData) {
         //console.log(html);
         $(".make_money_bottom_slider").click(function() {
             var that = $(this);
-            //mui.toast(that.data("url"));
+            mui.toast(that.data("url"));
             if (that.data("url") == "undefined") {
                 console.log(that.data("url") + '-----===');
                 return;
@@ -1365,7 +1365,7 @@ function newbieTaskBanner(listData) {
             } else if (that.data("url") == "applyMoney") {
                 //评估结果页
                 apply();
-            } else if (that.data("url").indexOf("http") != -1) {
+            } else if (that.data("url") && (that.data("url").indexOf("http") != -1)) {
                 mui.openWindow({
                     url: 'webview.html',
                     id: 'webview.html?url=' + that.data("url"),
