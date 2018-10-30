@@ -1382,7 +1382,7 @@ function newbieTaskBanner(listData) {
 
 $(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {	
             var that = $(this);
-              mui.toast(that.data("url"));
+              //mui.toast(that.data("url"));
             if (that.data("url") == "undefined") {
                 console.log(that.data("url") + '-----===');
                 return;
