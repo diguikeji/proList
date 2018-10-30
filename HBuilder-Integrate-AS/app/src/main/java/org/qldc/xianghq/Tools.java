@@ -163,7 +163,7 @@ public class Tools {
         }
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse("market://details?id=" + "com.xunao.diaodiao");//app包名
+        Uri uri = Uri.parse("market://details?id=" + "org.qldc.xianghq");//app包名
         intent.setData(uri);
         intent.setPackage(pck);//应用市场包名
         context.startActivity(intent);

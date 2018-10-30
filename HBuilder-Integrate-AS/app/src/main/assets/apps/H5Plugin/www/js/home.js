@@ -313,9 +313,10 @@ function checkPermission() {
         },
         "failure": function() {
             //plus.runtime.quit();
-            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
-
-            })
+//            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+//
+//            })
+            checkPermission();
         }
     });
     //调用申请权限的静态方法

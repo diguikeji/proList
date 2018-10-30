@@ -29,7 +29,8 @@ mui.plusReady(function() {
         mainActivity = plus.android.runtimeMainActivity();
         MobclickAgent = plus.android.importClass("com.umeng.analytics.MobclickAgent");
         MobclickAgent.onPageStart("MainScreen");
-        checkPermission();
+        //不要权限
+        //checkPermission();
     } else {
 
         setTimeout(function() {
@@ -313,9 +314,10 @@ function checkPermission() {
         },
         "failure": function() {
             //plus.runtime.quit();
-            mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
-
-            })
+//          mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+//
+//          })
+            checkPermission();
         }
     });
     //调用申请权限的静态方法
@@ -757,6 +759,8 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
 
     if (mui.os.android) {
+    		clickFindItem(item);
+    		return;
         checkPermissionPhoto(function() {
             clickFindItem(item);
         }, function() {
@@ -800,6 +804,11 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
+        		if(mui.os.android && (data.jumpType == "out")){
+        			plus.runtime.openURL(item.goodsUrl);
+        			return;
+        		}
+        		
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + item.goodsUrl,
