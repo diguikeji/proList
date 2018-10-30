@@ -317,6 +317,7 @@
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
+    <script src="../js/plugin.js"></script>
     <script type="text/javascript">
         mui.init({
             pullRefresh: {
@@ -575,8 +576,41 @@
                 page: "payed"
             }
             plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
-
-            var params = {
+			
+			if (mui.os.android) {
+			        checkPermissionPhoto(function() {
+			            clickFindItem(item);
+			        }, function() {
+			            mui.alert("请在设置里面允许权限", '提示', function() {
+			
+			            })
+			        });
+			    } else {
+			
+			        plus.plugintest.PluginXjqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+			            if(result[0]=="1")
+			            {
+			                clickFindItem(item);
+			            }
+			            else
+			            {
+			                mui.alert("请在设备的\\\"设置-隐私-相机\\\"中允许访问相机。");
+			            }
+			
+			
+			        }, function(result) {
+			            //alert(result)
+			        });
+			
+			
+			    }
+    
+    
+            
+        });
+        
+        function clickFindItem(item){
+        		var params = {
                 goodsCode: item.goodsCode
             }
             Global.commonAjax({
@@ -600,7 +634,7 @@
 
                 }
             )
-        });
+        }
     </script>
 </body>
 
