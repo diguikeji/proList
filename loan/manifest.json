@@ -308,7 +308,8 @@
 				"refer": [
 					"html/credit.html",
 					"html/errornet.html",
-					"html/identificateFirst.html"
+					"html/identificateFirst.html",
+					"html/error500.html"
 				],
 				"priority": 0
 			},
