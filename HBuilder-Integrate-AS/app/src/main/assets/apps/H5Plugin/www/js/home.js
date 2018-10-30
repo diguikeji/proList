@@ -1345,37 +1345,44 @@ function newbieTaskBanner(listData) {
     var length = listData.length;
     if (listData && listData.length > 0) {
         $(".makeMoneyLoop").removeClass("hideClass");
+
         //无限轮播要求  前面加一个节点
-        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
-            '<a href="#">' +
-            '<img src="' + listData[length - 1].picUrl + '" class="make_money_bottom_slider"> ' +
-            '</a>' +
-            '</div>';
+        if(listData.length != 1){
+	        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
+	            '<a href="#">' +
+	            '<img src="' + listData[length - 1].picUrl + '" class="make_money_bottom_slider"> ' +
+	            '</a>' +
+	            '</div>';
+           }
+
         for (var i = 0; i < length; i++) {
             html += '<div class="mui-slider-item">' +
                 '<a href="#">' +
                 '<img src="' + listData[i].picUrl + '" class="make_money_bottom_slider" data-url="' + listData[i].adValue + '">' +
                 '</a></div>';
         }
-        //无限轮播要求  最后加一个节点
-        html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
-            '<a href="#">' +
-            '<img src="' + listData[0].picUrl + '" class="make_money_bottom_slider"> ' +
-            '</a>' +
-            '</div>';
+        if(listData.length != 1){
+        		//无限轮播要求  最后加一个节点
+	        html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
+	            '<a href="#">' +
+	            '<img src="' + listData[0].picUrl + '" class="make_money_bottom_slider"> ' +
+	            '</a>' +
+	            '</div>';
+        }
+
 
         $(".makeMoneyLoop").append(html);
         //console.log(html);
-        
+
     } else {
         $(".makeMoneyLoop").html("");
         $(".makeMoneyLoop").addClass("hideClass");
     }
 }
 
-$(".makeMoneyLoop").on("click", ".make_money_bottom_slider", function() {	
+$(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {
             var that = $(this);
-            //mui.toast(that.data("url"));
+              //mui.toast(that.data("url"));
             if (that.data("url") == "undefined") {
                 console.log(that.data("url") + '-----===');
                 return;
