@@ -804,7 +804,8 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-        		if(mui.os.android && (data.jumpType == "out")){
+            //mui.toast(mui.os.android + "---"+item.jumpType);
+        		if(mui.os.android && (item.jumpType == "out")){
         			plus.runtime.openURL(item.goodsUrl);
         			return;
         		}
