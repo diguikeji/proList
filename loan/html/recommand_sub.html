@@ -578,6 +578,8 @@
             plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
 			
 			if (mui.os.android) {
+				clickFindItem(item);
+				return;
 			        checkPermissionPhoto(function() {
 			            clickFindItem(item);
 			        }, function() {
@@ -658,6 +660,10 @@ function checkPermissionPhoto(callback, fail) {
                     method: "POST"
                 },
                 function(data) {
+                		if(mui.os.android && (data.jumpType == "out")){
+		        			plus.runtime.openURL(item.goodsUrl);
+		        			return;
+		        		}
                     mui.openWindow({
                         url: 'webview.html',
                         id: 'webview.html?url=' + item.goodsUrl,
