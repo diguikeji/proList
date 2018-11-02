@@ -586,21 +586,25 @@
 			            })
 			        });
 			    } else {
-			
-			        plus.plugintest.PluginXjqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
-			            if(result[0]=="1")
-			            {
-			                clickFindItem(item);
-			            }
-			            else
-			            {
-			                mui.alert("请在设备的\\\"设置-隐私-相机\\\"中允许访问相机。");
-			            }
-			
-			
-			        }, function(result) {
-			            //alert(result)
-			        });
+
+                plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                    //alert( result[0].toString());
+
+                    if(result[0]=="1")
+                    {
+                        clickFindItem(item);
+                        mui.alert("由于没有存储权限，部分功能将无法使用");
+
+                    }
+                    else
+                    {
+                        clickFindItem(item);
+                    }
+
+
+                }, function(result) {
+                    //alert(result)
+                });
 			
 			
 			    }

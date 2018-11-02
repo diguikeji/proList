@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            background: #F4F4F4;
+        }
+        
+        .credit_text{
+        		margin-top: 60px;
+        		text-align: center;
+        }
+        
+        .credit_text img{
+        		width: 80%;
+        		height: 234px;
+        }
+        
+        .credit_info{
+        		text-align: center;
+        		color: #303030;
+        		font-size: 18px;
+        }
+        
+        .error_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 14px;
+        		margin-top: 10px;
+        }
+        
+        .warning_info{
+        		text-align: center;
+        		color: #A2A2A2;
+        		font-size: 12px;
+        		margin-top: 200px;
+        }
+        
+        .warning_info span{
+        		color: #000000;
+        }
+        
+        .next {
+		    width: 80%;
+		    height: 40px;
+		    text-align: center;
+		    font-size: 20px;
+		    margin: 80px 10% 50px;
+		    border-radius: 30px;
+		    background: #FF5445;
+		    color: #ffffff;
+		    box-shadow: 0px 2px 5px #888888;
+		    position: relative;
+		}
+		
+		.bottom_text{
+			font-size: 10px;
+			color: #ffffff;
+			opacity: 0.5;
+			position: absolute;
+			bottom: 20px;
+			text-align: center;
+			width: 100%;
+		}
+		
+		header > a{
+			color: #333333;
+		}
+		/**
+		 * 头部右侧图片
+		 */
+		header img{
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			right: 20px;
+			top: 15px;
+		}
+			
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        
+        <h1 class="mui-title">支付结果</h1>
+        <img src="https://nydstatic.nongyaodai.com/image/error/kef.png" onclick="qimoChatClick();"/>
+    </header>
+
+    <div class="mui-content" style="background: #F4F4F4;">
+       <div class="credit_text">
+       		<img src="https://web.static.xhq520.com/app/pay/pay_success_new.png"/>
+       </div>
+       <div class="credit_info">大数据智能信用评估中...</div>
+       <div class="error_info" id="time">3s后自动跳转评估结果</div>
+    		<a class="mui-btn mui-btn-link next " onclick="pay();">马上查看
+    		</a>
+    		
+    </div>
+
+    <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+    <script src="https://nydstatic.nongyaodai.com/image/error/myStorage.js"></script>
+    <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+	</script>
+    <script type="text/javascript">
+        mui.init();
+		var qimoClientId, time = 3;
+		mui.plusReady(function() {
+			qimoClientId =  myStorage.getItem("user").mobile;
+			
+			var intervalHandler = setInterval(function(){
+				time--;
+				console.log(time);
+				if(time <= 0){
+					time = 0;
+					pay();
+					clearInterval(intervalHandler);
+				}
+				document.getElementById("time").innerHTML = time+"s后自动跳转评估结果";
+			}, 1000);
+    		});
+    		
+        function pay(){
+        		mui.openWindow({
+	  			url: '_www/html/credit_result.html',
+	  			id: 'credit_result.html',
+			    waiting:{
+			      autoShow:false
+			    }
+	  		});
+        }
+        
+       
+        
+    </script>
+</body>
+
+</html>

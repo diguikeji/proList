@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/app.css" rel="stylesheet" />
+		<style type="text/css">
+			body, html{
+				width: 100%;
+				height: 90%;
+				background: #F2F2F2;
+			}
+			.top_img{
+				width: 261px;
+				height: 37px;
+				margin: auto;
+			}
+			
+			.select_type{
+				height: 40px;
+				align-items: center;
+				justify-content: space-around;
+				background: #ffffff;
+				color: #333333;
+				font-size: 14px;
+				font-weight: bold;
+				position: fixed;
+				width: 100%;
+			}
+			
+			.center_wrap{
+				align-items: center;
+			}
+			
+			.center_wrap img{
+				width: 9px;
+				height: 11px;
+				margin-left: 10px;
+			}
+			
+			.active{
+				color: #ff5445;
+			}
+			
+			.list_wrap{
+				padding: 0px;
+				box-sizing: border-box;
+			}
+			
+			.item_wrap{
+				background-image: url(../images/card_bg.png);
+				background-size: 100% 100%;
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				height: 97px;
+				width: 100%;
+				padding: 10px 20px;
+			}
+			
+			.item_tile_wrap{
+				justify-content: space-between;
+				align-items: center;
+				font-size: 12px;
+				color: #333333;
+				font-weight: bold;
+				padding: 5px 0px;
+				border-bottom: 1px solid #dddddd;
+				height: 25px;
+				line-height: 25px;
+			}
+			
+			.high_rate{
+				width: 49px;
+				height: 15px;
+				margin-right: 5px;
+			}
+			
+			.recommand_icon{
+				width: 32px;
+				height: 15px;
+			}
+			
+			.item_title_num{
+				margin-left: 5px;
+			}
+			
+			.item_center_wrap{
+				text-align: left;
+				font-size: 14px;
+				font-weight: bold;
+				padding: 10px 0px;
+			}
+			
+			.item_center_day{
+				font-size: 12px;
+			}
+			
+			.mui-progressbar{
+				height: 16px;
+				border-radius: 10px;
+				background: #FFD9D6;
+			}
+			.mui-progressbar span{
+				background: #Ff5445;
+				border-radius: 10px;
+			}
+			
+			.progress_wrap{
+				position: relative;
+			}
+			
+			.success_rate{
+				position: absolute;
+				top: -2px;
+				left: 0px;
+				color: #ffffff;
+				font-size: 12px;
+				padding-left: 10px;
+			}
+			
+			.empty_text{
+				width: 100%; 
+				height: 400px; 
+				line-height: 400px; 
+				text-align: center;
+				background: #f4f4f4; 
+				border: none; 
+				z-index: 10;
+				background: #f2f2f2;
+			}
+			
+			/*#pullrefresh{
+				background: #f4f4f4;
+				top: 130px;
+			}*/
+			
+			.mui-pull-top-pocket{
+				top: 130px!important;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" >
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">智能推荐</h1>
+		    <!--<img src="../images/custom_icon.png" />-->
+		</header>
+		
+		<!--<img src="../images/recommand_top_icon.png" class="top_img" />-->
+		
+		<div class="mui-content" style="text-align: center; background: #F2F2F2;">
+			<img src="../images/recommand_top_icon.png" class="top_img" />
+			
+			<div class="row select_type">
+				<span class="highType active" >高成功率</span>
+				<div class="center_wrap row timeType" >
+					<span>期限</span>
+					<img src="../images/change_type_icon.png" class="sortImg"/>
+				</div>
+				<span class="preType">上次浏览</span>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/myStorage.js"></script>
+		<!--<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
+		</script>
+		<script type='text/javascript'>
+		var qimoClientId =  myStorage.getItem("user").mobile;
+		</script>-->
+		<script type="text/javascript">
+			mui.init({
+				subpages:[{
+					url:'recommand_sub.html',
+					id:'recommand_sub.html',
+					styles:{
+						top: '130px',
+						bottom: '0px'
+					}
+				}]
+			});
+			
+			var preList
+			mui.plusReady(function() {
+			    preList = plus.webview.getWebviewById('recommand_sub.html');
+        			
+			});
+			
+			var currentType = "DEGREE"; 
+			$('.highType').click(function(){
+					$('.highType').css('color', '#ff5445');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#333333');
+					currentType = "DEGREE";
+					isDesc = false;
+					sendClickType();
+					$(".sortImg").attr('src', "../images/change_type_icon.png");
+			})
+				
+				$('.timeType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#ff5445');
+					$('.preType').css('color', '#333333');
+					if (currentType == 'TIME') {
+				        //当前期限
+				        isDesc = !isDesc;
+				   }else{
+				   		isDesc = false;
+				   }
+				   if(isDesc){
+			        		$(".sortImg").attr('src', "../images/sort_front.png");
+			        }else{
+			        		$(".sortImg").attr('src', "../images/sort_back.png");
+			        }
+					currentType = "TIME";
+					sendClickType();
+				})
+				
+				$('.preType').click(function(){
+					$('.highType').css('color', '#333333');
+					$('.timeType').css('color', '#333333');
+					$('.preType').css('color', '#ff5445');
+					currentType = "HISTORY";
+					isDesc = false;
+					sendClickType();
+					$(".sortImg").attr('src', "../images/change_type_icon.png");
+				})
+				
+				function sendClickType(){
+					console.log("发送事件");
+					var h = plus.webview.getWebviewById("recommand_sub.html");
+					mui.fire(h,'updatePreType',{currentType: currentType, isDesc: isDesc});
+				}
+			
+		</script>
+	</body>
+
+</html>
