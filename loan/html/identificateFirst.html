@@ -492,9 +492,9 @@
             }
             
             var flag = false;
-            
+            var frontSuccess = false;
             function takeFrontPhoto() {
-            if (!hasData) {
+            if (!hasData && !frontSuccess) {
             //身份证正面
             flag = false;
             if (mui.os.android) {
@@ -560,8 +560,9 @@
             
             }
             
+            var backSuccess = false;
             function takeBackPhoto() {
-            if (!hasData) {
+            if (!hasData && !backSuccess) {
             //身份证反面
             flag = false;
             if (mui.os.android) {
@@ -637,7 +638,10 @@
             if (idPicType == "front") {
             $('#name').val(data.userInfo.realName);
             $('#card').val(data.userInfo.idCard);
-            } else {}
+            frontSuccess = true;
+            } else {
+            		backSuccess = true;
+            }
             
             
             
