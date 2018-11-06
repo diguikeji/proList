@@ -644,50 +644,50 @@
             
             //上传图片
             function uploadFile(idPicType, base64) {
-            var params = {
-            data: base64,
-            idPicType: idPicType
-            };
-            
-            Global.commonAjax({
-            url: "user/upload/idpic",
-            method: "POST",
-            data: params
-            },
-            function(data) {
-            if (idPicType == "front") {
-            $('#name').val(data.userInfo.realName);
-            $('#card').val(data.userInfo.idCard);
-            frontSuccess++;
-            } else {
-            		backSuccess=true;
-            }
-            
-            
-            
-            if (($(".front_img").attr('src') != "../images/id_front.png") &&
-            ($(".back_img").attr('src') != "../images/id_back.png")) {
-            
-            
-            $(".next").css("background-color", "#ff493D");
-            } else {
-            //mui.toast($(".back_img").attr('src'));
-            $(".next").css("background-color", "#c3c3c3");
-            }
-            Global.hideLoading();
-            
-            },
-            function(err) {
-            if (idPicType == "front") {
-            $(".front_img").attr('src', "../images/id_front.png");
-            } else {
-            $(".back_img").attr('src', "../images/id_back.png");
-            }
-            Global.hideLoading();
-            mui.toast(err);
-            }
-            )
-            }
+                var params = {
+                    data: base64,
+                    idPicType: idPicType
+                };
+                
+                //user/lfc/upload/idpic  user/upload/idpic
+                Global.commonAjax({
+                        url: "user/lfc/upload/idpic",
+                        method: "POST",
+                        data: params
+                    },
+                    function(data) {
+                        if (idPicType == "front") {
+                            $('#name').val(data.userInfo.realName);
+                            $('#card').val(data.userInfo.idCard);
+                            frontSuccess++;
+                        } else {
+                            backSuccess=true;
+                        }
+                        
+                        
+                        
+                        if (($(".front_img").attr('src') != "../images/id_front.png") &&
+                        ($(".back_img").attr('src') != "../images/id_back.png")) {
+                        
+                        
+                            $(".next").css("background-color", "#ff493D");
+                        } else {
+                            //mui.toast($(".back_img").attr('src'));
+                            $(".next").css("background-color", "#c3c3c3");
+                        }
+                        Global.hideLoading();
+                    
+                    },
+                    function(err) {
+                        if (idPicType == "front") {
+                            $(".front_img").attr('src', "../images/id_front.png");
+                            } else {
+                            $(".back_img").attr('src', "../images/id_back.png");
+                        }
+                        Global.hideLoading();
+                        mui.toast(err);
+                    }
+            )}
             
             
             var step = 0;

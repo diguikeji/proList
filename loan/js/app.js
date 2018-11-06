@@ -183,7 +183,7 @@ var Global = {};
                     } else if (data.code == "SUCCESS" || data.code == "OK" ||
                         data.code == "success" || data.code == "ok") {
                         callback(data.data ? data.data : "");
-                    } else {
+                    }else {
                         errorback && errorback(data.msg);
                     }
 
