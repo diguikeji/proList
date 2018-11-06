@@ -17,3 +17,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 .gradle
+
+app/app.iml
+HBuilder-Integrate-AS.iml
+certificateCamera/certificateCamera.iml
