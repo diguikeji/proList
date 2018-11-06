@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -169,5 +170,11 @@ public class Tools {
         context.startActivity(intent);
 
 
+    }
+
+    //打开设置页面
+    public static void goToSetting(Context context) {
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        context.startActivity(intent);
     }
 }

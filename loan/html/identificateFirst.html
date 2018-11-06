@@ -478,7 +478,15 @@
             function takeBackPhotoBefore() {
             if (mui.os.android) {
             checkPermissionPhoto(takeBackPhoto, function() {
-            mui.alert("请在设置里面允许权限", '提示', function() {})
+            //mui.alert("请在设置里面允许权限", '提示', function() {})
+                var btnArray = ['取消', '去设置'];
+                mui.confirm("请在设置里面允许权限", '提示', btnArray, function(e) {
+                    if (e.index == 1) {
+                        //去设置
+                        var mainAct = plus.android.runtimeMainActivity();
+                        plus.android.invoke("org.qldc.xianghq.Tools", "goToSetting", mainAct);
+                    }
+                })
             });
             } else {
             //ios
