@@ -272,7 +272,7 @@
                 <div class="form_style row">
                     <span>姓名</span>
                     <input type="text" placeholder="上传后自动识别" id="name" readonly="readonly" />
-                    <!--<img src="../images/change_icon.png" class="change_name_icon hideClass" />-->
+                    <img src="../images/change_icon.png" class="change_name_icon hideClass" />
                     
                 </div>
                 
@@ -373,7 +373,9 @@
             //ios
             }
             
-            initData();
+            //initData();
+            $(".next").css("background", "#c3c3c3");
+            hasData = false;
             //浮层中的状态
             initStatus();
             //浮层中的信息
@@ -443,7 +445,15 @@
             function takeFrontPhotoBefore() {
             if (mui.os.android) {
             checkPermissionPhoto(takeFrontPhoto, function() {
-            mui.alert("请在设置里面允许权限", '提示', function() {})
+                    //mui.alert("请在设置里面允许权限", '提示', function() {})
+                var btnArray = ['取消', '去设置'];
+                mui.confirm("请在设置里面允许权限", '提示', btnArray, function(e) {
+                    if (e.index == 1) {
+                        //去设置
+                        var mainAct = plus.android.runtimeMainActivity();
+                        plus.android.invoke("org.qldc.xianghq.Tools", "goToSetting", mainAct);
+                    }
+                })
             });
             } else {
             
@@ -491,89 +501,91 @@
             }
             }
             
+            //控制一次上传只有一个回调
             var flag = false;
-            var frontSuccess = false;
+            //在本页中只能上传3次
+            var frontSuccess = 0;
             function takeFrontPhoto() {
-            if (!hasData && !frontSuccess) {
-            //身份证正面
-            flag = false;
-            if (mui.os.android) {
-            intent.putExtra("type", 1);
-            intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            main.startActivity(intent);
-            main.startActivityForResult(intent, 19);
-            main.onActivityResult = function(request, code, data) {
-            //停止录像
-            if (!flag) {
-            var imgUrl = data.getStringExtra("result");
-            $("#zhengmian").attr("src", imgUrl);
-            
-            Global.getCanvasBase64(imgUrl)
-            .then(function(base64) {
-            console.log(base64);
-            flag = true;
-            uploadFile("front", base64)
-            }, function(err) {
-            flag = true;
-            console.log(err);
-            })
-            return;
-            }
-            
-            }
-            } else {
-            
-            
-            
-            //ios
-            
-            
-            plus.plugintest.PluginTakePhotoFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
-            //alert( result[0].toString());
-            //alert(2);
-            
-            $("#zhengmian").attr("src", result[0].toString());
-            Global.getCanvasBase64(result[0].toString())
-            .then(function(base64) {
-            console.log(base64);
-            flag = true;
-            uploadFile("front", base64)
-            }, function(err) {
-            flag = true;
-            console.log(err);
-            })
-            
-            
-            }, function(result) {
-            //alert(result)
-            });
-            
-            
-            
-            
-            }
-            
-            } else {
-            mui.toast("不可修改");
-            }
+            if (frontSuccess<3) {
+                //身份证正面
+                flag = false;
+                if (mui.os.android) {
+                    intent.putExtra("type", 1);
+                    intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    main.startActivityForResult(intent, 19);
+                    main.onActivityResult = function(request, code, data) {
+                        //停止录像
+                        if (!flag && (request == 19) && (code == 64)) {
+                            var imgUrl = data.getStringExtra("result");
+                            $("#zhengmian").attr("src", imgUrl);
+                            
+                            Global.getCanvasBase64(imgUrl)
+                            .then(function(base64) {
+                                console.log(base64);
+                                flag = true;
+                                uploadFile("front", base64)
+                            }, function(err) {
+                                flag = true;
+                                console.log(err);
+                            })
+                            return;
+                        }
+                    
+                    }
+                } else {
+                
+                
+                
+                //ios
+                
+                
+                plus.plugintest.PluginTakePhotoFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
+                //alert( result[0].toString());
+                //alert(2);
+                
+                $("#zhengmian").attr("src", result[0].toString());
+                Global.getCanvasBase64(result[0].toString())
+                .then(function(base64) {
+                console.log(base64);
+                flag = true;
+                uploadFile("front", base64)
+                }, function(err) {
+                flag = true;
+                console.log(err);
+                })
+                
+                
+                }, function(result) {
+                //alert(result)
+                });
+                
+                
+                
+                
+                }
+                
+                } else {
+                    mui.toast("是否姓名识别有误，请您手动修改");
+                    $(".change_name_icon").removeClass("hideClass");
+                    $("#name").removeAttr("readonly");
+                }
             
             }
             
             var backSuccess = false;
             function takeBackPhoto() {
-            if (!hasData && !backSuccess) {
+            if ( !backSuccess) {
             //身份证反面
             flag = false;
             if (mui.os.android) {
             intent.putExtra("type", 2);
             intent.setClassName(main, "win.smartown.android.library.certificateCamera.CameraActivity");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            main.startActivity(intent);
             main.startActivityForResult(intent, 19);
             main.onActivityResult = function(request, code, data) {
             //停止录像
-            if (!flag) {
+            if (!flag && (request == 19) && (code == 64)) {
             var imgUrl = data.getStringExtra("result");
             $("#fanmian").attr("src", imgUrl);
             Global.getCanvasBase64(imgUrl)
@@ -604,7 +616,7 @@
             flag = true;
             uploadFile("back", base64);
             }, function(err) {
-            alert(1);
+            //alert(1);
             console.log(err);
             flag = true;
             })
@@ -617,7 +629,7 @@
             }
             
             } else {
-            mui.toast("不可修改");
+            mui.toast("您已成功识别");
             }
             
             }
@@ -638,9 +650,9 @@
             if (idPicType == "front") {
             $('#name').val(data.userInfo.realName);
             $('#card').val(data.userInfo.idCard);
-            frontSuccess = true;
+            frontSuccess++;
             } else {
-            		backSuccess = true;
+            		backSuccess=true;
             }
             
             
