@@ -38,8 +38,7 @@ mui.plusReady(function() {
             plus.plugintest.PluginXcqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
                 //alert( result[0].toString());
 
-                if(result[0]=="1")
-                {
+                if (result[0] == "1") {
 
                     mui.alert("由于没有存储权限，部分功能将无法使用");
 
@@ -314,9 +313,9 @@ function checkPermission() {
         },
         "failure": function() {
             //plus.runtime.quit();
-//          mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
-//
-//          })
+            //          mui.alert("由于没有存储权限，部分功能将无法使用", "提示", function() {
+            //
+            //          })
             checkPermission();
         }
     });
@@ -759,8 +758,8 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
 
 
     if (mui.os.android) {
-    		clickFindItem(item);
-    		return;
+        clickFindItem(item);
+        return;
         checkPermissionPhoto(function() {
             clickFindItem(item);
         }, function() {
@@ -771,12 +770,9 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
     } else {
 
         plus.plugintest.PluginXjqxFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
-            if(result[0]=="1")
-            {
+            if (result[0] == "1") {
                 clickFindItem(item);
-            }
-            else
-            {
+            } else {
                 mui.alert("请在设备的\\\"设置-隐私-相机\\\"中允许访问相机。");
             }
 
@@ -804,11 +800,11 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-        		if(mui.os.android && (data.jumpType == "out")){
-        			plus.runtime.openURL(item.goodsUrl);
-        			return;
-        		}
-        		
+            if (mui.os.android && (data.jumpType == "out")) {
+                plus.runtime.openURL(item.goodsUrl);
+                return;
+            }
+
             mui.openWindow({
                 url: 'webview.html',
                 id: 'webview.html?url=' + item.goodsUrl,
@@ -1354,74 +1350,74 @@ function newbieTaskBanner(listData) {
     var length = listData.length;
     if (listData && listData.length > 0) {
         $(".makeMoneyLoop").removeClass("hideClass");
-        
+
         //无限轮播要求  前面加一个节点
-        if(listData.length != 1){
-	        html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
-	            '<a href="#">' +
-	            '<img src="' + listData[length - 1].picUrl + '" class="make_money_bottom_slider"> ' +
-	            '</a>' +
-	            '</div>';
-           }
-         
+        if (listData.length != 1) {
+            html = '<div class="mui-slider-item mui-slider-item-duplicate">' +
+                '<a href="#">' +
+                '<img src="' + listData[length - 1].picUrl + '" class="make_money_bottom_slider"> ' +
+                '</a>' +
+                '</div>';
+        }
+
         for (var i = 0; i < length; i++) {
             html += '<div class="mui-slider-item">' +
                 '<a href="#">' +
                 '<img src="' + listData[i].picUrl + '" class="make_money_bottom_slider" data-url="' + listData[i].adValue + '">' +
                 '</a></div>';
         }
-        if(listData.length != 1){
-        		//无限轮播要求  最后加一个节点
-	        html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
-	            '<a href="#">' +
-	            '<img src="' + listData[0].picUrl + '" class="make_money_bottom_slider"> ' +
-	            '</a>' +
-	            '</div>';
+        if (listData.length != 1) {
+            //无限轮播要求  最后加一个节点
+            html += '<div class="mui-slider-item mui-slider-item-duplicate">' +
+                '<a href="#">' +
+                '<img src="' + listData[0].picUrl + '" class="make_money_bottom_slider"> ' +
+                '</a>' +
+                '</div>';
         }
-        
-        
+
+
         $(".makeMoneyLoop").append(html);
         //console.log(html);
-        
+
     } else {
         $(".makeMoneyLoop").html("");
         $(".makeMoneyLoop").addClass("hideClass");
     }
 }
 
-$(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {	
-            var that = $(this);
-              //mui.toast(that.data("url"));
-            if (that.data("url") == "undefined") {
-                console.log(that.data("url") + '-----===');
-                return;
-            } else if (that.data("url") == "findTab") {
-                var clickType = {
-                    source: myStorage.getItem("user").sourceCode
-                }
-                plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
+$(".makeMoneyLoop").on("tap", ".make_money_bottom_slider", function() {
+    var that = $(this);
+    //mui.toast(that.data("url"));
+    if (that.data("url") == "undefined") {
+        console.log(that.data("url") + '-----===');
+        return;
+    } else if (that.data("url") == "findTab") {
+        var clickType = {
+            source: myStorage.getItem("user").sourceCode
+        }
+        plus.statistic.eventTrig("maintofind ", JSON.stringify(clickType));
 
-                goToFindTab();
-            } else if (that.data("url") == "makeMoneyTab") {
-                //赚钱tab
-                goToMakeMoneyTab();
+        goToFindTab();
+    } else if (that.data("url") == "makeMoneyTab") {
+        //赚钱tab
+        goToMakeMoneyTab();
 
-            } else if (that.data("url") == "applyMoney") {
-                //评估结果页
-                apply();
-            } else if (that.data("url") && (that.data("url").indexOf("http") != -1)) {
-                mui.openWindow({
-                    url: 'webview.html',
-                    id: 'webview.html?url=' + that.data("url"),
-                    waiting: {
-                        autoShow: false
-                    }
-                })
-            } else {
-                return;
+    } else if (that.data("url") == "applyMoney") {
+        //评估结果页
+        apply();
+    } else if (that.data("url") && (that.data("url").indexOf("http") != -1)) {
+        mui.openWindow({
+            url: 'webview.html',
+            id: 'webview.html?url=' + that.data("url"),
+            waiting: {
+                autoShow: false
             }
-
         })
+    } else {
+        return;
+    }
+
+})
 
 
 //分享底部弹窗
@@ -1806,14 +1802,14 @@ function invaliteFriend() {
                 shareData = data;
 
                 $(".invalite_bg").attr("src", data.adUrl);
+                $('.inviteModal').removeClass('hideClass');
 
-                Global.showLoading();
-                invalite_id.onload = function() {
-                    console.log("000000");
-                    $('.inviteModal').removeClass('hideClass');
-                    Global.hideLoading();
-
-                }
+                // Global.showLoading();
+                // invalite_id.onload = function() {
+                //     console.log("000000");
+                //     $('.inviteModal').removeClass('hideClass');
+                //     Global.hideLoading();
+                // }
 
             }
         },

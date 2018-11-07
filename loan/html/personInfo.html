@@ -383,6 +383,8 @@
         //左上角 返回
         function headLeftBack() {
             if (isStep) {
+                mui.fire(plus.webview.getWebviewById('identificateFirst.html'), 'identificateAgain', {});
+
                 mui.openWindow({
                     url: 'identificateFirst.html',
                     id: 'identificateFirst.html',
