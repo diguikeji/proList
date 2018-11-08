@@ -158,7 +158,7 @@ function checkUpdateApk() {
                         // alert(wgtinfo.version+"-----"+data.version)
                         // data.version  新
                         if (data.isForce == "Y") {
-                            //强制升级
+                            //强制升级 
                             if (data.osType == "android") {
                                 $(".updateApp").removeClass("hideClass");
                                 $(".update_msg").html(data.versionExplain);
@@ -242,7 +242,7 @@ function downloadAPP(url) {
     var dtask = plus.downloader.createDownload(url, { filename: "_doc/update/" }, function(d, status) {
         if (status == 200) {
             plus.nativeUI.closeWaiting();
-            //下载完成
+            //下载完成 
             mui.alert("下载完成是否安装最新版本？", '提示', function() {
                 plus.runtime.install(d.filename, {}, function() {
 

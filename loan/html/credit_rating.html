@@ -16,7 +16,6 @@
         
         .head {
             justify-content: space-around;
-            align-items: center;
             background: #ffffff;
             padding-top: 10px;
         }
@@ -46,10 +45,11 @@
             margin: auto;
         }
         
-        .step_wrap .line_style {
+         .line_style {
             width: 2px;
             height: 50px;
             background: #AAAAAA;
+            margin-left: 70px;
         }
         
         .head img {
@@ -229,9 +229,29 @@
         .firstStep{
         		color: #999999;
         		font-size: 16px;
-        		height: 60px;
         		display: inline-block;
         }
+        
+        .content_item{
+        		width: 100%; 
+        		padding-left: 60px;
+        }
+        
+        .content_item_radio{
+        		width: 20px; height: 20px; background: #ff5445; border-radius: 50%; margin-right: 26px;
+        }
+        
+        .next_btn {
+		    width: 90%!important;
+		    border-radius: 30px;
+		    margin: 60px 5% 0px;
+		    text-align: center;
+		    padding: 10px 0rem;
+		    cursor: pointer;
+		    background: #ff493D;
+		    color: #ffffff;
+		}
+
     </style>
 </head>
 
@@ -247,50 +267,35 @@
     		<div style="width: 100%; text-align: center; margin-top: 40px;">
     			<img src="../images/faxian.png" style="width: 100px; height: 100px;"/>
     		</div>
-    		<div style="text-align: center; color: #333333; font-size: 16px;">额度评估中</div>
+    		<div style="text-align: center; color: #333333; font-size: 16px; margin-bottom: 10px;">额度评估中</div>
     		<div style="text-align: center; color: #999999; font-size: 13px;">通讯需要一定时间</div>
-    		<div style="text-align: center; color: #999999; font-size: 13px;">请耐心等待</div>
+    		<div style="text-align: center; color: #999999; font-size: 13px; margin-bottom: 20px;">请耐心等待</div>
     		
-        <div class="head row">
+        <div class="head col">
         	
+        		<div class="row content_item" >
+        			<div class="content_item_radio"></div>
+        			<span class="firstStep" style="color: #333333; font-size: 16px;">连接银行机构和网络小贷</span>
+        		</div>
+        		
+        		<div class="line_style " style="background: #FF5445;"></div>
+        		
+        		<div class="row content_item" >
+        			<div class="content_item_radio"></div>
+        			<span class="firstStep">联合风控</span>
+        		</div>
+        		
+        		<div class="line_style " style="background: #FF5445;"></div>
+        		
+        		<div class="row content_item" >
+        			<div class="content_item_radio"></div>
+        			<span class="firstStep">额度评估</span>
+        		</div>
         		
 
-            <div class="col step_wrap">
-                <div style="width: 20px; height: 20px; background: #ff5445; border-radius: 50%;"></div>
-                <div class="line_style flex_item" style="background: #FF5445;"></div>
-                <div style="width: 20px; height: 20px; background: #AAAAAA; border-radius: 50%;"></div>
-                <div class="line_style flex_item" ></div>
-                <div style="width: 20px; height: 20px; background: #AAAAAA; border-radius: 50%;"></div>
-            </div>
-
-            <div class="col step_wrap_bottom">
-                <span class="firstStep">连接银行机构和网络小贷</span>
-                <span class="firstStep">联合风控</span>
-                <span class="firstStep">额度评估</span>
-            </div>
-
         </div>
 
-        <div class="content">
-            <img src="../images/ask_icon.png" class="ask_img" onclick="openWord();" />
-            <img src="../images/three_step_icon.png" class="content_img" />
-
-
-            <div class="row agree_wrap">
-                <img src="../images/agress_icon.png" class="agree_img" onclick="agreeBtn();" />
-                <span class="agree_text" onclick="openAgreeWord();">我已阅读并同意《评估服务协议》</span>
-            </div>
-
-            <div class="bottom_wrap row">
-                <div class="bottom_left_wrap row">
-                    <span>总价(元)：</span>
-                    <span style="font-size: 36px;" id="price">6</span>
-                </div>
-                <div class="bottom_right_wrap" onclick="goPayStyle();">
-                    借款评估
-                </div>
-            </div>
-        </div>
+        <button type="button" class="mui-btn mui-btn-link next_btn" onclick="lookResult();">查看结果</button>
 
     </div>
 

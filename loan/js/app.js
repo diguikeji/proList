@@ -183,6 +183,11 @@ var Global = {};
                     } else if (data.code == "SUCCESS" || data.code == "OK" ||
                         data.code == "success" || data.code == "ok") {
                         callback(data.data ? data.data : "");
+                    }else if(data.code == "ocr.succ.over") {
+                        errorback && errorback(data.msg, data.code);
+                    }else if(data.code == "ocr.back.over"){
+                    		mui.toast(data.msg);
+                    		callback(data.data ? data.data : "");
                     }else {
                         errorback && errorback(data.msg);
                     }

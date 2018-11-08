@@ -384,16 +384,16 @@
             //closeOtherWindow();
         }, false);
 
-        window.addEventListener('identificateAgain', function(event) {
-            $('#name').val("");
-            $('#card').val("");
-            $(".next").css("background", "#c3c3c3");
-
-            $(".front_img").attr('src', "../images/id_front.png");
-            $(".back_img").attr('src', "../images/id_back.png");
-            frontSuccess = 0;
-
-        }, false);
+//      window.addEventListener('identificateAgain', function(event) {
+//          $('#name').val("");
+//          $('#card').val("");
+//          $(".next").css("background", "#c3c3c3");
+//
+//          $(".front_img").attr('src', "../images/id_front.png");
+//          $(".back_img").attr('src', "../images/id_back.png");
+//          frontSuccess = 0;
+//
+//      }, false);
 
         function initData() {
             var userInfo = myStorage.getItem("userInfo");
@@ -520,6 +520,10 @@
         var frontSuccess = 0;
 
         function takeFrontPhoto() {
+        		if(hasData){
+        			mui.toast("已保存信息无法修改");
+        			return;
+        		}
             if (frontSuccess < 3) {
                 //身份证正面
                 flag = false;
@@ -548,12 +552,7 @@
 
                     }
                 } else {
-
-
-
                     //ios
-
-
                     plus.plugintest.PluginTakePhotoFunction("Html5", "Plus", "AsyncFunction", "MultiArgument!", function(result) {
                         //alert( result[0].toString());
                         //alert(2);
@@ -590,6 +589,10 @@
         var backSuccess = false;
 
         function takeBackPhoto() {
+        		if(hasData){
+        			mui.toast("已保存信息无法修改");
+        			return;
+        		}
             if (!backSuccess) {
                 //身份证反面
                 flag = false;
@@ -671,8 +674,6 @@
                         backSuccess = true;
                     }
 
-
-
                     if (($(".front_img").attr('src') != "../images/id_front.png") &&
                         ($(".back_img").attr('src') != "../images/id_back.png")) {
 
@@ -685,14 +686,21 @@
                     Global.hideLoading();
 
                 },
-                function(err) {
-                    if (idPicType == "front") {
-                        $(".front_img").attr('src', "../images/id_front.png");
-                    } else {
-                        $(".back_img").attr('src', "../images/id_back.png");
-                    }
+                function(err, code) {
+                    
                     Global.hideLoading();
                     mui.toast(err);
+                    if(code == "ocr.succ.over"){
+                    		//身份证识别错误，手工修改
+                    		$(".change_name_icon").removeClass("hideClass");
+                			$("#name").removeAttr("readonly");
+                    }else{
+                    		if (idPicType == "front") {
+	                        $(".front_img").attr('src', "../images/id_front.png");
+	                    } else {
+	                        $(".back_img").attr('src', "../images/id_back.png");
+	                    }
+                    }
                 }
             )
         }
@@ -839,21 +847,21 @@
          * 个人信息认证
          */
         function goToPersonInfo() {
-            // if (step >= 1) {
-            //     //下次回来 不可修改
-            //     hasData = true;
-            //     mui.openWindow({
-            //         url: 'personInfo.html',
-            //         id: 'personInfo.html',
-            //         waiting: {
-            //             autoShow: false
-            //         },
-            //         extras: {
-            //             isStep: true
-            //         }
-            //     })
-            //     return;
-            // }
+               if (step >= 1) {
+                   //下次回来 不可修改
+                   hasData = true;
+                   mui.openWindow({
+                       url: 'personInfo.html',
+                       id: 'personInfo.html',
+                       waiting: {
+                           autoShow: false
+                       },
+                       extras: {
+                           isStep: true
+                       }
+                   })
+                   return;
+               }
             var name = $('#name').val();
             var card = $('#card').val();
 

@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>个人信息</title>
+    <title></title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link href="../css/mui.min.css" rel="stylesheet" />
     <link href="../css/app.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
     <style type="text/css">
         html,
         body {
@@ -17,9 +16,8 @@
         
         .head {
             justify-content: space-around;
-            align-items: center;
-            padding-top: 60px;
             background: #ffffff;
+            padding-top: 10px;
         }
         
         header img {
@@ -31,32 +29,32 @@
         }
         
         .step_wrap {
-            width: 80%;
+            width: 30px;
             align-items: center;
             justify-content: space-between;
             padding: 0px 10px;
         }
         
         .step_wrap_bottom {
-            width: 80%;
+            width: 300px;
+            height: 160px;
             align-items: center;
             justify-content: space-between;
             font-size: 12px;
+            color: #FF5445;
+            margin: auto;
         }
         
-        .step_wrap .line_style {
-            height: 2px;
-            background: #DEDEDE;
+         .line_style {
+            width: 2px;
+            height: 50px;
+            background: #AAAAAA;
+            margin-left: 70px;
         }
         
         .head img {
             width: 24px;
             height: 24px;
-        }
-        
-        .head hr {
-            height: 10px;
-            color: #000000;
         }
         
         .step_span {
@@ -75,49 +73,59 @@
             width: 90%;
             border-radius: 10px;
             box-shadow: 0px 0px 5px #888888;
-            padding: 20px;
-            margin: 38px 5%;
+            padding-top: 20px;
+            margin: 20px 5%;
             text-align: center;
             background: #ffffff;
+            position: relative;
         }
         
-        .item_wrap {
-            justify-content: space-between;
-            border-bottom: 1px solid #DFDFDF;
-            height: 30px;
-            margin-bottom: 30px;
-        }
-        
-        #study_value,
-        #marry_value,
-        #house_value,
-        #loan_value {
-            color: #999999;
-            opacity: 0.5;
-        }
-        
-        .next_btn {
-            width: 100%;
-            border-radius: 30px;
-            margin: 10px 0;
-            text-align: center;
-            padding: 10px 0rem;
-            cursor: pointer;
-            background: #ff493D;
-            color: #ffffff;
-            box-shadow: 0px 0px 5px #888888;
-        }
-        
-        .bank_info {
-            display: inline-block;
-            width: 136px;
+        .content_img {
+            width: 90%;
             margin: auto;
-            text-align: center;
-            font-size: 10px;
-            background-image: url(../images/bank_icon.png);
-            background-repeat: no-repeat;
-            background-position: left 5px;
-            background-size: 9px 10px;
+        }
+        
+        .agree_wrap {
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .agree_text {
+            color: #A5A5A5;
+            font-size: 12px;
+        }
+        
+        .agree_img {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        
+        .bottom_wrap {
+            height: 56px;
+            color: #ffffff;
+            line-height: 56px;
+        }
+        
+        .bottom_left_wrap {
+            width: 60%;
+            background: #333333;
+            justify-content: center;
+            border-bottom-left-radius: 10px;
+        }
+        
+        .bottom_right_wrap {
+            width: 40%;
+            background: #ff5445;
+            border-bottom-right-radius: 10px;
+        }
+        
+        .ask_img {
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            width: 19px;
+            height: 19px;
         }
         
         .modal-mask {
@@ -134,7 +142,7 @@
             align-items: center;
         }
         
-        .modal-dialog {
+        .selfModal .modal-dialog {
             width: 80%;
             max-height: 100%;
             overflow: auto;
@@ -143,7 +151,7 @@
             border-radius: 20px;
         }
         
-        .modal-dialog .close_style {
+        .selfModal .modal-dialog .close_style {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -152,7 +160,7 @@
             z-index: 100000;
         }
         
-        .modal-content {
+        .selfModal .modal-content {
             font-size: 12px;
             position: relative;
             z-index: 10000;
@@ -162,7 +170,7 @@
             padding: 0px;
         }
         
-        .modal-content .conten_bg {
+        .selfModal .modal-content .conten_bg {
             width: 100%;
             /*position: absolute;
 				top: 0px;
@@ -170,36 +178,36 @@
 				height: 100%;*/
         }
         
-        .dialog_step_wrap {
+        .selfModal .dialog_step_wrap {
             align-items: center;
         }
         
-        .dialog_step_wrap img {
+        .selfModal .dialog_step_wrap img {
             width: 13px;
             height: 13px;
             margin-right: 20px;
         }
         
-        .dialog_step_text {
+        .selfModal .dialog_step_text {
             color: #000000;
             font-weight: bold;
             font-size: 14px;
         }
         
-        .dialog_step_bottom_text {
+        .selfModal .dialog_step_bottom_text {
             color: #dddddd;
             font-size: 12px;
         }
         
-        .dialog_content_wrap .col {
+        .selfModal .dialog_content_wrap .col {
             padding: 10px 0px;
         }
         
-        .dialog_content_item_wrap {
+        .selfModal .dialog_content_item_wrap {
             position: relative;
         }
         
-        .addMoney {
+        .selfModal .addMoney {
             position: absolute;
             top: -5px;
             right: -30px;
@@ -217,80 +225,88 @@
             color: #FF5445;
             font-weight: bold;
         }
+        
+        .head_wrap{
+        		margin: 15px 0px;
+        }
+        
+        .head_item_wrap{
+        		background: #FFFFFF;
+        		border-bottom: 1px solid #F2F2F2;
+        		height: 87px;
+        		padding: 15px;
+        }
+        
+        .head_item_div{
+        		background: #FF8075;
+        		color: #ffffff;
+        		border-radius: 8px;
+        		height: 60px;
+        		width: 60px;
+        		font-size: 16px;
+        		text-align: center;
+        		justify-content: center;
+        		padding: 10px;
+        		margin-right: 20px;
+        }
+        
+        .content_wrap{
+        		background: #FFFFFF;
+        		width: 100%;
+        		padding: 20px;
+        		box-sizing: border-box;
+        }
+
     </style>
 </head>
 
 <body>
     <header class="mui-bar mui-bar-nav">
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
-        <span class=" header_close">关闭</span>
-        <h1 class="mui-title">个人信息认证</h1>
+        <span class="header_close">关闭</span>
+        <h1 class="mui-title">额度评估</h1>
         <img src="../images/custom_icon.png" />
     </header>
 
-    <div class="mui-content">
-        <div class="head col">
-
-            <div class="row step_wrap">
-                <img src="../images/step_finish_icon.png" alt="" />
-                <div class="line_style flex_item"></div>
-                <span class="step_span">2</span>
-                <div class="line_style flex_item"></div>
-                <img src="../images/third_step_icon.png" alt="" />
-            </div>
-
-            <div class="row step_wrap_bottom">
-                <span class="firstStep" style="color: #ff5445;">身份认证</span>
-                <span class="firstStep" style="color: #ff5445;">个人信息</span>
-                <span class="firstStep">信用评估</span>
-            </div>
-
-        </div>
-
-        <div class="content">
-
-            <div class="item_wrap row" onclick="showStudyPicker();">
-                <span>最高学府</span>
-                <div>
-                    <span id="study_value">请选择</span>
-                    <span>></span>
-                </div>
-            </div>
-
-            <div class="item_wrap row" onclick="showMarryPicker();">
-                <span>婚姻状态</span>
-                <div>
-                    <span id="marry_value">请选择</span>
-                    <span>></span>
-                </div>
-            </div>
-
-            <div class="item_wrap row" onclick="showHousePicker();">
-                <span>住房状态</span>
-                <div>
-                    <span id="house_value">请选择</span>
-                    <span>></span>
-                </div>
-            </div>
-
-            <div class="item_wrap row" onclick="showLoanPicker();">
-                <span>借款状态</span>
-                <div>
-                    <span id="loan_value">请选择</span>
-                    <span>></span>
-                </div>
-            </div>
-
-            <button type="button" class="mui-btn mui-btn-link next_btn" onclick="goToCredit();">下一步</button>
-
-            <div class="bank_info">银行级用户信息安全保障</div>
-
-        </div>
+    <div class="mui-content" style="height: 100%; background: #f2f2f2;">
+    		
+    		<div class="head_wrap">
+    			<div class="head_item_wrap row">
+    				<div class="head_item_div col">小额周转</div>
+    				<div class="col" style="justify-content: space-around;">
+    					<div style="color: #333333; font-size: 16px;">额度范围：500-5000</div>
+    					<div style="color: #999999; font-size: 14px;">放款快，期限在7-30天之间</div>
+    				</div>
+    			</div>
+    			
+    			<div class="head_item_wrap row">
+    				<div class="head_item_div col">大额分期</div>
+    				<div class="col" style="justify-content: space-around;">
+    					<div style="color: #333333; font-size: 16px;">额度范围：500-20000</div>
+    					<div style="color: #999999; font-size: 14px;">放款快，期限在3-12月之间</div>
+    				</div>
+    			</div>
+    			
+    		</div>
+    		
+    		<div class="content_wrap">
+    			<div style="text-align: center;color: #333333; font-size: 16px;">额度评估服务介绍</div>
+    			<div style="color: #5F5D5D; font-size: 13px;">1、评估额度结果决定了借款期限范围</div>
+    			<div style="color: #5F5D5D; font-size: 13px;">2、大额分期由银行直接放款，优先推荐</div>
+    			<div style="color: #5F5D5D; font-size: 13px; margin-bottom: 10px;">3、享受放款保障计划，借不到款，全额可退</div>
+    			
+    			<div >
+    				<input type="checkbox" />
+    				<span style="color: #5f5d5d; font-size: 13px;">我已经阅读并同意</span>
+    				<span style="color: #5f5d5d; font-size: 13px; font-weight: bold;">《额度评估服务协议》</span>
+    			</div>
+    			
+    		</div>
 
     </div>
 
     <!--弹窗-->
-    <div class="modal-mask row hideClass">
+    <div class="modal-mask selfModal row hideClass">
         <div class="modal-dialog">
             <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
             <div class="modal-content">
@@ -344,8 +360,8 @@
         </div>
     </div>
 
+
     <script src="../js/mui.min.js"></script>
-    <script src="../js/mui.picker.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/myStorage.js"></script>
@@ -356,13 +372,46 @@
     </script>
     <script type="text/javascript">
         mui.init();
+        mui('.mui-input-group').on('change', 'input', function() {
+            var value = this.checked ? "true" : "false";
+            console.log(value)
+                //this.previousElementSibling.innerText = "checked："+value;
+        });
 
         var isStep; //可以回退标志
+
         mui.plusReady(function() {
             //上页中的 传递的值
             var self = plus.webview.currentWebview();
             isStep = self.isStep;
+
+            initData();
+            //浮层中的信息
+            showMoneyInfo();
+            initStatus();
         });
+
+        function initData() {
+            Global.commonAjax({
+                    url: "page/assess/init"
+                },
+                function(data) {
+                    console.log(JSON.stringify(data));
+                    $("#price").html(data.price);
+                    $(".content_img").attr("src", data.payFeeAd.picUrl);
+                    /* if (mui.os.android) {
+                         $(".content_img").css("height", "280px");
+                     } else {
+                         $(".content_img").css("height", "240px");
+                     }*/
+                },
+                function(err) {
+
+                }
+            )
+        }
+
+
 
         //Android 物理返回
         var old_back = mui.back;
@@ -383,11 +432,9 @@
         //左上角 返回
         function headLeftBack() {
             if (isStep) {
-                //mui.fire(plus.webview.getWebviewById('identificateFirst.html'), 'identificateAgain', {});
-
                 mui.openWindow({
-                    url: 'identificateFirst.html',
-                    id: 'identificateFirst.html',
+                    url: 'personInfo.html',
+                    id: 'personInfo.html',
                     waiting: {
                         autoShow: false
                     }
@@ -395,26 +442,19 @@
             } else {
                 initStatus("close");
             }
-
-
-
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
-
+            //$('.selfModal').removeClass("hideClass");
             initStatus("close");
-        })
-
-        $(".dialog_bottom_btn").click(function() {
-            $('.modal-mask').addClass("hideClass");
         })
 
         //弹窗中 关闭按钮
         function closeDialg() {
             var clickType = {
                 source: myStorage.getItem("user").sourceCode,
-                page: 'detail'
+                page: 'assess'
             }
             plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType))
 
@@ -422,11 +462,10 @@
             Global.closeStepWindow();
         };
 
-        mui.plusReady(function() {
-            initData();
-            showMoneyInfo();
-            initStatus();
-        });
+
+        $(".dialog_bottom_btn").click(function() {
+            $('.modal-mask').addClass("hideClass");
+        })
 
         var step = 0;
 
@@ -490,6 +529,7 @@
                     }
 
                     if (close) {
+                        $(".global-modal").addClass("hideClass");
                         $('.modal-mask').removeClass("hideClass");
                     }
 
@@ -497,158 +537,69 @@
             );
         }
 
-        var studyPickerList = [];
-        var marryPickerList = [];
-        var housePickerList = [];
-        var loanPickerList = [];
 
+        /**
+         * 同意
+         */
+        function agreeBtn() {
+            console.log($('.agree_img').attr('src'))
+            if ($('.agree_img').attr('src') == '../images/agress_icon.png') {
+                $('.agree_img').attr('src', '../images/unagress_icon.png');
+            } else {
+                $('.agree_img').attr('src', '../images/agress_icon.png');
+            }
+        }
 
-        function initData() {
-            Global.commonAjax({
-                    url: "sys/latest/syscfg"
-                },
-                function(data) {
-                    studyPickerList = [];
-                    marryPickerList = [];
-                    housePickerList = [];
-                    loanPickerList = [];
-                    data.highestDegree.map(function(resItem) {
-                        var item = {
-                            value: resItem.codeValue,
-                            text: resItem.codeName
-                        };
-                        studyPickerList.push(item);
-                    });
-                    studyPicker.setData(studyPickerList);
+        //评估报告 弹窗
+        function openWord() {
+            var registerTxt = $.ajax({
+                url: "credit_rating.html",
+                async: false
+            });
+            Global.showModal(registerTxt.responseText, true)
+        }
 
-                    data.maritalStatus.map(function(resItem) {
-                        var item = {
-                            value: resItem.codeValue,
-                            text: resItem.codeName
-                        };
-                        marryPickerList.push(item);
-                    });
-                    marryPicker.setData(marryPickerList);
-
-                    data.houseStatus.map(function(resItem) {
-                        var item = {
-                            value: resItem.codeValue,
-                            text: resItem.codeName
-                        };
-                        housePickerList.push(item);
-                    });
-                    housePicker.setData(housePickerList);
-
-                    data.loansStatus.map(function(resItem) {
-                        var item = {
-                            value: resItem.codeValue,
-                            text: resItem.codeName
-                        };
-                        loanPickerList.push(item);
-                    });
-                    loanPicker.setData(loanPickerList);
-
-                    if (myStorage && myStorage.getItem("userInfo")) {
-                        var userInfo = myStorage.getItem("userInfo");
-                        selectStudyValue = userInfo.highestDegree;
-                        selectMarryValue = userInfo.maritalStatus;
-                        selectLoanValue = userInfo.loansStatus;
-                        selectHouseValue = userInfo.houseStatus;
-
-                        //                      mui('#study_value')[0].style.color = "#333333";
-                        //                      mui('#study_value')[0].style.opacity = "1";
-                        studyPickerList.map(function(item) {
-                            if (item.value == selectStudyValue) {
-                                mui('#study_value')[0].innerHTML = item.text;
-                            }
-                        })
-
-
-                        //                      mui('#marry_value')[0].style.color = "#333333";
-                        //                      mui('#marry_value')[0].style.opacity = "1";
-                        marryPickerList.map(function(item) {
-                            if (item.value == selectMarryValue) {
-                                mui('#marry_value')[0].innerHTML = item.text;
-                            }
-                        })
-
-                        //                      mui('#house_value')[0].style.color = "#333333";
-                        //                      mui('#house_value')[0].style.opacity = "1";
-                        //mui('#house_value')[0].innerHTML = housePickerList[selectHouseValue].text;
-                        housePickerList.map(function(item) {
-                            if (item.value == selectHouseValue) {
-                                mui('#house_value')[0].innerHTML = item.text;
-                            }
-                        })
-
-                        //                      mui('#loan_value')[0].style.color = "#333333";
-                        //                      mui('#loan_value')[0].style.opacity = "1";
-                        //mui('#loan_value')[0].innerHTML = loanPickerList[selectLoanValue].text;
-                        loanPickerList.map(function(item) {
-                            if (item.value == selectLoanValue) {
-                                mui('#loan_value')[0].innerHTML = item.text;
-                            }
-                        })
-                    }
-
-                },
-                function(err) {
-                    mui.toast(err);
+        //服务协议 弹窗
+        function openAgreeWord() {
+            mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url=https://web.static.xhq520.com/xieyi/xhq-credit-assess-policy.html',
+                waiting: {
+                    autoShow: false
                 }
-            )
+            })
+            return;
+            var registerTxt = $.ajax({
+                url: "service_rating.html",
+                async: false
+            });
+            Global.showModal(registerTxt.responseText, true)
         }
 
-        var selectStudyValue, selectMarryValue, selectLoanValue, selectHouseValue;
-        var studyPicker = new mui.PopPicker();
+        //支付方式
+        function goPayStyle() {
+            var clickType = {
+                source: myStorage.getItem("user").sourceCode
+            }
+            plus.statistic.eventTrig("paypage", JSON.stringify(clickType))
 
-        function showStudyPicker() {
-            studyPicker.show(function(SelectedItem) {
-                console.log(SelectedItem[0].text);
-                mui('#study_value')[0].style.color = "#333333";
-                mui('#study_value')[0].style.opacity = "1";
-                mui('#study_value')[0].innerHTML = SelectedItem[0].text;
-                selectStudyValue = SelectedItem[0].value;
+            mui.openWindow({
+                url: 'pay_style.html',
+                id: 'pay_style.html',
+                waiting: {
+                    autoShow: false
+                },
+                extras: {
+                    amount: $("#price").html(),
+                    isStep: true
+                }
             })
         }
 
-        var marryPicker = new mui.PopPicker();
-
-        function showMarryPicker() {
-            marryPicker.show(function(SelectedItem) {
-                console.log(SelectedItem[0].text);
-                mui('#marry_value')[0].style.color = "#333333";
-                mui('#marry_value')[0].style.opacity = "1";
-                mui('#marry_value')[0].innerHTML = SelectedItem[0].text;
-                selectMarryValue = SelectedItem[0].value;
-            })
-        }
-
-        var housePicker = new mui.PopPicker();
-
-        function showHousePicker() {
-            housePicker.show(function(SelectedItem) {
-                console.log(SelectedItem[0].text);
-                mui('#house_value')[0].style.color = "#333333";
-                mui('#house_value')[0].style.opacity = "1";
-                mui('#house_value')[0].innerHTML = SelectedItem[0].text;
-                selectHouseValue = SelectedItem[0].value;
-            })
-        }
-
-        var loanPicker = new mui.PopPicker();
-
-        function showLoanPicker() {
-            loanPicker.show(function(SelectedItem) {
-                console.log(SelectedItem[0].text);
-                mui('#loan_value')[0].style.color = "#333333";
-                mui('#loan_value')[0].style.opacity = "1";
-                mui('#loan_value')[0].innerHTML = SelectedItem[0].text;
-                selectLoanValue = SelectedItem[0].value;
-            })
-        }
         //浮层 奖金信息
         function showMoneyInfo() {
             if (myStorage) {
+                console.log(myStorage.getItem("inputIdInfoReturn"));
                 if (myStorage.getItem("inputIdInfoReturn")) {
                     $(".first_step_money").html(myStorage.getItem("inputIdInfoReturn"));
                     $(".first_text").html("完成即可获得" + myStorage.getItem("inputIdInfoReturn") + "元现金");
@@ -665,69 +616,6 @@
                     $(".third_text").html("完成即可获得" + myStorage.getItem("payReturn") + "元现金");
                 }
             }
-
-        }
-
-        /**
-         * 信用评估 
-         */
-        function goToCredit() {
-            if (mui('#marry_value')[0].innerHTML == "请选择") {
-                mui.toast("请选择婚姻状态");
-                return;
-            }
-
-            if (mui('#study_value')[0].innerHTML == "请选择") {
-                mui.toast("请选择学历");
-                return;
-            }
-
-            if (mui('#house_value')[0].innerHTML == "请选择") {
-                mui.toast("请选择住房状态");
-                return;
-            }
-
-            if (mui('#loan_value')[0].innerHTML == "请选择") {
-                mui.toast("请选择借款状态");
-                return;
-            }
-            var params = {
-                maritalStatus: selectMarryValue,
-                highestDegree: selectStudyValue,
-                loansStatus: selectLoanValue,
-                houseStatus: selectHouseValue
-            };
-
-
-            Global.commonAjax({
-                    url: "user/input/detail",
-                    method: "POST",
-                    data: params
-                },
-                function(data) {
-                    var clickType = {
-                        source: myStorage.getItem("user").sourceCode
-                    }
-                    plus.statistic.eventTrig("applydetail", JSON.stringify(clickType))
-
-                    mui.toast("提交成功");
-                    mui.openWindow({
-                        url: 'credit.html',
-                        id: 'credit.html',
-                        waiting: {
-                            autoShow: false
-                        },
-                        extras: {
-                            isStep: true
-                        }
-                    })
-                },
-                function(err) {
-                    mui.toast(err);
-                }
-            )
-
-
         }
     </script>
 </body>
