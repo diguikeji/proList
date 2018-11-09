@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -17,6 +19,11 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.Utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 
@@ -57,7 +64,6 @@ public class Tools {
     public static void permission(String[] permissions, final CallBack callBack){
 
 
-
         PermissionUtils.permission(permissions).callback(new PermissionUtils.SimpleCallback() {
             /**
              * 权限请求成功
@@ -80,6 +86,84 @@ public class Tools {
             }
         }).request();
     }
+
+
+    /**
+     * 返回true 表示可以使用  返回false表示不可以使用
+     * @return
+     */
+    public static void cameraIsCanUse(CallBack callBack) {
+        boolean isCanUse = true;
+        Camera mCamera = null;
+        try {
+            mCamera = Camera.open();
+            Camera.Parameters mParameters = mCamera.getParameters(); //针对魅族手机
+            mCamera.setParameters(mParameters);
+        } catch (Exception e) {
+            isCanUse = false;
+            callBack.failure();
+            return;
+        }
+
+        if (mCamera != null) {
+            try {
+                mCamera.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //return isCanUse;
+                callBack.failure();
+                return;
+            }
+        }
+        //return isCanUse;
+        callBack.success();
+    }
+
+    public static void storageIsCanUse(CallBack callBack){
+
+        if(writeInfo(callBack)){
+            readInfo(callBack);
+        }
+
+    }
+
+    public static boolean writeInfo(CallBack callBack) {
+        File file = new File("/data/data/org.qldc.xianghq/public.txt");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write("hahaha".getBytes());
+            fos.close();
+            return true;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            callBack.failure();
+        }
+        return false;
+
+    }
+
+    public static void readInfo(CallBack callBack){
+        File file = new File("/data/data/org.qldc.xianghq/public.txt");
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            String result = br.readLine();
+            if(!TextUtils.isEmpty(result)){
+                callBack.success();
+            }else{
+                callBack.failure();
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            callBack.failure();
+        }
+    }
+
+
 
     //跳转应用市场
     public static void goToMarket(Context context){
@@ -174,7 +258,9 @@ public class Tools {
 
     //打开设置页面
     public static void goToSetting(Context context) {
-        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
         context.startActivity(intent);
     }
+
+
 }

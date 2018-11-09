@@ -328,7 +328,7 @@ function checkPermission() {
 }
 
 //发现页 点击检查权限
-function checkPermissionPhoto(callback, fail) {
+function checkPermissionPhoto_old(callback, fail) {
     //return;
     if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 6.0)) {
         //...操作
@@ -360,6 +360,60 @@ function checkPermissionPhoto(callback, fail) {
     plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA", "android.permission-group.STORAGE"], callBack);
 
 }
+
+function checkPermissionPhoto(callback, fail) {
+            //return;
+//          if (mui.os.ios || (mui.os.android && parseFloat(mui.os.version) < 6.0)) {
+//              if (callback) {
+//                  callback();
+//              }
+//              return;
+//          }
+            
+            if (mui.os.ios) {
+                return;
+            }
+            
+            var mainAct = plus.android.runtimeMainActivity();
+            plus.android.invoke("org.qldc.xianghq.Tools", "initUtils", mainAct);
+            var callBack = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+                "success": function() {
+                    //申请权限成功或已经获取到了权限都会执行到这里
+                    if (callback) {
+                        //callback();
+                        
+                        var callBackStorage = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
+			                "success": function() {
+			                    //申请权限成功或已经获取到了权限都会执行到这里
+			                    if (callback) {
+			                        callback();
+			                    }
+			                },
+			                "failure": function() {
+			                    if (fail) {
+			                        fail();
+			                    }
+			                }
+			            });
+			            plus.android.invoke("org.qldc.xianghq.Tools", "storageIsCanUse", callBackStorage);
+                        
+                    }
+                },
+                "failure": function() {
+                    if (fail) {
+                        fail();
+                    }
+                }
+            });
+            //调用申请权限的静态方法
+            //照相
+            //plus.android.invoke("org.qldc.xianghq.Tools", "permission", ["android.permission-group.CAMERA", "android.permission-group.STORAGE"], callBack);
+			
+			plus.android.invoke("org.qldc.xianghq.Tools", "cameraIsCanUse", callBack);
+			
+
+        }
+
 
 
 //获取最新引导页
