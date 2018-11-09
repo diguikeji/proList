@@ -104,20 +104,28 @@
         .bottom_wrap {
             height: 56px;
             color: #ffffff;
-            line-height: 56px;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
         }
         
         .bottom_left_wrap {
             width: 60%;
-            background: #333333;
+            background: #ffffff;
+            color: #333333;
+            font-size: 13px;
             justify-content: center;
-            border-bottom-left-radius: 10px;
+            padding-left: 20px;
         }
         
         .bottom_right_wrap {
             width: 40%;
             background: #ff5445;
-            border-bottom-right-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            justify-content: center;
+            align-items: center;
         }
         
         .ask_img {
@@ -256,6 +264,82 @@
         		padding: 20px;
         		box-sizing: border-box;
         }
+        
+        
+		input[type="checkbox"]{
+		    -webkit-appearance: none;
+		    vertical-align:middle;
+		    margin-top:0;
+		    background:#fff;
+		    border:#999 solid 1px;
+		    border-radius: 3px;
+		    min-height: 16px;
+		    min-width: 16px;
+		}
+		input[type="checkbox"]:checked {
+		    background: #ff5445;
+		}
+		input[type=checkbox]:checked::after{
+		    content: '';
+		    top: 6px;
+		    left: 2px;
+		    position: absolute;
+		    background: transparent;
+		    border: #fff solid 2px;
+		    border-top: none;
+		    border-right: none;
+		    height: 6px;
+		    width: 10px;
+		    -moz-transform: rotate(-45deg);
+		    -ms-transform: rotate(-45deg);
+		    -webkit-transform: rotate(-45deg); 
+		    transform: rotate(-45deg);
+		}
+
+		.pay_dialog{
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			width: 100%;
+			height: 400px;
+			background: #ffffff;
+			padding: 10px 30px;
+			box-sizing: border-box;
+		}
+		
+		.pay_dialog .item_wrap{
+			justify-content: space-between; 
+			border-bottom: 1px solid #E4E6F0;
+			height: 50px;
+			line-height: 50px;
+			align-items: center;
+			font-size: 16px;
+			color: #999999;
+		}
+		
+		.phone_input {
+            max-width: 80px!important;
+            margin: 0px!important;
+            padding: 0px!important;
+            display: inline-block;
+            background: none;
+            outline: none;
+            border: 0px!important;
+            color: #333333;
+            font-size: 16px;
+            border-radius: 0;
+            box-sizing: border-box;
+        }
+        input::-webkit-input-placeholder {
+            color: #999999;
+            font-size: 15px;
+            opacity: 0.5;
+        }
+        
+        .item_wrap_style{
+        		display: inline-block;
+        		width: 120px;
+        }
 
     </style>
 </head>
@@ -296,11 +380,25 @@
     			<div style="color: #5F5D5D; font-size: 13px; margin-bottom: 10px;">3、享受放款保障计划，借不到款，全额可退</div>
     			
     			<div >
-    				<input type="checkbox" />
+    				<div style="position: relative; display: inline-block;">
+    					<input type="checkbox" />
+    				</div>
+    				
     				<span style="color: #5f5d5d; font-size: 13px;">我已经阅读并同意</span>
     				<span style="color: #5f5d5d; font-size: 13px; font-weight: bold;">《额度评估服务协议》</span>
     			</div>
     			
+    		</div>
+    		
+    		<div class="row bottom_wrap">
+    			<div class="col bottom_left_wrap">
+    				<span style="color: #333333; font-size: 13px;">总价：<span style="font-size: 22px;">99元</span> </span>
+    				<span style="color: #999999; font-size: 13px;">已优惠：300元 </span>
+    			</div>
+    			
+    			<div class="row bottom_right_wrap" onclick="payNow();">
+    				马上借款
+    			</div>
     		</div>
 
     </div>
@@ -360,7 +458,34 @@
         </div>
     </div>
 
+	
+	<!--支付弹窗-->
+    <div class="modal-mask payModal row hideClass">
+        <div class="pay_dialog">
+               <div class="row item_wrap" >
+               		<img src="../images/close.png" style="width: 30px; height: 30px; padding: 5px" onclick="closePayModal();"/>
+               		<span style="color: #424242; font-weight: bold;">确认支付</span>
+               		<span style="color: #4D81F1;">换卡</span>
+               </div>
+               
+               <div class="row item_wrap" >
+               		<span >付款方式</span>
+               		<span style="color: #333333;">招商银行信用卡(2463)</span>
+               		<span style="visibility: hidden;">换卡</span>
+               </div>
+               
+               <div class="row item_wrap" >
+               		<span >验证码</span>
+               		<input type="number"  class="phone_input" placeholder="请输入"/>
+               		<span>120s重新获取</span>
+               </div>
+               
+        </div>
+    </div>
 
+
+	
+	
     <script src="../js/mui.min.js"></script>
     <script src="../js/jquery-2.1.1.min.js"></script>
     <script src="../js/app.js"></script>
@@ -551,12 +676,12 @@
         }
 
         //评估报告 弹窗
-        function openWord() {
-            var registerTxt = $.ajax({
-                url: "credit_rating.html",
-                async: false
-            });
-            Global.showModal(registerTxt.responseText, true)
+        function payNow() {
+            $('.payModal').removeClass("hideClass");
+        }
+        
+        function closePayModal(){
+        		$('.payModal').addClass("hideClass");
         }
 
         //服务协议 弹窗
