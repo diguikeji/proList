@@ -372,7 +372,8 @@
 	      			extras:{
 	      				amount: amount,
 	      				payChannel: styleList[index].channelCode,
-	      				isStep: true
+	      				isStep: true,
+	      				isSecondPay: isSecondPay
 	      			}
 	      		})
 			}
@@ -436,13 +437,21 @@
 	            
 	            if(isSecondPay){
 	            		//回到评分结果页
-	            		
+	            		Global.closeStepWindow();
+	            		mui.openWindow({
+		                url: 'credit.html',
+		                id: 'credit.html',
+		                waiting: {
+		                    autoShow: false
+		                }
+		            });
 	            }else{
 	            		//回到首页
 	            		Global.openKouzi();
+	            		Global.closeStepWindow();
 	            }
 				
-				Global.closeStepWindow();
+				
 			};
 			
 			$(".dialog_bottom_btn").click(function(){

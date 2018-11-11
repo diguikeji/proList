@@ -1113,7 +1113,7 @@ var slider = mui("#slider").slider({
 
 //申请贷款
 function apply(params) {
-    Global.commonAjax({ url: "user/input/status" },
+    Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {
             var url = "identificateFirst.html";
 
@@ -1122,10 +1122,12 @@ function apply(params) {
                     url = "identificateFirst.html";
                 } else if (data.isInputDetail == "N") {
                     url = "personInfo.html";
-                } else if (data.isPay == "N") {
+                } else if (data.isPayCreditFee == "N") {
                     url = "credit.html";
-                } else {
-                    url = "recommand.html";
+                } else if (data.isPayLimitFee == "N"){
+                		url = "credit_result.html";
+                }else {
+                    url = "credit_rating_second.html";
                 }
 
                 if (params) {
@@ -1170,7 +1172,7 @@ function apply(params) {
 var updateData;
 //更新页面
 function updatePage(tabNum) {
-    var url = "user/input/status";
+    var url = "v2/user/input/status";
     if (tabNum == -1) {
         url = "user/input/status?isShowPic=true"
     }
@@ -1224,12 +1226,16 @@ function updatePage(tabNum) {
                 } else {
                     var url;
                     if (data.isInputIdcard == "N") {
-                        url = "identificateFirst.html";
-                    } else if (data.isInputDetail == "N") {
-                        url = "personInfo.html";
-                    } else if (data.isPay == "N") {
-                        url = "credit.html";
-                    }
+	                    url = "identificateFirst.html";
+	                } else if (data.isInputDetail == "N") {
+	                    url = "personInfo.html";
+	                } else if (data.isPayCreditFee == "N") {
+	                    url = "credit.html";
+	                } else if (data.isPayLimitFee == "N"){
+	                		url = "credit_result.html";
+	                }else {
+	                    url = "credit_rating_second.html";
+	                }
 
                     mui.openWindow({
                         url: url,
@@ -1910,7 +1916,7 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
-    Global.commonAjax({ url: "user/input/status" },
+    Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {
             var url = "identificateFirst.html";
 
@@ -1919,10 +1925,12 @@ function goToCredit() {
                     url = "identificateFirst.html";
                 } else if (data.isInputDetail == "N") {
                     url = "personInfo.html";
-                } else if (data.isPay == "N") {
+                } else if (data.isPayCreditFee == "N") {
                     url = "credit.html";
-                } else {
-                    url = "credit_result.html";
+                } else if (data.isPayLimitFee == "N"){
+                		url = "credit_result.html";
+                }else {
+                    url = "credit_rating_second.html";
                 }
             }
 

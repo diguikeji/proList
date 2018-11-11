@@ -446,6 +446,7 @@
 			//金额
 			var amount = 0, payChannel = '';
 			var isStep;	//可以回退标志
+			var isSecondPay;
 			mui.plusReady(function() {
 			    var self = plus.webview.currentWebview();
             		amount = self.amount;
@@ -466,6 +467,7 @@
             		//上页中的 传递的值
 	            var self = plus.webview.currentWebview();
 	            isStep = self.isStep;
+	            isSecondPay = self.isSecondPay;
 	            
 	            initNativeObjects();
 				showSoftInput();
@@ -698,7 +700,8 @@
 				                    autoShow: false
 				                },
 				                extras: {
-				                		title: "fuyou"
+				                		title: "fuyou",
+				                		isSecondPay: isSecondPay
 				                }
 				            })
 						},
@@ -812,13 +815,26 @@
 							    plus.statistic.eventTrig("payclick", JSON.stringify(clickType) )
 			    
 								mui.toast("支付成功");
-								mui.openWindow({
-					                url: 'credit_result.html',
-					                id: 'credit_result.html',
-					                waiting: {
-					                    autoShow: false
-					                }
-					            })
+								
+								if(isSecondPay){
+									mui.openWindow({
+						                url: 'recommend.html',
+						                id: 'recommend.html',
+						                waiting: {
+						                    autoShow: false
+						                }
+						           });
+								}else{
+									mui.openWindow({
+						                url: 'credit_result.html',
+						                id: 'credit_result.html',
+						                waiting: {
+						                    autoShow: false
+						                }
+						           });
+								}
+								
+								
 							},
 							function(err){
 								mui.alert(err, '警告', function() {});
@@ -927,9 +943,23 @@
 	        			source: myStorage.getItem("user").sourceCode,
 	        			page: 'pay'
 	        		}
-	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
-				Global.openKouzi();
-				Global.closeStepWindow();
+	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) );
+	            
+	            if(isSecondPay){
+	            		//回到评分结果页
+	            		Global.closeStepWindow();
+	            		mui.openWindow({
+		                url: 'credit.html',
+		                id: 'credit.html',
+		                waiting: {
+		                    autoShow: false
+		                }
+		            });
+	            }else{
+	            		//回到首页
+	            		Global.openKouzi();
+	            		Global.closeStepWindow();
+	            }
 			};
 			
 			$(".dialog_bottom_btn").click(function(){

@@ -88,9 +88,9 @@ var Global = {};
         },
         //网络请求
         commonAjax: function(params, callback, errorback) {
-              //var baseUrl = "https://app.dev.xianghq.cn/api/";
-            // var baseUrl = "http://app.xhq520.com/api/";
-            var baseUrl = "http://192.168.1.26:8081/app/";
+              var baseUrl = "https://app.dev.xianghq.cn/api/";
+            // var baseUrl = "http://app.xhq520.com/api/"; 
+            //var baseUrl = "http://192.168.1.26:8081/app/";
             //应用版本号
             var appVersion = plus.runtime.version;
             //          //设备唯一标识
