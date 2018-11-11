@@ -282,11 +282,12 @@
 			//金额
 			var amount = 0;
 			var isStep;	//可以回退标志
+			var isSecondPay; //是否是第二次支付
 			mui.plusReady(function() {
 				//上页中的 传递的值
 	            var self = plus.webview.currentWebview();
 	            isStep = self.isStep;
-            
+            		isSecondPay = self.isSecondPay;
 			    initData();
 			    var self = plus.webview.currentWebview();
             		amount = self.amount;
@@ -433,7 +434,14 @@
 	        		}
 	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) )
 	            
-				Global.openKouzi();
+	            if(isSecondPay){
+	            		//回到评分结果页
+	            		
+	            }else{
+	            		//回到首页
+	            		Global.openKouzi();
+	            }
+				
 				Global.closeStepWindow();
 			};
 			
@@ -443,7 +451,7 @@
 	       
 	       var step = 0;
 		function initStatus(close){
-			Global.commonAjax({ url: "user/input/status" },
+			Global.commonAjax({ url: "v2/user/input/status" },
 		           function(data) {
 		               
 		               if ((data != "") && (data != null)) {
@@ -470,7 +478,7 @@
                             $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
                             $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
 
-                        } else if (data.isPay == "N") {
+                        } else if (data.isPayLimitFee == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");

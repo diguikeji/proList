@@ -356,6 +356,11 @@
 		.sixty{
 			color: #FF5445; min-width: 110px; text-align: right; display: inline-block;
 		}
+		
+		
+		input[type="checkbox"]{
+			border: #ff5445 1px solid;
+		}
 
     </style>
 </head>
@@ -397,7 +402,7 @@
     			
     			<div >
     				<div style="position: relative; display: inline-block;">
-    					<input type="checkbox" />
+    					<input type="checkbox" checked="checked" class="isAgree" name="isAgree"/>
     				</div>
     				
     				<span style="color: #5f5d5d; font-size: 13px;">我已经阅读并同意</span>
@@ -408,8 +413,8 @@
     		
     		<div class="row bottom_wrap">
     			<div class="col bottom_left_wrap">
-    				<span style="color: #333333; font-size: 13px;">总价：<span style="font-size: 22px;">99元</span> </span>
-    				<span style="color: #999999; font-size: 13px;">已优惠：300元 </span>
+    				<span style="color: #333333; font-size: 13px;">总价：<span style="font-size: 22px;" id="price">99元</span> </span>
+    				<span style="color: #999999; font-size: 13px;" class="originPrice">已优惠：300元 </span>
     			</div>
     			
     			<div class="row bottom_right_wrap" onclick="payNow();">
@@ -486,11 +491,11 @@
                
                <div class="row item_wrap" >
                		<span >付款方式</span>
-               		<span style="color: #333333;">招商银行信用卡(2463)</span>
+               		<span style="color: #333333;" class="oldPayInfo">招商银行信用卡(2463)</span>
                		<span style="visibility: hidden;">换卡</span>
                </div>
                
-               <div class="row item_wrap" >
+               <div class="row item_wrap code_wrap" >
                		<span >验证码</span>
                		<input type="number"  class="phone_input" placeholder="请输入"/>
                		<span class="sixty" >获取验证码</span>
@@ -533,23 +538,29 @@
             showMoneyInfo();
             initStatus();
         });
-
+		
+		//前一次支付的数据
+		var payRecored;
+		//第二次支付信息
+		var priceInfo;
         function initData() {
             Global.commonAjax({
-                    url: "page/assess/init"
+                    url: "v2/page/limit/init"
                 },
                 function(data) {
-                    console.log(JSON.stringify(data));
-                    $("#price").html(data.price);
-                    $(".content_img").attr("src", data.payFeeAd.picUrl);
-                    /* if (mui.os.android) {
-                         $(".content_img").css("height", "280px");
-                     } else {
-                         $(".content_img").css("height", "240px");
-                     }*/
+                		if(data && data.payRecored){
+                			payRecored = data.payRecored;
+                		}
+                		
+                		if(data && data.priceInfo){
+                			priceInfo = data.priceInfo;
+                			$('#price').html(data.priceInfo.price+"元");
+                			$('.originPrice').html("已优惠："+data.priceInfo.originalPrice+"元");
+                		}
+                    
                 },
                 function(err) {
-
+					mui.toast(err);
                 }
             )
         }
@@ -574,17 +585,7 @@
 
         //左上角 返回
         function headLeftBack() {
-            if (isStep) {
-                mui.openWindow({
-                    url: 'personInfo.html',
-                    id: 'personInfo.html',
-                    waiting: {
-                        autoShow: false
-                    }
-                });
-            } else {
-                initStatus("close");
-            }
+            initStatus("close");
         }
 
         //左上角 关闭按钮
@@ -614,7 +615,7 @@
 
         function initStatus(close) {
             Global.commonAjax({
-                    url: "user/input/status"
+                    url: "v2/user/input/status"
                 },
                 function(data) {
 
@@ -642,7 +643,7 @@
                             $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
                             $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
 
-                        } else if (data.isPay == "N") {
+                        } else if (data.isPayLimitFee == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");
@@ -692,10 +693,38 @@
                 $('.agree_img').attr('src', '../images/agress_icon.png');
             }
         }
-
+		
+		//支付订单信息
+		var payOrderNo;
         //评估报告 弹窗
         function payNow() {
-            $('.payModal').removeClass("hideClass");
+        		if(!$('.isAgree').prop("checked")){
+        			mui.toast("请同意额度评估服务协议");
+        			return;
+        		}
+        		Global.commonAjax({
+        			url: 'v2/pay/init/page'
+        		},
+        		function(data){
+        			if(data && data.payOrderNo){
+        				$('.oldPayInfo').html(payRecored.bankName+(payRecored.cardType=="00"?'信用卡':'借记卡')
+        					+payRecored.bankCardNo.substring(payRecored.bankCardNo.length-4, payRecored.bankCardNo.length));
+        				
+        				if(payRecored.payChannel == "fuyou"){
+        					//富有支付
+        					$('.code_wrap').addClass('hideClass');
+        				}else{
+        					$('.code_wrap').removeClass('hideClass');
+        				}
+        				payOrderNo = data.payOrderNo;
+        				$('.payModal').removeClass("hideClass");
+        			}
+        			
+        		}, function(err){
+        			mui.toast(err);
+        		})
+        		
+            
         }
         
         function closePayModal(){
@@ -704,13 +733,105 @@
         
         //下一步
         function goToNext(){
-        		mui.openWindow({
-                url: 'credit_rating.html',
-                id: 'credit_rating.html',
-                waiting: {
-                    autoShow: false
-                }
-            })
+        	
+        		if(payRecored.payChannel == "fuyou"){
+				//富有支付
+				fuyouPay();
+        		}else{
+        			//畅捷
+        			changjiePay();
+        		}
+        }
+        //畅捷支付
+        function changjiePay(){
+        		if(!$(".oldPayInfo").val()){
+				mui.toast("付款方式不能为空");
+				return;
+			}
+        		
+        		if(!$('.phone_input').val()){
+        			mui.toast("验证码不能为空");
+				return;
+        		}
+        		
+        		var params = {
+				token: token,
+				smsCode: $(".phone_input").val()
+			}
+        		
+        		Global.commonAjax(
+				{
+					url: "v2/pay/changpay/submit",
+					method: "POST",
+					data: params 
+				},
+				function(data){
+					mui.toast("支付成功");
+					mui.openWindow({
+		                url: 'recommend.html',
+		                id: 'recommend.html',
+		                waiting: {
+		                    autoShow: false
+		                }
+		            })
+				},
+				function(err){
+					console.log(err);
+					mui.alert(err, '警告', function() {});
+				}
+			)
+        		
+        }
+        
+        //富有支付方式
+        function fuyouPay(){
+        		if(!$(".oldPayInfo").val()){
+				mui.toast("付款方式不能为空");
+				return;
+			}
+        		
+        		var params = {
+				amount: priceInfo.price,
+				payChannel: payRecored.payChannel,
+				idCardNo: payRecored.idCardNo,
+				realName: payRecored.realName,
+				userId: myStorage.getItem("user").userId,
+				bankName: payRecored.bankName,
+				bankCardNo: payRecored.bankCardNo,
+				payOrderNo: payOrderNo,
+				payStep: payRecored.cardType == "00" ? 'credit' : 'limit'
+			}
+			Global.commonAjax(
+				{
+					url: "v2/pay/fuyou/submit",
+					method: "POST",
+					data: params
+				},
+				function(data){
+//					var clickType = {
+//						source: myStorage.getItem("user").sourceCode,
+//						payChannel: payChannel
+//					}
+//				    plus.statistic.eventTrig("payclick", JSON.stringify(clickType) )
+					    
+					mui.openWindow({
+		                url: 'webviewDetail.html',
+		                id: 'webview.html?url=' + data,
+		                waiting: {
+		                    autoShow: false
+		                },
+		                extras: {
+		                		title: "fuyou",
+		                		isSecondPay: true,
+		                }
+		            })
+				},
+				function(err){
+					mui.toast(err);
+				}
+			)
+					
+        		
         }
 
         //服务协议 弹窗
@@ -767,18 +888,57 @@
             }
         }
         
+        var token;
+        //畅捷支付验证码
+        function getChangeCode(){
+        		var params = {
+				amount: priceInfo.price,
+				payChannel: payRecored.payChannel,
+				idCardNo: payRecored.idCardNo,
+				realName: payRecored.realName,
+				userId: myStorage.getItem("user").userId,
+				bankName: payRecored.bankName,
+				bankCardNo: payRecored.bankCardNo,
+				bankMobile: payRecored.bankMobile,
+				cardType: payRecored.cardType,
+				cardCvv: payRecored.cardCvv,
+				cardExprDt: payRecorded.cardExprDt,
+				payOrderNo: payOrderNo,
+				payStep: payRecored.cardType == "00" ? 'credit' : 'limit'
+			}
+        		
+        		Global.commonAjax(
+				{
+					url: "pay/changpay/prepare",
+					method: "POST",
+					data: params 
+				},
+				function(data){
+					mui.toast("发送成功");
+					token = data;
+					countDown();
+				},
+				function(err){
+					console.log(err);
+					mui.alert(err, '警告', function() {});
+				}
+			)
+        }
+        
         //获取验证码
         $('.sixty').click(function() {
             if ($(this).text() == "重新获取") {
                 countDown();
-                //sendsms(phone);
+                sendsms(phone);
             }else if($(this).text() == "获取验证码"){
-            		countDown();
+            		
+            		getChangeCode();
             }
 
-        })
+        });
         var time = 120;
         function countDown() {
+        		time = 120;
             intervalObj = setInterval(function() {
                 time--;
                 if (time <= 0) {
@@ -793,7 +953,17 @@
         }
         //换卡
         function changePayStyle(){
-        		
+        		mui.openWindow({
+                url: 'pay_style.html',
+                id: 'pay_style.html',
+                waiting: {
+                    autoShow: false
+                },
+                extras: {
+                    amount: priceInfo.price,
+                    isSecondPay: true
+                }
+            })
         }
         
         

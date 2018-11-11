@@ -809,7 +809,7 @@
         function initStatus(close) {
 
             Global.commonAjax({
-                    url: "user/input/status"
+                    url: "v2/user/input/status"
                 },
                 function(data) {
 
@@ -837,7 +837,7 @@
                             $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
                             $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
 
-                        } else if (data.isPay == "N") {
+                        } else if (data.isPayLimitFee == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");

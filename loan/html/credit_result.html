@@ -296,7 +296,7 @@
 		}
 		
 		function getUserScore(){
-			Global.commonAjax({ url: "user/input/status" },
+			Global.commonAjax({ url: "v2/user/input/status" },
 		        function(data) {
 		        		if(data){
 						drawAll(data.score, data.scoreRange);
@@ -305,7 +305,7 @@
 					}
 		        },
 		        function(err){
-		        		
+		        		mui.toast(err);
 		        }
 		     );
 		}
@@ -365,24 +365,55 @@
 			ctx.fillText(text,x-tw/2,y);
 		}
 		
-		function goToNext(){
-			//新的方式
+		//获取是否 第二次支付
+		function goToNext(isjump){
 			mui.openWindow({
-	  			url: 'credit_rating_second.html',
-	  			id: 'credit_rating_second.html',
-			    waiting:{
-			      autoShow:false
-			    }
-	  		});
-	  		return;
-			//老的方式
-			mui.openWindow({
-	  			url: 'recommand.html',
-	  			id: 'recommand.html',
-			    waiting:{
-			      autoShow:false
-			    }
-	  		});
+			  			url: 'credit_rating_second.html',
+			  			id: 'credit_rating_second.html',
+					    waiting:{
+					      autoShow:false
+					    }
+			  		});
+			  		return;
+			Global.commonAjax({
+				url: 'v2/page/limit/isgo'
+			},
+			function(data){
+				if(data && data.jumpToPayed){
+					if(isjump){
+						//返回键
+						var target = plus.webview.getWebviewById("home.html");
+			            mui.fire(target, "updateFunc", {});
+			            Global.closeStepWindow();
+						return;
+					}
+					//历史推荐页面
+					mui.openWindow({
+			  			url: 'recommand.html',
+			  			id: 'recommand.html',
+					    waiting:{
+					      autoShow:false
+					    }
+			  		});
+				}else if(data && !data.jumpToPayed){
+					if(isjump){
+						//返回键
+						$('.modal-mask').removeClass("hideClass");
+						return;
+					}
+					//第二次支付
+					mui.openWindow({
+			  			url: 'credit_rating_second.html',
+			  			id: 'credit_rating_second.html',
+					    waiting:{
+					      autoShow:false
+					    }
+			  		});
+				}
+			}, function(err){
+				mui.toast(err);
+			});
+			
 		}
 		
         //Android 物理返回
@@ -393,16 +424,15 @@
         			$(".qimo_chatpup").css("display", "none");
         			return;
         		}else{
-        			headLeftBack();
+        			goToNext(true);
         		}
         }
 
         //左上角 返回
-        function headLeftBack() {
+        function headLeftBack(isjump) {
             //Global.openKouzi(); 
-            var target = plus.webview.getWebviewById("home.html");
-            mui.fire(target, "updateFunc", {});
-            Global.closeStepWindow();
+            goToNext(true);
+            
         }
 
         //左上角 关闭按钮
@@ -419,7 +449,7 @@
 
 		var step = 0;
 		function initStatus(){
-			Global.commonAjax({ url: "user/input/status" },
+			Global.commonAjax({ url: "v2/user/input/status" },
 		           function(data) {
 		               
 		               if((data != "") && (data != null)){
@@ -446,7 +476,7 @@
                             $(".addMoneySecond").attr("src", "../images/un_money_icon.png");
                             $(".addMoneyThird").attr("src", "../images/un_money_icon.png");
 
-                        } else if (data.isPay == "N") {
+                        } else if (data.isPayLimitFee == "N") {
                             step = 2;
                             $(".first_step_icon").attr("src", "../images/agress_icon.png");
                             $(".second_step_icon").attr("src", "../images/agress_icon.png");

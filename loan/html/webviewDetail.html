@@ -28,6 +28,7 @@
 		
 		<script type="text/javascript">
 			mui.init();
+			var isSecondPay = false;
 			mui.plusReady(function() {
                 var self = plus.webview.currentWebview();
                 //self.id.substring(17)
@@ -38,7 +39,8 @@
 					bottom: 0
 				});
                 self.append(baiduWV);
-
+				
+				isSecondPay = self.isSecondPay;
 //              baiduWV.addEventListener('loaded',function(){  //监听页面，当页面加载完成时
 //                  plus.nativeUI.closeWaiting();
 //              },false);
@@ -56,15 +58,24 @@
 			
 			function close(){
 				var url = "pay_style.html";
-				Global.commonAjax({ url: "user/input/status" },
+				Global.commonAjax({ url: "v2/user/input/status" },
 		           function(data) {
 		           		
 		               if((data != "") && (data != null)){
-		               		if(data.isPay == "N"){
-		               			url = "pay_style.html";
+		               		if(!isSecondPay){
+		               			if(data.isPayCreditFee == "N"){
+			               			url = "pay_style.html";
+			               		}else{
+			               			url = "credit_result.html";
+			               		}
 		               		}else{
-		               			url = "credit_result.html";
+		               			if(data.isPayLimitFee == "N"){
+			               			url = "credit_rating_second.html";
+			               		}else{
+			               			url = "recommend.html";
+			               		}
 		               		}
+		               		
 		               	}
 		               
 		               mui.openWindow({
@@ -77,13 +88,18 @@
 		               
 		            },
 		            function(err){
-		            		mui.openWindow({
-			                url: url,
-			                id: url,
-			                waiting: {
-			                    autoShow: false
-			                }
-			            })
+			            	if(!isSecondPay){
+			            		mui.openWindow({
+				                url: url,
+				                id: url,
+				                waiting: {
+				                    autoShow: false
+				                }
+				            })
+			            	}else{
+			            		mui.toast(err);
+			            	}
+		            		
 		            }
 		           );
 			}

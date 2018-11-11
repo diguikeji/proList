@@ -305,6 +305,11 @@ var Global = {};
                     plus.webview.close(wvs[i]);
                     continue;
                 }
+                
+                if (wvs[i].getURL().indexOf("credit_rating_second.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
             }
             //curr.close();
         },

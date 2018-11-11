@@ -1,0 +1,53 @@
+{
+    "pages": [
+        "pages/photoDetail/main",
+        "pages/login/main",
+        
+        "pages/newPhotoDetail/main",
+        
+        "pages/orderInfo/main",
+        "pages/selectDate/main",
+
+        
+        "pages/myOrder/main",
+
+        "pages/selectAge/main",
+        "pages/takePhoto/main",
+
+
+
+
+        "pages/orderFirst/main"
+
+
+
+
+
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "摄影",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#cdcdcd",
+        "selectedColor": "#515151",
+        "borderStyle": "#D8D9D9",
+        "backgroundColor": "#FFFFFF",
+        "list": [{
+                "text": "预定拍摄",
+                "pagePath": "pages/photoDetail/main",
+                "iconPath": "static/img/home.png",
+                "selectedIconPath": "static/img/home_selected.png"
+            },
+            {
+                "text": "我的订单",
+                "pagePath": "pages/myOrder/main",
+                "iconPath": "static/img/people.png",
+                "selectedIconPath": "static/img/people_selected.png"
+            }
+        ]
+    }
+
+}
