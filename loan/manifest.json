@@ -433,7 +433,15 @@
 			"html/credit_result.html": {
 				"resources": [],
 				"refer": [
-					"html/custom.html"
+					"html/custom.html",
+					"html/credit_rating_second.html"
+				],
+				"priority": 0
+			},
+			"html/credit_rating_second.html": {
+				"resources": [],
+				"refer": [
+					"html/credit_rating.html"
 				],
 				"priority": 0
 			}

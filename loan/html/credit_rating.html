@@ -380,7 +380,7 @@
         });
 
         var isStep; //可以回退标志
-		showTime();
+		
         mui.plusReady(function() {
             //上页中的 传递的值
             var self = plus.webview.currentWebview();
@@ -395,17 +395,19 @@
         
         var intervalHander;
         var timeTick = 0;
+        showTime();
         //倒计时
         function showTime(){
         		Global.showLoading();
         		intervalHander = setInterval(function(){
-        			
+        			alert("9999")
         			timeTick ++;
         			if(timeTick == 5){
         				timeTick = 0;
         				Global.hideLoading();
         				clearInterval(intervalHander);
         			};
+<<<<<<< HEAD
         			if(timeTick == 2){
 
         			    $(".two-col").addClass("active");
@@ -413,6 +415,15 @@
         			}else if(timeTick == 4){
 
                         $(".three-col").addClass("active");
+=======
+        			console.log("999999")
+        			if(timeTick == 1){
+        				$(".first_line").css('background-color', '#ff5445');
+        				$(".first_line_style").css('background-color', '#ff5445');
+        			}else if(timeTick == 2){
+        				$(".second_line").css('background-color', '#ff5445');
+        				$(".second_line_style").css('background-color', '#ff5445');
+>>>>>>> 6e84d344b68b609d1e3639a102e0981172ec574e
         			}
         		}, 1000);
         }
