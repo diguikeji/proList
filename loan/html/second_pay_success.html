@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title></title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link href="../css/mui.min.css" rel="stylesheet" />
-    <link href="../css/app.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet" />
     <style type="text/css">
         html,
         body {
@@ -27,6 +26,9 @@
             right: 20px;
             top: 15px;
         }
+        header > a{
+			color: #333333;
+		}
         
         .step_wrap {
             width: 30px;
@@ -267,10 +269,10 @@
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
         <!--<span class="header_close">关闭</span>-->
         <h1 class="mui-title">额度评估</h1>
-        <img src="../images/custom_icon.png" />
+        <img src="https://nydstatic.nongyaodai.com/image/error/kef.png" onclick="qimoChatClick();"/>
     </header>
 
-    <div class="mui-content">
+    <div class="mui-content" style="background: #FFFFFF;">
     		<div style="width: 100%; text-align: center; margin-top: 40px;">
     			<img src="https://web.static.xhq520.com/app/page/limit_pic.png" style="width: 100px; height: 100px;"/>
     		</div>
@@ -305,85 +307,25 @@
         <button type="button" class="mui-btn mui-btn-link next_btn" onclick="lookResult();">查看结果</button>
 
     </div>
-
-    <!--弹窗-->
-    <div class="modal-mask selfModal row hideClass">
-        <div class="modal-dialog">
-            <img src="../images/close_icon.png" class="close_style" onclick="closeDialg();" />
-            <div class="modal-content">
-                <img src="../images/close_dialog_bg.png" class="conten_bg" />
-                <div class="col dialog_content_wrap">
-                    <div class="col dialog_content_item_wrap">
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" class="first_step_icon" />
-                            <span class="dialog_step_text">真实身份认证</span>
-                        </div>
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
-                        </div>
-
-                        <img src="../images/add_money_icon.png" class="addMoney addMoneyFirst" />
-                        <span class="first_step_money">0</span>
-                    </div>
-
-                    <div class="col dialog_content_item_wrap">
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" class="second_step_icon" />
-                            <span class="dialog_step_text">填写个人信息</span>
-                        </div>
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
-                        </div>
-
-                        <img src="../images/add_money_icon.png" class="addMoney addMoneySecond" />
-                        <span class="second_step_money">0</span>
-                    </div>
-
-                    <div class="col dialog_content_item_wrap">
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/unagress_icon.png" class="third_step_icon" />
-                            <span class="dialog_step_text">完成信用评估</span>
-                        </div>
-                        <div class="row dialog_step_wrap">
-                            <img src="../images/agress_icon.png" style="visibility: hidden;" />
-                            <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
-                        </div>
-
-                        <img src="../images/add_money_icon.png" class="addMoney addMoneyThird" />
-                        <span class="third_step_money">0</span>
-                    </div>
-
-                </div>
-                <img src="../images/again_get_money.png" class="dialog_bottom_btn" />
-            </div>
-        </div>
-    </div>
-
-
+    
     <script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
     <script src="https://nydstatic.nongyaodai.com/image/error/myStorage.js"></script>
     <script src="https://web.static.xhq520.com/app/page/jquery-2.1.1.min.js"></script>
     <script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
     </script>
-    <!--<script type='text/javascript'>
+    <script type='text/javascript'>
           var qimoClientId = myStorage.getItem("user").mobile;
-    </script>-->
+    </script>
     <script type="text/javascript">
         mui.init();
 		
-        mui.plusReady(function() {
-            showTime();
-        });
-        
-        
+        showTime();
         var intervalHander;
         var timeTick = 0;
         //倒计时
         function showTime(){
         		if ($("#ShowLoading").length == 0) {
-                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: fixed;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='../images/loading.gif' style='width: 98px; height: 44px;'/></div></div>");
+                $("body").append("<div id='ShowLoading' style='width:100%;height:100%;background:rgba(0,0,0,0.5);display:table;position: fixed;left:0;top:0;z-index:1000000;'><div style='width:100%;text-align:center;vertical-align:middle;display: table-cell;'><img src='https://web.static.xhq520.com/app/page/loading1.gif' style='width: 98px; height: 44px;'/></div></div>");
             }
         		
         		

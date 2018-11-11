@@ -354,7 +354,8 @@
 					"html/pay_action.html",
 					"html/personInfo.html",
 					"html/errornet.html",
-					"html/login.html"
+					"html/login.html",
+					"html/error500.html"
 				],
 				"priority": 0
 			},
