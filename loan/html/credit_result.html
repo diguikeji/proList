@@ -366,6 +366,16 @@
 		}
 		
 		function goToNext(){
+			//新的方式
+			mui.openWindow({
+	  			url: 'credit_rating_second.html',
+	  			id: 'credit_rating_second.html',
+			    waiting:{
+			      autoShow:false
+			    }
+	  		});
+	  		return;
+			//老的方式
 			mui.openWindow({
 	  			url: 'recommand.html',
 	  			id: 'recommand.html',

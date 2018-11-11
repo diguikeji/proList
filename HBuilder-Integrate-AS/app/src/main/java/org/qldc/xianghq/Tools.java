@@ -121,16 +121,28 @@ public class Tools {
         callBack.success();
     }
 
-    public static void storageIsCanUse(CallBack callBack){
+    public static void storageIsCanUse(Context context, CallBack callBack){
 
-        if(writeInfo(callBack)){
-            readInfo(callBack);
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == context.getPackageManager()
+                .checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "org.qldc.xianghq"));
+
+        boolean has_permission1 = (PackageManager.PERMISSION_GRANTED == context.getPackageManager()
+                .checkPermission("android.permission.READ_EXTERNAL_STORAGE", "org.qldc.xianghq"));
+
+        if(has_permission && has_permission1){
+            callBack.success();
+        }else{
+            callBack.failure();
         }
+
+//        if(writeInfo(context, callBack)){
+//            readInfo(context, callBack);
+//        }
 
     }
 
-    public static boolean writeInfo(CallBack callBack) {
-        File file = new File("/data/data/org.qldc.xianghq/public.txt");
+    public static boolean writeInfo(Context context, CallBack callBack) {
+        File file = new File(context.getExternalCacheDir()+"/public.txt");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(file);
@@ -146,8 +158,8 @@ public class Tools {
 
     }
 
-    public static void readInfo(CallBack callBack){
-        File file = new File("/data/data/org.qldc.xianghq/public.txt");
+    public static void readInfo(Context context, CallBack callBack){
+        File file = new File(context.getExternalCacheDir()+"/public.txt");
         FileInputStream fis;
         try {
             fis = new FileInputStream(file);

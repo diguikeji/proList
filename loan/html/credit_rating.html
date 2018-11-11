@@ -238,7 +238,11 @@
         }
         
         .content_item_radio{
-        		width: 20px; height: 20px; background: #ff5445; border-radius: 50%; margin-right: 26px;
+        		width: 20px; 
+        		height: 20px; 
+        		border-radius: 50%; 
+        		margin-right: 26px;
+        		background: #AAAAAA;
         }
         
         .next_btn {
@@ -274,21 +278,21 @@
         <div class="head col">
         	
         		<div class="row content_item" >
-        			<div class="content_item_radio"></div>
+        			<div class="content_item_radio first_line" style="background: #ff5445;"></div>
         			<span class="firstStep" style="color: #333333; font-size: 16px;">连接银行机构和网络小贷</span>
         		</div>
         		
-        		<div class="line_style " style="background: #FF5445;"></div>
+        		<div class="line_style first_line_style" ></div>
         		
         		<div class="row content_item" >
-        			<div class="content_item_radio"></div>
+        			<div class="content_item_radio second_line"></div>
         			<span class="firstStep">联合风控</span>
         		</div>
         		
-        		<div class="line_style " style="background: #FF5445;"></div>
+        		<div class="line_style second_line_style" ></div>
         		
         		<div class="row content_item" >
-        			<div class="content_item_radio"></div>
+        			<div class="content_item_radio third_line"></div>
         			<span class="firstStep">额度评估</span>
         		</div>
         		
@@ -373,7 +377,7 @@
         });
 
         var isStep; //可以回退标志
-
+		showTime();
         mui.plusReady(function() {
             //上页中的 传递的值
             var self = plus.webview.currentWebview();
@@ -384,6 +388,30 @@
             showMoneyInfo();
             initStatus();
         });
+        
+        
+        var intervalHander;
+        var timeTick = 0;
+        //倒计时
+        function showTime(){
+        		//Global.showLoading();
+        		intervalHander = setInterval(function(){
+        			
+        			timeTick ++;
+        			if(timeTick == 3){
+        				timeTick = 0;
+        				//Global.hideLoading();
+        				clearInterval(intervalHander);
+        			};
+        			if(timeTick == 1){
+        				$(".first_line").css('background-color', '#ff5445');
+        				$(".first_line_style").css('background-color', '#ff5445');
+        			}else if(timeTick == 2){
+        				$(".second_line").css('background-color', '#ff5445');
+        				$(".second_line_style").css('background-color', '#ff5445');
+        			}
+        		}, 2000);
+        }
 
         function initData() {
             Global.commonAjax({
@@ -530,8 +558,18 @@
                 }
             );
         }
-
-
+		
+		//新的评估结果页面
+		funciton lookResult(){
+			mui.openWindow({
+                url: 'recommend.html',
+                id: 'recommend.html',
+                waiting: {
+                    autoShow: false
+                }
+            });
+		}
+		
         /**
          * 同意
          */
