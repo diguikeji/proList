@@ -236,6 +236,9 @@
         		width: 100%; 
         		padding-left: 60px;
         }
+        .content_item.active .content_item_radio {background-color: rgb(255, 84, 69);}
+        .content_item.active span{color:#333;}
+        .line_style.active{background-color: rgb(255, 84, 69);}
         
         .content_item_radio{
         		width: 20px; 
@@ -282,16 +285,16 @@
         			<span class="firstStep" style="color: #333333; font-size: 16px;">连接银行机构和网络小贷</span>
         		</div>
         		
-        		<div class="line_style first_line_style" ></div>
+        		<div class="line_style first_line_style two-col" ></div>
         		
-        		<div class="row content_item" >
+        		<div class="row content_item two-col" >
         			<div class="content_item_radio second_line"></div>
         			<span class="firstStep">联合风控</span>
         		</div>
         		
-        		<div class="line_style second_line_style" ></div>
+        		<div class="line_style second_line_style three-col" ></div>
         		
-        		<div class="row content_item" >
+        		<div class="row content_item three-col" >
         			<div class="content_item_radio third_line"></div>
         			<span class="firstStep">额度评估</span>
         		</div>
@@ -395,24 +398,30 @@
         showTime();
         //倒计时
         function showTime(){
-        		//Global.showLoading();
-        		intervalHander = setInterval(function(){
-        			alert("9999")
+        		Global.showLoading();
+        		intervalHander = setInterval(
+        		    function(){
+
         			timeTick ++;
-        			if(timeTick == 3){
+        			if(timeTick == 5)
+        			{
         				timeTick = 0;
-        				//Global.hideLoading();
+        				Global.hideLoading();
         				clearInterval(intervalHander);
         			};
-        			console.log("999999")
-        			if(timeTick == 1){
-        				$(".first_line").css('background-color', '#ff5445');
-        				$(".first_line_style").css('background-color', '#ff5445');
-        			}else if(timeTick == 2){
-        				$(".second_line").css('background-color', '#ff5445');
-        				$(".second_line_style").css('background-color', '#ff5445');
-        			}
-        		}, 2000);
+
+        			if(timeTick == 2)
+        			{
+
+        			    $(".two-col").addClass("active");
+
+        			}else if(timeTick == 4) {
+
+                        $(".three-col").addClass("active");
+                    }
+
+
+        		}, 1000)
         }
 
         function initData() {
@@ -562,7 +571,7 @@
         }
 		
 		//新的评估结果页面
-		funciton lookResult(){
+		function lookResult(){
 			mui.openWindow({
                 url: 'recommend.html',
                 id: 'recommend.html',
