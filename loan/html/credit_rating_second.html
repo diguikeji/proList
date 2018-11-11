@@ -928,8 +928,17 @@
         //获取验证码
         $('.sixty').click(function() {
             if ($(this).text() == "重新获取") {
-                countDown();
-                sendsms(phone);
+                Global.commonAjax(
+					{url: "v2/pay/changpay/sms?token="+token},
+					function(data){
+						mui.toast("发送成功");
+						token = data;
+						countDown();
+					},
+					function(err){
+						mui.alert(err, '警告', function() {});
+					}
+				)
             }else if($(this).text() == "获取验证码"){
             		
             		getChangeCode();

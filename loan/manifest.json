@@ -280,7 +280,9 @@
 					"html/pay_style.html",
 					"html/custom.html",
 					"html/webviewDetail.html",
-					"html/pay_action.html"
+					"html/pay_action.html",
+					"html/credit_rating.html",
+					"html/recommend.html"
 				],
 				"priority": 0
 			},
@@ -443,6 +445,20 @@
 				"refer": [
 					"html/credit_rating.html"
 				],
+				"priority": 0
+			},
+			"html/credit_rating.html": {
+				"resources": [],
+				"refer": [
+					"html/recommend.html"
+				],
+				"priority": 0
+			},
+			"html/recommend.html": {
+				"resources": [
+					"html/recommend_sub.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

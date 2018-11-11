@@ -1898,10 +1898,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    //return;
+    //return;  
     mui.openWindow({
-        url: 'credit_result.html',
-        id: 'credit_result.html',
+        url: 'recommend.html',
+        id: 'recommend.html',
         waiting: {
             autoShow: false
         }
