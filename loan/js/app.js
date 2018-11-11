@@ -454,6 +454,7 @@ var Global = {};
 
 $(".mui-bar-nav img").click(function() {
     $(".qimo_chatpup").css("display", "block");
+    $(".qimo_chatpup").css("z-index", "100");
     qimoChatClick();
 })
 

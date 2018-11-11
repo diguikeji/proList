@@ -341,7 +341,7 @@
 			});
 			
 			var count = 0;
-			function pullupRefresh() {
+			function pullupRefresh12() {
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
 					var table = document.body.querySelector('.mui-table-view');
@@ -445,6 +445,251 @@
 					mui.toast("为你推荐了5篇文章");
 				}, 1500);
 			}
+			
+		function pullupRefresh() {
+            current++;
+            getMsglist(1);
+        }
+		
+		var currentType = "DEGREE";
+        //当前查询  页数
+        var current = 1;
+        //根据期限查询是，是否倒序
+        var isDesc = false;
+        
+		function getMsglist(refreshType) {
+            var params = {
+                current: current,
+                size: 20,
+                isDesc: isDesc,
+                queryType: currentType
+            };
+
+            $(".empty_text").hide();
+            $("#pullrefresh").show();
+            console.log("-----" + currentType);
+
+            Global.commonAjax({
+                    url: "goods/payed/goodslist",
+                    method: "POST",
+                    data: params
+                },
+                function(data) {
+                    if (data.current >= data.pages) {
+                        if ((data.current == 1) && (data.records.length == 0)) {
+                            //空数据
+                            $(".empty_text").show();
+                            $("#pullrefresh").hide();
+                            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                        } else {
+                            //没有更多数据了
+                            getListData(refreshType, data.records, true);
+                        }
+                    } else {
+                        getListData(refreshType, data.records, false);
+                    }
+                },
+                function(err) {
+                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                }
+            )
+        }
+		
+			
+		var findList = [];
+        function getListData(refreshType, cells, isAll) {
+            findList = findList.concat(cells);
+            mui('#pullrefresh').pullRefresh().refresh(true);
+            //当前点击的 数据下标
+            var index = 0;
+            var table = document.body.querySelector('.mui-table-view-condensed');
+
+            if (refreshType == 0) {
+                //下拉刷新
+                table.innerHTML = "";
+                $(".mui-table-view-condensed").html = "";
+
+                if (mui.os.android) {
+                    $('html, body').animate({
+                        scrollTop: -$(".mui-table-view-condensed").offset().top
+                    }, 20);
+                } else {
+                    mui('#pullrefresh').scroll().scrollTo(0, 0);
+                }
+
+
+            } else {
+                //加载更多
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(isAll); //参数为true代表没有更多数据了。
+                var preList = document.body.querySelectorAll('.mui-table-view-cell-item');
+                index = preList == null ? 0 : preList.length;
+            }
+
+            for (var i = 0, len = cells.length; i < len; i++) {
+                var li = document.createElement('li');
+                var item = cells[i];
+                if (item.clicked && (currentType != "HISTORY")) {
+                    li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col clicked';
+                } else {
+                    li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+                }
+
+                //li.className = 'mui-table-view-cell mui-table-view-cell-item item_wrap col';
+                li.setAttribute("data-index", index);
+                console.log(item.goodsSeq + "--" + item.recommendDegree + "-" + parseInt(item.recommendDegree * 3.6));
+                if (item.recommendDegree > 50) {
+                    li.innerHTML = '<div class="mui-slider-cell row item_tile_wrap">' +
+
+                        '<div class="text_info_new" >' +
+                        '<span>推荐产品</span>' +
+                        '<span class="item_title_num">' + item.goodsSeq + '号</span>' +
+                        '</div>' +
+                        '<div class="row hideClass">' +
+                        '<img src="../images/high_rate.png" class="high_rate"/>' +
+                        '<img src="../images/recommend_icon.png" class="recommand_icon"/>' +
+                        '</div>' +
+
+                        '</div>' +
+                        '<div class="row item_center_wrap">' +
+                        '<div>' +
+                        '<span >' + item.loanAmount + '</span><br>' +
+                        '<span class="text_info">借款金额</span>' +
+                        '</div>' +
+                        '<div>' +
+                        '<span >' + item.loanDay + '</span><br>' +
+                        '<span class="text_info">借款期限</span>' +
+                        '</div>' +
+
+                        '<section>' +
+                        '<div class="wrap">' +
+                        '<div class="clip-auto circle">' +
+                        '<div class="percent left" style="-webkit-transform:rotate(' +
+                        parseInt(item.recommendDegree * 3.6) + 'deg);"></div>' +
+                        '<div class="percent right"></div>' +
+                        '</div>' +
+                        '<div class="num row" style="align-items: center; justify-content: center;">' +
+                        '<div >' +
+                        '<span style="font-size: 12px;">' + item.recommendDegree + '</span>%<br>' +
+                        '<span style="font-size: 10px;">成功率</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</section>' +
+                        '</div>';
+
+
+                } else {
+                    li.innerHTML = '<div class="mui-slider-cell row item_tile_wrap">' +
+                        '<div class="text_info_new" >' +
+                        '<span>推荐产品</span>' +
+                        '<span class="item_title_num">' + item.goodsSeq + '号</span>' +
+                        '</div>' +
+                        '<div class="row hideClass">' +
+                        '<img src="../images/high_rate.png" class="high_rate"/>' +
+                        '<img src="../images/recommend_icon.png" class="recommand_icon"/>' +
+                        '</div>' +
+
+                        '</div>' +
+                        '<div class="row item_center_wrap">' +
+                        '<div>' +
+                        '<span >' + item.loanAmount + '</span><br>' +
+                        '<span class="text_info">借款金额</span>' +
+                        '</div>' +
+                        '<div>' +
+                        '<span >' + item.loanDay + '</span><br>' +
+                        '<span class="text_info">借款期限</span>' +
+                        '</div>' +
+
+                        '<section>' +
+                        '<div class="wrap">' +
+                        '<div class=" circle">' +
+                        '<div class="percent left" style="-webkit-transform:rotate(' +
+                        parseInt(item.recommendDegree * 3.6) + 'deg);"></div>' +
+                        '<div class="percent right wth0"></div>' +
+                        '</div>' +
+                        '<div class="num row" style="align-items: center; justify-content: center;">' +
+                        '<div >' +
+                        '<span style="font-size: 12px;">' + item.recommendDegree + '</span>%<br>' +
+                        '<span style="font-size: 10px;">成功率</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</section>' +
+                        '</div>';
+
+                }
+
+
+                table.appendChild(li);
+
+                index += 1;
+
+            }
+
+            if (refreshType == 0) {
+                //下拉刷新
+                mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+            } else {
+                //上拉加载
+                if (cells.length < 20) {
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+                }
+            }
+        }
+
+
+
+        // $('body').on('click', '.mui-table-view-condensed li', function() {
+        mui(".mui-table-view-condensed").on('tap', 'li ', function() {
+
+            var index = $(this).data("index");
+            $(this).addClass("clicked");
+            var item = findList[index];
+            if (!(item && item.goodsUrl)) {
+                return;
+            }
+            var clickType = {
+                source: myStorage.getItem("user").sourceCode,
+                goodsCode: item.goodsCode,
+                page: "payed"
+            }
+            plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
+			clickFindItem(item);
+            
+        });
+        
+        
+        function clickFindItem(item){
+        		var params = {
+                goodsCode: item.goodsCode
+            }
+            Global.commonAjax({
+                    url: "goods/click",
+                    data: params,
+                    method: "POST"
+                },
+                function(data) {
+                		if(mui.os.android && (data.jumpType == "out")){
+		        			plus.runtime.openURL(item.goodsUrl);
+		        			return;
+		        		}
+                    mui.openWindow({
+                        url: 'webview.html',
+                        id: 'webview.html?url=' + item.goodsUrl,
+                        waiting: {
+                            autoShow: false
+                        },
+                        extras: {
+                            title: item.goodsTitle
+                        }
+                    })
+                },
+                function(err) {
+
+                }
+            )
+        }
+        
 
 		</script>
 	</body>

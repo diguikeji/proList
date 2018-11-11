@@ -460,6 +460,13 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"html/recommend_sub.html": {
+				"resources": [],
+				"refer": [
+					"html/error500.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

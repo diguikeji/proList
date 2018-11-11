@@ -441,8 +441,6 @@
                 "success": function() {
                     //申请权限成功或已经获取到了权限都会执行到这里
                     if (callback) {
-                        //callback();
-                        
                         var callBackStorage = plus.android.implements("org.qldc.xianghq.Tools$CallBack", {
 			                "success": function() {
 			                    //申请权限成功或已经获取到了权限都会执行到这里
@@ -456,7 +454,7 @@
 			                    }
 			                }
 			            });
-			            plus.android.invoke("org.qldc.xianghq.Tools", "storageIsCanUse", callBackStorage);
+			            plus.android.invoke("org.qldc.xianghq.Tools", "storageIsCanUse", mainAct, callBackStorage);
                         
                     }
                 },
@@ -513,6 +511,7 @@
             if (mui.os.android) {
                 checkPermissionPhoto(takeFrontPhoto, function() {
                     //mui.alert("请在设置里面允许权限", '提示', function() {})
+                    var mainAct = plus.android.runtimeMainActivity();
                     var btnArray = ['去设置','取消'];
                     mui.confirm("请在设置里面允许权限", '提示', btnArray, function(e) {
                         if (e.index == 0) {
@@ -563,9 +562,10 @@
             if (mui.os.android) {
                 checkPermissionPhoto(takeBackPhoto, function() {
                     //mui.alert("请在设置里面允许权限", '提示', function() {})
-                    var btnArray = ['取消', '去设置'];
+                    var mainAct = plus.android.runtimeMainActivity();
+                    var btnArray = ['去设置', '取消'];
                     mui.confirm("请在设置里面允许权限", '提示', btnArray, function(e) {
-                        if (e.index == 1) {
+                        if (e.index == 0) {
                             //去设置
                             var mainAct = plus.android.runtimeMainActivity();
                             plus.android.invoke("org.qldc.xianghq.Tools", "goToSetting", mainAct);
