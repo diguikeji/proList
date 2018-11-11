@@ -377,7 +377,7 @@
         });
 
         var isStep; //可以回退标志
-		showTime();
+		
         mui.plusReady(function() {
             //上页中的 传递的值
             var self = plus.webview.currentWebview();
@@ -392,17 +392,19 @@
         
         var intervalHander;
         var timeTick = 0;
+        showTime();
         //倒计时
         function showTime(){
         		//Global.showLoading();
         		intervalHander = setInterval(function(){
-        			
+        			alert("9999")
         			timeTick ++;
         			if(timeTick == 3){
         				timeTick = 0;
         				//Global.hideLoading();
         				clearInterval(intervalHander);
         			};
+        			console.log("999999")
         			if(timeTick == 1){
         				$(".first_line").css('background-color', '#ff5445');
         				$(".first_line_style").css('background-color', '#ff5445');
