@@ -409,7 +409,7 @@
                 </div>
 
                 <span style="color: #5f5d5d; font-size: 13px;">我已经阅读并同意</span>
-                <span style="color: #5f5d5d; font-size: 13px; font-weight: bold;">《额度评估服务协议》</span>
+                <span style="color: #5f5d5d; font-size: 13px; font-weight: bold;" onclick="openAgreeWord();">《额度评估服务协议》</span>
             </div>
 
         </div>
@@ -858,7 +858,7 @@
         function openAgreeWord() {
             mui.openWindow({
                 url: 'webview.html',
-                id: 'webview.html?url=https://web.static.xhq520.com/xieyi/xhq-credit-assess-policy.html',
+                id: 'webview.html?url=https://web.static.xhq520.com/xieyi/xhq-limit-policy.html',
                 waiting: {
                     autoShow: false
                 }
