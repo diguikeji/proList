@@ -983,19 +983,25 @@
         }
         //换卡
         function changePayStyle() {
+
             closePayPage();
-            mui.openWindow({
-                url: 'pay_style.html',
-                id: 'pay_style.html',
-                waiting: {
-                    autoShow: false
-                },
-                extras: {
-                    amount: priceInfo.price,
-                    isSecondPay: true,
-                    payStep: payStep
-                }
-            })
+            setTimeout(function(){
+
+                mui.openWindow({
+                    url: 'pay_style.html',
+                    id: 'pay_style.html',
+                    waiting: {
+                        autoShow: false
+                    },
+                    extras: {
+                        amount: priceInfo.price,
+                        isSecondPay: true,
+                        payStep: payStep
+                    }
+                })
+
+            }, 50);
+
         }
 
         //关闭已经打开的支付页面
