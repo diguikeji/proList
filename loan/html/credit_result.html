@@ -374,7 +374,7 @@
 				url: 'v2/page/limit/isgo'
 			},
 			function(data){
-				if(data && data.jumpToPayed){
+				if(data && !data.jumpToPayed){
 					//历史推荐页面
 					mui.openWindow({
 			  			url: 'recommand.html',
@@ -383,7 +383,7 @@
 					      autoShow:false
 					    }
 			  		});
-				}else if(data && !data.jumpToPayed){
+				}else if(data && data.jumpToPayed){
 					//第二次支付
 					mui.openWindow({
 			  			url: 'credit_rating_second.html',
@@ -432,6 +432,10 @@
             Global.openKouzi();
             Global.closeStepWindow();
         };
+        
+        $(".dialog_bottom_btn").click(function(){
+	        		$('.modal-mask').addClass("hideClass");
+	       });
 
 		var step = 0;
 		function initStatus(close){

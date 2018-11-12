@@ -311,6 +311,11 @@ var Global = {};
                     plus.webview.close(wvs[i]);
                     continue;
                 }
+                
+                if (wvs[i].getURL().indexOf("recommend.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
             }
             //curr.close();
         },

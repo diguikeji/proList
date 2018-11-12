@@ -312,7 +312,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 	        <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
-	        <span class="header_close">关闭</span>
+	        <!--<span class="header_close">关闭</span>-->
 	        <h1 class="mui-title">额度评估</h1>
 	        <img src="../images/custom_icon.png" />
 	    </header>
@@ -362,8 +362,27 @@
 		<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
 		</script>
 		<script type='text/javascript'>
- 		var qimoClientId =  myStorage.getItem("user").mobile;
+ 			var qimoClientId =  myStorage.getItem("user").mobile;
 
+			 //Android 物理返回
+	        var old_back = mui.back;
+	        mui.back = function() {
+	        		var display = $(".qimo_chatpup").css("display");
+	        		if(display == "block"){
+	        			$(".qimo_chatpup").css("display", "none");
+	        			return;
+	        		}
+	                headLeftBack();
+	        }
+	
+	        //左上角 返回
+	        function headLeftBack() {
+	            var target = plus.webview.getWebviewById("home.html");
+	            mui.fire(target, "updateFunc", {});
+	            Global.openKouzi();
+	            Global.closeStepWindow();
+	        }
+        
 		</script>
 		
 

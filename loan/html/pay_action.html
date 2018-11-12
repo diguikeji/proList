@@ -451,6 +451,11 @@
 			    var self = plus.webview.currentWebview();
             		amount = self.amount;
             		payChannel = self.payChannel;
+            		//上页中的 传递的值
+	            isStep = self.isStep;
+	            isSecondPay = self.isSecondPay;
+	            payStep = self.payStep;
+	            
             		initData();
             		initStatus();
             		showMoneyInfo();
@@ -464,10 +469,7 @@
             			$(".item_name_wrap:nth-child(9)").addClass("hideClass");
             		}
             		
-            		//上页中的 传递的值
-	            isStep = self.isStep;
-	            isSecondPay = self.isSecondPay;
-	            payStep = self.payStep;
+            		
 
 	            initNativeObjects();
 				showSoftInput();

@@ -438,14 +438,16 @@
 				"resources": [],
 				"refer": [
 					"html/custom.html",
-					"html/credit_rating_second.html"
+					"html/credit_rating_second.html",
+					"html/recommand.html"
 				],
 				"priority": 0
 			},
 			"html/credit_rating_second.html": {
 				"resources": [],
 				"refer": [
-					"html/credit_rating.html"
+					"html/credit_rating.html",
+					"html/webviewDetail.html"
 				],
 				"priority": 0
 			},

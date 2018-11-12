@@ -540,7 +540,7 @@
         });
 		
 		//前一次支付的数据
-		var payRecored;
+		var payRecord;
 		//第二次支付信息
         var priceInfo;
         var payStep; //支付步骤
@@ -549,8 +549,8 @@
                     url: "v2/page/limit/init"
                 },
                 function(data) {
-                		if(data && data.payRecored){
-                			payRecored = data.payRecored;
+                		if(data && data.payRecord){
+                			payRecord = data.payRecord;
                 		}
                 		
                 		if(data && data.priceInfo){
@@ -713,15 +713,22 @@
         			mui.toast("请同意额度评估服务协议");
         			return;
         		}
+        		var params = {
+        			amount: priceInfo.price,
+				payChannel: payRecord.payChannel,
+				payStep: payStep
+        		}
         		Global.commonAjax({
-        			url: 'v2/pay/init/page'
+        			url: 'v2/pay/init/page',
+        			method: 'POST',
+        			data: params
         		},
         		function(data){
         			if(data && data.payOrderNo){
-        				$('.oldPayInfo').html(payRecored.bankName+(payRecored.cardType=="00"?'信用卡':'借记卡')
-        					+payRecored.bankCardNo.substring(payRecored.bankCardNo.length-4, payRecored.bankCardNo.length));
+        				$('.oldPayInfo').html(payRecord.bankName+(payRecord.cardType=="00"?'信用卡':'借记卡')
+        					+payRecord.bankCardNo.substring(payRecord.bankCardNo.length-4, payRecord.bankCardNo.length));
         				
-        				if(payRecored.payChannel == "fuyou"){
+        				if(payRecord.payChannel == "fuyou"){
         					//富有支付
         					$('.code_wrap').addClass('hideClass');
         				}else{
@@ -745,7 +752,7 @@
         //下一步
         function goToNext(){
         	
-        		if(payRecored.payChannel == "fuyou"){
+        		if(payRecord.payChannel == "fuyou"){
 				//富有支付
 				fuyouPay();
         		}else{
@@ -755,7 +762,7 @@
         }
         //畅捷支付
         function changjiePay(){
-        		if(!$(".oldPayInfo").val()){
+        		if(!$(".oldPayInfo").html()){
 				mui.toast("付款方式不能为空");
 				return;
 			}
@@ -796,19 +803,19 @@
         
         //富有支付方式
         function fuyouPay(){
-        		if(!$(".oldPayInfo").val()){
+        		if(!$(".oldPayInfo").html()){
 				mui.toast("付款方式不能为空");
 				return;
 			}
         		
         		var params = {
 				amount: priceInfo.price,
-				payChannel: payRecored.payChannel,
-				idCardNo: payRecored.idCardNo,
-				realName: payRecored.realName,
+				payChannel: payRecord.payChannel,
+				idCardNo: payRecord.idCardNo,
+				realName: payRecord.realName,
 				userId: myStorage.getItem("user").userId,
-				bankName: payRecored.bankName,
-				bankCardNo: payRecored.bankCardNo,
+				bankName: payRecord.bankName,
+				bankCardNo: payRecord.bankCardNo,
 				payOrderNo: payOrderNo,
 				payStep: payStep
 			}
@@ -904,16 +911,16 @@
         function getChangeCode(){
         		var params = {
 				amount: priceInfo.price,
-				payChannel: payRecored.payChannel,
-				idCardNo: payRecored.idCardNo,
-				realName: payRecored.realName,
+				payChannel: payRecord.payChannel,
+				idCardNo: payRecord.idCardNo,
+				realName: payRecord.realName,
 				userId: myStorage.getItem("user").userId,
-				bankName: payRecored.bankName,
-				bankCardNo: payRecored.bankCardNo,
-				bankMobile: payRecored.bankMobile,
-				cardType: payRecored.cardType,
-				cardCvv: payRecored.cardCvv,
-				cardExprDt: payRecorded.cardExprDt,
+				bankName: payRecord.bankName,
+				bankCardNo: payRecord.bankCardNo,
+				bankMobile: payRecord.bankMobile,
+				cardType: payRecord.cardType,
+				cardCvv: payRecord.cardCvv,
+				cardExprDt: payRecord.cardExprDt,
 				payOrderNo: payOrderNo,
 				payStep: payStep
 			}
