@@ -980,7 +980,8 @@
         }
         //换卡
         function changePayStyle(){
-        		mui.openWindow({
+            closePayPage();
+        	mui.openWindow({
                 url: 'pay_style.html',
                 id: 'pay_style.html',
                 waiting: {
@@ -988,9 +989,33 @@
                 },
                 extras: {
                     amount: priceInfo.price,
-                    isSecondPay: true
+                    isSecondPay: true,
+                    payStep: payStep
                 }
             })
+        }
+
+        //关闭已经打开的支付页面
+        function closePayPage(){
+            var curr = plus.webview.currentWebview();
+            //获取所有已经打开的webview窗口
+            var wvs = plus.webview.all();
+            for (var i = 0, len = wvs.length; i < len; i++) {
+                console.log(wvs[i].getURL());
+                if (!wvs[i].getURL()) {
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("pay_style.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+
+                if (wvs[i].getURL().indexOf("pay_action.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+            }
         }
         
         
