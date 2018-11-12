@@ -1174,7 +1174,7 @@ var updateData;
 function updatePage(tabNum) {
     var url = "v2/user/input/status";
     if (tabNum == -1) {
-        url = "user/input/status?isShowPic=true"
+        url = "v2/user/input/status?isShowPic=true"
     }
     Global.commonAjax({ url: url },
         function(data) {
