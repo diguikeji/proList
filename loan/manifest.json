@@ -282,7 +282,8 @@
 					"html/webviewDetail.html",
 					"html/pay_action.html",
 					"html/credit_rating.html",
-					"html/recommend.html"
+					"html/recommend.html",
+					"html/credit_rating_second.html"
 				],
 				"priority": 0
 			},
@@ -447,7 +448,9 @@
 				"resources": [],
 				"refer": [
 					"html/credit_rating.html",
-					"html/webviewDetail.html"
+					"html/webviewDetail.html",
+					"html/credit_result.html",
+					"html/pay_style.html"
 				],
 				"priority": 0
 			},

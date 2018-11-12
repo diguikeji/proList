@@ -1920,10 +1920,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    return;  
+    //return;  
     mui.openWindow({
-        url: 'recommand.html',
-        id: 'recommand.html',
+        url: 'credit_rating_second.html',
+        id: 'credit_rating_second.html',
         waiting: {
             autoShow: false
         }

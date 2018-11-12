@@ -132,7 +132,6 @@ var Global = {};
                     if (token) {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     };
-                    console.log("gggggggggggggggggggggg---" + token);
 
                     if (params.url.indexOf("isShowPic=true") != -1) {
                         console.log("显示图片");
