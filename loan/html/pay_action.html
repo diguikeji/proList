@@ -546,6 +546,7 @@
 			}
 			
 			function showBankPicker() {
+				document.activeElement.blur();
 	            bankPicker.show(function(SelectedItem) {
 	                console.log(SelectedItem[0].text);
 	                $(".bankName").val(SelectedItem[0].text);
