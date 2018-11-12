@@ -10,11 +10,11 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<!--<header class="mui-bar mui-bar-nav">
 	        <a class=" mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
 	        <h1 class="mui-title">支付结果</h1>
-	        <!--<img src="../images/custom_icon.png" onclick="customService();"/>-->
-	    </header>
+	        <img src="../images/custom_icon.png" onclick="customService();"/>
+	    </header>-->
     
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
@@ -35,7 +35,7 @@
 //				var baiduWV = plus.webview.create("http://116.25.44.121:18081/api/paycb/fuyou/return", "baidu", {
 //				var baiduWV = plus.webview.create("http://project.youzewang.com/app/loan/html/pay_success.html?3", "baidu", {
 				var baiduWV = plus.webview.create(self.id.substring(17), "baidu", {
-					top: "44px",
+					top: "0px",
 					bottom: 0
 				});
                 self.append(baiduWV);
