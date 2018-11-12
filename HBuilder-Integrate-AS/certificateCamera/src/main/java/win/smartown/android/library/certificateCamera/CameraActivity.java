@@ -172,6 +172,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         public void run() {
             // TODO Auto-generated method stub
             //要做的事情
+            //cameraPreview.focus();
             handler.postDelayed(this, 2000);
         }
     };

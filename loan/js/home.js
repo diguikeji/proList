@@ -1143,7 +1143,14 @@ function apply(params) {
                 } else if (data.isPayLimitFee == "N"){
                 		url = "credit_result.html";
                 }else {
-                    url = "recommend.html";
+                		if(data && data.jumpToPayed){
+                			// true 跳转到老的推荐页
+                			url = "recommand.html";
+                		}else{
+                			//新的 推荐页
+                			url = "recommend.html";
+                		}
+                    
                 }
 
                 if (params) {
@@ -1166,7 +1173,7 @@ function apply(params) {
                     source: myStorage.getItem("user").sourceCode
                 }
                 plus.statistic.eventTrig("apply", JSON.stringify(clickType))
-
+				
                 mui.openWindow({
                     url: url,
                     id: url,
@@ -1190,7 +1197,7 @@ var updateData;
 function updatePage(tabNum) {
     var url = "v2/user/input/status";
     if (tabNum == -1) {
-        url = "user/input/status?isShowPic=true"
+        url = "v2/user/input/status?isShowPic=true"
     }
     Global.commonAjax({ url: url },
         function(data) {
@@ -1932,6 +1939,15 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
+	mui.openWindow({
+        url: "credit_result.html",
+        id: "credit_result.html",
+        waiting: {
+            autoShow: false
+        }
+    })
+	return;
+	
     Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {
             var url = "identificateFirst.html";

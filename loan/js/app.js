@@ -60,7 +60,7 @@ var Global = {};
                 // 			+title+'</div><div class="dialog_content">'+msg+
                 // 			'</div></div></div></div>';
 
-                var html = '<div class="global-modal modal-mask row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content">' +
+                var html = '<div class="global-modal row"><div class="modal-dialog"><img src="../images/close_icon.png" class="closeDialg" /><div class="modal-content">' +
                     title + '</div></div></div>';
                 $(document.body).append(html);
             } else {
