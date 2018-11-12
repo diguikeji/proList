@@ -166,12 +166,28 @@ function checkUpdateApk() {
 
 
                             } else {
-                                //IOS 强制更新
-                                mui.alert(data.versionExplain, '提示', function() {
-                                    plus.runtime.openURL(data.downloadUrl, function() {
-                                        mui.toast("打开失败");
-                                    });
+
+
+
+
+                                $(".updateApp").removeClass("hideClass");
+                                $(".update_msg").html(data.versionExplain);
+
+                                $(".updateAction").click(function() {
+                                    //android 手机
+                                    if (data.urlType == "store") {
+
+                                        //ios
+                                        plus.runtime.openURL(data.downloadUrl, function() {
+                                            mui.toast("打开失败");
+                                        });
+
+
+                                    }
                                 })
+
+
+
                             }
 
                         } else {
