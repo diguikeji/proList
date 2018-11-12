@@ -394,7 +394,8 @@
 					"html/recommand.html",
 					"html/login.html",
 					"html/custom.html",
-					"html/credit_result.html"
+					"html/credit_result.html",
+					"html/pay_error_result.html"
 				],
 				"priority": 0
 			},

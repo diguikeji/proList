@@ -499,23 +499,26 @@
 				}, 200);
 			};
 			
-			
+			//支付订单信息
+			var payOrderNo;
 			var styleList;
 			var bankList = [];
 			var bankPicker = new mui.PopPicker();
+			var payStep = 'limit';
 			function initData(){
 				var params = {
 					amount: amount ? amount : 0.1,
-					payChannel: payChannel ? payChannel : "fuyou"
+					payChannel: payChannel ? payChannel : "fuyou",
+					payStep: payStep
 				}
 				Global.commonAjax(
 					{
-						url: "pay/init/page",
+						url: "v2/pay/init/page",
 						method: "POST",
 						data: params
 					},
 					function(data){
-						
+						payOrderNo = data.payOrderNo;
 						data.bankList.map(function(resItem) {
 	                        var item = {
 	                            value: resItem.codeValue,
@@ -639,10 +642,12 @@
 					$(".item_name_wrap:nth-child(6)").removeClass("hideClass");
             			$(".item_name_wrap:nth-child(7)").removeClass("hideClass");
             			$(".card_type_text").text("信用卡号");
+            			payStep = 'credit';
 				}else{
 					$(".item_name_wrap:nth-child(6)").addClass("hideClass");
             			$(".item_name_wrap:nth-child(7)").addClass("hideClass");
             			$(".card_type_text").text("借记卡号");
+            			payStep = 'limit';
 				}
 			}
 			
@@ -678,11 +683,13 @@
 						realName: $(".realName").val(),
 						userId: myStorage.getItem("user").userId,
 						bankName: $(".bankName").val(),
-						bankCardNo: $(".cardNo").val()
+						bankCardNo: $(".cardNo").val(),
+						payOrderNo: payOrderNo,
+						payStep: payStep
 					}
 					Global.commonAjax(
 						{
-							url: "pay/fuyou/submit",
+							url: "v2/pay/fuyou/submit",
 							method: "POST",
 							data: params
 						},
@@ -738,7 +745,9 @@
 						bankMobile: $(".phone").val(),
 						cardType: cardTypeValue,
 						cardCvv: $(".cvvInput").val(),
-						cardExprDt: $(".item_time").val()
+						cardExprDt: $(".item_time").val(),
+						payOrderNo: payOrderNo,
+						payStep: payStep
 					}
 					
 					if($(".time_style").text() == "获取验证码"){
@@ -754,7 +763,7 @@
 						
 						Global.commonAjax(
 							{
-								url: "pay/changpay/prepare",
+								url: "v2/pay/changpay/prepare",
 								method: "POST",
 								data: params 
 							},
@@ -803,7 +812,7 @@
 
 						Global.commonAjax(
 							{
-								url: "pay/changpay/submit",
+								url: "v2/pay/changpay/submit",
 								method: "POST",
 								data: params
 							},
@@ -866,7 +875,7 @@
 				
 				console.log(token);
 				Global.commonAjax(
-					{url: "pay/changpay/resendsms/"+token},
+					{url: "v2/pay/changpay/sms?token="+token},
 					function(data){
 						mui.toast("发送成功");
 						token = data;

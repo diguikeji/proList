@@ -1904,7 +1904,7 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    //return;
+    //return;  
     mui.openWindow({
         url: 'recommend.html',
         id: 'recommend.html',

@@ -367,20 +367,13 @@
 		
 		//获取是否 第二次支付
 		function goToNext(isjump){
-			mui.openWindow({
-			  			url: 'credit_rating_second.html',
-			  			id: 'credit_rating_second.html',
-					    waiting:{
-					      autoShow:false
-					    }
-			  		});
-			  		return;
+			
 			Global.commonAjax({
 				url: 'v2/page/limit/isgo'
 			},
 			function(data){
 				if(data && data.jumpToPayed){
-					if(isjump){
+					if(!isjump){
 						//返回键
 						var target = plus.webview.getWebviewById("home.html");
 			            mui.fire(target, "updateFunc", {});
@@ -396,7 +389,7 @@
 					    }
 			  		});
 				}else if(data && !data.jumpToPayed){
-					if(isjump){
+					if(!isjump){
 						//返回键
 						$('.modal-mask').removeClass("hideClass");
 						return;
