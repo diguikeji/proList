@@ -266,10 +266,10 @@ var Global = {};
                     continue;
                 }
 
-                if (wvs[i].getURL().indexOf("http") != -1) {
-                    plus.webview.close(wvs[i]);
-                    continue;
-                }
+                // if (wvs[i].getURL().indexOf("http") != -1) {
+                //     plus.webview.close(wvs[i]);
+                //     continue;
+                // }
                 if (wvs[i].getURL().indexOf("personInfo.html") != -1) {
                     plus.webview.close(wvs[i]);
                     continue;

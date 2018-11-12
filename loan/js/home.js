@@ -1906,8 +1906,8 @@ function jumpWeb() {
 function goToRecommand() {
     //return;  
     mui.openWindow({
-        url: 'recommend.html',
-        id: 'recommend.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }

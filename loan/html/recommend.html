@@ -349,7 +349,8 @@
 				</div>
 			</div>-->
 
-			<div class="mui-iframe-wrapper" style="top: 280px; bottom: 0px;"><iframe src="recommend_sub.html" id="recommend_sub.html" name="recommend_sub.html"></iframe></div>
+			<div class="mui-iframe-wrapper" style="top: 280px; bottom: 0px;">
+				<iframe src="recommend_sub.html" id="recommend_sub.html" name="recommend_sub.html"></iframe></div>
 		
 		
 		
@@ -362,10 +363,9 @@
 		<script type='text/javascript' src='https://webchat.7moor.com/javascripts/7moorInit.js?accessId=7d124b80-b7fd-11e8-83af-b5259d279e2c&autoShow=false&language=ZHCN' async='async'>
 		</script>
 		<script type='text/javascript'>
- 			var qimoClientId =  myStorage.getItem("user").mobile;
-
+ 		var qimoClientId =  myStorage.getItem("user").mobile;
 			 //Android 物理返回
-	        var old_back = mui.back;
+			 var old_back = mui.back;
 	        mui.back = function() {
 	        		var display = $(".qimo_chatpup").css("display");
 	        		if(display == "block"){
@@ -382,7 +382,6 @@
 	            Global.openKouzi();
 	            Global.closeStepWindow();
 	        }
-        
 		</script>
 		
 

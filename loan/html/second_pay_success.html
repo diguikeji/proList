@@ -117,7 +117,7 @@
         		width: 100%; 
         		padding-left: 60px;
         }
-        .content_item.active .content_item_radio {background-color: rgb(255, 84, 69);}
+        .content_item.active .content_item_radio {background-color: rgb(255, 84, 69); }
         .content_item.active span{color:#333;}
         .line_style.active{background-color: rgb(255, 84, 69);}
         
@@ -127,6 +127,7 @@
         		border-radius: 50%; 
         		margin-right: 26px;
         		background: #AAAAAA;
+                display: inline-block;
         }
         
         .next_btn {
@@ -216,8 +217,8 @@
         			{
         				timeTick = 0;
         				
-        				//$("#ShowLoading").remove();
-        				//clearInterval(intervalHander);
+        				$("#ShowLoading").remove();
+        				clearInterval(intervalHander);
         			};
 
         			if(timeTick == 2)
