@@ -170,7 +170,7 @@
 <body>
     <header class="mui-bar mui-bar-nav">
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" onclick="headLeftBack();"></a>
-        <!--<span class="header_close">关闭</span>-->
+        <span class="header_close">关闭</span>
         <h1 class="mui-title">评估结果</h1>
         <img src="../images/custom_icon.png" />
     </header>
@@ -205,7 +205,7 @@
                             <span class="dialog_step_bottom_text first_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneyFirst" />
                         <span class="first_step_money">0</span>
                     </div>
 
@@ -219,7 +219,7 @@
                             <span class="dialog_step_bottom_text second_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneySecond" />
                         <span class="second_step_money">0</span>
                     </div>
 
@@ -233,7 +233,7 @@
                             <span class="dialog_step_bottom_text third_text">完成即可获得0元现金</span>
                         </div>
 
-                        <img src="../images/add_money_icon.png" class="addMoney" />
+                        <img src="../images/add_money_icon.png" class="addMoney addMoneyThird" />
                         <span class="third_step_money">0</span>
                     </div>
 
@@ -260,8 +260,10 @@
         var screenWidth = document.body.clientWidth;
 		console.log(screenWidth);
       	var ctx;
+        var isSecondPay;
       	mui.plusReady(function() {
 		    var self = plus.webview.currentWebview();
+            isSecondPay = self.isSecondPay;
 		    initCanvas();
       		getUserScore();
       		initStatus();
@@ -298,7 +300,7 @@
 		function getUserScore(){
 			Global.commonAjax({ url: "v2/user/input/status" },
 		        function(data) {
-		        		if(data){
+		        	if(data){
 						drawAll(data.score, data.scoreRange);
 						$(".credit_text").html("信用评估："+data.scoreRange);
 						$(".credit_info").html("借款评估："+data.assessSuggest);
@@ -366,20 +368,13 @@
 		}
 		
 		//获取是否 第二次支付
-		function goToNext(isjump){
+		function goToNext(){
 			
 			Global.commonAjax({
 				url: 'v2/page/limit/isgo'
 			},
 			function(data){
 				if(data && data.jumpToPayed){
-					if(!isjump){
-						//返回键
-						var target = plus.webview.getWebviewById("home.html");
-			            mui.fire(target, "updateFunc", {});
-			            Global.closeStepWindow();
-						return;
-					}
 					//历史推荐页面
 					mui.openWindow({
 			  			url: 'recommand.html',
@@ -389,11 +384,6 @@
 					    }
 			  		});
 				}else if(data && !data.jumpToPayed){
-					if(!isjump){
-						//返回键
-						$('.modal-mask').removeClass("hideClass");
-						return;
-					}
 					//第二次支付
 					mui.openWindow({
 			  			url: 'credit_rating_second.html',
@@ -416,32 +406,35 @@
         		if(display == "block"){
         			$(".qimo_chatpup").css("display", "none");
         			return;
-        		}else{
-        			goToNext(true);
         		}
+                if ($('.modal-mask').hasClass("hideClass")) {
+	            		headLeftBack();
+	            } else {
+	                $('.modal-mask').addClass("hideClass");
+	            }
         }
 
         //左上角 返回
-        function headLeftBack(isjump) {
-            //Global.openKouzi(); 
-            goToNext(true);
-            
+        function headLeftBack() {
+            initStatus("close");
         }
 
         //左上角 关闭按钮
         $('.header_close').click(function() {
-            $('.modal-mask').removeClass("hideClass");
             
+            initStatus("close");
         })
 
         //弹窗中 关闭按钮
         function closeDialg() {
+            var target = plus.webview.getWebviewById("home.html");
+            mui.fire(target, "updateFunc", {});
             Global.openKouzi();
             Global.closeStepWindow();
         };
 
 		var step = 0;
-		function initStatus(){
+		function initStatus(close){
 			Global.commonAjax({ url: "v2/user/input/status" },
 		           function(data) {
 		               
@@ -496,7 +489,19 @@
                             $(".addMoneySecond").attr("src", "../images/add_money_icon.png");
                             $(".addMoneyThird").attr("src", "../images/add_money_icon.png");
                         }
-		               	}
+
+                        if(close){
+                            if(data.isPay == "N"){
+                                //弹出浮层
+                                $('.modal-mask').removeClass("hideClass");
+                            }else{
+                                //直接回到首页
+                                var target = plus.webview.getWebviewById("home.html");
+                                mui.fire(target, "updateFunc", {});
+                                Global.closeStepWindow();
+                            }
+                        }
+		            }
 		               
 		               
 		          }

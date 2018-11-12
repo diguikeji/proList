@@ -361,6 +361,8 @@
             initStatus();
         });
 
+        //支付步骤
+        var payStep;
         function initData() {
             Global.commonAjax({
                     url: "v2/page/credit/init"
@@ -369,11 +371,7 @@
                     console.log(JSON.stringify(data));
                     $("#price").html(data.price);
                     $(".content_img").attr("src", data.payFeeAd.picUrl);
-                    /* if (mui.os.android) {
-                         $(".content_img").css("height", "280px");
-                     } else {
-                         $(".content_img").css("height", "240px");
-                     }*/
+                    payStep = data.payStep;
                 },
                 function(err) {
 					mui.toast(err);
@@ -561,7 +559,8 @@
                 },
                 extras: {
                     amount: $("#price").html(),
-                    isStep: true
+                    isStep: true,
+                    payStep: payStep
                 }
             })
         }

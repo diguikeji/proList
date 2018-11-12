@@ -465,10 +465,10 @@
             		}
             		
             		//上页中的 传递的值
-	            var self = plus.webview.currentWebview();
 	            isStep = self.isStep;
 	            isSecondPay = self.isSecondPay;
-	            
+	            payStep = self.payStep;
+
 	            initNativeObjects();
 				showSoftInput();
 			});
@@ -504,7 +504,7 @@
 			var styleList;
 			var bankList = [];
 			var bankPicker = new mui.PopPicker();
-			var payStep = 'limit';
+			var payStep;
 			function initData(){
 				var params = {
 					amount: amount ? amount : 0.1,
@@ -642,12 +642,10 @@
 					$(".item_name_wrap:nth-child(6)").removeClass("hideClass");
             			$(".item_name_wrap:nth-child(7)").removeClass("hideClass");
             			$(".card_type_text").text("信用卡号");
-            			payStep = 'credit';
 				}else{
 					$(".item_name_wrap:nth-child(6)").addClass("hideClass");
             			$(".item_name_wrap:nth-child(7)").addClass("hideClass");
             			$(".card_type_text").text("借记卡号");
-            			payStep = 'limit';
 				}
 			}
 			
@@ -707,8 +705,8 @@
 				                    autoShow: false
 				                },
 				                extras: {
-				                		title: "fuyou",
-				                		isSecondPay: isSecondPay
+									title: "fuyou",
+									isSecondPay: isSecondPay
 				                }
 				            })
 						},
@@ -924,25 +922,32 @@
 			
 			//左上角 返回
 			function headLeftBack(){
-	           
+	           if(isSecondPay){
+				mui.openWindow({
+					url: 'credit_rating_second.html',
+					id: 'credit_rating_second.html',
+					waiting: {
+						autoShow: false
+					}
+				});
+				retrun;
+			   }
 	           if(isStep){
-	        			mui.openWindow({
+	        		mui.openWindow({
 		                url: 'pay_style.html',
 		                id: 'pay_style.html',
 		                waiting: {
 		                    autoShow: false
 		                }
 		            });
-	        		}else{
-//	        			$('.backModal').removeClass("hideClass");
+				}else{
 					initStatus("close");
-	        		}
+				}
         		
 			}
 			
 			//左上角 关闭按钮
 			$('.header_close').click(function(){
-				//$('.backModal').removeClass("hideClass");
 				initStatus("close");
 			})
 			
@@ -953,21 +958,27 @@
 	        			page: 'pay'
 	        		}
 	            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) );
-	            
+	            //回到首页
+					Global.openKouzi();
+					Global.closeStepWindow();
+					return;
 	            if(isSecondPay){
-	            		//回到评分结果页
-	            		Global.closeStepWindow();
-	            		mui.openWindow({
-		                url: 'credit.html',
-		                id: 'credit.html',
-		                waiting: {
-		                    autoShow: false
-		                }
-		            });
+					//回到评分结果页
+					Global.closeStepWindow();
+					mui.openWindow({
+						url: 'credit_result.html',
+						id: 'credit_result.html',
+						waiting: {
+							autoShow: false
+						},
+						extras: {
+							isSecondPay: true
+						}
+					});
 	            }else{
-	            		//回到首页
-	            		Global.openKouzi();
-	            		Global.closeStepWindow();
+					//回到首页
+					Global.openKouzi();
+					Global.closeStepWindow();
 	            }
 			};
 			
