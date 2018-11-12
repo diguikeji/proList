@@ -750,8 +750,18 @@
 
         }
 
+        var ocrFlag = false;
         //上传图片
         function uploadFile(idPicType, base64) {
+            if(ocrFlag){
+                return;
+                
+            };
+            ocrFlag = true;
+            setTimeout(function(){
+                ocrFlag = false;
+            }, 2000);
+            
             var params = {
                 data: base64,
                 idPicType: idPicType
