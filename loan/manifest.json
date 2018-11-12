@@ -462,7 +462,9 @@
 				"resources": [
 					"html/recommend_sub.html"
 				],
-				"refer": [],
+				"refer": [
+					"html/webview.html"
+				],
 				"priority": 0
 			},
 			"html/recommend_sub.html": {

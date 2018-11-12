@@ -310,7 +310,7 @@
 	    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 	        <div class="mui-scroll">
 	            <!--数据列表-->
-	            <ul class="mui-table-view" style="background: #ffffff;">
+	            <ul class="mui-table-view mui-table-view-condensed mui-table-view-striped list_wrap">
 	
 	            </ul>
 	        </div>
@@ -348,7 +348,7 @@
 		
 		var currentType = "DEGREE";
         //当前查询  页数
-        var current = 1;
+        var current = 0;
         //根据期限查询是，是否倒序
         var isDesc = false;
         
@@ -560,7 +560,7 @@
                     method: "POST"
                 },
                 function(data) {
-                		if(mui.os.android && (data.jumpType == "out")){
+                		if(mui.os.android && (item.jumpType == "out")){
 		        			plus.runtime.openURL(item.goodsUrl);
 		        			return;
 		        		}

@@ -1127,7 +1127,7 @@ function apply(params) {
                 } else if (data.isPayLimitFee == "N"){
                 		url = "credit_result.html";
                 }else {
-                    url = "credit_rating_second.html";
+                    url = "recommend.html";
                 }
 
                 if (params) {
@@ -1234,7 +1234,7 @@ function updatePage(tabNum) {
 	                } else if (data.isPayLimitFee == "N"){
 	                		url = "credit_result.html";
 	                }else {
-	                    url = "credit_rating_second.html";
+	                    url = "recommend.html";
 	                }
 
                     mui.openWindow({
@@ -1904,10 +1904,10 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    //return;  
+    return;  
     mui.openWindow({
-        url: 'recommend.html',
-        id: 'recommend.html',
+        url: 'recommand.html',
+        id: 'recommand.html',
         waiting: {
             autoShow: false
         }
@@ -1930,7 +1930,7 @@ function goToCredit() {
                 } else if (data.isPayLimitFee == "N"){
                 		url = "credit_result.html";
                 }else {
-                    url = "credit_rating_second.html";
+                    url = "recommend.html";
                 }
             }
 
