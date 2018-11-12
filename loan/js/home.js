@@ -1127,15 +1127,19 @@ function apply(params) {
                 } else if (data.isPayLimitFee == "N"){
                 		url = "credit_result.html";
                 }else {
-                		if(data && data.jumpToPayed){
-                			// true 跳转到老的推荐页
-                			url = "recommand.html";
-                		}else{
-                			//新的 推荐页
-                			url = "recommend.html";
-                		}
-                    
                 }
+                
+                if(data.isPay == "Y"){
+            			//已经付过费
+            			if(data && data.jumpToPayed){
+	            			// true 跳转到老的推荐页
+	            			url = "recommand.html";
+	            		}else{
+	            			//新的 推荐页
+	            			url = "recommend.html";
+	            		}
+            		}
+            		
 
                 if (params) {
                     if (data && data.score) {
@@ -1243,6 +1247,18 @@ function updatePage(tabNum) {
 	                }else {
 	                    url = "recommend.html";
 	                }
+	                
+	                if(data.isPay == "Y"){
+	            			//已经付过费
+	            			if(data && data.jumpToPayed){
+		            			// true 跳转到老的推荐页
+		            			url = "recommand.html";
+		            		}else{
+		            			//新的 推荐页
+		            			url = "recommend.html";
+		            		}
+	            		}
+	                
 
                     mui.openWindow({
                         url: url,
@@ -1923,14 +1939,14 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
-//	mui.openWindow({
-//      url: "credit_result.html",
-//      id: "credit_result.html",
-//      waiting: {
-//          autoShow: false
-//      }
-//  })
-//	return;
+	mui.openWindow({
+        url: "credit_result.html",
+        id: "credit_result.html",
+        waiting: {
+            autoShow: false
+        }
+    })
+	return;
 	
     Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {
@@ -1948,6 +1964,17 @@ function goToCredit() {
                 }else {
                     url = "recommend.html";
                 }
+                if(data.isPay == "Y"){
+            			//已经付过费
+            			if(data && data.jumpToPayed){
+	            			// true 跳转到老的推荐页
+	            			url = "recommand.html";
+	            		}else{
+	            			//新的 推荐页
+	            			url = "recommend.html";
+	            		}
+            		}
+                
             }
 
             mui.openWindow({
