@@ -313,7 +313,7 @@
                     <div class="col dialog_content_item_wrap">
                         <div class="row dialog_step_wrap">
                             <img src="../images/unagress_icon.png" class="third_step_icon" />
-                            <span class="dialog_step_text">完成信用评估</span>
+                            <span class="dialog_step_text">完成额度评估</span>
                         </div>
                         <div class="row dialog_step_wrap">
                             <img src="../images/agress_icon.png" style="visibility: hidden;" />
@@ -363,6 +363,7 @@
 
         //支付步骤
         var payStep;
+
         function initData() {
             Global.commonAjax({
                     url: "v2/page/credit/init"
@@ -374,7 +375,7 @@
                     payStep = data.payStep;
                 },
                 function(err) {
-					mui.toast(err);
+                    mui.toast(err);
                 }
             )
         }
