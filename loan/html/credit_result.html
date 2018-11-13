@@ -265,7 +265,7 @@
 		    var self = plus.webview.currentWebview();
             isSecondPay = self.isSecondPay;
 		    initCanvas();
-      		getUserScore();
+      		//getUserScore();
       		initStatus();
       		showMoneyInfo();
       		var clickType = {
@@ -374,7 +374,7 @@
 				url: 'v2/page/jump/to'
 			},
 			function(data){
-				if(data && (data.jumpToPayed == 'old')){
+				if(data && (data.jumpToPage == 'old')){
 					//历史推荐页面
 					mui.openWindow({
 			  			url: 'recommand.html',
@@ -383,7 +383,7 @@
 					      autoShow:false
 					    }
 			  		});
-				}else if(data && (data.jumpToPayed == 'limit')){
+				}else if(data && (data.jumpToPage == 'limit')){
 					//第二次支付
 					mui.openWindow({
 			  			url: 'credit_rating_second.html',
@@ -451,7 +451,11 @@
 			Global.commonAjax({ url: "v2/user/input/status" },
 		           function(data) {
 		               
-		               if((data != "") && (data != null)){
+		              if((data != "") && (data != null)){
+		               	drawAll(data.score, data.scoreRange);
+						$(".credit_text").html("信用评估："+data.scoreRange);
+						$(".credit_info").html("借款评估："+data.assessSuggest);
+						
 						if (data.isInputIdcard == "N") {
                             step = 0;
                             $(".first_step_icon").attr("src", "../images/unagress_icon.png");
