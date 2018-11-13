@@ -371,10 +371,10 @@
 		function goToNext(){
 			
 			Global.commonAjax({
-				url: 'v2/page/limit/isgo'
+				url: 'v2/page/jump/to'
 			},
 			function(data){
-				if(data && data.jumpToPayed){
+				if(data && (data.jumpToPayed == 'old')){
 					//历史推荐页面
 					mui.openWindow({
 			  			url: 'recommand.html',
@@ -383,11 +383,20 @@
 					      autoShow:false
 					    }
 			  		});
-				}else if(data && !data.jumpToPayed){
+				}else if(data && (data.jumpToPayed == 'limit')){
 					//第二次支付
 					mui.openWindow({
 			  			url: 'credit_rating_second.html',
 			  			id: 'credit_rating_second.html',
+					    waiting:{
+					      autoShow:false
+					    }
+			  		});
+				}else {
+					//新的列表页
+					mui.openWindow({
+			  			url: 'recommend.html',
+			  			id: 'recommend.html',
 					    waiting:{
 					      autoShow:false
 					    }
