@@ -131,12 +131,37 @@
                 setTimeout(function() {
                     //mui('#pullrefresh').pullRefresh().pullupLoading();
                     pulldownRefresh();
+                    setInterval(function(){
+		        		var display = $(".qimo_chatpup").css("display");
+		            
+		            if (display == "block") {
+		            }else{
+		            		if(setFlag){
+		            			mui('#pullrefresh').pullRefresh().setStopped(false);
+		            			setFlag = false;
+		            		}
+		            }
+		        }, 500);
+        
+        
                 }, 10);
             });
         } else {
             mui.ready(function() {
                 //mui('#pullrefresh').pullRefresh().pullupLoading();
                 pulldownRefresh();
+                setInterval(function(){
+		        		var display = $(".qimo_chatpup").css("display");
+		            
+		            if (display == "block") {
+		            }else{
+		            		if(setFlag){
+		            			mui('#pullrefresh').pullRefresh().setStopped(false);
+		            			setFlag = false;
+		            		}
+		            }
+		        }, 500);
+        
 				
             });
         };
@@ -161,19 +186,7 @@
         }
         
         var setFlag = true;
-        setInterval(function(){
-        		var display = $(".qimo_chatpup").css("display");
-            
-            if (display == "block") {
-            }else{
-            		if(setFlag){
-            			mui('#pullrefresh').pullRefresh().setStopped(false);
-            			setFlag = false;
-            		}
-            		
-            }
-            
-        }, 500);
+        
         
         
         window.addEventListener('sendCustom',function(event){

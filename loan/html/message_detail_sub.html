@@ -207,30 +207,41 @@
                 setTimeout(function() {
                     //mui('#pullrefresh').pullRefresh().pullupLoading();
                     pulldownRefresh();
+                    setInterval(function(){
+			        		var display = $(".qimo_chatpup").css("display");
+			            
+			            if (display == "block") {
+			            }else{
+			            		if(setFlag){
+			            			mui('#pullrefresh').pullRefresh().setStopped(false);
+			            			setFlag = false;
+			            		}
+			            }
+			        }, 500);
+        
                 }, 10);
             });
         } else {
             mui.ready(function() {
                 //mui('#pullrefresh').pullRefresh().pullupLoading();
                 pulldownRefresh();
-				
+				setInterval(function(){
+		        		var display = $(".qimo_chatpup").css("display");
+		            
+		            if (display == "block") {
+		            }else{
+		            		if(setFlag){
+		            			mui('#pullrefresh').pullRefresh().setStopped(false);
+		            			setFlag = false;
+		            		}
+		            }
+		        }, 500);
+        
             });
         };
         
         var setFlag = true;
-        setInterval(function(){
-        		var display = $(".qimo_chatpup").css("display");
-            
-            if (display == "block") {
-            }else{
-            		if(setFlag){
-            			mui('#pullrefresh').pullRefresh().setStopped(false);
-            			setFlag = false;
-            		}
-            		
-            }
-            
-        }, 500);
+        
         
         //Android 物理返回
         var old_back = mui.back;
@@ -389,6 +400,7 @@
          * @param {Object} isAll true 是最后一页
          */
         function getListData(refreshType, cells, isAll){
+        		
         		findList = findList.concat(cells);
         		//当前点击的 数据下标
 		    var index = 0;
@@ -407,7 +419,7 @@
             for (var i = 0, len = cells.length; i < len; i++) {
 		        var li = document.createElement('li');
 		        var item = cells[i];
-		        if (item.clicked && (currentType != "HISTORY")) {
+		        if (item.clicked ) {
 		            li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
 		        } else {
 		            li.className = 'mui-table-view-cell mui-table-view-cell-item';
