@@ -872,7 +872,7 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-            if (mui.os.android && (data.jumpType == "out")) {
+            if (mui.os.android && (item.jumpType == "out")) {
                 plus.runtime.openURL(item.goodsUrl);
                 return;
             }
@@ -1943,7 +1943,7 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    return;
+    return;  
     mui.openWindow({
         url: 'credit_rating_second.html',
         id: 'credit_rating_second.html',
