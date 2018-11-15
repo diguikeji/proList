@@ -424,7 +424,8 @@
 			"html/pullrefresh_message_sub.html": {
 				"resources": [],
 				"refer": [
-					"html/webview.html"
+					"html/webview.html",
+					"html/messageDetail.html"
 				],
 				"priority": 0
 			},
@@ -475,6 +476,13 @@
 				"refer": [
 					"html/error500.html"
 				],
+				"priority": 0
+			},
+			"html/messageDetail.html": {
+				"resources": [
+					"html/message_detail_sub.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
