@@ -141,7 +141,7 @@
             });
         };
         
-        window.addEventListener('sendCustom',function(event){
+        window.addEventListener('sendCustomDetail',function(event){
                 		console.log("00000")
 					qimoChatClick();
 				}, false);
@@ -183,28 +183,17 @@
                 function(data) {
 					if (item && item.jumpUrl) {
 						console.log(item.jumpUrl);
-							if(item.jumpUrl == 'goToMsgDetail'){
-								mui.openWindow({
-				                    url: 'messageDetail.html',
-				                    id: 'messageDetail',
-				                    waiting: {
-				                        autoShow: false
-				                    }
-				                })
-								
-							}else{
-								mui.openWindow({
-				                    url: 'webview.html',
-				                    id: 'webview.html?url=' + item.jumpUrl,
-				                    waiting: {
-				                        autoShow: false
-				                    },
-				                    extras:{
-				                    		title: item.msgTitle
-				                    }
-				                })
-							}
-			                
+						
+			                mui.openWindow({
+			                    url: 'webview.html',
+			                    id: 'webview.html?url=' + item.jumpUrl,
+			                    waiting: {
+			                        autoShow: false
+			                    },
+			                    extras:{
+			                    		title: item.msgTitle
+			                    }
+			                })
 			            }
                 },
                 function(err) {
@@ -223,12 +212,12 @@
 		 */
 		function getMsglist(refreshType){
 			var params = {
-        			current: current,
-        			size: 20
-        		};
+		        size: 20,
+		        current: current
+		    }
 			Global.commonAjax(
 				{
-					url: "user/msglist",
+					url: "goods/retfee/list",
 					method: "POST",
 					data: params
 				},
@@ -294,18 +283,34 @@
 		    }
 		    
             for (var i = 0, len = cells.length; i < len; i++) {
-                var li = document.createElement('li');
-                li.className = 'mui-table-view-cell';
-                li.innerHTML = '<div class="mui-slider-cell item_wrap col" data-index="' + index + '">' +
-                    '<span class="item_time">' + cells[i].sendTime + '</span>' +
-                    '<div class="row content_wrap">' + (cells[i].isRead=="Y" ? '' : '<span class="read_flag"></span>') +
-                    '<div class="col title_wrap">' +
-                    '<span class="main_title">' + cells[i].msgTitle + '</span>' +
-                    '<span class="main_content">' + cells[i].msgContent + '</span>' +
-                    '</div></div></div>';
-                table.appendChild(li);
-                index += 1;
-            } 
+		        var li = document.createElement('li');
+		        var item = cells[i];
+		        if (item.clicked && (currentType != "HISTORY")) {
+		            li.className = 'mui-table-view-cell mui-table-view-cell-item clicked';
+		        } else {
+		            li.className = 'mui-table-view-cell mui-table-view-cell-item';
+		        }
+		
+		        li.innerHTML = '<div class="mui-slider-cell" data-index="' + index + '">' +
+		            '<div class="oa-contact-cell mui-table">' +
+		            '<div class="oa-contact-avatar mui-table-cell">' +
+		            '<img src="' + item.goodsPic + '" />' +
+		            '</div>' +
+		            '<div class="oa-contact-content mui-table-cell">' +
+		            '<div class="mui-clearfix">' + item.goodsName +
+		            '</div>' +
+		            '<div class="time_text_span">' +
+		            '<span class="loan_day_class">期限:' + item.loanDay + '</span>' + '  ' +
+		            '<span>额度:' + item.loanAmount + '</span>' +
+		            '</div>' +
+		            '<span class="mui-icon mui-icon-arrowright"></span>' +
+		            '</div>' +
+		            '</div>' +
+		            '<div class="bottom">' + item.goodsTitle + '</div></div>';
+		        table.appendChild(li);
+		        //$(".mui-table-view-condensed").append(li);
+		        index += 1;
+		    }
             
             if (refreshType == 0) {
 		        //下拉刷新
@@ -318,6 +323,63 @@
         }
         
         
+        
+        //列表点击 埋点
+mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
+
+    //mui.toast("kaishi--- ");
+    var index = $(this).data("index");
+    $(this).addClass("clicked");
+    var item = findList[index];
+    if (!(item && item.goodsUrl)) {
+        return;
+    }
+    var clickType = {
+            source: myStorage.getItem("user").sourceCode,
+            goodsCode: item.goodsCode,
+            page: "find"
+        }
+        //mui.toast("kaishi ");
+    plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
+    clickFindItem(item);
+});
+
+
+
+
+        //点击列表
+function clickFindItem(item) {
+    var params = {
+        goodsCode: item.goodsCode
+    }
+
+    Global.commonAjax({
+            url: "goods/click",
+            data: params,
+            method: "POST"
+        },
+        function(data) {
+            if (mui.os.android && (data.jumpType == "out")) {
+                plus.runtime.openURL(item.goodsUrl);
+                return;
+            }
+
+            mui.openWindow({
+                url: 'webview.html',
+                id: 'webview.html?url=' + item.goodsUrl,
+                waiting: {
+                    autoShow: false
+                },
+                extras: {
+                    title: item.goodsTitle
+                }
+            })
+        },
+        function(err) {
+
+        }
+    )
+}
     </script>
 </body>
 

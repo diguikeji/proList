@@ -1955,14 +1955,6 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
-	mui.openWindow({
-        url: "credit_result.html",
-        id: "credit_result.html",
-        waiting: {
-            autoShow: false
-        }
-    })
-	return;
 	
     Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {

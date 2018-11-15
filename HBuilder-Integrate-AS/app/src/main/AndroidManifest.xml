@@ -471,6 +471,16 @@
                 <category
                     android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                　　　　<!--下面这几个必须要设置-->
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                　　　　<!--协议部分-->
+                <data android:scheme="xhqscheme" android:host="xhq" android:path="/index" android:port="8080"/>
+            </intent-filter>
+
         </activity>
         <!--开发者须自行配置该字段对应value值，替换appid和adid为自己应用的appid和广告联盟会员id，否则可能影响统计结算-->
 <!--        <meta-data
