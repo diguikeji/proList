@@ -141,8 +141,28 @@
             });
         };
         
+        //Android 物理返回
+        var old_back = mui.back;
+        mui.back = function() {
+            var display = $(".qimo_chatpup").css("display");
+            
+            if (display == "block") {
+                $(".qimo_chatpup").css("display", "none");
+                return;
+            }
+            var wvs = plus.webview.all();
+            for (var i = 0, len = wvs.length; i < len; i++) {
+            		if (wvs[i].getURL().indexOf("message.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+            }
+            plus.webview.currentWebview().close();
+        }
+        
         window.addEventListener('sendCustom',function(event){
-                		console.log("00000")
+                		$(".qimo_chatpup").css("display", "block");
+    					$(".qimo_chatpup").css("z-index", "100");
 					qimoChatClick();
 				}, false);
         

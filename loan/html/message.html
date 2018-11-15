@@ -25,7 +25,7 @@
 		<header class="mui-bar mui-bar-nav" >
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">消息中心</h1>
-		    <img src="../images/custom_icon.png"  onclick="sendCustom();"/>
+		    <img src="../images/custom_icon.png" onclick="sendCustom();" />
 		</header>
 		
 		<div class="mui-content">
@@ -71,6 +71,9 @@
 			var h = plus.webview.getWebviewById("pullrefresh_message_sub.html");
 			mui.fire(h,'sendCustom',{}); 
 		}
+		
+		
+        
 		</script>
 	</body>
 

@@ -80,13 +80,89 @@
             opacity: 0.5;
         }
         
-        .mui-table-view-cell:after {
+        /*.mui-table-view-cell:after {
             height: 0px;
-        }
+        }*/
         
-        .mui-table-view-cell {
-            padding: 0px;
-        }
+        .oa-contact-cell.mui-table .mui-table-cell {
+		    padding: 11px 0;
+		    vertical-align: middle;
+		    font-size: 15px;
+		}
+		
+		.oa-contact-cell {
+		    position: relative;
+		    margin: -11px 0;
+		}
+		
+		.oa-contact-avatar {
+		    width: 70px;
+		}
+		
+		.oa-contact-avatar img {
+		    border-radius: 8px;
+		    width: 58px;
+		    height: 58px;
+		}
+		
+		.oa-contact-content {
+		    width: 100%;
+		    position: relative;
+		}
+		
+		.oa-contact-content .mui-icon {
+		    position: absolute;
+		    right: 0;
+		    top: 30px;
+		}
+		
+		.oa-contact-content p {
+		    font-size: 11px;
+		}
+		
+		.oa-contact-content p span:first-child {
+		    width: 72px;
+		    display: inline-block;
+		    margin-right: 5px;
+		}
+		
+		.oa-contact-name {
+		    margin-right: 20px;
+		}
+		
+		.oa-contact-name,
+		oa-contact-position {
+		    float: left;
+		}
+		
+		 .mui-slider-cell .bottom {
+		    color: #999;
+		    font-size: 14px;
+		    position: relative;
+		    text-align: center;
+		    margin-top: 10px;
+		}
+		
+		 .mui-slider-cell .bottom:before {
+		    content: "“";
+		    position: absolute;
+		    left: 5px;
+		    top: 0px;
+		    font-size: 20px;
+		}
+		
+		.mui-slider-cell .bottom:after {
+		    content: "”";
+		    position: absolute;
+		    right: 5px;
+		    bottom: -10px;
+		    font-size: 20px;
+		}
+		
+		.mui-table-view-cell {
+		    padding-bottom: 5px;
+		}
+
     </style>
 </head>
 
@@ -141,8 +217,28 @@
             });
         };
         
+        //Android 物理返回
+        var old_back = mui.back;
+        mui.back = function() {
+            var display = $(".qimo_chatpup").css("display");
+            
+            if (display == "block") {
+                $(".qimo_chatpup").css("display", "none");
+                return;
+            }
+            var wvs = plus.webview.all();
+            for (var i = 0, len = wvs.length; i < len; i++) {
+            		if (wvs[i].getURL().indexOf("messageDetail.html") != -1) {
+                    plus.webview.close(wvs[i]);
+                    continue;
+                }
+            }
+            plus.webview.currentWebview().close();
+        }
+        
         window.addEventListener('sendCustomDetail',function(event){
-                		console.log("00000")
+                		$(".qimo_chatpup").css("display", "block");
+    					$(".qimo_chatpup").css("z-index", "100");
 					qimoChatClick();
 				}, false);
         
@@ -211,13 +307,21 @@
 		 * @param {Object} refreshType 0下拉刷新
 		 */
 		function getMsglist(refreshType){
-			var params = {
+//			var params = {
+//		        size: 20,
+//		        current: current
+//		   };
+		   var params = {
+		        queryType: 'DEGREE',
 		        size: 20,
-		        current: current
-		    }
+		        current: current,
+		        isDesc: ''
+		   };
+		   
 			Global.commonAjax(
 				{
-					url: "goods/retfee/list",
+//					url: "goods/retfee/list",
+					url: "goods/findpage/goodslist",
 					method: "POST",
 					data: params
 				},
