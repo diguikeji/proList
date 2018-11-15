@@ -217,6 +217,21 @@
             });
         };
         
+        var setFlag = true;
+        setInterval(function(){
+        		var display = $(".qimo_chatpup").css("display");
+            
+            if (display == "block") {
+            }else{
+            		if(setFlag){
+            			mui('#pullrefresh').pullRefresh().setStopped(false);
+            			setFlag = false;
+            		}
+            		
+            }
+            
+        }, 500);
+        
         //Android 物理返回
         var old_back = mui.back;
         mui.back = function() {
@@ -240,6 +255,8 @@
                 		$(".qimo_chatpup").css("display", "block");
     					$(".qimo_chatpup").css("z-index", "100");
 					qimoChatClick();
+					mui('#pullrefresh').pullRefresh().setStopped(true);
+					setFlag = true;
 				}, false);
         
 
@@ -349,6 +366,7 @@
          * 下拉刷新具体业务实现
          */
         function pulldownRefresh() {
+        		
         		current = 1;
         		mui('#pullrefresh').pullRefresh().refresh(true);
         		findList = [];
@@ -463,7 +481,7 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-            if (mui.os.android && (data.jumpType == "out")) {
+            if (mui.os.android && (item.jumpType == "out")) {
                 plus.runtime.openURL(item.goodsUrl);
                 return;
             }

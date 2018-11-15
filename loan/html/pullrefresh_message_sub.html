@@ -160,11 +160,29 @@
             plus.webview.currentWebview().close();
         }
         
+        var setFlag = true;
+        setInterval(function(){
+        		var display = $(".qimo_chatpup").css("display");
+            
+            if (display == "block") {
+            }else{
+            		if(setFlag){
+            			mui('#pullrefresh').pullRefresh().setStopped(false);
+            			setFlag = false;
+            		}
+            		
+            }
+            
+        }, 500);
+        
+        
         window.addEventListener('sendCustom',function(event){
                 		$(".qimo_chatpup").css("display", "block");
     					$(".qimo_chatpup").css("z-index", "100");
 					qimoChatClick();
-				}, false);
+					mui('#pullrefresh').pullRefresh().setStopped(true);
+					setFlag = true;
+		}, false);
         
 
         // $('body').on('click', '.mui-table-view li .item_wrap', function() {

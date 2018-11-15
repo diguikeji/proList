@@ -293,7 +293,8 @@
 					"html/home.html",
 					"html/errornet.html",
 					"html/error404.html",
-					"html/webview.html"
+					"html/webview.html",
+					"html/error500.html"
 				],
 				"priority": 0
 			},
@@ -483,6 +484,13 @@
 					"html/message_detail_sub.html"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"html/message_detail_sub.html": {
+				"resources": [],
+				"refer": [
+					"html/login.html"
+				],
 				"priority": 0
 			}
 		},
