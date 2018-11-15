@@ -201,9 +201,9 @@
                     method: "POST"
                 },
                 function(data) {
-					if (item ) {
+					if (item && item.jumpUrl) {
 						console.log(item.jumpUrl);
-							if(item.jumpUrl != 'goToMsgDetail'){
+							if(item.jumpUrl == 'goToMsgDetail'){
 								mui.openWindow({
 				                    url: 'messageDetail.html',
 				                    id: 'messageDetail',

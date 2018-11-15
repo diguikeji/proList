@@ -1943,7 +1943,7 @@ function jumpWeb() {
 
 //推荐
 function goToRecommand() {
-    //return;  
+    return;
     mui.openWindow({
         url: 'credit_rating_second.html',
         id: 'credit_rating_second.html',

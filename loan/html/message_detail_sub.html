@@ -307,21 +307,21 @@
 		 * @param {Object} refreshType 0下拉刷新
 		 */
 		function getMsglist(refreshType){
-//			var params = {
-//		        size: 20,
-//		        current: current
-//		   };
-		   var params = {
-		        queryType: 'DEGREE',
+			var params = {
 		        size: 20,
-		        current: current,
-		        isDesc: ''
+		        current: current
 		   };
+//		   var params = {
+//		        queryType: 'DEGREE',
+//		        size: 20,
+//		        current: current,
+//		        isDesc: ''
+//		   };
 		   
 			Global.commonAjax(
 				{
-//					url: "goods/retfee/list",
-					url: "goods/findpage/goodslist",
+					url: "goods/retfee/list",
+//					url: "goods/findpage/goodslist",
 					method: "POST",
 					data: params
 				},
