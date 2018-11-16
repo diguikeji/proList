@@ -809,7 +809,8 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
         //mui.toast("end ");
-
+	clickFindItem(item);
+	return;
 
     if (mui.os.android) {
         clickFindItem(item);
