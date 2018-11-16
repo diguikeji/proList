@@ -872,7 +872,7 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-            if (mui.os.android && (item.jumpType == "out")) {
+            if (item && (item.jumpType == "out")) {
                 plus.runtime.openURL(item.goodsUrl);
                 return;
             }
