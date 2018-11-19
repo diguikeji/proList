@@ -436,13 +436,26 @@
 
         //弹窗中 关闭按钮
         function closeDialg() {
+        		var clickType = {
+        			source: myStorage.getItem("user").sourceCode,
+        			page: 'payFirstSuccess'
+        		}
+            plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType) );
+	            
             var target = plus.webview.getWebviewById("home.html");
             mui.fire(target, "updateFunc", {});
             Global.openKouzi();
             Global.closeStepWindow();
         };
         
-        $(".dialog_bottom_btn").click(function(){
+        		$(".dialog_bottom_btn").click(function(){
+        			var clickType = {
+	                source: myStorage.getItem("user").sourceCode,
+	                page: 'payFirstSuccess'
+	            }
+	            plus.statistic.eventTrig("againinputinfo", JSON.stringify(clickType))
+
+
 	        		$('.modal-mask').addClass("hideClass");
 	       });
 

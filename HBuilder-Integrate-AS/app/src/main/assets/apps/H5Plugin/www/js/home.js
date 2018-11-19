@@ -809,7 +809,8 @@ mui(".mui-table-view-condensed").on('tap', 'li .mui-slider-cell', function() {
         //mui.toast("kaishi ");
     plus.statistic.eventTrig("loansgoods", JSON.stringify(clickType))
         //mui.toast("end ");
-
+	clickFindItem(item);
+	return;
 
     if (mui.os.android) {
         clickFindItem(item);
@@ -872,7 +873,7 @@ function clickFindItem(item) {
             method: "POST"
         },
         function(data) {
-            if (mui.os.android && (item.jumpType == "out")) {
+            if (item && (item.jumpType == "out")) {
                 plus.runtime.openURL(item.goodsUrl);
                 return;
             }
@@ -1861,7 +1862,20 @@ function openGetMoney() {
 
 //关闭新口子
 function closeDialg() {
+	var clickType = {
+	    source: myStorage.getItem("user").sourceCode
+	}
+	plus.statistic.eventTrig("closeMainDialogtofind ", JSON.stringify(clickType));
+	
     $('.selfModal').addClass('hideClass');
+}
+
+function goToFindTabDialog(){
+	var clickType = {
+	    source: myStorage.getItem("user").sourceCode
+	}
+	plus.statistic.eventTrig("mainDialogtofind ", JSON.stringify(clickType));
+	goToFindTab();
 }
 
 //去发现tab

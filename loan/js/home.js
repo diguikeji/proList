@@ -1862,7 +1862,20 @@ function openGetMoney() {
 
 //关闭新口子
 function closeDialg() {
+	var clickType = {
+	    source: myStorage.getItem("user").sourceCode
+	}
+	plus.statistic.eventTrig("closeMainDialogtofind ", JSON.stringify(clickType));
+	
     $('.selfModal').addClass('hideClass');
+}
+
+function goToFindTabDialog(){
+	var clickType = {
+	    source: myStorage.getItem("user").sourceCode
+	}
+	plus.statistic.eventTrig("mainDialogtofind ", JSON.stringify(clickType));
+	goToFindTab();
 }
 
 //去发现tab

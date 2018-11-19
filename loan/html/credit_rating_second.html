@@ -614,7 +614,7 @@
         function closeDialg() {
             var clickType = {
                 source: myStorage.getItem("user").sourceCode,
-                page: 'assess'
+                page: 'paySecond'
             }
             plus.statistic.eventTrig("closeinputinfo", JSON.stringify(clickType))
 
@@ -624,6 +624,11 @@
 
 
         $(".dialog_bottom_btn").click(function() {
+        	var clickType = {
+                source: myStorage.getItem("user").sourceCode,
+                page: 'paySecond'
+            }
+            plus.statistic.eventTrig("againinputinfo", JSON.stringify(clickType))
             $('.modal-mask').addClass("hideClass");
         })
 

@@ -927,6 +927,12 @@
         };
 
         $(".dialog_bottom_btn").click(function() {
+        		var clickType = {
+                source: myStorage.getItem("user").sourceCode,
+                page: 'idcard'
+            }
+            plus.statistic.eventTrig("againinputinfo", JSON.stringify(clickType))
+            
             $('.modal-mask').addClass("hideClass");
         })
 
