@@ -717,13 +717,7 @@
 				            })
 						},
 						function(err){
-							mui.openWindow({
-				      			url: 'pay_error_result.html',
-				      			id: 'pay_error_result.html',
-				      			waiting: {
-				      				autoShow: false
-				      			}
-				      		})
+							mui.toast(err);
 						}
 					)
 				}else{
