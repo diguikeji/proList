@@ -1959,8 +1959,8 @@ function jumpWeb() {
 function goToRecommand() {
     return;  
     mui.openWindow({
-        url: 'credit_rating_second.html',
-        id: 'credit_rating_second.html',
+        url: 'recommend.html',
+        id: 'recommend.html',
         waiting: {
             autoShow: false
         }
@@ -1969,7 +1969,7 @@ function goToRecommand() {
 
 //信用评估
 function goToCredit() {
-	
+
     Global.commonAjax({ url: "v2/user/input/status" },
         function(data) {
             var url = "identificateFirst.html";
@@ -1984,16 +1984,16 @@ function goToCredit() {
                 } else if (data.isPayLimitFee == "N"){
                 		url = "credit_result.html";
                 }else {
-                    url = "recommend.html";
+                    url = "credit_result.html";
                 }
                 if(data.isPay == "Y"){
             			//已经付过费
             			if(data && data.jumpToPayed){
 	            			// true 跳转到老的推荐页
-	            			url = "recommand.html";
+	            			url = "credit_result.html";
 	            		}else{
 	            			//新的 推荐页
-	            			url = "recommend.html";
+	            			url = "credit_result.html";
 	            		}
             		}
                 
